@@ -1607,14 +1607,15 @@ body:has([data-filter-root]) .masthead-nav {
   background: var(--color-background);
   color: var(--color-text);
 
-  border: 2px solid var(--color-line-contrast);
-  border-radius: var(--radius);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-input);
   box-shadow: var(--box-shadow);
   font-family: var(--font-sans-serif);
   padding: var(--spacing-md);
   font-size: var(--font-size-md);
   font-weight: 500;
   line-height: 1.2;
+  overflow: hidden;
 
   width: 320px;
 }
@@ -1687,7 +1688,7 @@ body:has([data-filter-root]) .masthead-nav {
   gap: var(--spacing-sm);
   margin-block-start: var(--spacing-sm);
   border-top: 1px dotted var(--color-line-input);
-  padding-top: var(--spacing-md);
+  padding-top: var(--spacing-sm);
 }
 
 .maplibregl-popup.map-popup .popup-actions .btn {
@@ -1705,12 +1706,17 @@ body:has([data-filter-root]) .masthead-nav {
 .maplibregl-popup.map-popup .maplibregl-popup-close-button {
   top: var(--spacing-sm);
   right: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  font-size: var(--font-size-lg);
+  display: inline-flex;
+  padding: var(--spacing-xs);
   line-height: 1;
   color: var(--color-muted);
   background: var(--color-background);
   border-radius: var(--radius-rounded);
+}
+
+.maplibregl-popup.map-popup .maplibregl-popup-close-button .icon {
+  width: 1rem;
+  height: 1rem;
 }
 
 .maplibregl-popup.map-popup .maplibregl-popup-close-button:hover {

@@ -14,8 +14,32 @@ const POPUP_GAP = 6
 export const PIN_POPUP_OFFSET = Math.round(PIN_HEIGHT * PIN_HIGHLIGHT_SCALE + POPUP_GAP)
 export const BADGE_POPUP_OFFSET = Math.round(BADGE_SIZE / 2 + POPUP_GAP)
 
+const SVG_NAMESPACE = 'http://www.w3.org/2000/svg'
+
+function buildCloseIcon(): SVGSVGElement {
+  const icon = document.createElementNS(SVG_NAMESPACE, 'svg')
+  icon.setAttribute('class', 'icon')
+  icon.setAttribute('viewBox', '0 0 24 24')
+  icon.setAttribute('fill', 'currentColor')
+  icon.setAttribute('aria-hidden', 'true')
+  const use = document.createElementNS(SVG_NAMESPACE, 'use')
+  use.setAttribute('href', '#icon-x')
+  icon.append(use)
+
+  return icon
+}
+
+function replaceCloseGlyph(popup: maplibregl.Popup): void {
+  const button = popup
+    .getElement()
+    ?.querySelector<HTMLButtonElement>('.maplibregl-popup-close-button')
+  if (button) {
+    button.replaceChildren(buildCloseIcon())
+  }
+}
+
 export function createMapPopup(offset: number): maplibregl.Popup {
-  return new maplibregl.Popup({
+  const popup = new maplibregl.Popup({
     className: 'map-popup',
     closeButton: true,
     closeOnClick: false,
@@ -24,6 +48,9 @@ export function createMapPopup(offset: number): maplibregl.Popup {
     offset,
     focusAfterOpen: false,
   })
+  popup.on('open', () => replaceCloseGlyph(popup))
+
+  return popup
 }
 
 export const CITY_BOUNDS = CONFIGURED_CITY_BOUNDS as [[number, number], [number, number]]
