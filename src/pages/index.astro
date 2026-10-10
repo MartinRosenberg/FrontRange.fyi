@@ -21,6 +21,8 @@ import {
   HOME_INTRO,
   INSTAGRAM_HANDLE,
   PROMOTED_TOPIC_ID,
+  BEST_PROMO_PHOTO_ID,
+  BEST_PROMO_TEASER,
   SITE_DOMAIN,
   SITE_NAME,
   SOCIALS,
@@ -44,7 +46,9 @@ const allTopics = sortTopics(published(await getCollection('topics')))
 const leadTopic = allTopics.find((topic) => topic.id !== PINNED_TOPIC_ID)
 const leadTeaser = leadTopic ? excerpt(leadTopic.body, 420) : ''
 
-const railTopics = allTopics.filter((topic) => topic.id !== leadTopic?.id)
+const railTopics = allTopics.filter(
+  (topic) => topic.id !== leadTopic?.id && topic.id !== PROMOTED_TOPIC_ID,
+)
 const promotedTopic = allTopics.find((topic) => topic.id === PROMOTED_TOPIC_ID)
 const TOPIC_PROMO_EXCERPT_CHARS = 200
 
@@ -66,6 +70,7 @@ const featuredFood = FEATURED_FOOD_IDS.flatMap((foodId) =>
 ).map((place) => ({ place, teaser: excerpt(place.body, PREVIEW_EXCERPT_CHARS) }))
 
 const bestSection = sections.find((section) => section.path === '/best/')
+const bestPhotoPlace = allFood.find((place) => place.id === BEST_PROMO_PHOTO_ID)
 
 const promos = [
   ...(bestSection
@@ -74,8 +79,10 @@ const promos = [
           href: href(bestSection.path),
           title: bestSection.label,
           meta: groups.find((group) => group.id === bestSection.group)?.label,
-          description: bestSection.description,
+          excerpt: BEST_PROMO_TEASER,
           linkLabel: 'View all',
+          photo: bestPhotoPlace?.data.photo,
+          photoAlt: bestPhotoPlace?.data.title,
         },
       ]
     : []),
@@ -85,9 +92,10 @@ const promos = [
           href: href(`/${promotedTopic.id}/`),
           title: promotedTopic.data.title,
           meta: promotedTopic.data.category,
-          description: promotedTopic.data.description,
           excerpt: excerpt(promotedTopic.body, TOPIC_PROMO_EXCERPT_CHARS),
           linkLabel: 'Continue reading',
+          photo: promotedTopic.data.photo,
+          photoAlt: promotedTopic.data.photoCaption,
         },
       ]
     : []),
@@ -218,6 +226,11 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
         )
       }
 
+      <section class="front-promos">
+        <SectionHeading title="Highlights" />
+        <div class="card-rows">{promos.map((promo) => <PromoCard {...promo} />)}</div>
+      </section>
+
       <section class="front-food">
         <SectionHeading
           title="Food"
@@ -277,9 +290,6 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
             <p class="no-ads-copy">No ads</p>
             <p>Enjoy your interruption-free browsing experience!</p>
           </div>
-        </div>
-        <div class="card-rows">
-          {promos.map((promo) => <PromoCard {...promo} />)}
         </div>
       </div>
     </div>
@@ -348,6 +358,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
   .front-index,
   .front-intro,
   .front-lead,
+  .front-promos,
   .front-food,
   .front-explore,
   .front-whatsnew {
@@ -358,6 +369,10 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     display: grid;
     gap: var(--spacing-lg);
     align-content: start;
+  }
+
+  .front-promos {
+    container-type: inline-size;
   }
 
   .ad-box {
@@ -467,10 +482,6 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     color: var(--color-accent-blue);
   }
 
-  .front-food {
-    border-block-start: 1px solid var(--color-line);
-    padding-block-start: var(--spacing-md);
-  }
 
   .front-lead {
     text-align: center;
@@ -580,6 +591,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
       grid-template-columns: 1fr;
       grid-template-areas:
         'lead'
+        'promos'
         'intro'
         'whatsnew'
         'index'
@@ -595,6 +607,10 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
 
     .front-lead {
       grid-area: lead;
+    }
+
+    .front-promos {
+      grid-area: promos;
     }
 
     .front-food {

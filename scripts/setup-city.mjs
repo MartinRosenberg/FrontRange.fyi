@@ -189,6 +189,8 @@ replaceConfigValues(configPath, {
   SOCIALS: socialsSource,
   PINNED_TOPIC_ID: quote(''),
   PROMOTED_TOPIC_ID: quote(''),
+  BEST_PROMO_PHOTO_ID: quote(''),
+  BEST_PROMO_TEASER: quote(''),
   CORRIDORS_TOPIC_ID: quote(''),
   FEATURED_FOOD_IDS: '[]',
   NEIGHBORHOOD_BOUNDARIES_FILE: quote(`${slugify(cityName)}-neighborhoods.geojson`),

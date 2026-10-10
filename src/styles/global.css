@@ -2124,9 +2124,12 @@ a.card:hover::before {
   margin: 0;
 }
 
-.card-description + .card-excerpt,
-.card--lg .card-excerpt {
+.card-description + .card-excerpt {
   margin-block-start: var(--spacing-shmedium);
+}
+
+.title-serif + .card-excerpt {
+  margin-block-start: var(--spacing-xs);
 }
 
 .card-rows {
@@ -2237,6 +2240,39 @@ a.card:hover::before {
 
 .card--lg .card-excerpt {
   flex-shrink: 0;
+}
+
+.card.card--side-photo {
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.card--side-photo .card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.card--side-photo .card-media {
+  order: 1;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  margin: 0;
+}
+
+@container (min-width: 30rem) {
+  .card.card--side-photo {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-xl);
+  }
+
+  .card--side-photo .card-media {
+    flex: 0 0 40%;
+    width: auto;
+    min-width: 0;
+  }
 }
 
 .detail-pane-header {

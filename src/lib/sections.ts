@@ -53,7 +53,6 @@ export const sections: Section[] = [
     path: '/best/',
     group: 'lists',
     icon: 'award',
-    description: 'My favorite restaurants and cafes so far!',
   },
   {
     label: `Annual Events in ${CITY}`,

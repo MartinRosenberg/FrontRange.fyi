@@ -10,7 +10,7 @@ interface Props {
 const { title, moreHref, moreLabel = 'View all' } = Astro.props
 ---
 
-<div class="section-heading">
+<div class="section-heading heading-bar heading-bar--ruled">
   <h2 class="title-caps">{title}</h2>
   {
     moreHref && (
@@ -23,13 +23,7 @@ const { title, moreHref, moreLabel = 'View all' } = Astro.props
 
 <style>
   .section-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--spacing-sm);
     margin-block: 0 var(--spacing-xs);
-    padding-block-end: var(--spacing-xs);
-    border-block-end: 1px solid var(--color-line);
   }
 
   .section-heading h2 {

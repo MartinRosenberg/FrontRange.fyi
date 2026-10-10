@@ -63,7 +63,7 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
               <section class="best-entry">
                 <Subheading level={3}>{label.charAt(0).toUpperCase() + label.slice(1)}</Subheading>
                 <Card
-                  class="card--lg card--xl"
+                  class="card--lg card--xl card--side-photo"
                   href={href(`/food/${place.id}/`)}
                   title={place.data.title}
                   description={place.data.description}
@@ -109,38 +109,6 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
 
   .best-entry:last-child {
     border-block-end: 0;
-  }
-
-  .best-entry :global(.card) {
-    gap: var(--spacing-md);
-  }
-
-  .best-entry :global(.card-body) {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .best-entry :global(.card-media) {
-    order: 1;
-    height: auto;
-    aspect-ratio: 3 / 2;
-    margin: 0;
-  }
-
-  @container (min-width: 30rem) {
-    .best-entry :global(.card) {
-      flex-direction: row;
-      align-items: flex-start;
-      gap: var(--spacing-xl);
-    }
-
-    .best-entry :global(.card-media) {
-      flex: 0 0 40%;
-      width: auto;
-      min-width: 0;
-    }
   }
 
   @container (min-width: 48rem) {
