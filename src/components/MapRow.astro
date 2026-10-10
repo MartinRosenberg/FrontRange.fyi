@@ -5,7 +5,7 @@ import IconArrowRight from '../assets/IconArrowRight.astro'
 interface Props {
   id: string
   title: string
-  detailHref: string
+  detailHref?: string
   readMore?: boolean
   filterable?: boolean
   coords?: string
@@ -37,10 +37,11 @@ const filterAttrs = filterable
 
 const slotHtml = Astro.slots.has('default') ? (await Astro.slots.render('default')).trim() : ''
 const subHtml = Astro.slots.has('sub') ? (await Astro.slots.render('sub')).trim() : ''
-const showPanel = slotHtml.length > 0 || readMore
+const showReadMore = readMore && Boolean(detailHref)
+const showPanel = slotHtml.length > 0 || showReadMore
 ---
 
-<li id={id} class:list={[className]} {...filterAttrs} {...attrs}>
+<li id={id} class:list={[className, { 'is-unwritten': !detailHref }]} {...filterAttrs} {...attrs}>
   {
     Astro.slots.has('eyebrow') && (
       <div class="list-eyebrow">
@@ -49,7 +50,15 @@ const showPanel = slotHtml.length > 0 || readMore
     )
   }
   <div class="list-headline">
-    <a class="list-title title-serif title-link" href={href(detailHref)}>{title}</a>
+    {
+      detailHref ? (
+        <a class="list-title title-serif title-link" href={href(detailHref)}>
+          {title}
+        </a>
+      ) : (
+        <span class="list-title title-serif">{title}</span>
+      )
+    }
   </div>
   <slot name="rating" />
   {subHtml && <div><Fragment set:html={subHtml} /></div>}
@@ -57,8 +66,8 @@ const showPanel = slotHtml.length > 0 || readMore
     showPanel && (
       <div class="list-description">
         {slotHtml && <Fragment set:html={slotHtml} />}
-        {readMore && (
-          <a class="more" href={href(detailHref)} aria-label={`Read more about ${title}`}>
+        {showReadMore && (
+          <a class="more" href={href(detailHref ?? '')} aria-label={`Read more about ${title}`}>
             Read more <IconArrowRight />
           </a>
         )}

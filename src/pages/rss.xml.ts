@@ -2,7 +2,7 @@ import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { getCollection, render } from 'astro:content'
-import { published, excerpt } from '../lib/content'
+import { published, excerpt, hasBody } from '../lib/content'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '../lib/site'
 import { NEIGHBORHOODS_ENABLED } from '../lib/neighborhood-data'
 
@@ -49,7 +49,9 @@ export async function GET(context: APIContext) {
     }),
   )
 
-  const food = published(await getCollection('food')).filter((place) => place.data.created)
+  const food = published(await getCollection('food')).filter(
+    (place) => place.data.created && hasBody(place),
+  )
   const foodItems = await Promise.all(
     food.map(async (place) => {
       const { Content } = await render(place)

@@ -4,7 +4,7 @@ import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { href } from '../lib/url'
-import { published } from '../lib/content'
+import { published, hasBody } from '../lib/content'
 import { NEIGHBORHOODS_ENABLED, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import Chip from '../components/Chip.astro'
 import Heading from '../components/Heading.astro'
@@ -23,6 +23,7 @@ const hoods = neighborhoods
 interface Entry {
   title: string
   path: string
+  unwritten?: boolean
 }
 interface SitemapGroup {
   label: string
@@ -53,7 +54,11 @@ const groups: SitemapGroup[] = [
     label: 'Food',
     path: '/food/',
     featured: true,
-    items: food.map((place) => ({ title: place.data.title, path: `/food/${place.id}/` })),
+    items: food.map((place) => ({
+      title: place.data.title,
+      path: `/food/${place.id}/`,
+      unwritten: !hasBody(place),
+    })),
   },
   ...(NEIGHBORHOODS_ENABLED
     ? [
@@ -102,7 +107,9 @@ const groups: SitemapGroup[] = [
             <ul class="sitemap-list">
               {group.items.map((entry) => (
                 <li>
-                  <a href={href(entry.path)}>{entry.title}</a>
+                  <a href={href(entry.path)} class:list={{ 'is-unwritten': entry.unwritten }}>
+                    {entry.title}
+                  </a>
                 </li>
               ))}
             </ul>

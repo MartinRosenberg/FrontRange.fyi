@@ -2382,6 +2382,12 @@ a.card:hover::before {
   border-block-end: 2px solid var(--color-line-contrast);
 }
 
+.is-unwritten .list-title,
+.is-unwritten .title-serif,
+a.is-unwritten {
+  color: var(--color-muted);
+}
+
 .title-serif {
   display: block;
   font-family: var(--font-serif);
@@ -2428,7 +2434,7 @@ button.title-link:hover {
 }
 
 .hover-wash:hover,
-.map-list .list > li:not(.group-header):not(.section-head):hover,
+.map-list .list > li:not(.group-header):not(.section-head):not(.is-unwritten):hover,
 .detail-links > *:hover {
   background: var(--color-wash);
 }

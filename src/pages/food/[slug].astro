@@ -45,6 +45,7 @@ const stubNote =
     : `I haven't made it to ${data.title} yet, but it's on my list to try.`
 const lastUpdated = data.updated ?? data.created
 const { Content } = await render(entry)
+const isStub = !hasBody(entry)
 const backlinks = await getBacklinks(entry.id)
 const neighborhoodLink = await neighborhoodHref(data.neighborhood)
 
@@ -72,15 +73,21 @@ const trail = [
 ]
 
 const allFood = published(await getCollection('food'))
+const relatedPool = isStub ? allFood.filter((place) => hasBody(place)) : allFood
+const relatedLimit = isStub ? 3 : 2
+const withVerdict = (place: (typeof allFood)[number]) => ({
+  place,
+  verdict: resolveVerdict(place.data),
+})
 const topRelated = (places: typeof allFood) =>
   [...places]
     .sort((left, right) => (right.data.rating ?? 0) - (left.data.rating ?? 0))
-    .slice(0, 2)
-    .map((place) => ({ place, verdict: resolveVerdict(place.data) }))
+    .slice(0, relatedLimit)
+    .map(withVerdict)
 
 const relatedNeighborhood = data.neighborhood
   ? topRelated(
-      allFood.filter(
+      relatedPool.filter(
         (place) => place.id !== entry.id && place.data.neighborhood === data.neighborhood,
       ),
     )
@@ -88,7 +95,7 @@ const relatedNeighborhood = data.neighborhood
 const primaryCuisine = data.cuisine[0]
 const relatedCuisine = primaryCuisine
   ? topRelated(
-      allFood.filter(
+      relatedPool.filter(
         (place) =>
           place.id !== entry.id &&
           place.data.cuisine.includes(primaryCuisine) &&
@@ -97,7 +104,35 @@ const relatedCuisine = primaryCuisine
     )
   : []
 
-const relatedIds = new Set([...relatedNeighborhood, ...relatedCuisine].map((item) => item.place.id))
+const distanceBetween = (from: [number, number], to: [number, number]) => {
+  const toRadians = (degrees: number) => (degrees * Math.PI) / 180
+  const latitudeDelta = toRadians(to[0] - from[0])
+  const longitudeDelta = toRadians(to[1] - from[1]) * Math.cos(toRadians((from[0] + to[0]) / 2))
+
+  return Math.sqrt(latitudeDelta ** 2 + longitudeDelta ** 2)
+}
+const alreadyRelated = new Set(
+  [...relatedNeighborhood, ...relatedCuisine].map((item) => item.place.id),
+)
+const nearbyWritten =
+  isStub && data.coords && relatedNeighborhood.length < relatedLimit
+    ? relatedPool
+        .filter(
+          (place) => place.id !== entry.id && place.data.coords && !alreadyRelated.has(place.id),
+        )
+        .sort(
+          (left, right) =>
+            distanceBetween(data.coords as [number, number], left.data.coords as [number, number]) -
+            distanceBetween(data.coords as [number, number], right.data.coords as [number, number]),
+        )
+        .slice(0, relatedLimit - relatedNeighborhood.length)
+        .map(withVerdict)
+    : []
+
+const nearby = isStub ? [...relatedNeighborhood, ...nearbyWritten] : []
+const relatedIds = new Set(
+  [...relatedNeighborhood, ...relatedCuisine, ...nearbyWritten].map((item) => item.place.id),
+)
 const mentionedIn = backlinks.filter(
   (backlink) => !(backlink.collection === 'food' && relatedIds.has(backlink.id)),
 )
@@ -129,6 +164,7 @@ const seoDescription = hasBody(entry)
   ogImage={shareImage}
   ogImageWidth={sharePhoto ? Number(sharePhoto.attributes.width) : undefined}
   ogImageHeight={sharePhoto ? Number(sharePhoto.attributes.height) : undefined}
+  noindex={isStub}
   jsonLd={schema}>
   <article class="detail-page">
     <Breadcrumbs trail={trail} />
@@ -195,11 +231,11 @@ const seoDescription = hasBody(entry)
             )
           }
 
-          <Comments kind="food" slug={entry.id} title={data.title} />
+          {!isStub && <Comments kind="food" slug={entry.id} title={data.title} />}
 
           <section class="more-food">
             {
-              relatedNeighborhood.length > 0 && (
+              !isStub && relatedNeighborhood.length > 0 && (
                 <CardList
                   title={`More in ${data.neighborhood}`}
                   class="card-cells"
@@ -209,6 +245,21 @@ const seoDescription = hasBody(entry)
                       href={href(`/food/${place.id}/`)}
                       title={place.data.title}
                       meta={cuisineLabel(place.data.cuisine[0])}
+                      description={place.data.description}
+                      verdict={verdict}
+                    />
+                  ))}
+                </CardList>
+              )
+            }
+            {
+              nearby.length > 0 && (
+                <CardList title="Nearby" class="card-cells" moreHref={href('/food/')}>
+                  {nearby.map(({ place, verdict }) => (
+                    <Card
+                      href={href(`/food/${place.id}/`)}
+                      title={place.data.title}
+                      meta={place.data.neighborhood}
                       description={place.data.description}
                       verdict={verdict}
                     />
@@ -235,6 +286,8 @@ const seoDescription = hasBody(entry)
               )
             }
           </section>
+
+          {isStub && <Comments kind="food" slug={entry.id} title={data.title} />}
 
           <footer>
             <Backlinks links={mentionedIn} />

@@ -278,7 +278,9 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
             <p>Enjoy your interruption-free browsing experience!</p>
           </div>
         </div>
-        {promos.map((promo) => <PromoCard {...promo} />)}
+        <div class="card-rows">
+          {promos.map((promo) => <PromoCard {...promo} />)}
+        </div>
       </div>
     </div>
   </div>

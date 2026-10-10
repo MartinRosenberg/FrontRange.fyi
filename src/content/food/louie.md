@@ -16,7 +16,7 @@ pick:
   note: An off-menu special only available on occasion, flown in from Italy!
 ---
 
-Louie is an excellent restaurant at an excellent location. It's right on the strip on DeMun Ave in Clayton next to Clementine's Naughty & Nice Ice Cream, Sasha's Wine Bar, and a few other shops and restaurants. I really enjoyed the vibes of the street, as I saw a lot of people eating on the patios, walking around, and kids riding their bikes, all with the backdrop of the greenery of Concordia Park. It felt very lively and energetic, and that's what I love to see in St. Louis.
+Louie has good vibes, great food and an excellent location. It's right on the strip on DeMun Ave in Clayton next to Clementine's Naughty & Nice Ice Cream, Sasha's Wine Bar, and a few other shops and restaurants. I really enjoyed the atmosphere of the street, as I saw a lot of people eating on the patios, walking around, and kids riding their bikes, all with the backdrop of the greenery of Concordia Park. It felt very lively and energetic, and that's what I love to see in St. Louis.
 
 My partner and I went to Louie for an anniversary dinner and had a great time. The service was fantastic, as well as the food - particularly the bread and focaccia, a personal favorite. They also get burrata flown in from Italy, so that was a treat.
 

@@ -175,6 +175,32 @@ const optionalRoutes = {
   },
 }
 
+function stubFoodPaths() {
+  const dir = path.join(contentRoot, 'food')
+  if (!fs.existsSync(dir)) {
+    return new Set()
+  }
+
+  const paths = new Set()
+  for (const file of fs.readdirSync(dir)) {
+    if (!file.endsWith('.md')) {
+      continue
+    }
+    const body = fs
+      .readFileSync(path.join(dir, file), 'utf8')
+      .replace(/^---\n[\s\S]*?\n---/, '')
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .trim()
+    if (!body) {
+      paths.add(`/food/${file.slice(0, -3)}`)
+    }
+  }
+
+  return paths
+}
+
+const stubPaths = stubFoodPaths()
+
 const unpublishedSections = ['notes'].filter((collection) => !hasPublishedEntries(collection))
 
 function resolve(target) {
@@ -198,7 +224,8 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/tags/') &&
-        !unpublishedSections.some((section) => page.includes(`/${section}/`)),
+        !unpublishedSections.some((section) => page.includes(`/${section}/`)) &&
+        !stubPaths.has(new URL(page).pathname.replace(/\/$/, '')),
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, '') || '/'
         const lastmod = lastmodByPath.get(pathname)

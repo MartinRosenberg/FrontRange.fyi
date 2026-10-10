@@ -46,7 +46,11 @@ const rows = (
       return { place, verdict, groupKey, rankLetter, thumb }
     }),
   )
-).sort((left, right) => left.place.data.title.localeCompare(right.place.data.title))
+).sort((left, right) =>
+  `${left.rankLetter}|${left.place.data.title}`.localeCompare(
+    `${right.rankLetter}|${right.place.data.title}`,
+  ),
+)
 
 const count = rows.length
 const cuisines = [...new Set(rows.flatMap((entry) => entry.place.data.cuisine))].sort()
@@ -79,8 +83,8 @@ const description = [
       { label: 'Rating', facet: 'verdict', options: verdictOptions },
     ]}
     sorts={[
-      { label: 'Alphabetical', value: 'name:asc' },
       { label: 'Rating', value: 'verdict:asc' },
+      { label: 'Alphabetical', value: 'name:asc' },
     ]}
     mapLabel="Map of food spots"
     emptyText="No places match those filters.">
@@ -94,7 +98,7 @@ const description = [
             <MapRow
               id={place.id}
               title={place.data.title}
-              detailHref={`/food/${place.id}/`}
+              detailHref={hasBody(place) ? `/food/${place.id}/` : undefined}
               readMore={false}
               coords={place.data.coords?.join(',') ?? ''}
               search={[
@@ -114,6 +118,7 @@ const description = [
                 ...(verdict ? { 'data-verdict': verdict } : {}),
                 ...(place.data.excludeFromMapFit ? { 'data-exclude-fit': '' } : {}),
                 'data-group': groupKey,
+                ...(hasBody(place) ? {} : { 'data-stub': '' }),
                 'data-sort-name': place.data.title.toLowerCase(),
                 'data-sort-verdict': `${rankLetter}|${place.data.title.toLowerCase()}`,
                 'data-google': googleMapsHref(place.data),

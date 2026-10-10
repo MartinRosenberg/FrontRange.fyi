@@ -18,7 +18,7 @@ import { resolveVerdict, verdictLabels } from '../../lib/verdict'
 import { cuisineLabel } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
 import { spotsIn, spotCategories, type MapSpot } from '../../lib/spots'
-import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
 import {
   foodByNeighborhood,
@@ -184,7 +184,7 @@ const foodMapSpots: MapSpot[] = (
         {
           title: place.data.title,
           category: 'food' as const,
-          url: href(`/food/${place.id}/`),
+          url: hasBody(place) ? href(`/food/${place.id}/`) : undefined,
           coords: [lng, lat] as [number, number],
           meta: cuisineLabel(place.data.cuisine[0]),
           verdict: verdict ? { key: verdict, label: verdictLabels[verdict] } : undefined,
@@ -281,7 +281,8 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
               <CardList title="Food & Drink">
                 {places.map((place) => (
                   <Card
-                    href={href(`/food/${place.id}/`)}
+                    href={hasBody(place) ? href(`/food/${place.id}/`) : undefined}
+                    class={hasBody(place) ? undefined : 'is-unwritten'}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}

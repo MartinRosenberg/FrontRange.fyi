@@ -156,7 +156,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
         : undefined
     const popupHtml = buildPopupHtml({
       title: item.dataset.title ?? '',
-      link: `/food/${item.id}/`,
+      link: item.dataset.stub === undefined ? `/food/${item.id}/` : '',
       photo: item.dataset.photo ?? '',
       tagline: item.dataset.tagline ?? '',
       verdict,
