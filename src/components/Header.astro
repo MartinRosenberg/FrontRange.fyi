@@ -222,23 +222,41 @@ const { variant = 'compact' } = Astro.props
       padding-block: 0;
     }
 
-    .masthead-nav.is-home:not(.is-stuck) .masthead-nav-inner {
-      grid-template-columns: 1fr;
-      grid-template-areas: 'nav';
-    }
-
-    .masthead-nav.is-home:not(.is-stuck) .masthead-brand,
-    .masthead-nav.is-home:not(.is-stuck) :global(.theme-toggle) {
-      display: none;
-    }
-
-    .masthead-nav:where(:not(.is-home), .is-home.is-stuck) .masthead-nav-inner {
+    .masthead-nav-inner {
       padding-block: 0;
       row-gap: 0;
     }
 
+    .masthead-nav.is-home .masthead-nav-inner {
+      grid-template-rows: 0fr auto;
+      transition: grid-template-rows var(--duration-slow) ease;
+    }
+
+    .masthead-nav.is-home.is-stuck .masthead-nav-inner {
+      grid-template-rows: 1fr auto;
+    }
+
+    .masthead-nav.is-home .masthead-brand,
+    .masthead-nav.is-home :global(.theme-toggle) {
+      align-self: stretch;
+      min-height: 0;
+      padding-block: 0;
+      overflow: hidden;
+      transition:
+        padding var(--duration-slow) ease,
+        opacity var(--duration-slow) ease;
+    }
+
     .masthead-nav:where(:not(.is-home), .is-home.is-stuck) .masthead-brand {
       padding-block: calc(var(--spacing-sm) * 0.75);
+    }
+
+    .masthead-nav.is-home.is-stuck .masthead-brand {
+      padding-block: calc(var(--spacing-sm) * 0.75);
+    }
+
+    .masthead-nav.is-home.is-stuck :global(.theme-toggle) {
+      padding-block: var(--spacing-xs);
     }
 
     .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline) {
@@ -247,7 +265,7 @@ const { variant = 'compact' } = Astro.props
       background: var(--color-bar-background-sub);
     }
 
-    .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline a) {
+    .masthead-nav-inner :global(.site-nav-inline a) {
       padding-block: var(--spacing-sm) calc(var(--spacing-sm) - 3px);
       border-block-end: 3px solid transparent;
     }
