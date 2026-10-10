@@ -38,7 +38,7 @@ import PromoCard from '../components/PromoCard.astro'
 import WhatsNew from '../components/WhatsNew.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 import IconInstagram from '../assets/IconInstagram.astro'
-import FleurRow from '../components/FleurRow.astro'
+import Subheading from '../components/Subheading.astro'
 
 
 const allTopics = sortTopics(published(await getCollection('topics')))
@@ -283,14 +283,13 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
 
       <div class="front-whatsnew">
         <WhatsNew />
-        <div class="ad-box no-ads">
-          <FleurRow class="ad-box-header" />
-          <div class="ad-box-content">
-            <p>This site has</p>
-            <p class="no-ads-copy">No ads</p>
-            <p>Enjoy your interruption-free browsing experience!</p>
-          </div>
-        </div>
+        <aside class="ad-box">
+          <p class="ad-box-kicker eyebrow eyebrow--muted">Advertisement?</p>
+          <Subheading level={3}>Nope</Subheading>
+          <p class="ad-box-copy">
+            No ads, no sponsors, no affiliate links. Enjoy your interruption-free browing experience!
+          </p>
+        </aside>
       </div>
     </div>
   </div>
@@ -376,36 +375,30 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
   }
 
   .ad-box {
-    display: grid;
-    border: 2px solid var(--color-line-contrast);
-  }
-
-  .ad-box-content {
+    border: 5px double var(--color-line-contrast);
     padding: var(--spacing-md);
   }
 
-  .ad-box :global(.ad-box-header) {
-    --fleur-color: var(--color-panel);
-    padding-block: var(--spacing-sm);
-    background: var(--color-text-heading);
-  }
-
-  .no-ads {
-    text-align: center;
-
-    p {
-      margin-bottom: 0;
-    }
-  }
-
-  .no-ads-copy {
+  .ad-box-kicker,
+  .ad-box :global(.subheading) {
     margin: 0;
-    font-family: var(--font-sans-serif);
-    font-weight: 900;
-    font-size: 2rem;
-    line-height: 2;
-    transform: scaleY(2);
-    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ad-box :global(.subheading) {
+    justify-content: center;
+    margin-block: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .ad-box-copy {
+    margin: 0;
+    font-size: var(--font-size-md);
+    text-align: center;
+  }
+
+  .ad-box-footer {
+    padding-block-start: var(--spacing-sm);
+    border-block-start: 1px solid var(--color-line);
   }
 
   .rail-articles {
@@ -591,9 +584,9 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
       grid-template-columns: 1fr;
       grid-template-areas:
         'lead'
+        'whatsnew'
         'promos'
         'intro'
-        'whatsnew'
         'index'
         'explore'
         'food';

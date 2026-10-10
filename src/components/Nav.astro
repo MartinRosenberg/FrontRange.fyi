@@ -52,6 +52,17 @@ const isActive = (path: string) => {
     text-decoration-line: underline;
   }
 
+  .site-nav-inline a[aria-current='page'],
+  .site-nav-inline a[aria-current='page']:hover {
+    text-decoration-color: var(--color-flag-yellow);
+  }
+
+  .site-nav-inline a:hover,
+  .site-nav-inline a[aria-current='page'] {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
   .site-nav-inline :global(.nav-fleur) {
     width: 0.6em;
   }

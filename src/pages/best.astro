@@ -1,11 +1,10 @@
 ---
-import Subheading from '../components/Subheading.astro'
 import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Card from '../components/Card.astro'
 import ReaderFavorites from '../components/ReaderFavorites.astro'
-import { published, excerpt, META_DESCRIPTION_CHARS, PREVIEW_EXCERPT_CHARS } from '../lib/content'
+import { published, excerpt, META_DESCRIPTION_CHARS } from '../lib/content'
 import { href } from '../lib/url'
 import { CITY, SUPABASE_ENABLED } from '../lib/site'
 import { optionalData } from '../lib/optional-data'
@@ -15,6 +14,7 @@ interface Award {
   slug: string
 }
 
+const BEST_EXCERPT_CHARS = 280
 const food = published(await getCollection('food'))
 const foodBySlug = new Map(food.map((place) => [place.id, place]))
 const bestFoodPicks = optionalData<Award[]>(
@@ -24,7 +24,7 @@ const bestFoodPicks = optionalData<Award[]>(
 const resolvedAwards = bestFoodPicks.flatMap((award) => {
   const place = foodBySlug.get(award.slug)
 
-  return place ? [{ ...award, place, teaser: excerpt(place.body ?? '', PREVIEW_EXCERPT_CHARS) }] : []
+  return place ? [{ ...award, place, teaser: excerpt(place.body ?? '', BEST_EXCERPT_CHARS) }] : []
 })
 
 const awards = [
@@ -61,9 +61,10 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
           {
             awards.map(({ label, place, teaser }) => (
               <section class="best-entry">
-                <Subheading level={3}>{label.charAt(0).toUpperCase() + label.slice(1)}</Subheading>
                 <Card
                   class="card--lg card--xl card--side-photo"
+                  accentMeta
+                  meta={label}
                   href={href(`/food/${place.id}/`)}
                   title={place.data.title}
                   description={place.data.description}
@@ -90,15 +91,10 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
 
 <style>
   .best-list {
-    --best-label-width: 12rem;
     container-type: inline-size;
   }
 
   .best-entry {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    align-items: start;
-    column-gap: var(--spacing-xl);
     padding-block: var(--spacing-xl);
     border-block-end: 1px solid var(--color-line);
   }
@@ -109,17 +105,5 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
 
   .best-entry:last-child {
     border-block-end: 0;
-  }
-
-  @container (min-width: 48rem) {
-    .best-entry {
-      grid-template-columns: var(--best-label-width) minmax(0, 1fr);
-    }
-
-    .best-entry > :global(.subheading) {
-      padding-block-start: calc(
-        (var(--font-size-title-xl) * 1.25 - var(--font-size-xxl) * 1.1) / 2
-      );
-    }
   }
 </style>

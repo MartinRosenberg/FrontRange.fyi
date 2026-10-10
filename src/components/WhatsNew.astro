@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content'
 import { getChangelog } from '../lib/changelog'
-import { formatDate } from '../lib/dates'
+import { formatDay, formatMonthShort } from '../lib/dates'
 import { href } from '../lib/url'
 import PanelHeading from './PanelHeading.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
@@ -15,25 +15,28 @@ const latestUpdates = await Promise.all(
 )
 ---
 
-<section class="whats-new panel">
+<section class="whats-new">
   <PanelHeading title="What's New" />
-  <ul class="divided-list">
+  <ul class="divided-list dated-rows recent-list">
     {
       latestUpdates.map(({ date, Content }) => (
-        <li class="recent-item">
-          <time class="recent-date eyebrow nowrap" datetime={date.toISOString()}>
-            {formatDate(date)}
+        <li>
+          <time class="date-stamp" datetime={date.toISOString()}>
+            <span class="eyebrow eyebrow--muted">{formatMonthShort(date)}</span>
+            <span class="date-stamp-day">{formatDay(date)}</span>
           </time>
-          <div class="recent-changes changelog-body">
+          <div class="changelog-body">
             <Content />
           </div>
         </li>
       ))
     }
   </ul>
-  <a class="whats-new-all continue-link" href={href('/updates/')}>
-    All updates <IconArrowRight />
-  </a>
+  <div class="panel-footer panel-footer--end">
+    <a class="continue-link" href={href('/updates/')}>
+      All updates <IconArrowRight />
+    </a>
+  </div>
 </section>
 
 <style>
@@ -41,43 +44,7 @@ const latestUpdates = await Promise.all(
     min-width: 0;
   }
 
-  .recent-item {
-    display: grid;
-    row-gap: var(--spacing-xs);
-    padding-block: var(--spacing-md);
-  }
-
-  .recent-item:first-child {
-    padding-block-start: 0;
-  }
-
-  .recent-item:last-child {
-    padding-block-end: 0;
-  }
-
-  .recent-date {
-    text-align: center;
-  }
-
-  .recent-changes :global(p) {
-    font-size: var(--font-size-sm);
-  }
-
-  .recent-changes :global(a) {
-    color: var(--color-text-heading);
-    font-weight: 600;
-    text-decoration-line: none;
-  }
-
-  .recent-changes :global(a:hover) {
-    color: var(--color-accent-blue);
-    text-decoration-line: underline;
-    text-decoration-color: var(--color-accent-blue);
-  }
-
-  .whats-new-all {
-    display: block;
-    text-align: end;
-    margin-block-start: var(--spacing-sm);
+  .recent-list :global(p) {
+    font-size: var(--font-size-md);
   }
 </style>
