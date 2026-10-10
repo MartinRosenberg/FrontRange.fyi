@@ -3,7 +3,7 @@ import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundaryFor, type BoundaryFeature } from './boundaries'
 import { buildPopupHtml } from './popup'
-import { keepPopupInView } from './map-shared'
+import { BADGE_POPUP_OFFSET, createMapPopup, keepPopupInView } from './map-shared'
 import type { MapSpot } from '../lib/spots'
 
 const BOUNDARY_SOURCE_ID = 'neighborhood-boundary'
@@ -165,15 +165,7 @@ export function initMapPane(): void {
     attributionControl: { compact: true },
   })
 
-  const popup = new maplibregl.Popup({
-    className: 'map-popup',
-    closeButton: true,
-    closeOnClick: false,
-    anchor: 'bottom',
-    maxWidth: '320px',
-    offset: 18,
-    focusAfterOpen: false,
-  })
+  const popup = createMapPopup(BADGE_POPUP_OFFSET)
 
   let selectedBadge: HTMLElement | null = null
   popup.on('close', () => {

@@ -1,8 +1,29 @@
+import maplibregl from 'maplibre-gl'
 import { CITY_BOUNDS as CONFIGURED_CITY_BOUNDS } from '../../site.config.mjs'
 
 interface PannableMap {
   getContainer(): HTMLElement
   panBy(offset: [number, number], options?: { animate?: boolean }): void
+}
+
+const PIN_HEIGHT = 36
+const PIN_HIGHLIGHT_SCALE = 1.3
+const BADGE_SIZE = 30
+const POPUP_GAP = 6
+
+export const PIN_POPUP_OFFSET = Math.round(PIN_HEIGHT * PIN_HIGHLIGHT_SCALE + POPUP_GAP)
+export const BADGE_POPUP_OFFSET = Math.round(BADGE_SIZE / 2 + POPUP_GAP)
+
+export function createMapPopup(offset: number): maplibregl.Popup {
+  return new maplibregl.Popup({
+    className: 'map-popup',
+    closeButton: true,
+    closeOnClick: false,
+    anchor: 'bottom',
+    maxWidth: '320px',
+    offset,
+    focusAfterOpen: false,
+  })
 }
 
 export const CITY_BOUNDS = CONFIGURED_CITY_BOUNDS as [[number, number], [number, number]]

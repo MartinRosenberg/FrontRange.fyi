@@ -2,7 +2,13 @@ import maplibregl from 'maplibre-gl'
 import Supercluster from 'supercluster'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { buildPopupHtml, type PopupChip } from './popup'
-import { fitZoomFor, frameCityView, keepPopupInView } from './map-shared'
+import {
+  PIN_POPUP_OFFSET,
+  createMapPopup,
+  fitZoomFor,
+  frameCityView,
+  keepPopupInView,
+} from './map-shared'
 import { verdictLabels, type Verdict } from '../lib/verdict'
 import { cuisineLabel } from '../lib/cuisine'
 import { MAP_CENTER, NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
@@ -166,15 +172,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
       directionsHref: item.dataset.google ?? '',
     })
 
-    const popup = new maplibregl.Popup({
-      className: 'map-popup',
-      closeButton: true,
-      closeOnClick: false,
-      anchor: 'bottom',
-      maxWidth: '320px',
-      offset: 38,
-      focusAfterOpen: false,
-    }).setHTML(popupHtml)
+    const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml)
 
     const marker = new maplibregl.Marker({ element, anchor: 'bottom' })
       .setLngLat(lngLat)
@@ -419,7 +417,45 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
     closeActivePopup()
   }
 
+  let hoveredItem: HTMLElement | null = null
+
+  function unhoverMarker(): void {
+    if (!hoveredItem) {
+      return
+    }
+    const marker = markers.get(hoveredItem)
+    marker?.getElement().classList.remove('is-hovered')
+    if (clusterEnabled && !shownLeaves.has(hoveredItem) && hoveredItem !== activeItem) {
+      marker?.remove()
+    }
+    hoveredItem = null
+  }
+
+  function hoverMarker(item: HTMLElement): void {
+    if (hoveredItem === item) {
+      return
+    }
+    unhoverMarker()
+    const lngLat = lngLatFromItem(item)
+    if (!lngLat) {
+      return
+    }
+    const marker = markers.get(item) ?? buildMarker(item, lngLat)
+    if (!marker.getElement().isConnected) {
+      marker.addTo(map)
+    }
+    marker.getElement().classList.add('is-hovered')
+    hoveredItem = item
+  }
+
   map.on('click', () => deselect())
+
+  if (window.matchMedia('(hover: hover) and (min-width: 701px)').matches) {
+    for (const item of items) {
+      item.addEventListener('mouseenter', () => hoverMarker(item))
+      item.addEventListener('mouseleave', unhoverMarker)
+    }
+  }
 
   if (clusterEnabled) {
     map.on('moveend', renderClusters)

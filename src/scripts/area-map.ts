@@ -3,7 +3,7 @@ import type { ExpressionSpecification } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { buildPopupHtml, escapeHtml, type PopupChip } from './popup'
-import { frameCityView, keepPopupInView } from './map-shared'
+import { PIN_POPUP_OFFSET, createMapPopup, frameCityView, keepPopupInView } from './map-shared'
 import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
 
@@ -200,15 +200,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     })
   }
 
-  const popup = new maplibregl.Popup({
-    className: 'map-popup',
-    closeButton: true,
-    closeOnClick: false,
-    anchor: 'bottom',
-    maxWidth: '320px',
-    offset: 38,
-    focusAfterOpen: false,
-  })
+  const popup = createMapPopup(PIN_POPUP_OFFSET)
   popup.on('close', () => {
     if (selectedSlug) {
       deactivate(selectedSlug)

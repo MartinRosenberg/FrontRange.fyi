@@ -16,6 +16,11 @@ const byTitle = (left: { data: { title: string } }, right: { data: { title: stri
 const food = published(await getCollection('food')).sort(byTitle)
 const topics = published(await getCollection('topics')).sort(byTitle)
 
+const writtenNeighborhoods = new Set(
+  published(await getCollection('neighborhoods'))
+    .filter((entry) => hasBody(entry))
+    .map((entry) => entry.id),
+)
 const hoods = neighborhoods
   .filter((neighborhood) => !neighborhood.ignored)
   .sort((left, right) => left.name.localeCompare(right.name))
@@ -69,6 +74,7 @@ const groups: SitemapGroup[] = [
           items: hoods.map((neighborhood) => ({
             title: neighborhood.name,
             path: `/neighborhoods/${neighborhood.slug}/`,
+            unwritten: !writtenNeighborhoods.has(neighborhood.slug),
           })),
         },
       ]
