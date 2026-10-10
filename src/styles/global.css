@@ -2543,6 +2543,24 @@ button.title-link:hover {
   justify-content: flex-end;
 }
 
+.dated-year {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-sm) 0 0;
+}
+
+.dated-year::before,
+.dated-year::after {
+  content: '';
+  flex: 1;
+  border-block-start: 1px solid var(--color-line);
+}
+
+.dated-year + .dated-rows > li:first-child {
+  padding-block-start: var(--spacing-xs);
+}
+
 .dated-rows > li {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

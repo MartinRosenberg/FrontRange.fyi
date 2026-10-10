@@ -16,6 +16,10 @@ const updates = await Promise.all(
     return { date: entry.data.date, Content }
   }),
 )
+const years = [...new Set(updates.map((update) => update.date.getUTCFullYear()))].map((year) => ({
+  year,
+  updates: updates.filter((update) => update.date.getUTCFullYear() === year),
+}))
 ---
 
 <BaseLayout crumb="Updates" title={`What's New in ${SITE_NAME}`} description={description}>
@@ -25,27 +29,36 @@ const updates = await Promise.all(
     </PageMasthead>
 
     <div class="reading-col">
-      <ol class="updates divided-list dated-rows">
-        {
-          updates.map(({ date, Content }) => (
-            <li>
-              <time class="date-stamp" datetime={date.toISOString()}>
-                <span class="eyebrow eyebrow--muted">{formatMonthShort(date)}</span>
-                <span class="date-stamp-day">{formatDay(date)}</span>
-              </time>
-              <div class="changelog-body">
-                <Content />
-              </div>
-            </li>
-          ))
-        }
-      </ol>
+      {
+        years.map((group) => (
+          <section class="updates-year">
+            <p class="dated-year eyebrow">{group.year}</p>
+            <ol class="updates divided-list dated-rows">
+              {group.updates.map(({ date, Content }) => (
+                <li>
+                  <time class="date-stamp" datetime={date.toISOString()}>
+                    <span class="eyebrow eyebrow--muted">{formatMonthShort(date)}</span>
+                    <span class="date-stamp-day">{formatDay(date)}</span>
+                  </time>
+                  <div class="changelog-body">
+                    <Content />
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))
+      }
     </div>
   </article>
 </BaseLayout>
 
 <style>
-  .updates > li:first-child {
-    padding-block-start: 0;
+  .updates-year + .updates-year {
+    margin-block-start: var(--spacing-xl);
+  }
+
+  .updates-year:first-child .dated-year {
+    margin-block-start: 0;
   }
 </style>

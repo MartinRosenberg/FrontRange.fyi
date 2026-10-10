@@ -33,9 +33,10 @@ This is a map of all the walkable St. Louis streets you'll see throughout the ar
 
 ## The Grove
 
-| Street                                                                                   | Neighborhood                         | Vibe                  | Website                                         |
-| :--------------------------------------------------------------------------------------- | :----------------------------------- | :-------------------- | :---------------------------------------------- |
-| <span class="nowrap">**Manchester Avenue**</span><br>From the west arch to the east arch | [[the-grove\|Forest Park Southeast]] | Fun, Nightlife, LGBTQ | [thegrovestl.com](https://www.thegrovestl.com/) |
+- Street: **Manchester Avenue**, from the west arch to the east arch
+- Neighborhood: [[the-grove|Forest Park Southeast]]
+- Vibe: Fun, nightlife, LGBTQ
+- Website: [thegrovestl.com](https://www.thegrovestl.com/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="the-grove"></div>
@@ -47,9 +48,10 @@ The Grove is most famous for being the city's LGBTQ+ nightlife district. On one 
 
 ## The Delmar Loop
 
-| Street                                                                         | Neighborhoods                                                              | Vibe               | Website                                       |
-| :----------------------------------------------------------------------------- | :------------------------------------------------------------------------- | :----------------- | :-------------------------------------------- |
-| <span class="nowrap">**Delmar Boulevard**</span><br>From Leland to the Pageant | [[university-city\|University City]], [[delmar-loop\|Skinker DeBaliviere]] | Music, Asian, neon | [visittheloop.com](https://visittheloop.com/) |
+- Street: **Delmar Boulevard**, from Leland to the Pageant
+- Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
+- Vibe: Music, Asian, neon
+- Website: [visittheloop.com](https://visittheloop.com/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="delmar-loop"></div>
@@ -63,9 +65,10 @@ Notably, there is a concentration of very good Asian cuisine along Delmar, inclu
 
 ## Central West End
 
-| Street                                                                  | Neighborhood                           | Vibe           | Website                               |
-| :---------------------------------------------------------------------- | :------------------------------------- | :------------- | :------------------------------------ |
-| <span class="nowrap">**Euclid Avenue**</span><br>From Laclede to Delmar | [[central-west-end\|Central West End]] | Upscale, urban | [cwescene.com](https://cwescene.com/) |
+- Street: **Euclid Avenue**, from Laclede to Delmar
+- Neighborhood: [[central-west-end|Central West End]]
+- Vibe: Upscale, urban
+- Website: [cwescene.com](https://cwescene.com/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="euclid"></div>
@@ -81,9 +84,10 @@ Euclid is just a few short blocks from Forest Park, the proximity of which is a 
 
 ## Washington Avenue
 
-| Street                                                                | Neighborhoods                                                          | Vibe                        | Website                                             |
-| :-------------------------------------------------------------------- | :--------------------------------------------------------------------- | :-------------------------- | :-------------------------------------------------- |
-| <span class="nowrap">**Washington Avenue**</span><br>From 6th to 18th | [[downtown\|Downtown]], [Downtown West](/neighborhoods/downtown-west/) | Urban, historic, industrial | [washaveretail.com](https://www.washaveretail.com/) |
+- Street: **Washington Avenue**, from 6th to 18th
+- Neighborhoods: [[downtown|Downtown]], [Downtown West](/neighborhoods/downtown-west/)
+- Vibe: Urban, historic, industrial
+- Website: [washaveretail.com](https://www.washaveretail.com/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="washington-avenue"></div>
@@ -97,9 +101,10 @@ Being downtown, it's as walkable as it gets, and one of the areas most likely to
 
 ## Ballpark Village
 
-| Street                                                               | Neighborhoods          | Vibe                          | Website                                                       |
-| :------------------------------------------------------------------- | :--------------------- | :---------------------------- | :------------------------------------------------------------ |
-| <span class="nowrap">**Clark Avenue**</span><br>From 8th to Broadway | [[downtown\|Downtown]] | Baseball, entertainment, bars | [stlballparkvillage.com](https://www.stlballparkvillage.com/) |
+- Street: **Clark Avenue**, from 8th to Broadway
+- Neighborhoods: [[downtown|Downtown]]
+- Vibe: Baseball, entertainment, bars
+- Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="ballpark-village"></div>
@@ -109,9 +114,9 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 
 ## Dogtown
 
-| Street                                                                  | Neighborhood         | Vibe         |
-| :---------------------------------------------------------------------- | :------------------- | :----------- |
-| <span class="nowrap">**Tamm Avenue**</span><br>From Oakland to Mitchell | [[dogtown\|Dogtown]] | Irish, Local |
+- Street: **Tamm Avenue**, from Oakland to Mitchell
+- Neighborhood: [[dogtown|Dogtown]]
+- Vibe: Irish, local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="dogtown dogtown-clayton"></div>
@@ -121,9 +126,10 @@ Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tam
 
 ## Cherokee Street
 
-| Street                                                                   | Neighborhoods                                                                                                                                                                                | Vibe                        | Website                                                                                                      |
-| :----------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- | :----------------------------------------------------------------------------------------------------------- |
-| <span class="nowrap">**Cherokee Street**</span><br>From Nebraska to Lemp | [Gravois Park](/neighborhoods/gravois-park/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/), [Marine Villa](/neighborhoods/marine-villa/) | Eclectic, Creative, Mexican | [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/) |
+- Street: **Cherokee Street**, from Nebraska to Lemp
+- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/), [Marine Villa](/neighborhoods/marine-villa/)
+- Vibe: Eclectic, creative, Mexican
+- Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="cherokee cherokee-antique-row"></div>
@@ -135,10 +141,12 @@ The eastern wing of Cherokee St. is the [antique row](https://cherokeeantiquerow
 
 ## Tower Grove South
 
-| Street                                                                  | Neighborhoods                                                                                  | Vibe          |
-| :---------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- | :------------ |
-| <span class="nowrap">**Grand Boulevard**</span><br>From Arsenal to Utah | [[tower-grove-south\|Tower Grove South]], [Tower Grove East](/neighborhoods/tower-grove-east/) | International |
-| <span class="nowrap">**Morganford Road**</span><br>From Arsenal to Utah | [[tower-grove-south\|Tower Grove South]]                                                       | Local         |
+- Street: **Grand Boulevard**, from Arsenal to Utah
+- Neighborhoods: [[tower-grove-south|Tower Grove South]], [Tower Grove East](/neighborhoods/tower-grove-east/)
+- Vibe: International
+- Street: **Morganford Road**, from Arsenal to Utah
+- Neighborhoods: [[tower-grove-south|Tower Grove South]]
+- Vibe: Local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="south-grand morganford"></div>
@@ -154,9 +162,9 @@ There's also a smaller strip along Morganford with a few places of interest, suc
 
 ## Shaw
 
-| Street                                                                     | Neighborhood   | Vibe                    |
-| :------------------------------------------------------------------------- | :------------- | :---------------------- |
-| <span class="nowrap">**South 39th Street**</span><br>From Shaw to Magnolia | [[shaw\|Shaw]] | Quaint, Charming, Quiet |
+- Street: **South 39th Street**, from Shaw to Magnolia
+- Neighborhood: [[shaw|Shaw]]
+- Vibe: Quaint, charming, quiet
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="shaw"></div>
@@ -170,10 +178,12 @@ Flora Place is a particularly pretty boulevard to walk along, showcasing many be
 
 ## Hampton & Macklind
 
-| Street                                                                          | Neighborhoods                                                                                                             | Vibe  |
-| :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------ | :---- |
-| <span class="nowrap">**Hampton Avenue**</span><br>From Chippewa to Gravois      | [[st-louis-hills\|St. Louis Hills]], [[southampton\|Southampton]], [Princeton Heights](/neighborhoods/princeton-heights/) | Local |
-| <span class="nowrap">**Macklind Avenue**</span><br>From Lansdowne to Nottingham | [[southampton\|Southampton]]                                                                                              | Local |
+- Street: **Hampton Avenue**, from Chippewa to Gravois
+- Neighborhoods: [[st-louis-hills|St. Louis Hills]], [[southampton|Southampton]], [Princeton Heights](/neighborhoods/princeton-heights/)
+- Vibe: Local
+- Street: **Macklind Avenue**, from Lansdowne to Nottingham
+- Neighborhoods: [[southampton|Southampton]]
+- Vibe: Local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="hampton macklind"></div>
@@ -187,9 +197,10 @@ There's also another small strip nearby on Macklind with a Clementine's ice crea
 
 ## The Hill
 
-| Street                                                                   | Neighborhood           | Vibe    | Website                                 |
-| :----------------------------------------------------------------------- | :--------------------- | :------ | :-------------------------------------- |
-| <span class="nowrap">**Marconi Avenue**</span><br>From Shaw to Elizabeth | [[the-hill\|The Hill]] | Italian | [hillstl.org](https://www.hillstl.org/) |
+- Street: **Marconi Avenue**, from Shaw to Elizabeth
+- Neighborhood: [[the-hill|The Hill]]
+- Vibe: Italian
+- Website: [hillstl.org](https://www.hillstl.org/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="the-hill"></div>
@@ -203,9 +214,9 @@ My two favorites are [[nicky-slices|Nicky Slices]] for Detroit-style pizza, and 
 
 ## Bevo
 
-| Street                                                                 | Neighborhood             | Vibe    |
-| :--------------------------------------------------------------------- | :----------------------- | :------ |
-| <span class="nowrap">**Gravois Avenue**</span><br>From Taft to Christy | [[bevo-mill\|Bevo Mill]] | Bosnian |
+- Street: **Gravois Avenue**, from Taft to Christy
+- Neighborhood: [[bevo-mill|Bevo Mill]]
+- Vibe: Bosnian
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="bevo"></div>
@@ -219,9 +230,9 @@ Although it has been thirty years since the Bosnian refugees settled in Bevo, th
 
 ## Southtown
 
-| Street                                                                         | Neighborhoods                                                                                                          | Vibe       |
-| :----------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------- | :--------- |
-| <span class="nowrap">**South Kingshighway**</span><br>From Fyler to Devonshire | [North Hampton](/neighborhoods/north-hampton/), [[southampton\|Southampton]], [[tower-grove-south\|Tower Grove South]] | Commercial |
+- Street: **South Kingshighway**, from Fyler to Devonshire
+- Neighborhoods: [North Hampton](/neighborhoods/north-hampton/), [[southampton|Southampton]], [[tower-grove-south|Tower Grove South]]
+- Vibe: Commercial
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="south-town"></div>
@@ -235,9 +246,10 @@ Now, there are new restaurants and bars filling up the space, such as the Golden
 
 ## Soulard
 
-| Street                                                                          | Neighborhood         | Vibe                | Website                                 |
-| :------------------------------------------------------------------------------ | :------------------- | :------------------ | :-------------------------------------- |
-| <span class="nowrap">**South 12th Street**</span><br>From Shenandoah to Gravois | [[soulard\|Soulard]] | Historic, Nightlife | [soulard.org](https://www.soulard.org/) |
+- Street: **South 12th Street**, from Shenandoah to Gravois
+- Neighborhood: [[soulard|Soulard]]
+- Vibe: Historic, nightlife
+- Website: [soulard.org](https://www.soulard.org/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="soulard"></div>
@@ -255,9 +267,10 @@ The north and south ends of Soulard have a different feel, with the north side b
 
 ## Lafayette Square
 
-| Street                                                                  | Neighborhood                           | Vibe                | Website                                             |
-| :---------------------------------------------------------------------- | :------------------------------------- | :------------------ | :-------------------------------------------------- |
-| <span class="nowrap">**Park Avenue**</span><br>From Mississippi to 18th | [[lafayette-square\|Lafayette Square]] | Victorian, Historic | [lafayettesquare.org](https://lafayettesquare.org/) |
+- Street: **Park Avenue**, from Mississippi to 18th
+- Neighborhood: [[lafayette-square|Lafayette Square]]
+- Vibe: Victorian, historic
+- Website: [lafayettesquare.org](https://lafayettesquare.org/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="lafayette-square"></div>
@@ -271,9 +284,9 @@ In addition to the park, there are also beautiful, historic mansions painted in 
 
 ## Carondelet
 
-| Street                                                                | Neighborhoods                                              | Vibe      |
-| :-------------------------------------------------------------------- | :--------------------------------------------------------- | :-------- |
-| <span class="nowrap">**South Broadway**</span><br>From Blow to Steins | [[carondelet\|Carondelet]], [Patch](/neighborhoods/patch/) | Riverside |
+- Street: **South Broadway**, from Blow to Steins
+- Neighborhoods: [[carondelet|Carondelet]], [Patch](/neighborhoods/patch/)
+- Vibe: Riverside
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="carondelet"></div>
@@ -287,9 +300,9 @@ I have not personally explored this area outside of driving through and I don't 
 
 ## DeMun
 
-| Street                                                                      | Neighborhood         | Vibe          |
-| :-------------------------------------------------------------------------- | :------------------- | :------------ |
-| <span class="nowrap">**DeMun Avenue**</span><br>From Northwood to Southwood | [[clayton\|Clayton]] | Cozy, upscale |
+- Street: **DeMun Avenue**, from Northwood to Southwood
+- Neighborhood: [[clayton|Clayton]]
+- Vibe: Cozy, upscale
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="demun"></div>
@@ -303,9 +316,10 @@ Demun is a small spot overall, but worth mentioning for how pleasant it is.
 
 ## Maplewood
 
-| Street                                                                       | Neighborhood             | Vibe             | Website                                         |
-| :--------------------------------------------------------------------------- | :----------------------- | :--------------- | :---------------------------------------------- |
-| <span class="nowrap">**Manchester Road**</span><br>From Big Bend to Bellevue | [[maplewood\|Maplewood]] | Indie, breweries | [maplewoodmo.gov](https://www.maplewoodmo.gov/) |
+- Street: **Manchester Road**, from Big Bend to Bellevue
+- Neighborhood: [[maplewood|Maplewood]]
+- Vibe: Indie, breweries
+- Website: [maplewoodmo.gov](https://www.maplewoodmo.gov/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="maplewood"></div>
@@ -319,10 +333,14 @@ Maplewood is a streetcar suburb with Metrolink access to the city, making it one
 
 ## Webster Groves
 
-| Street                                                                         | Neighborhood                       | Vibe              | Website                                                                 |
-| :----------------------------------------------------------------------------- | :--------------------------------- | :---------------- | :---------------------------------------------------------------------- |
-| <span class="nowrap">**Big Bend Boulevard**</span><br>From Lockwood to Oakwood | [[webster-groves\|Webster Groves]] | Charming, wealthy | [oldorchardwebstergroves.com](https://www.oldorchardwebstergroves.com/) |
-| <span class="nowrap">**Lockwood Avenue**</span><br>From Jefferson to Maple     | [[webster-groves\|Webster Groves]] | Charming, wealthy | [webstergrovesmo.gov](https://www.webstergrovesmo.gov/)                 |
+- Street: **Big Bend Boulevard**, from Lockwood to Oakwood
+- Neighborhood: [[webster-groves|Webster Groves]]
+- Vibe: Charming, wealthy
+- Website: [oldorchardwebstergroves.com](https://www.oldorchardwebstergroves.com/)
+- Street: **Lockwood Avenue**, from Jefferson to Maple
+- Neighborhood: [[webster-groves|Webster Groves]]
+- Vibe: Charming, wealthy
+- Website: [webstergrovesmo.gov](https://www.webstergrovesmo.gov/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="big-bend old-webster gore"></div>
@@ -334,9 +352,10 @@ On the east end of Webster, there's another main retail area with Telva at the R
 
 ## Kirkwood
 
-| Street                                                                 | Neighborhood           | Vibe               | Website                                                                                                  |
-| :--------------------------------------------------------------------- | :--------------------- | :----------------- | :------------------------------------------------------------------------------------------------------- |
-| <span class="nowrap">**Kirkwood Road**</span><br>From Bodley to Monroe | [[kirkwood\|Kirkwood]] | Suburban, charming | [downtownkirkwood.com](https://www.downtownkirkwood.com/), [kirkwoodmo.org](https://www.kirkwoodmo.org/) |
+- Street: **Kirkwood Road**, from Bodley to Monroe
+- Neighborhood: [[kirkwood|Kirkwood]]
+- Vibe: Suburban, charming
+- Website: [downtownkirkwood.com](https://www.downtownkirkwood.com/), [kirkwoodmo.org](https://www.kirkwoodmo.org/)
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="kirkwood"></div>

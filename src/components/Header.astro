@@ -3,7 +3,10 @@ import Nav from './Nav.astro'
 import ThemeToggle from './ThemeToggle.astro'
 import FleurGlyph from '../assets/FleurGlyph.astro'
 import { href } from '../lib/url'
-import { CITY, FOUNDED_YEAR, REGION, SITE_NAME } from '../lib/site'
+import IconInstagram from '../assets/IconInstagram.astro'
+import { CITY, FOUNDED_YEAR, REGION, SITE_NAME, SOCIALS } from '../lib/site'
+
+const instagram = SOCIALS.find((social) => social.label === 'Instagram')
 
 interface Props {
   trail: Array<any>
@@ -45,7 +48,21 @@ const { variant = 'compact' } = Astro.props
       )
     }
     <Nav />
-    <ThemeToggle />
+    <div class="masthead-tools">
+      {
+        instagram && (
+          <a
+            class="btn btn-quiet btn-quiet--plain masthead-social"
+            href={instagram.url}
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram">
+            <IconInstagram />
+          </a>
+        )
+      }
+      <ThemeToggle />
+    </div>
   </div>
   {variant === 'home' && <div class="masthead-double-rule"></div>}
 </div>
@@ -135,8 +152,21 @@ const { variant = 'compact' } = Astro.props
     padding-block: var(--spacing-sm);
   }
 
-  .masthead-nav-inner :global(.theme-toggle) {
+  .masthead-tools {
+    display: flex;
+    align-items: center;
     justify-self: end;
+  }
+
+  .masthead-tools :global(.btn-quiet--plain) {
+    height: auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-muted);
+  }
+
+  .masthead-tools :global(.icon) {
+    width: 18px;
+    height: 18px;
   }
 
   .masthead-brand {
@@ -159,8 +189,8 @@ const { variant = 'compact' } = Astro.props
   .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline a),
   .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline a:hover),
   .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline a[aria-current='page']),
-  .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.theme-toggle),
-  .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.theme-toggle:hover) {
+  .masthead-nav:where(:not(.is-home), .is-home.is-stuck) .masthead-tools :global(.btn-quiet--plain),
+  .masthead-nav:where(:not(.is-home), .is-home.is-stuck) .masthead-tools :global(.btn-quiet--plain:hover) {
     color: var(--color-bar-text);
   }
 
@@ -221,7 +251,7 @@ const { variant = 'compact' } = Astro.props
       grid-area: brand;
     }
 
-    .masthead-nav-inner :global(.theme-toggle) {
+    .masthead-tools {
       grid-area: toggle;
     }
 
@@ -257,6 +287,17 @@ const { variant = 'compact' } = Astro.props
       visibility: hidden;
     }
 
+    .masthead-nav.is-home .masthead-tools {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity var(--duration-fast) ease;
+    }
+
+    .masthead-nav.is-home.is-stuck .masthead-tools {
+      opacity: 1;
+      visibility: visible;
+    }
+
     .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline) {
       margin-inline: calc(-1 * var(--spacing-md));
       padding: 0 var(--spacing-md);
@@ -268,7 +309,8 @@ const { variant = 'compact' } = Astro.props
       border-block-end: 3px solid transparent;
     }
 
-    .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline a[aria-current='page']) {
+    .masthead-nav-inner :global(.site-nav-inline a:hover),
+    .masthead-nav-inner :global(.site-nav-inline a[aria-current='page']) {
       text-decoration: none;
       border-block-end-color: var(--color-flag-yellow);
     }

@@ -17,6 +17,11 @@ const latestUpdates = await Promise.all(
 
 <section class="whats-new">
   <PanelHeading title="What's New" />
+  {
+    latestUpdates[0] && (
+      <p class="dated-year eyebrow">{latestUpdates[0].date.getUTCFullYear()}</p>
+    )
+  }
   <ul class="divided-list dated-rows recent-list">
     {
       latestUpdates.map(({ date, Content }) => (
