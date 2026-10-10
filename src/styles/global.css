@@ -954,8 +954,6 @@ select {
 [data-map] {
   height: 70vh;
   border-block: 1px solid var(--color-line);
-  transform: translate3d(0, 0, 0);
-
   background: var(--color-background);
 }
 
@@ -963,13 +961,9 @@ select {
   background: var(--color-background);
 }
 
-.map-split:not([data-view='map']) :is([data-map], .area-map) {
-  display: none;
-}
-
 body:has(.map-split) {
   height: 100dvh;
-  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body:has(.map-split) main {
@@ -1356,9 +1350,12 @@ body:has(.map-split) main > .wrap,
     display: none;
   }
 
+  .map-split:not([data-view='map']) :is([data-map], .area-map) {
+    display: none;
+  }
+
   body:has(.map-split.detail-split) {
     height: auto;
-    overflow: visible;
   }
 
   .map-split.detail-split .results {

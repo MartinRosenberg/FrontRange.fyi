@@ -193,11 +193,10 @@ const { variant = 'compact' } = Astro.props
     height: 7px;
     border-block-start: 4px solid var(--color-line-contrast);
     border-block-end: 1px solid var(--color-line-contrast);
-    transition: border-color var(--duration-slow) ease;
   }
 
   .masthead-nav.is-stuck .masthead-double-rule {
-    border-color: transparent;
+    display: none;
   }
 
   @media (max-width: 700px) {
@@ -223,13 +222,13 @@ const { variant = 'compact' } = Astro.props
       padding-block: 0;
     }
 
-    .masthead-nav.is-home .masthead-nav-inner {
+    .masthead-nav.is-home:not(.is-stuck) .masthead-nav-inner {
       grid-template-columns: 1fr;
       grid-template-areas: 'nav';
     }
 
-    .masthead-nav.is-home .masthead-brand,
-    .masthead-nav.is-home :global(.theme-toggle) {
+    .masthead-nav.is-home:not(.is-stuck) .masthead-brand,
+    .masthead-nav.is-home:not(.is-stuck) :global(.theme-toggle) {
       display: none;
     }
 
