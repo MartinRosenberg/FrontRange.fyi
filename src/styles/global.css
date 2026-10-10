@@ -1852,7 +1852,7 @@ body:has([data-filter-root]) .masthead-nav {
   gap: var(--spacing-sm);
   padding: var(--spacing-sm);
   border: 1px solid transparent;
-  border-radius: var(--radius);
+  border-radius: var(--radius-input);
   font-family: var(--font-sans-serif);
   font-size: var(--font-size-sm);
   font-weight: 500;
@@ -1951,6 +1951,11 @@ body:has([data-filter-root]) .masthead-nav {
 .btn-compact {
   padding-block: var(--spacing-xs);
   font-size: var(--font-size-xxs);
+}
+
+.btn-large {
+  padding: var(--spacing-shmedium) var(--spacing-lg);
+  font-size: var(--font-size-sm);
 }
 
 .compact-article h2 {
