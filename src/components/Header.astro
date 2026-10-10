@@ -39,6 +39,11 @@ const { variant = 'compact' } = Astro.props
     <a class="masthead-brand title-display title-link" href={href('/')}>
       <img class="brand-mark" src={href('/logo-outlined.svg')} alt="" width="32" height="32" /> {SITE_NAME}
     </a>
+    {
+      variant === 'home' && (
+        <span class="masthead-tagline eyebrow eyebrow--muted">An Independent Guide to {CITY}</span>
+      )
+    }
     <Nav />
     <ThemeToggle />
   </div>
@@ -186,6 +191,10 @@ const { variant = 'compact' } = Astro.props
     flex-shrink: 0;
   }
 
+  .masthead-tagline {
+    display: none;
+  }
+
   .masthead-double-rule {
     position: absolute;
     inset-inline: 0;
@@ -227,36 +236,25 @@ const { variant = 'compact' } = Astro.props
       row-gap: 0;
     }
 
-    .masthead-nav.is-home .masthead-nav-inner {
-      grid-template-rows: 0fr auto;
-      transition: grid-template-rows var(--duration-slow) ease;
+    .masthead-brand {
+      padding-block: calc(var(--spacing-sm) * 0.75);
     }
 
-    .masthead-nav.is-home.is-stuck .masthead-nav-inner {
-      grid-template-rows: 1fr auto;
-    }
-
-    .masthead-nav.is-home .masthead-brand,
-    .masthead-nav.is-home :global(.theme-toggle) {
+    .masthead-tagline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      grid-column: 1 / -1;
+      grid-row: 1;
       align-self: stretch;
-      min-height: 0;
-      padding-block: 0;
-      overflow: hidden;
-      transition:
-        padding var(--duration-slow) ease,
-        opacity var(--duration-slow) ease;
+      border-block-end: 1px solid var(--color-line);
+      white-space: nowrap;
+      transition: opacity var(--duration-fast) ease;
     }
 
-    .masthead-nav:where(:not(.is-home), .is-home.is-stuck) .masthead-brand {
-      padding-block: calc(var(--spacing-sm) * 0.75);
-    }
-
-    .masthead-nav.is-home.is-stuck .masthead-brand {
-      padding-block: calc(var(--spacing-sm) * 0.75);
-    }
-
-    .masthead-nav.is-home.is-stuck :global(.theme-toggle) {
-      padding-block: var(--spacing-xs);
+    .masthead-nav.is-stuck .masthead-tagline {
+      opacity: 0;
+      visibility: hidden;
     }
 
     .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline) {
