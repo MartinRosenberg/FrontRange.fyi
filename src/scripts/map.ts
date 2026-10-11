@@ -5,6 +5,7 @@ import { buildPopupHtml, type PopupChip } from './popup'
 import {
   PIN_POPUP_OFFSET,
   createMapPopup,
+  bindRowHover,
   fitZoomFor,
   frameCityView,
   keepPopupInView,
@@ -450,12 +451,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
 
   map.on('click', () => deselect())
 
-  if (window.matchMedia('(hover: hover) and (min-width: 701px)').matches) {
-    for (const item of items) {
-      item.addEventListener('mouseenter', () => hoverMarker(item))
-      item.addEventListener('mouseleave', unhoverMarker)
-    }
-  }
+  bindRowHover(items, { enter: hoverMarker, leave: unhoverMarker })
 
   if (clusterEnabled) {
     map.on('moveend', renderClusters)

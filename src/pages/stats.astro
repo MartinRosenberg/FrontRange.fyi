@@ -45,9 +45,20 @@ const cuisineCounts = [...cuisinePages.entries()]
       .length,
   }))
   .sort((left, right) => right.tried - left.tried || right.total - left.total)
+  .slice(0, 10)
+
+const backlogByCuisine = [...cuisinePages.entries()]
+  .map(([cuisine, places]) => ({
+    cuisine,
+    label: cuisineLabel(cuisine),
+    total: places.length,
+    toGo: places.filter((place) => !isExplored((place as (typeof allFood)[number]).data.status)).length,
+  }))
+  .filter((row) => row.toGo > 0)
+  .sort((left, right) => right.toGo - left.toGo || right.total - left.total)
   .slice(0, 8)
 
-const description = `Some raw data about where I've been and what type of cuisine I'm drawn to.`
+const description = `Raw data about St. Louing`
 ---
 
 <BaseLayout crumb="Stats" title={`Stats - ${SITE_NAME}`} description={description}>
@@ -57,10 +68,44 @@ const description = `Some raw data about where I've been and what type of cuisin
     </PageMasthead>
 
     <div class="stats-layout">
+      <section class="stats-section stats-numbers">
+        <Heading>Numbers</Heading>
+        <dl class="stats-grid">
+          <div class="stats-cell">
+            <dt class="eyebrow eyebrow--muted">Restaurants tried</dt>
+            <dd class="stats-value">{tried.length}</dd>
+          </div>
+          <div class="stats-cell">
+            <dt class="eyebrow eyebrow--muted">Written up</dt>
+            <dd class="stats-value">{written.length}</dd>
+          </div>
+          <div class="stats-cell">
+            <dt class="eyebrow eyebrow--muted">On the backlog</dt>
+            <dd class="stats-value">
+              <a href={href('/food/backlog/')}>{backlog.length}</a>
+            </dd>
+          </div>
+          {
+            NEIGHBORHOODS_ENABLED && (
+              <div class="stats-cell">
+                <dt class="eyebrow eyebrow--muted">Neighborhoods</dt>
+                <dd class="stats-value">
+                  {neighborhoodsWritten.size} <span class="count">of {neighborhoodTotal}</span>
+                </dd>
+              </div>
+            )
+          }
+          <div class="stats-cell">
+            <dt class="eyebrow eyebrow--muted">Cuisines</dt>
+            <dd class="stats-value">{cuisinePages.size}</dd>
+          </div>
+        </dl>
+      </section>
+
       {
         NEIGHBORHOODS_ENABLED && shapeEntries.length > 0 && (
           <section class="stats-section stats-ground">
-            <Heading>Ground covered</Heading>
+            <Heading>Where I've been</Heading>
             <ul class="stats-legend">
               <li>
                 <span class="stats-swatch is-written" aria-hidden="true" />
@@ -101,74 +146,69 @@ const description = `Some raw data about where I've been and what type of cuisin
         )
       }
 
-      <div class="stats-main">
-        <section class="stats-section">
-          <Heading>The numbers</Heading>
-          <dl class="stats-grid">
-            <div class="stats-cell">
-              <dt class="eyebrow eyebrow--muted">Places tried</dt>
-              <dd class="stats-value">{tried.length}</dd>
-            </div>
-            <div class="stats-cell">
-              <dt class="eyebrow eyebrow--muted">Written up</dt>
-              <dd class="stats-value">{written.length}</dd>
-            </div>
-            <div class="stats-cell">
-              <dt class="eyebrow eyebrow--muted">On the backlog</dt>
-              <dd class="stats-value">
-                <a href={href('/food/backlog/')}>{backlog.length}</a>
-              </dd>
-            </div>
-            {
-              NEIGHBORHOODS_ENABLED && (
-                <div class="stats-cell">
-                  <dt class="eyebrow eyebrow--muted">Neighborhoods written</dt>
-                  <dd class="stats-value">
-                    {neighborhoodsWritten.size} <span class="count">of {neighborhoodTotal}</span>
-                  </dd>
-                </div>
-              )
-            }
-            <div class="stats-cell">
-              <dt class="eyebrow eyebrow--muted">Cuisines</dt>
-              <dd class="stats-value">{cuisinePages.size}</dd>
-            </div>
-          </dl>
-        </section>
+      {
+        cuisineCounts.length > 0 && (
+          <section class="stats-section stats-cuisines">
+            <Heading>
+              Cuisines
+              <span slot="aside" class="eyebrow eyebrow--muted">
+                Tried of total
+              </span>
+            </Heading>
+            <ol class="divided-list stats-rows">
+              {cuisineCounts.map((row) => (
+                <li class="stats-row">
+                  <a
+                    class="title-serif title-link"
+                    href={href(`/food/cuisine/${cuisineSlug(row.cuisine)}/`)}>
+                    {row.label}
+                  </a>
+                  <span
+                    class="stats-meter"
+                    style={`--fill: ${Math.round((row.tried / row.total) * 100)}%`}
+                    aria-hidden="true">
+                    <span class="stats-meter-fill" />
+                  </span>
+                  <span class="stats-ratio">
+                    <strong>{row.tried}</strong> <span class="count">of {row.total}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
 
-        {
-          cuisineCounts.length > 0 && (
-            <section class="stats-section">
-              <Heading>
-                Most-eaten cuisines
-                <span slot="aside" class="eyebrow eyebrow--muted">
-                  Tried of total
-                </span>
-              </Heading>
-              <ol class="divided-list stats-rows">
-                {cuisineCounts.map((row) => (
-                  <li class="stats-row">
-                    <a
-                      class="title-serif title-link"
-                      href={href(`/food/cuisine/${cuisineSlug(row.cuisine)}/`)}>
-                      {row.label}
-                    </a>
-                    <span
-                      class="stats-meter"
-                      style={`--fill: ${Math.round((row.tried / row.total) * 100)}%`}
-                      aria-hidden="true">
-                      <span class="stats-meter-fill" />
-                    </span>
-                    <span class="stats-ratio">
-                      <strong>{row.tried}</strong> <span class="count">of {row.total}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          )
-        }
-      </div>
+      {
+        backlogByCuisine.length > 0 && (
+          <section class="stats-section stats-backlog">
+            <Heading>
+              Backlog by cuisine
+              <span slot="aside" class="eyebrow eyebrow--muted">Still to try</span>
+            </Heading>
+            <ol class="divided-list stats-rows">
+              {backlogByCuisine.map((row) => (
+                <li class="stats-row">
+                  <a
+                    class="title-serif title-link"
+                    href={href(`/food/cuisine/${cuisineSlug(row.cuisine)}/`)}>
+                    {row.label}
+                  </a>
+                  <span
+                    class="stats-meter"
+                    style={`--fill: ${Math.round((row.toGo / row.total) * 100)}%`}
+                    aria-hidden="true">
+                    <span class="stats-meter-fill" />
+                  </span>
+                  <span class="stats-ratio">
+                    <strong>{row.toGo}</strong> <span class="count">of {row.total}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
     </div>
   </article>
 </BaseLayout>
@@ -182,14 +222,31 @@ const description = `Some raw data about where I've been and what type of cuisin
 
   @media (min-width: 900px) {
     .stats-layout {
-      grid-template-columns: minmax(16rem, 1fr) minmax(0, 2.5fr);
+      grid-template-columns: minmax(16rem, 1fr) minmax(0, 1.25fr) minmax(0, 1.25fr);
+      grid-template-areas:
+        'ground numbers numbers'
+        'ground cuisines backlog';
       column-gap: var(--spacing-xl);
+      align-items: start;
     }
 
     .stats-ground {
+      grid-area: ground;
       align-self: stretch;
       padding-inline-end: var(--spacing-xl);
       border-inline-end: 1px solid var(--color-line);
+    }
+
+    .stats-numbers {
+      grid-area: numbers;
+    }
+
+    .stats-cuisines {
+      grid-area: cuisines;
+    }
+
+    .stats-backlog {
+      grid-area: backlog;
     }
   }
 
@@ -231,11 +288,6 @@ const description = `Some raw data about where I've been and what type of cuisin
     );
   }
 
-  .stats-main {
-    display: grid;
-    gap: var(--spacing-xl);
-  }
-
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
@@ -256,6 +308,25 @@ const description = `Some raw data about where I've been and what type of cuisin
 
   .stats-cell + .stats-cell {
     border-inline-start: 1px solid var(--color-line);
+  }
+
+  @media (max-width: 700px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      border-block-end: 0;
+    }
+
+    .stats-cell {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: var(--spacing-sm) 0;
+      border-block-end: 1px solid var(--color-line);
+    }
+
+    .stats-cell + .stats-cell {
+      border-inline-start: 0;
+    }
   }
 
   .stats-value {
@@ -319,9 +390,21 @@ const description = `Some raw data about where I've been and what type of cuisin
   @media (max-width: 700px) {
     .stats-row {
       grid-template-columns: minmax(0, 1fr) auto;
+      row-gap: var(--spacing-xs);
+    }
+
+    .stats-row > .title-serif {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .stats-ratio {
+      grid-row: 1;
+      grid-column: 2;
     }
 
     .stats-meter {
+      grid-row: 2;
       grid-column: 1 / -1;
     }
   }

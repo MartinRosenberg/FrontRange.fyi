@@ -3,7 +3,13 @@ import type { ExpressionSpecification } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { buildPopupHtml, escapeHtml, type PopupChip } from './popup'
-import { PIN_POPUP_OFFSET, createMapPopup, frameCityView, keepPopupInView } from './map-shared'
+import {
+  PIN_POPUP_OFFSET,
+  bindRowHover,
+  createMapPopup,
+  frameCityView,
+  keepPopupInView,
+} from './map-shared'
 import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
 
@@ -101,6 +107,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   }
 
   const rows = [...document.querySelectorAll<HTMLElement>('[data-section]')]
+  const markerBySlug = new Map<string, HTMLElement>()
   function rowFor(slug: string): HTMLElement | undefined {
     return rows.find((row) => row.dataset.section === slug)
   }
@@ -287,6 +294,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
       element.innerHTML = `<svg class="marker-pin" viewBox="-2 -2 28 36" width="28" height="36" fill="none" aria-hidden="true"><path class="marker-pin-body" d="M12 0C5.383 0 0 5.383 0 12c0 9 12 20 12 20s12-11 12-20c0-6.617-5.383-12-12-12z" fill="currentColor" /><circle class="marker-pin-dot" cx="12" cy="12" r="4.5" /></svg>`
 
       new maplibregl.Marker({ element, anchor: 'bottom' }).setLngLat(center).addTo(map)
+      markerBySlug.set(slug, element)
 
       element.addEventListener('click', (event) => {
         event.stopPropagation()
@@ -307,6 +315,29 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
         setSlugState(slug, { hover: false })
       })
     }
+  }
+
+  function bindRowHighlights(): void {
+    bindRowHover(rows, {
+      enter: (row) => {
+        const slug = row.dataset.section
+        if (!slug) {
+          return
+        }
+        if (slug !== selectedSlug) {
+          setSlugState(slug, { hover: true })
+        }
+        markerBySlug.get(slug)?.classList.add('is-hovered')
+      },
+      leave: (row) => {
+        const slug = row.dataset.section
+        if (!slug) {
+          return
+        }
+        setSlugState(slug, { hover: false })
+        markerBySlug.get(slug)?.classList.remove('is-hovered')
+      },
+    })
   }
 
   function addBoundaryInteractions(): void {
@@ -386,6 +417,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     addBoundaryLayers()
     addBoundaryInteractions()
     addExploredMarkers()
+    bindRowHighlights()
     watchThemeChanges(map, () => {
       regionColors = readRegionColors()
       if (map.getLayer(FILL_LAYER)) {

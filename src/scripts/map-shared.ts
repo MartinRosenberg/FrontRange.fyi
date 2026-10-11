@@ -143,3 +143,18 @@ export function keepPopupInView(map: PannableMap, getPopupEl: () => HTMLElement 
     }
   })
 }
+
+export const DESKTOP_HOVER_QUERY = '(hover: hover) and (min-width: 701px)'
+
+export function bindRowHover(
+  items: Iterable<HTMLElement>,
+  handlers: { enter: (item: HTMLElement) => void; leave: (item: HTMLElement) => void },
+): void {
+  if (!window.matchMedia(DESKTOP_HOVER_QUERY).matches) {
+    return
+  }
+  for (const item of items) {
+    item.addEventListener('mouseenter', () => handlers.enter(item))
+    item.addEventListener('mouseleave', () => handlers.leave(item))
+  }
+}

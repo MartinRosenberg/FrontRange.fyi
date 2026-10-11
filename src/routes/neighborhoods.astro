@@ -31,7 +31,7 @@ const count = listed.length
 const writtenCount = listed.filter((neighborhood) => isWritten(neighborhood.slug)).length
 const restCount = listed.length - writtenCount
 
-const NOT_EXPLORED_EXCERPT = "I haven't explored this neighborhood yet."
+const NOT_EXPLORED_EXCERPT = "I haven't written about this neighborhood yet."
 
 function popupData(slug: string, name: string, group: string) {
   const entry = entryBySlug.get(slug)
@@ -124,7 +124,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
                   <MapRow
                     id={neighborhood.slug}
                     title={neighborhood.name}
-                    detailHref={`/neighborhoods/${neighborhood.slug}/`}
+                    detailHref={written ? `/neighborhoods/${neighborhood.slug}/` : undefined}
                     readMore={false}
                     search={[
                       neighborhood.name,
@@ -136,6 +136,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
                       .join(' ')}
                     class={written ? 'is-written' : undefined}
                     attrs={{
+                      ...(written ? {} : { 'data-stub': '' }),
                       'data-section': neighborhood.slug,
                       'data-area': popup.area ?? '',
                       'data-region': regionKey,
