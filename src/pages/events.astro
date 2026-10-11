@@ -60,7 +60,7 @@ const description =
         byMonth.map((month) => (
           <CardList title={month.label}>
             {month.events.map((event) => {
-              const link =
+              const neighborhoodLink =
                 NEIGHBORHOODS_ENABLED && event.neighborhood
                   ? href(`/neighborhoods/${event.neighborhood}/`)
                   : undefined
@@ -68,7 +68,8 @@ const description =
 
               return (
                 <Card
-                  href={link}
+                  href={event.url ?? neighborhoodLink}
+                  external={Boolean(event.url)}
                   title={event.name}
                   meta={kickerParts}
                   description={event.blurb}>

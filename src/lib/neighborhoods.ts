@@ -5,10 +5,18 @@ import { neighborhoodRecords as neighborhoods } from './neighborhood-data'
 import { optionalData } from './optional-data'
 import { published } from './content'
 
-const geo = optionalData<{ shapes: Record<string, string>; adjacency: Record<string, string[]> }>(
-  import.meta.glob('../data/neighborhood-geo.json', { eager: true, import: 'default' }),
-  { shapes: {}, adjacency: {} },
-)
+const geo = optionalData<{
+  viewBox?: string
+  shapes: Record<string, string>
+  adjacency: Record<string, string[]>
+}>(import.meta.glob('../data/neighborhood-geo.json', { eager: true, import: 'default' }), {
+  shapes: {},
+  adjacency: {},
+})
+
+export function neighborhoodShapes(): { viewBox: string; shapes: Record<string, string> } {
+  return { viewBox: geo.viewBox ?? '0 0 1000 1000', shapes: geo.shapes }
+}
 const festivals = optionalData<unknown[]>(
   import.meta.glob('../data/festivals.json', { eager: true, import: 'default' }),
   [],
@@ -257,6 +265,7 @@ export interface Festival {
   neighborhood: string | null
   when: string
   blurb: string
+  url?: string
 }
 
 export function festivalsIn(slug: string): Festival[] {

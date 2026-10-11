@@ -12,6 +12,7 @@ import {
   excerpt,
   PINNED_TOPIC_ID,
   PREVIEW_EXCERPT_CHARS,
+  hasBody,
 } from '../lib/content'
 import { isExplored } from '../lib/verdict'
 import { formatDate } from '../lib/dates'
@@ -38,6 +39,7 @@ import PromoCard from '../components/PromoCard.astro'
 import WhatsNew from '../components/WhatsNew.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 import IconInstagram from '../assets/IconInstagram.astro'
+import IconDice from '../assets/IconDice.astro'
 import Subheading from '../components/Subheading.astro'
 
 
@@ -64,6 +66,8 @@ const exploreCounts: Record<string, number> = {
   '/food/': allFood.length,
   '/neighborhoods/': neighborhoodRecords.filter((neighborhood) => !neighborhood.ignored).length,
 }
+
+const writtenFoodIds = allFood.filter((place) => hasBody(place)).map((place) => place.id)
 
 const featuredFood = FEATURED_FOOD_IDS.flatMap((foodId) =>
   allFood.filter((place) => place.id === foodId),
@@ -250,6 +254,17 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
               />
             ))
           }
+        </div>
+        <div class="panel-footer panel-footer--end">
+          <button
+            type="button"
+            class="btn btn-outline btn-compact"
+            data-surprise
+            data-surprise-ids={JSON.stringify(writtenFoodIds)}
+            data-tooltip="Jump to a random place"
+            data-tooltip-align="end">
+            <IconDice /> Surprise me
+          </button>
         </div>
       </section>
     </div>
@@ -623,3 +638,9 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     }
   }
 </style>
+
+<script>
+  import { initSurprise } from '../scripts/surprise'
+
+  initSurprise()
+</script>

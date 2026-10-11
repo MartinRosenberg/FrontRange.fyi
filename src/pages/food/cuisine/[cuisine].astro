@@ -1,0 +1,155 @@
+---
+import { getCollection } from 'astro:content'
+import { CITY } from '../../../lib/site'
+import PageMasthead from '../../../components/PageMasthead.astro'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import SectionHeading from '../../../components/SectionHeading.astro'
+import CardList from '../../../components/CardList.astro'
+import { Image } from 'astro:assets'
+import Card from '../../../components/Card.astro'
+import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../../../lib/content'
+import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../../../lib/cuisine'
+import { resolveVerdict, verdictSortValue } from '../../../lib/verdict'
+import { optionalData } from '../../../lib/optional-data'
+import { href } from '../../../lib/url'
+
+interface Award {
+  label: string
+  slug: string
+}
+
+export async function getStaticPaths() {
+  const food = published(await getCollection('food'))
+  const pages = cuisinesWithPages(food)
+
+  return [...pages.keys()].map((cuisine) => ({
+    params: { cuisine: cuisineSlug(cuisine) },
+    props: { cuisine },
+  }))
+}
+
+const { cuisine } = Astro.props
+const label = cuisineLabel(cuisine)
+
+const food = published(await getCollection('food'))
+const places = food.filter((place) =>
+  place.data.cuisine.some((value) => value.trim().toLowerCase() === cuisine),
+)
+
+const awards = optionalData<Award[]>(
+  import.meta.glob('../../../data/best-food.json', { eager: true, import: 'default' }),
+  [],
+)
+const bestPicks = awards.flatMap((award) => {
+  const place = places.find((candidate) => candidate.id === award.slug)
+
+  return place ? [{ label: award.label, place }] : []
+})
+
+const statusRank: Record<string, number> = { written: 0, tried: 1, 'want-to-try': 2, suggested: 3 }
+const sortValue = (place: (typeof places)[number]): number => {
+  const verdict = resolveVerdict(place.data)
+
+  return verdict ? verdictSortValue[verdict] : 9
+}
+const written = places
+  .filter((place) => hasBody(place))
+  .sort(
+    (left, right) =>
+      sortValue(left) - sortValue(right) ||
+      (right.data.rating ?? 0) - (left.data.rating ?? 0) ||
+      left.data.title.localeCompare(right.data.title),
+  )
+const unwritten = places
+  .filter((place) => !hasBody(place))
+  .sort(
+    (left, right) =>
+      statusRank[left.data.status] - statusRank[right.data.status] ||
+      left.data.title.localeCompare(right.data.title),
+  )
+
+const countLabel = `${places.length} ${places.length === 1 ? 'place' : 'places'}`
+const description = `${label} in ${CITY}: ${countLabel}.`
+---
+
+<BaseLayout crumb={label} title={`${label} in ${CITY}`} description={description}>
+  <article>
+    <PageMasthead title={`${label} in ${CITY}`} wide>
+      <p slot="lede">
+        Filter the <a href={href(`/food/?cuisine=${cuisine}`)}>food map</a> to see
+        them all together.
+      </p>
+    </PageMasthead>
+
+    {
+      bestPicks.length > 0 && (
+        <section class="cuisine-picks">
+          <SectionHeading title="My picks" />
+          {bestPicks.map(({ label: awardLabel, place }) => (
+            <a
+              class:list={['feature-box', { 'feature-box--text': !place.data.photo }]}
+              href={href(`/food/${place.id}/`)}>
+              {place.data.photo && (
+                <Image
+                  class="feature-box-img"
+                  src={place.data.photo}
+                  alt={place.data.title}
+                  widths={[680, 1360]}
+                  sizes="(min-width: 600px) 340px, 100vw"
+                />
+              )}
+              <span class="feature-box-body">
+                <span class="eyebrow">{awardLabel}</span>
+                <span class="feature-box-title title-link">{place.data.title}</span>
+                {place.data.description && <span class="description">{place.data.description}</span>}
+                <span class="excerpt">{excerpt(place.body ?? '', PREVIEW_EXCERPT_CHARS)}</span>
+              </span>
+            </a>
+          ))}
+        </section>
+      )
+    }
+
+    {
+      written.length > 0 && (
+        <CardList title="Reviewed" class="card-cells card-cells--three">
+          {written.map((place) => (
+            <Card
+              href={href(`/food/${place.id}/`)}
+              title={place.data.title}
+              meta={place.data.neighborhood}
+              description={place.data.description}
+              verdict={resolveVerdict(place.data)}
+            />
+          ))}
+        </CardList>
+      )
+    }
+
+    {
+      unwritten.length > 0 && (
+        <CardList title="Not yet written up" class="card-cells card-cells--three">
+          {unwritten.map((place) => (
+            <Card
+              class="is-unwritten"
+              title={place.data.title}
+              meta={place.data.neighborhood}
+              description={place.data.description}
+            />
+          ))}
+        </CardList>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .cuisine-picks {
+    display: grid;
+    gap: var(--spacing-md);
+  }
+
+  .cuisine-picks :global(.section-heading) {
+    margin-block-end: var(--spacing-xs);
+  }
+</style>

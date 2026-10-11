@@ -4,6 +4,7 @@ import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { href } from '../lib/url'
+import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../lib/cuisine'
 import { published, hasBody } from '../lib/content'
 import { NEIGHBORHOODS_ENABLED, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import Chip from '../components/Chip.astro'
@@ -47,6 +48,7 @@ const groups: SitemapGroup[] = [
       { title: 'Backlog', path: '/food/backlog/' },
       { title: 'Annual Events', path: '/events/' },
       { title: 'Tags', path: '/tags/' },
+      { title: 'Stats', path: '/stats/' },
       { title: 'Contact', path: '/contact/' },
     ],
   },
@@ -54,6 +56,14 @@ const groups: SitemapGroup[] = [
     label: 'Topics',
     path: '/topics/',
     items: topics.map((topic) => ({ title: topic.data.title, path: `/${topic.id}/` })),
+  },
+  {
+    label: 'Cuisines',
+    path: '/food/',
+    items: [...cuisinesWithPages(food).keys()].sort().map((cuisine) => ({
+      title: cuisineLabel(cuisine),
+      path: `/food/cuisine/${cuisineSlug(cuisine)}/`,
+    })),
   },
   {
     label: 'Food',

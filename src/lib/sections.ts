@@ -92,6 +92,13 @@ export const sections: Section[] = [
     icon: 'tags',
     description: 'Browse everything by topic.',
   },
+  {
+    label: 'Stats',
+    path: '/stats/',
+    group: 'site',
+    icon: 'chart',
+    description: 'How much of the city the site has covered so far.',
+  },
   ...(SUPABASE_ENABLED
     ? [
         {

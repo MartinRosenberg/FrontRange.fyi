@@ -12,6 +12,7 @@ import Rating from '../../components/Rating.astro'
 import SourceLink from '../../components/SourceLink.astro'
 import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../../lib/content'
 import { cuisineLabel } from '../../lib/cuisine'
+import IconDice from '../../assets/IconDice.astro'
 import { googleMapsHref } from '../../lib/maps'
 import { href } from '../../lib/url'
 import { resolveVerdict, verdictLabels, type Verdict } from '../../lib/verdict'
@@ -91,6 +92,15 @@ const description = [
     <article class="content-pane map-list grouped-list">
       <ListPaneHeader title="Food" count={count} live>
         <PaneSearch label="Search places" placeholder="search by name, cuisine..." />
+        <button
+          type="button"
+          class="btn btn-outline btn-muted-icon pane-surprise"
+          data-surprise
+          aria-label="Surprise me"
+          data-tooltip="Surprise me"
+          data-tooltip-align="end">
+          <IconDice />
+        </button>
       </ListPaneHeader>
       <ul class="list" data-grouped-rows>
         {
@@ -177,6 +187,16 @@ const description = [
 
 <script>
   import { initListGroups } from '../../scripts/list-groups'
+  import { initSurprise } from '../../scripts/surprise'
 
   initListGroups()
+  initSurprise()
 </script>
+
+<style>
+  .pane-surprise {
+    min-height: calc(1.4em + 2 * var(--spacing-xs) + 2px);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    line-height: 1.4;
+  }
+</style>

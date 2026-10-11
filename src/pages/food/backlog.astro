@@ -6,8 +6,8 @@ import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Heading from '../../components/Heading.astro'
 import Card from '../../components/Card.astro'
-import { optionalData } from '../../lib/optional-data'
 import { published } from '../../lib/content'
+import { optionalData } from '../../lib/optional-data'
 import { cuisineLabel } from '../../lib/cuisine'
 import { href } from '../../lib/url'
 
@@ -119,11 +119,7 @@ const description =
           <div class="card-cells card-cells--three">
             <div class="card-rows">
               {inMemoriam.map((item) => (
-                <Card
-                  title={item.name}
-                  meta={cardMeta(item)}
-                  description={item.note}
-                />
+                <Card title={item.name} meta={cardMeta(item)} description={item.note} />
               ))}
             </div>
           </div>

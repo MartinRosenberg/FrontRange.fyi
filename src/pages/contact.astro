@@ -1,11 +1,11 @@
 ---
 import PageMasthead from '../components/PageMasthead.astro'
+import FeedbackForm from '../components/FeedbackForm.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import {
   CITY,
   CONTACT_EMAIL,
   FEEDBACK_EMAIL,
-  FEEDBACK_ENDPOINT,
   INSTAGRAM_HANDLE,
   SITE_NAME,
 } from '../lib/site'
@@ -23,46 +23,9 @@ const description =
     </PageMasthead>
 
     <div class="reading-col">
-      {
-        FEEDBACK_ENDPOINT && (
-          <section aria-label="Contact form">
-            <form class="feedback-form form-stack" method="POST" action={FEEDBACK_ENDPOINT}>
-              <label class="field">
-                <span>Your note</span>
-                <textarea name="message" rows="6" required />
-              </label>
-
-              <label class="field">
-                <span>Name</span>
-                <input type="text" name="name" autocomplete="name" />
-              </label>
-
-              <label class="field">
-                <span>
-                  Email <span class="optional">(optional)</span>
-                </span>
-                <input type="email" name="email" autocomplete="email" />
-              </label>
-
-              <input type="hidden" name="_subject" value={`${SITE_NAME} feedback`} />
-
-              <p class="hp" aria-hidden="true">
-                <label>
-                  Leave this field empty
-                  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
-                </label>
-              </p>
-
-              <div class="form-actions">
-                <button type="submit" class="btn btn-dark btn-compact">
-                  Send
-                </button>
-                <span class="form-status" data-form-status role="status" aria-live="polite" />
-              </div>
-            </form>
-          </section>
-        )
-      }
+      <section aria-label="Contact form">
+        <FeedbackForm subject="feedback" />
+      </section>
       <div class="feedback-alt">
         <p>
           <strong>Email</strong>: <a href={`mailto:${FEEDBACK_EMAIL}`}>{CONTACT_EMAIL}</a
@@ -83,48 +46,7 @@ const description =
 </BaseLayout>
 
 <style>
-  .optional {
-    font-size: var(--font-size-xs);
-    color: var(--color-muted);
-    font-family: var(--font-serif);
-    text-transform: none;
-  }
-
-  input[name='email'],
-  input[name='name'] {
-    max-width: 22rem;
-  }
-
   .feedback-alt {
     margin-block-start: var(--spacing-lg);
   }
 </style>
-
-<script>
-  const form = document.querySelector<HTMLFormElement>('.feedback-form')
-  const status = form?.querySelector<HTMLElement>('[data-form-status]')
-
-  if (form && status) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault()
-      status.textContent = 'Sending...'
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' },
-        })
-
-        if (response.ok) {
-          form.reset()
-          status.textContent = 'Thanks!'
-        } else {
-          status.textContent = 'Something went wrong. Please try email below.'
-        }
-      } catch {
-        status.textContent = 'Something went wrong. Please try email below.'
-      }
-    })
-  }
-</script>

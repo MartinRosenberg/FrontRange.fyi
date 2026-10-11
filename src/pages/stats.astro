@@ -1,0 +1,328 @@
+---
+import { getCollection } from 'astro:content'
+import { CITY, SITE_NAME } from '../lib/site'
+import PageMasthead from '../components/PageMasthead.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Heading from '../components/Heading.astro'
+import { published, hasBody } from '../lib/content'
+import { isExplored } from '../lib/verdict'
+import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../lib/cuisine'
+import { NEIGHBORHOODS_ENABLED, neighborhoodRecords } from '../lib/neighborhood-data'
+import { neighborhoodShapes } from '../lib/neighborhoods'
+import { href } from '../lib/url'
+
+const allFood = published(await getCollection('food'))
+const written = allFood.filter((place) => hasBody(place))
+const tried = allFood.filter((place) => isExplored(place.data.status))
+const backlog = allFood.filter((place) => !isExplored(place.data.status))
+
+const neighborhoodsWritten = new Set(
+  published(await getCollection('neighborhoods'))
+    .filter((neighborhood) => hasBody(neighborhood))
+    .map((neighborhood) => neighborhood.id),
+)
+const neighborhoodsEaten = new Set(
+  tried.map((place) => place.data.neighborhood).filter((name): name is string => Boolean(name)),
+)
+const neighborhoodTotal = neighborhoodRecords.filter((record) => !record.ignored).length
+const nameBySlug = new Map(neighborhoodRecords.map((record) => [record.slug, record.name]))
+const { viewBox, shapes } = neighborhoodShapes()
+const shapeEntries = Object.entries(shapes).map(([slug, path]) => ({
+  slug,
+  path,
+  name: nameBySlug.get(slug) ?? slug,
+  written: neighborhoodsWritten.has(slug),
+  eaten: neighborhoodsEaten.has(nameBySlug.get(slug) ?? ''),
+}))
+
+const cuisinePages = cuisinesWithPages(allFood)
+const cuisineCounts = [...cuisinePages.entries()]
+  .map(([cuisine, places]) => ({
+    cuisine,
+    label: cuisineLabel(cuisine),
+    total: places.length,
+    tried: places.filter((place) => isExplored((place as (typeof allFood)[number]).data.status))
+      .length,
+  }))
+  .sort((left, right) => right.tried - left.tried || right.total - left.total)
+  .slice(0, 8)
+
+const description = `Some raw data about where I've been and what type of cuisine I'm drawn to.`
+---
+
+<BaseLayout crumb="Stats" title={`Stats - ${SITE_NAME}`} description={description}>
+  <article>
+    <PageMasthead title="Stats" wide>
+      <p slot="lede">{description}</p>
+    </PageMasthead>
+
+    <div class="stats-layout">
+      {
+        NEIGHBORHOODS_ENABLED && shapeEntries.length > 0 && (
+          <section class="stats-section stats-ground">
+            <Heading>Ground covered</Heading>
+            <ul class="stats-legend">
+              <li>
+                <span class="stats-swatch is-written" aria-hidden="true" />
+                Written up
+              </li>
+              <li>
+                <span class="stats-swatch is-eaten" aria-hidden="true" />
+                Eaten at
+              </li>
+            </ul>
+            <svg
+              class="stats-map"
+              viewBox={viewBox}
+              role="img"
+              aria-label="Map of neighborhoods covered">
+              <defs>
+                <pattern
+                  id="stats-hatch"
+                  width="10"
+                  height="10"
+                  patternUnits="userSpaceOnUse"
+                  patternTransform="rotate(45)">
+                  <rect width="4" height="10" fill="currentColor" />
+                </pattern>
+              </defs>
+              {shapeEntries.map((shape) => (
+                <path
+                  d={shape.path}
+                  class:list={[
+                    'stats-shape',
+                    { 'is-written': shape.written, 'is-eaten': shape.eaten && !shape.written },
+                  ]}>
+                  <title>{shape.name}</title>
+                </path>
+              ))}
+            </svg>
+          </section>
+        )
+      }
+
+      <div class="stats-main">
+        <section class="stats-section">
+          <Heading>The numbers</Heading>
+          <dl class="stats-grid">
+            <div class="stats-cell">
+              <dt class="eyebrow eyebrow--muted">Places tried</dt>
+              <dd class="stats-value">{tried.length}</dd>
+            </div>
+            <div class="stats-cell">
+              <dt class="eyebrow eyebrow--muted">Written up</dt>
+              <dd class="stats-value">{written.length}</dd>
+            </div>
+            <div class="stats-cell">
+              <dt class="eyebrow eyebrow--muted">On the backlog</dt>
+              <dd class="stats-value">
+                <a href={href('/food/backlog/')}>{backlog.length}</a>
+              </dd>
+            </div>
+            {
+              NEIGHBORHOODS_ENABLED && (
+                <div class="stats-cell">
+                  <dt class="eyebrow eyebrow--muted">Neighborhoods written</dt>
+                  <dd class="stats-value">
+                    {neighborhoodsWritten.size} <span class="count">of {neighborhoodTotal}</span>
+                  </dd>
+                </div>
+              )
+            }
+            <div class="stats-cell">
+              <dt class="eyebrow eyebrow--muted">Cuisines</dt>
+              <dd class="stats-value">{cuisinePages.size}</dd>
+            </div>
+          </dl>
+        </section>
+
+        {
+          cuisineCounts.length > 0 && (
+            <section class="stats-section">
+              <Heading>
+                Most-eaten cuisines
+                <span slot="aside" class="eyebrow eyebrow--muted">
+                  Tried of total
+                </span>
+              </Heading>
+              <ol class="divided-list stats-rows">
+                {cuisineCounts.map((row) => (
+                  <li class="stats-row">
+                    <a
+                      class="title-serif title-link"
+                      href={href(`/food/cuisine/${cuisineSlug(row.cuisine)}/`)}>
+                      {row.label}
+                    </a>
+                    <span
+                      class="stats-meter"
+                      style={`--fill: ${Math.round((row.tried / row.total) * 100)}%`}
+                      aria-hidden="true">
+                      <span class="stats-meter-fill" />
+                    </span>
+                    <span class="stats-ratio">
+                      <strong>{row.tried}</strong> <span class="count">of {row.total}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )
+        }
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .stats-layout {
+    display: grid;
+    gap: var(--spacing-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .stats-layout {
+      grid-template-columns: minmax(16rem, 1fr) minmax(0, 2.5fr);
+      column-gap: var(--spacing-xl);
+    }
+
+    .stats-ground {
+      align-self: stretch;
+      padding-inline-end: var(--spacing-xl);
+      border-inline-end: 1px solid var(--color-line);
+    }
+  }
+
+  .stats-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-md);
+    margin: 0 0 var(--spacing-md);
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-xs);
+    color: var(--color-muted);
+  }
+
+  .stats-legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: 0;
+  }
+
+  .stats-swatch {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--color-line-contrast);
+    background: var(--color-surface-2);
+  }
+
+  .stats-swatch.is-written {
+    background: var(--color-accent-blue);
+  }
+
+  .stats-swatch.is-eaten {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--color-accent-blue) 0 2px,
+      var(--color-surface-2) 2px 5px
+    );
+  }
+
+  .stats-main {
+    display: grid;
+    gap: var(--spacing-xl);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    margin: 0;
+    border-block-end: 1px solid var(--color-line);
+  }
+
+  .stats-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+  }
+
+  .stats-cell:first-child {
+    padding-inline-start: 0;
+  }
+
+  .stats-cell + .stats-cell {
+    border-inline-start: 1px solid var(--color-line);
+  }
+
+  .stats-value {
+    margin: 0;
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-xxxl);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-heading);
+  }
+
+  .stats-map {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: var(--color-accent-blue);
+  }
+
+  .stats-shape {
+    fill: var(--color-surface-2);
+    stroke: var(--color-line-contrast);
+    stroke-width: 2;
+  }
+
+  .stats-shape.is-written {
+    fill: var(--color-accent-blue);
+  }
+
+  .stats-shape.is-eaten {
+    fill: url(#stats-hatch);
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: minmax(7rem, 1fr) minmax(0, 2fr) auto;
+    align-items: center;
+    column-gap: var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+  }
+
+  .stats-meter {
+    display: block;
+    height: 10px;
+    background: var(--color-surface-2);
+  }
+
+  .stats-meter-fill {
+    display: block;
+    height: 100%;
+    width: var(--fill);
+    background: var(--color-accent-blue);
+  }
+
+  .stats-ratio {
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    text-align: end;
+  }
+
+  @media (max-width: 700px) {
+    .stats-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .stats-meter {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

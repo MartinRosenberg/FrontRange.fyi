@@ -1,22 +1,33 @@
 ---
-import { render } from 'astro:content'
+import { getCollection, render } from 'astro:content'
+import { published } from '../lib/content'
 import { getChangelog } from '../lib/changelog'
 import { formatDay, formatMonthShort } from '../lib/dates'
 import { href } from '../lib/url'
 import PanelHeading from './PanelHeading.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 
-const latestUpdates = await Promise.all(
-  (await getChangelog()).slice(0, 2).map(async (entry) => {
+const changes = await Promise.all(
+  (await getChangelog()).map(async (entry) => {
     const { Content } = await render(entry)
 
-    return { date: entry.data.date, Content }
+    return { kind: 'change' as const, date: entry.data.date, Content }
   }),
 )
+const notes = published(await getCollection('notes')).map((note) => ({
+  kind: 'note' as const,
+  date: note.data.created,
+  title: note.data.title,
+  description: note.data.description,
+  link: href(`/notes/${note.id}/`),
+}))
+const latestUpdates = [...changes, ...notes]
+  .sort((left, right) => right.date.valueOf() - left.date.valueOf())
+  .slice(0, 3)
 ---
 
 <section class="whats-new">
-  <PanelHeading title="What's New" />
+  <PanelHeading title="What's New" ruled={false} />
   {
     latestUpdates[0] && (
       <p class="dated-year eyebrow">{latestUpdates[0].date.getUTCFullYear()}</p>
@@ -24,14 +35,22 @@ const latestUpdates = await Promise.all(
   }
   <ul class="divided-list dated-rows recent-list">
     {
-      latestUpdates.map(({ date, Content }) => (
+      latestUpdates.map((update) => (
         <li>
-          <time class="date-stamp" datetime={date.toISOString()}>
-            <span class="eyebrow eyebrow--muted">{formatMonthShort(date)}</span>
-            <span class="date-stamp-day">{formatDay(date)}</span>
+          <time class="date-stamp" datetime={update.date.toISOString()}>
+            <span class="eyebrow eyebrow--muted">{formatMonthShort(update.date)}</span>
+            <span class="date-stamp-day">{formatDay(update.date)}</span>
           </time>
           <div class="changelog-body">
-            <Content />
+            {update.kind === 'change' ? (
+              <update.Content />
+            ) : (
+              <p>
+                <span class="eyebrow">Note</span>{' '}
+                <a href={update.link}>{update.title}</a>
+                {update.description && <> {update.description}</>}
+              </p>
+            )}
           </div>
         </li>
       ))
@@ -50,6 +69,6 @@ const latestUpdates = await Promise.all(
   }
 
   .recent-list :global(p) {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
   }
 </style>

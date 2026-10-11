@@ -3,19 +3,22 @@
     "name": "Soulard Mardi Gras",
     "neighborhood": "soulard",
     "when": "February",
-    "blurb": "One of the country's largest Mardi Gras celebrations, centered on the bars and streets of Soulard. The Grand Parade runs the Saturday before Fat Tuesday."
+    "blurb": "One of the country's largest Mardi Gras celebrations, centered on the bars and streets of Soulard. The Grand Parade runs the Saturday before Fat Tuesday.",
+    "url": "https://stlmardigras.org/"
   },
   {
     "name": "Dogtown St. Patrick's Day Parade",
     "neighborhood": "dogtown",
     "when": "March 17",
-    "blurb": "A neighborhood parade held the morning of St. Patrick's Day in historically Irish Dogtown, separate from the larger downtown parade earlier in the month."
+    "blurb": "A neighborhood parade held the morning of St. Patrick's Day in historically Irish Dogtown, separate from the larger downtown parade earlier in the month.",
+    "url": "https://www.stlhibernians.com/"
   },
   {
     "name": "PrideFest",
     "neighborhood": "downtown",
     "when": "Late June",
-    "blurb": "St. Louis's Pride festival and Grand Pride Parade, held downtown around Soldiers Memorial and City Hall."
+    "blurb": "St. Louis's Pride festival and Grand Pride Parade, held downtown around Soldiers Memorial and City Hall.",
+    "url": "https://www.pridestl.org/"
   },
   {
     "name": "Fair Saint Louis",
@@ -27,13 +30,15 @@
     "name": "Festival of Nations",
     "neighborhood": "tower-grove-park",
     "when": "Late August",
-    "blurb": "An international festival in Tower Grove Park with food, music, and dance from dozens of cultures across the St. Louis immigrant community."
+    "blurb": "An international festival in Tower Grove Park with food, music, and dance from dozens of cultures across the St. Louis immigrant community.",
+    "url": "http://festofnations.com/"
   },
   {
     "name": "Japanese Festival",
     "neighborhood": "missouri-botanical-garden",
     "when": "Labor Day weekend",
-    "blurb": "A long-running festival at the Missouri Botanical Garden, set around its Japanese garden, Seiwa-en, with taiko drumming, food, and tea ceremonies."
+    "blurb": "A long-running festival at the Missouri Botanical Garden, set around its Japanese garden, Seiwa-en, with taiko drumming, food, and tea ceremonies.",
+    "url": "https://www.missouribotanicalgarden.org/things-to-do/events/signature-events/japanese-festival"
   },
   {
     "name": "GroveFest",
@@ -46,5 +51,54 @@
     "neighborhood": "lindenwood-park",
     "when": "October (biennial)",
     "blurb": "A neighborhood festival held every other October in Lindenwood Park, with local vendors, food, and kids' craft booths."
+  },
+  {
+    "name": "St. Louis Greek Festival",
+    "neighborhood": null,
+    "when": "Memorial Day weekend",
+    "blurb": "Greek food, music, and dancing over Memorial Day weekend, held in Des Peres.",
+    "url": "https://www.stlgreekfest.com/"
+  },
+  {
+    "name": "Great Forest Park Balloon Race",
+    "neighborhood": "forest-park",
+    "when": "Mid September",
+    "blurb": "A Friday night balloon glow and Saturday balloon race in Forest Park.",
+    "url": "https://www.greatforestparkballoonrace.com/"
+  },
+  {
+    "name": "Saint Louis Art Fair",
+    "neighborhood": "clayton",
+    "when": "Mid September",
+    "blurb": "A weekend art fair on the streets of Clayton.",
+    "url": "https://www.saintlouisartfair.com/"
+  },
+  {
+    "name": "Shakespeare in the Park",
+    "neighborhood": "forest-park",
+    "when": "September",
+    "blurb": "Outdoor Shakespeare at Shakespeare Glen in Forest Park.",
+    "url": "https://www.stlshakes.org/"
+  },
+  {
+    "name": "Cherokee Street Jazz Crawl",
+    "neighborhood": null,
+    "when": "Early November",
+    "blurb": "Live jazz across venues up and down Cherokee Street.",
+    "url": "https://cherokeestreet.com/"
+  },
+  {
+    "name": "Thanks-For-Giving Parade",
+    "neighborhood": "downtown",
+    "when": "Saturday before Thanksgiving",
+    "blurb": "The downtown holiday parade, the Saturday before Thanksgiving.",
+    "url": "https://www.celebratesaintlouis.org/"
+  },
+  {
+    "name": "Garden Glow",
+    "neighborhood": "missouri-botanical-garden",
+    "when": "From late November",
+    "blurb": "Holiday lights across the Missouri Botanical Garden, running into early January.",
+    "url": "https://www.missouribotanicalgarden.org/things-to-do/events/signature-events/garden-glow"
   }
 ]
