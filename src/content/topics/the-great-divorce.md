@@ -6,6 +6,9 @@ category: History
 description: How one fateful decision has divided the St. Louis region for 150 years
 created: 2026-06-29
 updated: 2026-07-31
+photo: ../images/topics/great-divorce-map.png
+photoCaption: St. Louis City and St. Louis County
+photoInArticle: false
 ---
 
 Did you know St. Louis was almost the capital of the U.S.? At its peak, it was the [4th largest city in the country](https://en.wikipedia.org/wiki/List_of_most_populous_cities_in_the_United_States_by_decade#1870), booming in population and industry, and big enough that by 1904 it hosted the Olympics and the World's Fair in the same year.

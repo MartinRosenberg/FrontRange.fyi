@@ -3,7 +3,7 @@ title: Wright's Tavern
 created: 2026-10-09
 status: want-to-try
 description: Steakhouse from the Louie team
-cuisine: ['steakhouse']
+cuisine: ['american']
 neighborhood: Clayton
 address:
   - 7624 Wydown Blvd

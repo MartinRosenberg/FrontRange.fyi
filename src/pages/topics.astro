@@ -1,16 +1,53 @@
 ---
-import { CITY } from '../lib/site'
+import { BEST_PROMO_PHOTO_ID, BEST_PROMO_TEASER, CITY } from '../lib/site'
+import { groups, sections } from '../lib/sections'
 import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Card from '../components/Card.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 import { href } from '../lib/url'
-import { published, excerpt, sortTopics } from '../lib/content'
+import { published, excerpt, sortTopics, PINNED_TOPIC_ID } from '../lib/content'
 
 const TOPIC_EXCERPT_CHARS = 250
 
 const topics = sortTopics(published(await getCollection('topics')))
+const bestSection = sections.find((section) => section.path === '/best/')
+const bestPhotoPlace = published(await getCollection('food')).find(
+  (place) => place.id === BEST_PROMO_PHOTO_ID,
+)
+
+const topicCard = (topic: (typeof topics)[number]) => ({
+  href: href(`/${topic.id}/`),
+  title: topic.data.title,
+  meta: topic.data.category,
+  description: topic.data.description,
+  excerpt: excerpt(topic.body, TOPIC_EXCERPT_CHARS),
+  photo: topic.data.photo,
+  photoAlt: topic.data.photoCaption,
+  linkLabel: 'Continue reading',
+})
+const pinnedTopic = topics.find((topic) => topic.id === PINNED_TOPIC_ID)
+const otherTopics = topics.filter((topic) => topic.id !== PINNED_TOPIC_ID)
+
+const cards = [
+  ...(pinnedTopic ? [topicCard(pinnedTopic)] : []),
+  ...(bestSection
+    ? [
+        {
+          href: href(bestSection.path),
+          title: bestSection.label,
+          meta: groups.find((group) => group.id === bestSection.group)?.label,
+          description: bestSection.description,
+          excerpt: BEST_PROMO_TEASER,
+          photo: bestPhotoPlace?.data.photo,
+          photoAlt: bestPhotoPlace?.data.title,
+          linkLabel: 'View all',
+        },
+      ]
+    : []),
+  ...otherTopics.map(topicCard),
+]
 ---
 
 <BaseLayout
@@ -23,19 +60,19 @@ const topics = sortTopics(published(await getCollection('topics')))
     <div class="card-grid card-cells card-cells--three">
       <div class="card-rows">
         {
-          topics.map((topic) => (
+          cards.map((card) => (
             <Card
               class="card--xl"
               accentMeta
-              href={href(`/${topic.id}/`)}
-              title={topic.data.title}
-              meta={topic.data.category}
-              description={topic.data.description}
-              excerpt={excerpt(topic.body, TOPIC_EXCERPT_CHARS)}
-              photo={topic.data.photo}
-              photoAlt={topic.data.photoCaption}>
+              href={card.href}
+              title={card.title}
+              meta={card.meta}
+              description={card.description}
+              excerpt={card.excerpt}
+              photo={card.photo}
+              photoAlt={card.photoAlt}>
               <span class="continue-link">
-                Continue reading <IconArrowRight />
+                {card.linkLabel} <IconArrowRight />
               </span>
             </Card>
           ))

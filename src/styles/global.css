@@ -665,6 +665,10 @@ a:hover .continue-link {
   text-decoration-color: var(--color-accent-blue);
 }
 
+.card-body > .continue-link {
+  margin-block-start: var(--spacing-md);
+}
+
 .continue-link .icon {
   display: inline;
   width: 1em;

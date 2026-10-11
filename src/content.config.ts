@@ -74,6 +74,7 @@ const topics = defineCollection({
       ogImage: z.string().optional(),
       photo: image().optional(),
       photoCaption: z.string().optional(),
+      photoInArticle: z.boolean().default(true),
       updated: z.coerce.date(),
       created: z.coerce.date().optional(),
       display: z.enum(['article', 'list']).default('article'),

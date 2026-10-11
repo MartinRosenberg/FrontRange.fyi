@@ -5,6 +5,8 @@ category: Food
 description: An inventory of the specialty food of St. Louis, from gooey butter cake to gooey Provel cheese
 created: 2026-06-03
 updated: 2026-07-22
+photo: ../images/food/dalies/dalies2.jpg
+photoCaption: Dalie's Smokehouse
 ---
 
 Most cities are lucky to have one local food speciality they can lay claim to, but St. Louis has an abundance of them. I've been interested to discover the food items that either originated in St. Louis or can only be found here.
@@ -44,8 +46,6 @@ There's a popular cut of ribs called a "St. Louis cut", which is a spare rib wit
 It's not exactly a style of regional food, but it's worth mentioning.
 
 ### BBQ
-
-![Dalie's Smokehouse](../images/food/dalies/dalies2.jpg)
 
 BBQ in St. Louis is another contentious topic, with many arguing about what the style is and if it exists at all. Some say St. Louis-style is a mix between Kansas City BBQ and Memphis BBQ.
 

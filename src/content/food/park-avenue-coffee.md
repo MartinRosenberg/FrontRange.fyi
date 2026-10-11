@@ -2,7 +2,7 @@
 title: Park Avenue Coffee
 description: Local coffee roaster and gooey butter cake specialist
 created: 2026-07-05
-cuisine: ['coffee']
+cuisine: ['cafe']
 neighborhood: Lafayette Square
 rating: 9.5
 address:

@@ -132,6 +132,7 @@ const description = [
                 'data-sort-name': place.data.title.toLowerCase(),
                 'data-sort-verdict': `${rankLetter}|${place.data.title.toLowerCase()}`,
                 'data-google': googleMapsHref(place.data),
+                ...(place.data.url ? { 'data-website': place.data.url } : {}),
                 'data-photo': thumb?.src ?? '',
                 'data-tagline': place.data.description ?? '',
               }}>

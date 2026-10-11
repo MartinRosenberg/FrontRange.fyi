@@ -3,6 +3,7 @@ import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Card from '../components/Card.astro'
+import IconArrowRight from '../assets/IconArrowRight.astro'
 import ReaderFavorites from '../components/ReaderFavorites.astro'
 import { published, excerpt, META_DESCRIPTION_CHARS } from '../lib/content'
 import { href } from '../lib/url'
@@ -39,7 +40,10 @@ const descriptionSuffix = ', and more.'
 const fittingLabels: string[] = []
 for (const award of resolvedAwards) {
   const candidate = [...fittingLabels, award.label].join(', ')
-  if (descriptionLead.length + candidate.length + descriptionSuffix.length > META_DESCRIPTION_CHARS) {
+  if (
+    descriptionLead.length + candidate.length + descriptionSuffix.length >
+    META_DESCRIPTION_CHARS
+  ) {
     break
   }
   fittingLabels.push(award.label)
@@ -51,7 +55,7 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
   <article>
     <PageMasthead title={`The Best Food in ${CITY}`} wide>
       <p slot="lede">
-        My favorite restaurants{readersEnabled && ' and readers top-voted spots'}
+        {`My top restaurants${readersEnabled && " and community voted favorites"}`}
       </p>
     </PageMasthead>
 
@@ -70,8 +74,11 @@ const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionS
                   description={place.data.description}
                   excerpt={teaser}
                   photo={place.data.photo}
-                  photoSizes="(min-width: 1000px) 320px, 100vw"
-                />
+                  photoSizes="(min-width: 1000px) 320px, 100vw">
+                  <span class="continue-link">
+                    Continue reading <IconArrowRight />
+                  </span>
+                </Card>
               </section>
             ))
           }

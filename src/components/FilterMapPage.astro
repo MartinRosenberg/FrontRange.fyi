@@ -40,13 +40,7 @@ const {
 } = Astro.props
 ---
 
-<div class:list={[className, 'map-split']} data-filter-root data-map-split data-view="list">
-  <script is:inline>
-    {
-      const filterRoot = document.currentScript.parentElement
-      filterRoot.dataset.view = window.matchMedia('(max-width: 700px)').matches ? 'list' : 'map'
-    }
-  </script>
+<div class:list={[className, 'map-split']} data-filter-root data-map-split data-view="map">
   <header class="secondary-header">
     <div class="wrap">
       <FilterBar
@@ -68,7 +62,7 @@ const {
     <slot />
     <div class="map" data-map data-map-cluster={cluster ? '' : undefined} aria-label={mapLabel} />
     <button type="button" class="map-split-toggle btn-dark" data-map-split-toggle>
-      View map
+      View list
     </button>
     <p class="empty" data-filter-empty hidden>
       {emptyText}

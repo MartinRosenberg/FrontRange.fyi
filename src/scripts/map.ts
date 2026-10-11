@@ -115,7 +115,6 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
     activeItem = item
     item.classList.add('is-active')
     highlightMarker(item, true)
-    item.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   function deactivate(item: HTMLElement): void {
@@ -171,6 +170,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
       chips,
       addressLines: (item.dataset.address ?? '').split('\n').filter(Boolean),
       directionsHref: item.dataset.google ?? '',
+      websiteHref: item.dataset.website ?? '',
     })
 
     const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml)

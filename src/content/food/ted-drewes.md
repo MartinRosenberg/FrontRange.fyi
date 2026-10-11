@@ -3,7 +3,7 @@ title: Ted Drewes
 created: 2026-08-30
 status: tried
 description: Route 66 frozen custard stand
-cuisine: ['frozen custard']
+cuisine: ['dessert']
 neighborhood: St. Louis Hills
 address:
   - 6726 Chippewa St

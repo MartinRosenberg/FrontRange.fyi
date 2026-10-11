@@ -73,7 +73,7 @@ const schema = articleSchema(
     <Comments slot="comments" kind="topic" slug={entry.id} title={data.title} />
     <div class:list={['article-col', 'reading-col', { 'compact-article': data.display === 'list' }]}>
       {
-        data.photo && (
+        data.photo && data.photoInArticle && (
           <figure class="figure full">
             <Image
               src={data.photo}

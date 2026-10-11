@@ -2,8 +2,6 @@ import { initFilter } from './filter'
 import { initMap } from './map'
 import type { MapApi } from './map'
 
-const DESKTOP_QUERY = '(min-width: 701px)'
-
 export function initFilterableMapPage(rootSelector = '[data-filter-root]'): void {
   const root = document.querySelector<HTMLElement>(rootSelector)
 
@@ -48,17 +46,9 @@ export function initFilterableMapPage(rootSelector = '[data-filter-root]'): void
     }
   }
 
-  const desktop = window.matchMedia(DESKTOP_QUERY)
-
-  setView(desktop.matches ? 'map' : 'list')
+  setView('map')
 
   floatingToggle?.addEventListener('click', () => {
     setView(root.dataset.view === 'map' ? 'list' : 'map')
-  })
-
-  desktop.addEventListener('change', (event) => {
-    if (event.matches && root.dataset.view !== 'map') {
-      setView('map')
-    }
   })
 }

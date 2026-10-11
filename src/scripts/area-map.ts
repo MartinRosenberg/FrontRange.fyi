@@ -169,7 +169,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     selectedSlug = slug
     setSlugState(slug, { selected: true })
     rowFor(slug)?.classList.add('is-active')
-    rowFor(slug)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   function deactivate(slug: string): void {

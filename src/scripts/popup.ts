@@ -18,6 +18,7 @@ export interface PopupConfig {
   chips?: PopupChip[]
   addressLines?: string[]
   directionsHref?: string
+  websiteHref?: string
   tagline?: string
   excerpt?: string
 }
@@ -33,6 +34,8 @@ function chipHtml(chip: PopupChip): string {
 }
 
 const DIRECTIONS_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" class="icon" aria-hidden="true"><path d="M21 11V3h-8v2h4v2h-2v2h-2v2h-2v2H9v2h2v-2h2v-2h2V9h2V7h2v4h2zM11 5H3v16h16v-8h-2v6H5V7h6V5z" fill="currentColor"/></svg>`
+
+const EXTERNAL_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="icon" aria-hidden="true"><path d="M11 5H5v2h6V5ZM5 7H3v12h2V7Zm12 12H5v2h12v-2Zm2-6h-2v6h2v-6Zm-8 0H9v2h2v-2Zm2-2h-2v2h2v-2Zm2-2h-2v2h2V9Zm2-2h-2v2h2V7Zm2-2h-2v2h2V5Zm2-2h-2v8h2V3Z"/><path d="M21 3h-8v2h8V3Z"/></svg>`
 
 function fleurGlyph(className: string): string {
   return `<svg class="${className}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 192" fill="currentColor" aria-hidden="true"><use href="#fleur-glyph"/></svg>`
@@ -52,6 +55,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     chips = [],
     addressLines = [],
     directionsHref = '',
+    websiteHref = '',
     tagline = '',
     excerpt = '',
   } = config
@@ -93,7 +97,11 @@ export function buildPopupHtml(config: PopupConfig): string {
 
   const excerptHtml = excerpt ? `<p class="popup-excerpt excerpt">${escapeHtml(excerpt)}</p>` : ''
 
-  const moreHtml = link ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>` : ''
+  const moreHtml = link
+    ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>`
+    : websiteHref
+      ? `<a class="btn btn-dark" href="${escapeHtml(websiteHref)}" target="_blank" rel="noopener">Website${EXTERNAL_ICON}</a>`
+      : ''
 
   const directionsHtml = directionsHref
     ? `<a class="btn btn-outline" href="${directionsHref}" target="_blank" rel="noopener">Directions${DIRECTIONS_ICON}</a>`

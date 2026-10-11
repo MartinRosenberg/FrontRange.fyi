@@ -3,7 +3,7 @@ title: Sasha's
 created: 2026-07-16
 status: want-to-try
 description: Wine bar and small plates
-cuisine: ['wine']
+cuisine: ['bar']
 neighborhood: Clayton
 address:
   - 706 De Mun Ave

@@ -3,7 +3,7 @@ title: Sugarwitch
 created: 2026-10-09
 status: want-to-try
 description: Ice cream sandwiches in the old Carondelet Bakery
-cuisine: ['ice cream']
+cuisine: ['dessert']
 neighborhood: Patch
 address:
   - 7726 Virginia Ave
