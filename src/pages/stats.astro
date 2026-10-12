@@ -47,17 +47,6 @@ const cuisineCounts = [...cuisinePages.entries()]
   .sort((left, right) => right.tried - left.tried || right.total - left.total)
   .slice(0, 10)
 
-const backlogByCuisine = [...cuisinePages.entries()]
-  .map(([cuisine, places]) => ({
-    cuisine,
-    label: cuisineLabel(cuisine),
-    total: places.length,
-    toGo: places.filter((place) => !isExplored((place as (typeof allFood)[number]).data.status)).length,
-  }))
-  .filter((row) => row.toGo > 0)
-  .sort((left, right) => right.toGo - left.toGo || right.total - left.total)
-  .slice(0, 8)
-
 const description = `Raw data about St. Louing`
 ---
 
@@ -178,37 +167,6 @@ const description = `Raw data about St. Louing`
           </section>
         )
       }
-
-      {
-        backlogByCuisine.length > 0 && (
-          <section class="stats-section stats-backlog">
-            <Heading>
-              Backlog by cuisine
-              <span slot="aside" class="eyebrow eyebrow--muted">Still to try</span>
-            </Heading>
-            <ol class="divided-list stats-rows">
-              {backlogByCuisine.map((row) => (
-                <li class="stats-row">
-                  <a
-                    class="title-serif title-link"
-                    href={href(`/food/cuisine/${cuisineSlug(row.cuisine)}/`)}>
-                    {row.label}
-                  </a>
-                  <span
-                    class="stats-meter"
-                    style={`--fill: ${Math.round((row.toGo / row.total) * 100)}%`}
-                    aria-hidden="true">
-                    <span class="stats-meter-fill" />
-                  </span>
-                  <span class="stats-ratio">
-                    <strong>{row.toGo}</strong> <span class="count">of {row.total}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </section>
-        )
-      }
     </div>
   </article>
 </BaseLayout>
@@ -222,10 +180,10 @@ const description = `Raw data about St. Louing`
 
   @media (min-width: 900px) {
     .stats-layout {
-      grid-template-columns: minmax(16rem, 1fr) minmax(0, 1.25fr) minmax(0, 1.25fr);
+      grid-template-columns: minmax(16rem, 1fr) minmax(0, 2.5fr);
       grid-template-areas:
-        'ground numbers numbers'
-        'ground cuisines backlog';
+        'ground numbers'
+        'ground cuisines';
       column-gap: var(--spacing-xl);
       align-items: start;
     }
@@ -245,9 +203,6 @@ const description = `Raw data about St. Louing`
       grid-area: cuisines;
     }
 
-    .stats-backlog {
-      grid-area: backlog;
-    }
   }
 
   .stats-legend {

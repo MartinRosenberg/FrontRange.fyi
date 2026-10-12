@@ -12,7 +12,6 @@ interface Props {
   tags?: string[]
   backlinks?: Backlink[]
   permalink?: string
-  share?: boolean
   eyebrow?: string
 }
 
@@ -21,7 +20,6 @@ const {
   tags = [],
   backlinks = [],
   permalink,
-  share = true,
   eyebrow,
 } = Astro.props
 const isArticle = Boolean(permalink)
@@ -34,9 +32,18 @@ const hasComments = SUPABASE_ENABLED && Astro.slots.has('comments')
       title={title}
       eyebrow={eyebrow}
       actions
-      headingClass={isArticle ? 'p-name' : undefined}
+      headingClass={isArticle ? 'p-name title-page--article' : 'title-page--article'}
       commentsAnchor={hasComments}>
       <slot name="lede" slot="lede" />
+      {
+        Astro.slots.has('footer-meta') && (
+          <Byline author slot="byline">
+            <Fragment slot="footer-meta">
+              <slot name="footer-meta" />
+            </Fragment>
+          </Byline>
+        )
+      }
     </PageMasthead>
 
     {
@@ -68,16 +75,6 @@ const hasComments = SUPABASE_ENABLED && Astro.slots.has('comments')
   <div class:list={['body', { 'e-content': isArticle }]}>
     <slot />
   </div>
-
-  {
-    share && Astro.slots.has('footer-meta') && (
-      <Byline>
-        <Fragment slot="footer-meta">
-          <slot name="footer-meta" />
-        </Fragment>
-      </Byline>
-    )
-  }
 
   {
     hasComments && (

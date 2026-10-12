@@ -34,14 +34,21 @@ async function share(button: HTMLButtonElement): Promise<void> {
 function flashCopied(button: HTMLButtonElement): void {
   const label = button.querySelector<HTMLElement>('.share-label')
   const original = label?.textContent ?? ''
+  const originalTooltip = button.dataset.tooltip
   button.classList.add('is-copied')
   if (label) {
     label.textContent = 'Copied'
+  }
+  if (originalTooltip) {
+    button.dataset.tooltip = 'Copied'
   }
   window.setTimeout(() => {
     button.classList.remove('is-copied')
     if (label) {
       label.textContent = original
+    }
+    if (originalTooltip) {
+      button.dataset.tooltip = originalTooltip
     }
   }, COPIED_MS)
 }

@@ -3,7 +3,7 @@ import ShareButton from './ShareButton.astro'
 import { NEWSLETTER_URL, SOCIALS } from '../lib/site'
 import IconInstagram from '../assets/IconInstagram.astro'
 import IconMail from '../assets/IconMail.astro'
-import IconMessageCircleHeart from '../assets/IconMessageCircleHeart.astro'
+import IconMessageCircle from '../assets/IconMessageCircle.astro'
 
 interface Props {
   title: string
@@ -15,53 +15,82 @@ const instagram = SOCIALS.find((social) => social.label === 'Instagram')
 ---
 
 <div class="action-bar">
-  <ShareButton
-    title={title}
-    label="Share"
-    variant="quiet"
-    class="btn-quiet--plain btn-muted-icon"
-  />
-  {
-    instagram && (
-      <a
-        class="btn btn-quiet btn-quiet--plain btn-muted-icon"
-        href={instagram.url}
-        target="_blank"
-        rel="noopener">
-        <IconInstagram /> Follow
-      </a>
-    )
-  }
-  {
-    NEWSLETTER_URL && (
-      <a
-        class="btn btn-quiet btn-quiet--plain btn-muted-icon"
-        href={`${NEWSLETTER_URL}/subscribe`}
-        target="_blank"
-        rel="noopener">
-        <IconMail /> Newsletter
-      </a>
-    )
-  }
-  {
-    commentsAnchor && (
-      <a
-        class="btn btn-quiet btn-quiet--plain btn-muted-icon"
-        href="#comments"
-        data-comments-link
-        hidden>
-        <IconMessageCircleHeart /> <span data-comments-link-label>Comments</span>
-      </a>
-    )
-  }
+  <div class="action-bar-group">
+    {
+      commentsAnchor && (
+        <a
+          class="btn btn-quiet btn-quiet--plain btn-muted-icon"
+          href="#comments"
+          data-comments-link
+          hidden>
+          <IconMessageCircle />
+          <span data-comments-link-label>Comments</span>
+        </a>
+      )
+    }
+    <ShareButton title={title} variant="quiet" class="btn-quiet--plain btn-muted-icon" />
+  </div>
+  <div class="action-bar-group">
+    {
+      instagram && (
+        <a
+          class="btn btn-quiet btn-quiet--plain btn-muted-icon"
+          href={instagram.url}
+          target="_blank"
+          rel="noopener"
+          aria-label="Follow on Instagram"
+          data-tooltip="Follow on Instagram"
+          data-tooltip-align="end">
+          <IconInstagram />
+        </a>
+      )
+    }
+    {
+      NEWSLETTER_URL && (
+        <a
+          class="btn btn-quiet btn-quiet--plain btn-muted-icon"
+          href={`${NEWSLETTER_URL}/subscribe`}
+          target="_blank"
+          rel="noopener"
+          aria-label="Newsletter"
+          data-tooltip="Newsletter"
+          data-tooltip-align="end">
+          <IconMail />
+        </a>
+      )
+    }
+  </div>
 </div>
 
 <style>
   .action-bar {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm) var(--spacing-lg);
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
     padding-block: var(--spacing-sm);
     border-block: 1px solid var(--color-line);
+  }
+
+  .action-bar-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  .action-bar-group:first-child {
+    margin-inline-start: calc(-1 * var(--spacing-sm));
+  }
+
+  .action-bar-group:last-child {
+    gap: var(--spacing-xs);
+    margin-inline-end: calc(-1 * var(--spacing-sm));
+  }
+
+  .action-bar :global(.btn-muted-icon .icon) {
+    width: 20px;
+    height: 20px;
+    color: inherit;
   }
 </style>

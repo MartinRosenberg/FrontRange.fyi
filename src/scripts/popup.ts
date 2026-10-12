@@ -33,9 +33,9 @@ function chipHtml(chip: PopupChip): string {
   return `<span class="eyebrow eyebrow--muted">${inner}</span>`
 }
 
-const DIRECTIONS_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" class="icon" aria-hidden="true"><path d="M21 11V3h-8v2h4v2h-2v2h-2v2h-2v2H9v2h2v-2h2v-2h2V9h2V7h2v4h2zM11 5H3v16h16v-8h-2v6H5V7h6V5z" fill="currentColor"/></svg>`
+const DIRECTIONS_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M17 7l-10 10" /><path d="M8 7l9 0l0 9" /></svg>`
 
-const EXTERNAL_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" class="icon" aria-hidden="true"><path d="M11 5H5v2h6V5ZM5 7H3v12h2V7Zm12 12H5v2h12v-2Zm2-6h-2v6h2v-6Zm-8 0H9v2h2v-2Zm2-2h-2v2h2v-2Zm2-2h-2v2h2V9Zm2-2h-2v2h2V7Zm2-2h-2v2h2V5Zm2-2h-2v8h2V3Z"/><path d="M21 3h-8v2h8V3Z"/></svg>`
+const EXTERNAL_ICON = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true"><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg>`
 
 function fleurGlyph(className: string): string {
   return `<svg class="${className}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 192" fill="currentColor" aria-hidden="true"><use href="#fleur-glyph"/></svg>`

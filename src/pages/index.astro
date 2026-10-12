@@ -187,7 +187,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
       </p>
       <span class="p-name" hidden>{SITE_NAME}</span>
       <a class="u-url" href={href('/')} hidden>{SITE_DOMAIN}</a>
-      <img class="u-photo" src={href('/og.png')} alt="" hidden />
+      <img class="u-photo" src={href('/avatar.svg')} alt="" hidden />
     </header>
 
     <div class="front-center">
@@ -391,6 +391,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
 
   .ad-box {
     border: 5px double var(--color-line-contrast);
+    border-radius: var(--radius);
     padding: var(--spacing-md);
   }
 
@@ -422,6 +423,8 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
 
   .rail-articles :global(.card-description) {
     font-style: normal;
+    font-size: var(--font-size-md);
+    line-height: 1.55;
   }
 
   .front-index-list a {
@@ -600,8 +603,9 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
       grid-template-areas:
         'lead'
         'whatsnew'
-        'promos'
         'intro'
+        'ads'
+        'promos'
         'index'
         'explore'
         'food';
@@ -630,7 +634,27 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     }
 
     .front-whatsnew {
+      display: contents;
+    }
+
+    .front-whatsnew :global(.whats-new) {
       grid-area: whatsnew;
+      position: relative;
+      padding-block-end: var(--spacing-lg);
+      border-block-end: 4px solid var(--color-line-contrast);
+    }
+
+    .front-whatsnew :global(.whats-new)::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      inset-block-end: 3px;
+      height: 1px;
+      background: var(--color-line-contrast);
+    }
+
+    .ad-box {
+      grid-area: ads;
     }
 
     .lead-teaser {

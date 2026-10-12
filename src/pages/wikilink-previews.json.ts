@@ -64,6 +64,7 @@ export const GET: APIRoute = async () => {
       excerpt: excerpt(topic.body, PREVIEW_EXCERPT_CHARS),
       tags: presentTags(topic.data?.tags),
       description: topic.data?.description,
+      photo: await cardPhoto(topic.data?.photo),
     }
   }
   add(await getCollection('notes'))

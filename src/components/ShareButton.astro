@@ -8,9 +8,19 @@ interface Props {
   class?: string
   variant?: 'outline' | 'quiet' | 'dark'
   compact?: boolean
+  iconOnly?: boolean
+  [key: string]: unknown
 }
 
-const { title, label = 'Share', class: className, variant = 'outline', compact = false } = Astro.props
+const {
+  title,
+  label = 'Share',
+  class: className,
+  variant = 'outline',
+  compact = false,
+  iconOnly = false,
+  ...rest
+} = Astro.props
 ---
 
 <Button
@@ -19,7 +29,8 @@ const { title, label = 'Share', class: className, variant = 'outline', compact =
   compact={compact}
   data-share
   data-share-title={title}
-  aria-label="Share this page">
+  aria-label="Share this page"
+  {...rest}>
   <IconShare />
-  <span class="share-label">{label}</span>
+  {!iconOnly && <span class="share-label">{label}</span>}
 </Button>

@@ -1,14 +1,44 @@
 ---
 import FleurGlyph from '../assets/FleurGlyph.astro'
+import { SITE_NAME, SOCIALS } from '../lib/site'
+import { href } from '../lib/url'
+
+interface Props {
+  author?: boolean
+}
+
+const { author = false } = Astro.props
+const instagram = SOCIALS.find((social) => social.label === 'Instagram')
 ---
 
 {
   Astro.slots.has('footer-meta') && (
-    <p class="entry-byline description">
-      <span class="entry-byline-fleur">
-        <FleurGlyph />
-      </span>
+    <p class:list={['entry-byline', 'description', { 'entry-byline--author': author }]}>
+      {author ? (
+        instagram ? (
+          <a
+            class="entry-byline-avatar"
+            href={instagram.url}
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow on Instagram">
+            <img class="avatar" src={href('/avatar.svg')} alt="" width="28" height="28" />
+          </a>
+        ) : (
+          <img class="avatar entry-byline-avatar" src={href('/avatar.svg')} alt="" width="28" height="28" />
+        )
+      ) : (
+        <span class="entry-byline-fleur">
+          <FleurGlyph />
+        </span>
+      )}
       <span>
+        {author && (
+          <>
+            by <span class="entry-byline-author">{SITE_NAME}</span>
+            <span class="eyebrow-divider" aria-hidden="true" />
+          </>
+        )}
         <slot name="footer-meta" />
       </span>
     </p>
@@ -24,13 +54,52 @@ import FleurGlyph from '../assets/FleurGlyph.astro'
     color: var(--color-muted-2);
   }
 
+  .entry-byline.entry-byline--author {
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: var(--spacing-md) 0 0;
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-sm);
+    font-style: normal;
+  }
+
+  .entry-byline-fleur,
+  .entry-byline-avatar {
+    align-self: center;
+  }
+
   .entry-byline-fleur {
     display: inline-flex;
-    align-self: center;
   }
 
   .entry-byline-fleur :global(svg) {
     width: 0.9rem;
     height: 0.9rem;
+  }
+
+  .entry-byline-avatar {
+    --avatar-size: 1.75rem;
+    display: block;
+    flex-shrink: 0;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    line-height: 0;
+  }
+
+  .entry-byline.entry-byline--author > span:last-child {
+    min-width: 0;
+  }
+
+  .entry-byline-author {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+
+  .entry-byline .eyebrow-divider {
+    margin-inline: var(--spacing-sm);
+    vertical-align: middle;
   }
 </style>

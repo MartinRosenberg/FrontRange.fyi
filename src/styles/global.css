@@ -71,7 +71,7 @@
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
   --spacing-xxl: 2.5rem;
-  --radius: 0;
+  --radius: 6px;
   --radius-input: 6px;
   --radius-rounded: 20px;
 
@@ -506,6 +506,7 @@ tbody tr:last-child td {
 .corridor-map {
   height: var(--inline-map-height);
   border: 1px solid var(--color-line-contrast);
+  border-radius: var(--radius);
   background: var(--color-surface-2);
 }
 
@@ -719,7 +720,6 @@ a.more {
 .figure img,
 .photo-frame {
   border: 1px solid var(--color-line);
-  border-radius: var(--radius);
 }
 
 .wikilink-card .card-meta {
@@ -1034,6 +1034,7 @@ body:has(.map-split) main > .wrap,
     transform: translateX(-50%);
     z-index: 1100;
     padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-pill);
     border: 1px solid var(--color-text-heading);
     font-family: var(--font-sans-serif);
     font-size: var(--font-size-sm);
@@ -1423,6 +1424,7 @@ body:has(.map-split) main > .wrap,
   top: var(--pane-header-height);
   z-index: 2;
   background: var(--color-surface-2);
+  font-weight: 700;
 }
 
 [data-filter-root]:has([data-filter-search]:not(:placeholder-shown)) .section-head {
@@ -1583,12 +1585,25 @@ body:has([data-filter-root]) .masthead-nav {
 }
 
 .maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button {
-  background-color: white !important;
+  background-color: var(--color-background) !important;
 }
 
 .maplibregl-ctrl-attrib {
   background-color: var(--color-background) !important;
   color: var(--color-muted) !important;
+  border-radius: var(--radius-pill) !important;
+  padding: 2px var(--spacing-sm) !important;
+  font-family: var(--font-sans-serif);
+  font-size: var(--font-size-xxs);
+  white-space: nowrap;
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  min-height: 24px;
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact:not(.maplibregl-compact-show) {
+  padding: 0 !important;
 }
 
 .maplibregl-ctrl-attrib a {
@@ -1943,6 +1958,11 @@ body:has([data-filter-root]) .masthead-nav {
   color: inherit;
 }
 
+.btn-quiet.btn-quiet--plain {
+  height: auto;
+  padding: var(--spacing-xs) var(--spacing-sm);
+}
+
 .btn-quiet.btn-quiet--plain:hover {
   color: var(--color-accent-blue);
   text-decoration: none;
@@ -1958,7 +1978,7 @@ body:has([data-filter-root]) .masthead-nav {
 }
 
 .btn-large {
-  padding: var(--spacing-shmedium) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
   font-size: var(--font-size-sm);
 }
 
@@ -2265,7 +2285,7 @@ a.card:hover::before {
 }
 
 .card--lg .card-media {
-  margin-block-end: var(--spacing-xs);
+  margin-block-end: var(--spacing-sm);
 }
 
 .card--lg .card-excerpt {
@@ -2311,7 +2331,7 @@ a.card:hover::before {
 }
 
 .detail-pane-title {
-  margin: 0 0 var(--spacing-sm);
+  margin: 0;
 }
 
 .detail-pane-tagline {
@@ -2434,6 +2454,11 @@ a.card:hover::before {
   color: var(--color-text-heading);
 }
 
+.title-page--article {
+  font-size: clamp(1.75rem, 1.25rem + 1.75vw, 3rem);
+  letter-spacing: -0.02em;
+}
+
 .title-caps {
   font-family: var(--font-sans-serif);
   font-size: var(--font-size-xl);
@@ -2547,14 +2572,14 @@ button.title-link:hover {
     inset-block-start: calc(100% + var(--spacing-xs));
     inset-inline-start: 50%;
     translate: -50% 0;
-    padding: var(--spacing-xs) var(--spacing-sm);
+    padding: calc(var(--spacing-xs) * 1.5) var(--spacing-shmedium);
     border-radius: var(--radius-input);
     background: var(--color-text-heading);
     color: var(--color-background);
     font-family: var(--font-sans-serif);
     font-size: var(--font-size-xxs);
     font-weight: 500;
-    letter-spacing: var(--letter-spacing);
+    letter-spacing: 0;
     line-height: 1.2;
     white-space: nowrap;
     display: none;
@@ -2595,7 +2620,6 @@ button.title-link:hover {
   height: auto;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: var(--radius);
 }
 
 .feature-box-body {
@@ -2615,6 +2639,14 @@ button.title-link:hover {
   .feature-box {
     grid-template-columns: 1fr;
   }
+}
+
+.avatar {
+  display: block;
+  width: var(--avatar-size, 2rem);
+  height: var(--avatar-size, 2rem);
+  flex-shrink: 0;
+  border-radius: 50%;
 }
 
 .panel-footer {
@@ -2707,6 +2739,7 @@ button.title-link:hover {
 
 .panel {
   border: 2px solid var(--color-line-contrast);
+  border-radius: var(--radius);
   background: var(--color-panel);
   padding: var(--spacing-md);
 }
