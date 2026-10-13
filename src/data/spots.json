@@ -142,7 +142,7 @@
     "neighborhoods": ["chesterfield"],
     "description": "An entertainment district with The Factory music venue, Topgolf, restaurants, and breweries.",
     "address": "17057 N Outer 40 Rd",
-    "coords": [-90.6195, 38.6632]
+    "coords": [-90.594, 38.6716]
   },
   {
     "name": "Chesterfield Valley Outlets",
@@ -377,7 +377,7 @@
     "neighborhoods": ["lafayette-square"],
     "description": "St. Louis's first private street, a gated enclave of Victorian homes.",
     "address": "Benton Pl & Park Ave",
-    "coords": [-90.213, 38.6132]
+    "coords": [-90.21523, 38.61856]
   },
   {
     "name": "Lindenwood Park",
@@ -685,8 +685,8 @@
     "category": "landmark",
     "neighborhoods": ["the-grove"],
     "description": "The neighborhood's landmark neon entry sign arching over Manchester Avenue.",
-    "address": "Manchester Ave & Vandeventer Ave",
-    "coords": [-90.2432, 38.6273]
+    "address": "Manchester Ave east arch",
+    "coords": [-90.24989, 38.62794]
   },
   {
     "name": "St. Ambrose Catholic Church",

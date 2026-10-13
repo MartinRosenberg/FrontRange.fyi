@@ -2415,6 +2415,7 @@ body:has([data-filter-root]) .masthead-nav {
   border: 1px dashed var(--color-line);
   border-radius: var(--radius-rounded);
   color: var(--color-muted);
+  margin-block-end: var(--spacing-lg);
 }
 
 .not-explored p {
