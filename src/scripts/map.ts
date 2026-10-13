@@ -172,6 +172,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
       addressLines: (item.dataset.address ?? '').split('\n').filter(Boolean),
       directionsHref: item.dataset.google ?? '',
       websiteHref: item.dataset.website ?? '',
+      category: 'food',
     })
 
     const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml).setLngLat(lngLat)

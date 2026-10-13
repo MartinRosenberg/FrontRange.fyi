@@ -45,7 +45,7 @@
       "from": "Jefferson",
       "to": "Nebraska",
       "anchor": "cherokee-street",
-      "neighborhoods": ["gravois-park", "benton-park-west"],
+      "neighborhoods": ["dutchtown", "benton-park-west"],
       "website": "https://cherokeestreet.com/",
       "line": [
         [-90.225467, 38.59328],
@@ -69,7 +69,7 @@
       "from": "Lemp",
       "to": "Jefferson",
       "anchor": "cherokee-street",
-      "neighborhoods": ["benton-park", "marine-villa"],
+      "neighborhoods": ["benton-park", "dutchtown"],
       "line": [
         [-90.218662, 38.592421],
         [-90.219232, 38.592493],
@@ -423,7 +423,7 @@
       "from": "Blow",
       "to": "Steins",
       "anchor": "carondelet",
-      "neighborhoods": ["carondelet", "patch"],
+      "neighborhoods": ["carondelet"],
       "line": [
         [-90.253836, 38.551051],
         [-90.254258, 38.550678],

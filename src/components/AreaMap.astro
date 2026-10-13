@@ -1,6 +1,9 @@
 ---
 import { CITY } from '../lib/site'
 import MapLegend from './MapLegend.astro'
+import BadgeIcons from './BadgeIcons.astro'
+import SuggestSpot from './SuggestSpot.astro'
+import IconMenu from '../assets/IconMenu.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -20,9 +23,17 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   aria-label={`Map of ${CITY} neighborhoods — click a neighborhood to jump to it`}>
   <MapLegend categories={legendCategories} off={['food']} />
 </div>
+<div class="map-actions">
+  <button type="button" class="map-split-toggle" data-map-split-toggle>
+    <span class="map-split-toggle-icon" aria-hidden="true">
+      <IconMenu />
+    </span>
+    <span data-map-split-label>View map</span>
+  </button>
+  <SuggestSpot />
+</div>
+<BadgeIcons />
 <script is:inline type="application/json" data-area-map-spots set:html={JSON.stringify(spots)} />
-
-<button type="button" class="map-split-toggle btn-dark" data-map-split-toggle>View map</button>
 
 <script>
   import { initAreaMap } from '../scripts/area-map'
@@ -30,11 +41,12 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
 
   const split = document.querySelector('[data-map-split]')
   const toggle = document.querySelector('[data-map-split-toggle]')
+  const toggleLabel = toggle?.querySelector('[data-map-split-label]')
 
   function updateToggleLabel(): void {
     const showingMap = split?.getAttribute('data-view') === 'map'
-    if (toggle) {
-      toggle.textContent = showingMap ? 'View list' : 'View map'
+    if (toggleLabel) {
+      toggleLabel.textContent = showingMap ? 'View list' : 'View map'
     }
   }
 

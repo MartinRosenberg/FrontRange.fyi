@@ -26,7 +26,7 @@ const corridors = [
     to: { label: 'Nebraska', names: ['Nebraska Avenue'] },
     center: [38.594, -90.229],
     anchor: 'cherokee-street',
-    neighborhoods: ['gravois-park', 'benton-park-west'],
+    neighborhoods: ['dutchtown', 'benton-park-west'],
     website: 'https://cherokeestreet.com/',
   },
   {
@@ -39,7 +39,7 @@ const corridors = [
     to: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
     center: [38.594, -90.221],
     anchor: 'cherokee-street',
-    neighborhoods: ['benton-park', 'marine-villa'],
+    neighborhoods: ['benton-park', 'dutchtown'],
   },
   {
     id: 'euclid',
@@ -161,7 +161,7 @@ const corridors = [
     to: { label: 'Steins', names: ['West Steins Street', 'East Steins Street', 'Steins Street'] },
     center: [38.55, -90.247],
     anchor: 'carondelet',
-    neighborhoods: ['carondelet', 'patch'],
+    neighborhoods: ['carondelet'],
   },
   {
     id: 'south-town',

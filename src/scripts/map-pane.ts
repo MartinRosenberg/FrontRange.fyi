@@ -177,6 +177,7 @@ export function spotPopupHtml(spot: MapSpot): string {
     directionsHref: spot.directionsHref,
     websiteHref: spot.websiteHref,
     photo: spot.photo ?? '',
+    category: spot.category,
   })
 }
 

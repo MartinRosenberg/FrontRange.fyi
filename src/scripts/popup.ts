@@ -21,6 +21,21 @@ export interface PopupConfig {
   websiteHref?: string
   tagline?: string
   excerpt?: string
+  category?: string
+}
+
+export function badgeIconNode(category: string): Node | undefined {
+  const template = document.querySelector<HTMLTemplateElement>('template[data-badge-icons]')
+  const icon = template?.content.querySelector(`[data-category="${category}"] .icon`)
+
+  return icon?.cloneNode(true)
+}
+
+function categorySwatchHtml(category: string): string {
+  const icon = badgeIconNode(category)
+  const iconHtml = icon instanceof Element ? icon.outerHTML : ''
+
+  return `<span class="map-legend-swatch" style="--badge-color: var(--color-spot-${escapeHtml(category)})" aria-hidden="true">${iconHtml}</span>`
 }
 
 function chipHtml(chip: PopupChip): string {
@@ -58,6 +73,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     websiteHref = '',
     tagline = '',
     excerpt = '',
+    category = '',
   } = config
 
   const photoHtml = photo
@@ -85,7 +101,11 @@ export function buildPopupHtml(config: PopupConfig): string {
   const metaInner = chips
     .map(chipHtml)
     .join('<span class="eyebrow-divider" aria-hidden="true"></span>')
-  const metaHtml = metaInner ? `<div class="popup-meta list-eyebrow">${metaInner}</div>` : ''
+  const swatchHtml = category ? categorySwatchHtml(category) : ''
+  const metaHtml =
+    metaInner || swatchHtml
+      ? `<div class="popup-meta list-eyebrow">${swatchHtml}${metaInner}</div>`
+      : ''
 
   const addressHtml = addressLines.length
     ? `<span class="popup-address">${addressLines.map(escapeHtml).join('<br>')}</span>`

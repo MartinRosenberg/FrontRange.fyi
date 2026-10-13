@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro'
+import { spotCategories, type SpotCategoryKey } from '../lib/spots'
+
+const categories = Object.keys(spotCategories) as SpotCategoryKey[]
+---
+
+<template data-badge-icons>
+  {
+    categories.map((key) => (
+      <span data-category={key}>
+        <Icon name={spotCategories[key].icon} />
+      </span>
+    ))
+  }
+</template>

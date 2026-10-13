@@ -12,7 +12,7 @@ import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
 import { neighborhoodResourceLinks, foodByNeighborhood, normalizeName } from '../lib/neighborhoods'
 import { allSpots, spotsIn, spotCategories, type SpotCategoryKey } from '../lib/spots'
-import Icon from '../components/Icon.astro'
+import CategoryChip from '../components/CategoryChip.astro'
 import { toMapSpots } from '../lib/map-spots'
 import { href } from '../lib/url'
 import IconArrowRight from '../assets/IconArrowRight.astro'
@@ -182,18 +182,15 @@ function sectionOf(area: { group?: string; type?: string }): string {
                       </div>
                     )}
                     {pills.length > 0 && (
-                      <ul class="count-pills" aria-label="Places on the map">
+                      <ul class="category-chips" aria-label="Places on the map">
                         {pills.map((pill) => (
-                          <li class="chip count-pill">
-                            <span
-                              class="map-legend-swatch"
-                              style={`--badge-color: var(${spotCategories[pill.key].token})`}
-                              aria-hidden="true">
-                              <Icon name={spotCategories[pill.key].icon} />
-                            </span>
-                            <span class="count">{pill.count}</span>
-                            <span class="visually-hidden">{spotCategories[pill.key].label}</span>
-                          </li>
+                          <CategoryChip
+                            as="li"
+                            category={pill.key}
+                            label={spotCategories[pill.key].label}
+                            labelHidden
+                            count={pill.count}
+                          />
                         ))}
                       </ul>
                     )}

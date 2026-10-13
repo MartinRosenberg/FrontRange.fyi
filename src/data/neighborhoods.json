@@ -1,6 +1,19 @@
 [
-  { "number": 1, "name": "Carondelet", "slug": "carondelet", "group": "South City" },
-  { "number": 2, "name": "Patch", "slug": "patch", "group": "South City" },
+  {
+    "number": 1,
+    "name": "Carondelet",
+    "slug": "carondelet",
+    "numberLabel": "1, 2",
+    "group": "South City"
+  },
+  {
+    "number": 2,
+    "name": "Patch",
+    "slug": "patch",
+    "group": "South City",
+    "ignored": true,
+    "mergedInto": "carondelet"
+  },
   { "number": 3, "name": "Holly Hills", "slug": "holly-hills", "group": "South City" },
   { "number": 4, "name": "Boulevard Heights", "slug": "boulevard-heights", "group": "South City" },
   { "number": 5, "name": "Bevo Mill", "slug": "bevo-mill", "group": "South City" },
@@ -14,10 +27,37 @@
   { "number": 13, "name": "Southwest Garden", "slug": "southwest-garden", "group": "South City" },
   { "number": 14, "name": "North Hampton", "slug": "north-hampton", "group": "South City" },
   { "number": 15, "name": "Tower Grove South", "slug": "tower-grove-south", "group": "South City" },
-  { "number": 16, "name": "Dutchtown", "slug": "dutchtown", "group": "South City" },
-  { "number": 17, "name": "Mount Pleasant", "slug": "mount-pleasant", "group": "South City" },
-  { "number": 18, "name": "Marine Villa", "slug": "marine-villa", "group": "South City" },
-  { "number": 19, "name": "Gravois Park", "slug": "gravois-park", "group": "South City" },
+  {
+    "number": 16,
+    "name": "Greater Dutchtown",
+    "slug": "dutchtown",
+    "numberLabel": "16-19",
+    "group": "South City"
+  },
+  {
+    "number": 17,
+    "name": "Mount Pleasant",
+    "slug": "mount-pleasant",
+    "group": "South City",
+    "ignored": true,
+    "mergedInto": "dutchtown"
+  },
+  {
+    "number": 18,
+    "name": "Marine Villa",
+    "slug": "marine-villa",
+    "group": "South City",
+    "ignored": true,
+    "mergedInto": "dutchtown"
+  },
+  {
+    "number": 19,
+    "name": "Gravois Park",
+    "slug": "gravois-park",
+    "group": "South City",
+    "ignored": true,
+    "mergedInto": "dutchtown"
+  },
   { "number": 20, "name": "Kosciusko", "slug": "kosciusko", "group": "South City" },
   { "number": 21, "name": "Soulard", "slug": "soulard", "group": "South City" },
   { "number": 22, "name": "Benton Park", "slug": "benton-park", "group": "South City" },

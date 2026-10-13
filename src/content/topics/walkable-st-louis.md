@@ -216,7 +216,7 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 ## Cherokee Street
 
 - Street: **Cherokee Street**, from Nebraska to Lemp
-- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/), [Marine Villa](/neighborhoods/marine-villa/)
+- Neighborhoods: [Greater Dutchtown](/neighborhoods/dutchtown/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
 - Vibe: Eclectic, creative, Mexican
 - Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
@@ -285,7 +285,7 @@ In addition to the park, there are also beautiful, historic mansions painted in 
 ## Carondelet
 
 - Street: **South Broadway**, from Blow to Steins
-- Neighborhoods: [[carondelet|Carondelet]], [Patch](/neighborhoods/patch/)
+- Neighborhoods: [[carondelet|Carondelet]]
 - Vibe: Riverside
 
 <figure class="corridor-map-figure">

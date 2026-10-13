@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro'
+import { spotCategories, type SpotCategoryKey } from '../lib/spots'
+
+interface Props {
+  category: SpotCategoryKey
+  label?: string
+  labelHidden?: boolean
+  count?: number
+  as?: 'span' | 'label' | 'li'
+}
+
+const { category, label, labelHidden = false, count, as: Tag = 'span' } = Astro.props
+const meta = spotCategories[category]
+---
+
+<Tag class="chip category-chip" style={`--badge-color: var(${meta.token})`}>
+  <slot />
+  <span class="map-legend-swatch" aria-hidden="true">
+    <Icon name={meta.icon} />
+  </span>
+  {label && <span class:list={{ 'visually-hidden': labelHidden }}>{label}</span>}
+  {count !== undefined && <span class="count">{count}</span>}
+</Tag>

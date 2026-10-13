@@ -4,6 +4,7 @@ import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundariesFor, type BoundaryFeature } from './boundaries'
 import { optionalData } from '../lib/optional-data'
 import { projectOntoLine } from '../lib/geo'
+import { badgeIconNode } from './popup'
 
 const corridorData = optionalData<{ corridors: unknown[] }>(
   import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
@@ -55,13 +56,6 @@ function readSpotsByCorridor(): Record<string, Spot[]> {
 
 const spotsByCorridor = readSpotsByCorridor()
 
-function badgeIconFor(category: string): Node | undefined {
-  const template = document.querySelector<HTMLTemplateElement>('template[data-badge-icons]')
-  const icon = template?.content.querySelector(`[data-category="${category}"] .icon`)
-
-  return icon?.cloneNode(true)
-}
-
 const SNAP_METERS = 75
 
 function snapToLines(point: [number, number], group: Corridor[]): [number, number] {
@@ -95,7 +89,7 @@ function addSpotMarkers(map: MapLibreMap, group: Corridor[]): void {
 
       const body = document.createElement('span')
       body.className = 'map-badge-body'
-      const icon = badgeIconFor(spot.category)
+      const icon = badgeIconNode(spot.category)
       if (icon) {
         body.append(icon)
       }

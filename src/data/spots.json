@@ -52,22 +52,6 @@
     "coords": [-90.27017, 38.57905]
   },
   {
-    "name": "Christy Park",
-    "category": "park",
-    "neighborhoods": ["bevo-mill"],
-    "description": "Sixteen-acre city park from 1910, home of the Weasel Baseball sandlot.",
-    "address": "Christy Blvd & Kingshighway Blvd",
-    "coords": [-90.27679, 38.58182]
-  },
-  {
-    "name": "Joe Leisure Park",
-    "category": "park",
-    "neighborhoods": ["bevo-mill"],
-    "description": "Sixteen-acre park opened in 2000 with soccer and softball fields and a playground.",
-    "address": "Christy Ave & Gravois Ave",
-    "coords": [-90.27626, 38.5738]
-  },
-  {
     "name": "Carondelet Park",
     "category": "park",
     "description": "The city's third-largest park, with two lakes, a boathouse and a 1929 pavilion.",
@@ -142,14 +126,6 @@
     "description": "The 1,300-acre city park, larger than Central Park, home to the zoo, art museum, and history museum.",
     "address": "5595 Grand Dr",
     "coords": [-90.2847, 38.63819]
-  },
-  {
-    "name": "Samuel Kennedy Park",
-    "category": "park",
-    "neighborhoods": ["central-west-end"],
-    "description": "A one-acre pocket park from 2007 with a playground, fountain and a David Tillinghast sculpture.",
-    "address": "4900 Olive St",
-    "coords": [-90.25855, 38.64989]
   },
   {
     "name": "Bowood Farms",
@@ -285,15 +261,6 @@
     "description": "The hilltop Irish Catholic parish, begun as an 1861 mission and built out by parishioners during the Depression.",
     "address": "6401 Wade Ave",
     "coords": [-90.29356, 38.6255]
-  },
-  {
-    "name": "Franz Park",
-    "category": "park",
-    "neighborhoods": ["dogtown"],
-    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=42",
-    "description": "Land given to the city by Sophia Franz in 1915; playground, softball, soccer and tennis.",
-    "address": "Mitchell Ave & Prather Ave",
-    "coords": [-90.30317, 38.62174]
   },
   {
     "name": "Gateway Arch",
@@ -527,14 +494,6 @@
     "coords": [-90.25139, 38.63467]
   },
   {
-    "name": "Strauss Park",
-    "category": "park",
-    "neighborhoods": ["midtown"],
-    "description": "The plaza across from the Fox, named for preservationist Leon Strauss.",
-    "address": "522 N Grand Blvd",
-    "coords": [-90.23123, 38.63883]
-  },
-  {
     "name": "thorn Vintage",
     "category": "thrift",
     "neighborhoods": ["midtown"],
@@ -592,15 +551,6 @@
     "description": "The 289-acre Victorian park Henry Shaw gave the city in 1868, with ornate pavilions and a Saturday farmers market.",
     "address": "4257 Northeast Dr",
     "coords": [-90.25529, 38.60634]
-  },
-  {
-    "name": "Shaw Dog Park",
-    "category": "park",
-    "neighborhoods": ["shaw"],
-    "url": "https://shawstlouis.org/attractions-amenities/shaw-dog-park/",
-    "description": "Members-only fenced dog park opened by the neighborhood association in 2003.",
-    "address": "4101 Cleveland Ave",
-    "coords": [-90.25144, 38.61156]
   },
   {
     "name": "Soulard Farmers Market",
@@ -682,24 +632,6 @@
     "coords": [-90.20916, 38.60939]
   },
   {
-    "name": "Soulard Market Park",
-    "category": "park",
-    "neighborhoods": ["soulard"],
-    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=7",
-    "description": "Two-acre city park beside Soulard Market, laid out in 1908 and used for art fairs and events.",
-    "address": "S 7th St & Lafayette Ave",
-    "coords": [-90.20163, 38.61046]
-  },
-  {
-    "name": "Pontiac Square Park",
-    "category": "park",
-    "neighborhoods": ["soulard"],
-    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=6",
-    "description": "Park from 1908 with a playground and spray pool, on the site of the former Stumpf Brewery.",
-    "address": "S 9th St & Shenandoah Ave",
-    "coords": [-90.2066, 38.60528]
-  },
-  {
     "name": "Vincent's 12th Street Market",
     "category": "market",
     "neighborhoods": ["soulard"],
@@ -715,14 +647,6 @@
     "description": "Opened in 1939 as a one-stop shopping center with off-street parking, in colonial-style buildings.",
     "address": "Hampton Ave & Chippewa St",
     "coords": [-90.29306, 38.59202]
-  },
-  {
-    "name": "Sublette Park",
-    "category": "park",
-    "neighborhoods": ["southwest-garden"],
-    "description": "A neighborhood park with 13 acres of green space, baseball fields, and courts.",
-    "address": "Sublette Ave & Fyler Ave",
-    "coords": [-90.28195, 38.60812]
   },
   {
     "name": "Cunetto House of Pasta",
@@ -864,14 +788,6 @@
     "coords": [-90.2424, 38.60241]
   },
   {
-    "name": "McDonald Park",
-    "category": "park",
-    "neighborhoods": ["tower-grove-south"],
-    "description": "Three-acre park from 1928 with a dog park, splash pool and playground.",
-    "address": "Bent Ave & Utah St",
-    "coords": [-90.25944, 38.59833]
-  },
-  {
     "name": "Local Harvest Grocery",
     "category": "market",
     "neighborhoods": ["tower-grove-south"],
@@ -986,7 +902,7 @@
   {
     "name": "Wild River",
     "category": "mural",
-    "neighborhoods": ["patch", "carondelet"],
+    "neighborhoods": ["carondelet"],
     "description": "Mural by Neeka.",
     "address": "7401 S Broadway",
     "coords": [-90.25657, 38.54891]
@@ -1031,5 +947,81 @@
     "description": "Graffiti murals along the Mississippi floodwall between Chouteau and Victor, painted each Labor Day weekend by Paint Louis since 1997.",
     "address": "Chouteau Ave & Leonor K Sullivan Blvd",
     "coords": [-90.1905, 38.6135]
+  },
+  {
+    "name": "Hammond's Antiques & Books",
+    "category": "thrift",
+    "neighborhoods": ["benton-park", "dutchtown"],
+    "description": "Books, antiques, vintage jewelry, paper and prints on Antique Row.",
+    "address": "1939 Cherokee St",
+    "url": "https://www.hammondsbooks.net/",
+    "coords": [-90.22009, 38.59277]
+  },
+  {
+    "name": "Riverside Antiques",
+    "category": "thrift",
+    "neighborhoods": ["benton-park", "dutchtown"],
+    "description": "Antique shop on Cherokee Antique Row.",
+    "address": "1947 Cherokee St",
+    "coords": [-90.22043, 38.59281]
+  },
+  {
+    "name": "Elder's Antiques",
+    "category": "thrift",
+    "neighborhoods": ["benton-park", "dutchtown"],
+    "description": "Antique shop on Cherokee Antique Row.",
+    "address": "2124 Cherokee St",
+    "coords": [-90.22308, 38.59282]
+  },
+  {
+    "name": "Lady Jane's Antiques",
+    "category": "thrift",
+    "neighborhoods": ["benton-park", "dutchtown"],
+    "description": "Antique shop on Cherokee Antique Row.",
+    "address": "2110 Cherokee St",
+    "coords": [-90.22252, 38.59278]
+  },
+  {
+    "name": "Retro 101 / Cherry Bomb Vintage",
+    "category": "thrift",
+    "neighborhoods": ["benton-park", "dutchtown"],
+    "description": "Retro and vintage shop on Cherokee Antique Row.",
+    "address": "2214 Cherokee St",
+    "coords": [-90.22384, 38.59294]
+  },
+  {
+    "name": "Laclede's Landing",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://lacledeslanding.com/",
+    "description": "Nine-block historic riverfront district of 17 brick warehouses on cobblestone streets, just north of the Arch.",
+    "address": "707 N 2nd St",
+    "coords": [-90.18415, 38.63044]
+  },
+  {
+    "name": "Vintage Vinyl",
+    "category": "records",
+    "neighborhoods": ["delmar-loop", "university-city"],
+    "url": "https://vintagevinyl.com/",
+    "description": "Independent record store on the Loop since 1979, with new and used vinyl, CDs and in-store shows.",
+    "address": "6610 Delmar Blvd",
+    "coords": [-90.30585, 38.65597]
+  },
+  {
+    "name": "Record Exchange",
+    "category": "records",
+    "neighborhoods": ["st-louis-hills", "southampton"],
+    "description": "Used record store in the former 1961 Buder Branch Library, selling music since 1977.",
+    "address": "5320 Hampton Ave",
+    "coords": [-90.29339, 38.58231]
+  },
+  {
+    "name": "Euclid Records",
+    "category": "records",
+    "neighborhoods": ["webster-groves"],
+    "url": "https://euclidrecords.com/",
+    "description": "Two floors of new and used vinyl and CDs, in business since 1981 and now in Old Webster.",
+    "address": "19 N Gore Ave",
+    "coords": [-90.35967, 38.59361]
   }
 ]

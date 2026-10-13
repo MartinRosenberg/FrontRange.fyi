@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Ice cream sandwiches in the old Carondelet Bakery
 cuisine: ['dessert']
-neighborhood: Patch
+neighborhood: Carondelet
 address:
   - 7726 Virginia Ave
   - St. Louis, MO 63111

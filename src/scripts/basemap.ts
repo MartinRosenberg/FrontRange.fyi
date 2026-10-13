@@ -45,12 +45,16 @@ export function buildBasemapStyle(dark = isDarkTheme()): StyleSpecification {
   }
 }
 
+type AttributionPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+
 export function createBasemapMap(
   container: HTMLElement,
-  options: Partial<MapOptions> = {},
+  options: Partial<MapOptions> & { attributionPosition?: AttributionPosition } = {},
 ): maplibregl.Map {
   registerPmtilesProtocol()
 
+  const { attributionPosition = 'top-right', ...mapOptions } = options
+  const attribution = mapOptions.attributionControl ?? { compact: false }
   const map = new maplibregl.Map({
     container,
     style: buildBasemapStyle(),
@@ -58,9 +62,13 @@ export function createBasemapMap(
     zoom: 11,
     dragRotate: false,
     pitchWithRotate: false,
-    attributionControl: { compact: false },
-    ...options,
+    ...mapOptions,
+    attributionControl: false,
   })
+
+  if (attribution !== false) {
+    map.addControl(new maplibregl.AttributionControl(attribution), attributionPosition)
+  }
 
   map.touchZoomRotate.disableRotation()
 

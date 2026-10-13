@@ -1,0 +1,134 @@
+---
+import IconPlus from '../assets/IconPlus.astro'
+import IconX from '../assets/IconX.astro'
+import CategoryChip from './CategoryChip.astro'
+import { FEEDBACK_ENDPOINT, SITE_NAME } from '../lib/site'
+import { spotCategories, SPOT_SECTION_ORDER, type SpotCategoryKey } from '../lib/spots'
+
+const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
+---
+
+{
+  FEEDBACK_ENDPOINT && (
+    <>
+      <button type="button" class="suggest-spot" data-suggest-open aria-label="Suggest a spot">
+        <span class="suggest-spot-plus" aria-hidden="true">
+          <IconPlus />
+        </span>
+        <span class="suggest-spot-label">
+          Suggest<span class="suggest-spot-label-rest"> a spot</span>
+        </span>
+      </button>
+      <dialog class="map-sheet suggest-dialog" data-suggest-dialog aria-labelledby="suggest-title">
+        <button type="button" class="map-sheet-close" data-suggest-close aria-label="Close">
+          <IconX />
+        </button>
+        <div class="map-sheet-body">
+          <div class="popup-scroll">
+            <div class="popup-meta list-eyebrow">
+              <span class="eyebrow eyebrow--muted">Suggest a spot</span>
+            </div>
+            <h2 id="suggest-title">
+              <span class="title-serif">Know somewhere I missed?</span>
+            </h2>
+            <p class="suggest-lede description">
+              Please let me know if there's a good spot I missed, or I made a mistake anywhere.
+            </p>
+            <form class="suggest-form form-stack" method="POST" action={FEEDBACK_ENDPOINT}>
+              <label class="field">
+                <span>Name of the place</span>
+                <input type="text" name="place" placeholder="The Arch" required />
+              </label>
+              <label class="field">
+                <span>Address or neighborhood</span>
+                <input type="text" name="where" placeholder="Downtown" />
+              </label>
+              <fieldset class="field suggest-categories">
+                <legend class="field-legend">Type of place</legend>
+                <div class="category-chips">
+                  {categories.map((key) => (
+                    <CategoryChip as="label" category={key} label={spotCategories[key].label}>
+                      <input type="radio" name="category" value={spotCategories[key].label} />
+                    </CategoryChip>
+                  ))}
+                </div>
+              </fieldset>
+              <label class="field">
+                <span>Anything else you want to add?</span>
+                <textarea
+                  name="why"
+                  rows="3"
+                  placeholder="Little hidden gem in St. Louis, you wouldn't have heard of it."
+                />
+              </label>
+              <input type="hidden" name="_subject" value={`${SITE_NAME} spot suggestion`} />
+              <p class="hp" aria-hidden="true">
+                <label>
+                  Leave this field empty
+                  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+                </label>
+              </p>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-dark">
+                  Submit
+                </button>
+                <span class="form-status" data-form-status role="status" aria-live="polite" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </>
+  )
+}
+
+<script>
+  import { bindFeedbackForm } from '../scripts/feedback-form'
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-suggest-dialog]')
+  const opener = document.querySelector<HTMLButtonElement>('[data-suggest-open]')
+  const form = dialog?.querySelector<HTMLFormElement>('.suggest-form')
+  const status = dialog?.querySelector<HTMLElement>('[data-form-status]')
+
+  if (dialog && opener && form && status) {
+    opener.addEventListener('click', () => {
+      if (dialog.open) {
+        dialog.close()
+
+        return
+      }
+      dialog.show()
+      form.querySelector<HTMLInputElement>('input[name="place"]')?.focus()
+    })
+    dialog.querySelector('[data-suggest-close]')?.addEventListener('click', () => dialog.close())
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && dialog.open) {
+        dialog.close()
+      }
+    })
+    document.addEventListener('pointerdown', (event) => {
+      const target = event.target as Node
+      if (dialog.open && !dialog.contains(target) && !opener.contains(target)) {
+        dialog.close()
+      }
+    })
+
+    bindFeedbackForm(form, status, {
+      buildBody: (data) => {
+        const lines = [
+          `Place: ${String(data.get('place') ?? '').trim()}`,
+          `Where: ${String(data.get('where') ?? '').trim()}`,
+          `Category: ${String(data.get('category') ?? '').trim()}`,
+          `Why: ${String(data.get('why') ?? '').trim()}`,
+          `Page: ${window.location.href}`,
+        ]
+        const body = new FormData()
+        body.set('message', lines.join('\n'))
+        body.set('_subject', String(data.get('_subject') ?? ''))
+        body.set('_gotcha', String(data.get('_gotcha') ?? ''))
+
+        return body
+      },
+    })
+  }
+</script>

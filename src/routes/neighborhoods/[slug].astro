@@ -212,19 +212,7 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
           <div class="body">
             {
               hasWriteup && Content ? (
-                <>
-                  <Content />
-                  {notes.length > 0 && (
-                    <section class="notes">
-                      <Subheading level={4}>Notes</Subheading>
-                      <ul>
-                        {notes.map((note) => (
-                          <li>{note}</li>
-                        ))}
-                      </ul>
-                    </section>
-                  )}
-                </>
+                <Content />
               ) : (
                 <div class="not-explored">
                   <p>I haven't written about {title} yet.</p>
@@ -235,8 +223,18 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
                 </div>
               )
             }
+            {notes.length > 0 && (
+              <section class="notes">
+                <Subheading level={4}>Notes</Subheading>
+                <ul>
+                  {notes.map((note) => (
+                    <li>{note}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
           </div>
-          
+
           <Comments kind="neighborhood" slug={slug} title={title} />
 
           {

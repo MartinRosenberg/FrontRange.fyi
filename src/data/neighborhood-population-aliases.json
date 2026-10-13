@@ -5,5 +5,7 @@
   "north-pointe": "North Point",
   "delmar-loop": "Skinker DeBaliviere",
   "midtown": ["Midtown", "Grand Center"],
-  "downtown": ["Downtown", "Downtown West"]
+  "downtown": ["Downtown", "Downtown West"],
+  "carondelet": ["Carondelet", "Patch"],
+  "dutchtown": ["Dutchtown", "Mount Pleasant", "Marine Villa", "Gravois Park"]
 }

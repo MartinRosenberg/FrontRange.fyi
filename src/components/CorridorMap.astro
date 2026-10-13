@@ -1,6 +1,5 @@
 ---
-import Icon from './Icon.astro'
-import { spotCategories, type SpotCategoryKey } from '../lib/spots'
+import BadgeIcons from './BadgeIcons.astro'
 import type { CorridorSpot } from '../lib/corridor-spots'
 
 interface Props {
@@ -8,18 +7,9 @@ interface Props {
 }
 
 const { spots } = Astro.props
-const categories = Object.keys(spotCategories) as SpotCategoryKey[]
 ---
 
-<template data-badge-icons>
-  {
-    categories.map((key) => (
-      <span data-category={key}>
-        <Icon name={spotCategories[key].icon} />
-      </span>
-    ))
-  }
-</template>
+<BadgeIcons />
 
 <script type="application/json" data-corridor-spots set:html={JSON.stringify(spots)} />
 

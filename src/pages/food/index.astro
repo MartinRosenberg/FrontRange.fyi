@@ -9,6 +9,7 @@ import ListPaneHeader from '../../components/ListPaneHeader.astro'
 import MapRow from '../../components/MapRow.astro'
 import PaneSearch from '../../components/PaneSearch.astro'
 import Rating from '../../components/Rating.astro'
+import BadgeIcons from '../../components/BadgeIcons.astro'
 import SourceLink from '../../components/SourceLink.astro'
 import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../../lib/content'
 import { cuisineLabel } from '../../lib/cuisine'
@@ -178,6 +179,7 @@ const description = [
           ))
         }
       </ul>
+      <BadgeIcons />
       <div class="fleur-templates" hidden>
         <span data-fleur="loved"><Rating verdict="loved" /></span>
         <span data-fleur="liked"><Rating verdict="liked" /></span>
