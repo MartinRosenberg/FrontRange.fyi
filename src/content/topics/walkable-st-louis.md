@@ -8,7 +8,7 @@ ogImage: /og/walkable-st-louis.png
 photo: ../images/topics/shaw.jpg
 photoCaption: Tee Rak Thai in the Shaw neighborhood
 created: 2026-08-19
-updated: 2026-08-30
+updated: 2026-10-12
 ---
 
 One of the first things you learn about St. Louis is there is no single main street to walk around and explore. Downtown has the Arch and the main business district, but isn't the place most people spend their time.
@@ -31,38 +31,6 @@ This is a map of all the walkable St. Louis streets you'll see throughout the ar
 
 <div data-article-toc></div>
 
-## The Grove
-
-- Street: **Manchester Avenue**, from the west arch to the east arch
-- Neighborhood: [[the-grove|Forest Park Southeast]]
-- Vibe: Fun, nightlife, LGBTQ
-- Website: [thegrovestl.com](https://www.thegrovestl.com/)
-
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="the-grove"></div>
-</figure>
-
-One of the most distinctive and well-known streets in St. Louis is The Grove in Forest Park Southeast. It's the only neighborhood that welcomes you with a lit-up neon sign from both ends so there's no confusion about exactly where you are.
-
-The Grove is most famous for being the city's LGBTQ+ nightlife district. On one end, you have Platypus bar and Urban Chestnut brewery, and on the other you have Handlebar, Atomic, and Rehab. In between are a few of my favorite restaurants in the city - Sultan, Grace Meat & Three, and The Gramophone.
-
-## The Delmar Loop
-
-- Street: **Delmar Boulevard**, from Leland to the Pageant
-- Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
-- Vibe: Music, Asian, neon
-- Website: [visittheloop.com](https://visittheloop.com/)
-
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="delmar-loop"></div>
-</figure>
-
-In 2007, the Delmar Loop was named one of the ["10 Great Streets in America"](https://www.planning.org/greatplaces/streets/2007/delmarloop.htm) by the APA, due to the "sustained efforts of local business, government, and the community to achieve successful physical and economic revitalization".
-
-There are a lot of interesting things to see on the street - the St. Louis Walk of Fame stars along the sidewalk, the Pageant and Delmar Hall for concerts, Moonrise Hotel and tons of neon signs. There's also the Loop Trolley which runs to Forest Park (allegedly - I've never seen it).
-
-Notably, there is a concentration of very good Asian cuisine along Delmar, including my favorite ramen in the world, [[kishimoto-mendo|Kishimoto Mendo]]. The original Salt & Smoke BBQ and Fitz's are here, and Vintage Vinyl is a great spot to browse for vinyl records.
-
 ## Central West End
 
 - Street: **Euclid Avenue**, from Laclede to Delmar
@@ -82,36 +50,6 @@ One of St. Louis's independent bookstores, [Left Bank Books](https://left-bank.c
 
 Euclid is just a few short blocks from Forest Park, the proximity of which is a huge pro for the neighborhood. It's also a relatively bike-friendly area.
 
-## Washington Avenue
-
-- Street: **Washington Avenue**, from 6th to 18th
-- Neighborhoods: [[downtown|Downtown]], [Downtown West](/neighborhoods/downtown-west/)
-- Vibe: Urban, historic, industrial
-- Website: [washaveretail.com](https://www.washaveretail.com/)
-
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="washington-avenue"></div>
-</figure>
-
-Washington Avenue, often referred to as Wash Ave by locals, is one of the main streets of interest in Downtown. There are a number of restaurants close to the street that serve the business district during lunch hours, such as Sugarfire BBQ and Sauce on the Side, and even the Washington Ave Food Hall.
-
-I've mostly tried to keep common tourist items off this list like the Aquarium, Ballpark Village, etc. - but it's worth mentioning City Museum, one of the most unique and interesting attractions in all of St. Louis, which is right along Wash Ave.
-
-Being downtown, it's as walkable as it gets, and one of the areas most likely to have a lot of foot traffic during the day.
-
-## Ballpark Village
-
-- Street: **Clark Avenue**, from 8th to Broadway
-- Neighborhoods: [[downtown|Downtown]]
-- Vibe: Baseball, entertainment, bars
-- Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
-
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="ballpark-village"></div>
-</figure>
-
-Right next to Busch Stadium is Ballpark Village, a string of bars and restaurants surrounding a central entertainment district. It's a hub for people to hang out before a ball game or concert.
-
 ## Dogtown
 
 - Street: **Tamm Avenue**, from Oakland to Mitchell
@@ -123,21 +61,6 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 </figure>
 
 Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tamm neighborhood) is St. Louis's historical Irish neighborhood, where a St. Patrick's Day parade takes place each year. There are several Irish bars in this spot, like Seamus McDaniel's and The Pat Connolly Tavern.
-
-## Cherokee Street
-
-- Street: **Cherokee Street**, from Nebraska to Lemp
-- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/), [Marine Villa](/neighborhoods/marine-villa/)
-- Vibe: Eclectic, creative, Mexican
-- Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
-
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="cherokee cherokee-antique-row"></div>
-</figure>
-
-Cherokee St. is the Mexican neighborhood strip in St. Louis. There are several restaurants, panaderias, and Mexican groceries along Cherokee. Although St. Louis does not have the most significant Hispanic neighborhood compared to other American cities, I'm glad there's a main area to go to get good Mexican food, bakery items, and groceries. The Cinco de Mayo festival in St. Louis also happens along Cherokee.
-
-The eastern wing of Cherokee St. is the [antique row](https://cherokeeantiquerow.net/), with spots like Hammond's Antiques and Books and Elder's Antiques and a vinyl record store. This whole area is all small, family-owned storefronts with no chains and has a very eclectic, artistic vibe.
 
 ## Tower Grove South
 
@@ -227,6 +150,83 @@ In the '90s, St. Louis took in many refugees from the Bosnian War, and they sett
 As far as restaurants in the area, Das Bevo is a biergarten in the Bevo windmill, which the landmark of the neighborhood built by the Busch family back in the day. [[bevo-caffe-lounge|Bevo Caffe Lounge]] and [[zlatno-zito|Zlatno Zito]] are two spots serving traditional, authentic Balkan fare.
 
 Although it has been thirty years since the Bosnian refugees settled in Bevo, there are still many signs of the population that built up the area. The Sebilj fountain replica stands as a monument for the region. Nowawdays, much of [the Bosnian population has moved to South County areas like Affton](https://www.stlmag.com/The-Bosnian-Boom-in-South-County-St-Louis/).
+
+## The Grove
+
+- Street: **Manchester Avenue**, from the west arch to the east arch
+- Neighborhood: [[the-grove|Forest Park Southeast]]
+- Vibe: Fun, nightlife, LGBTQ
+- Website: [thegrovestl.com](https://www.thegrovestl.com/)
+
+<figure class="corridor-map-figure">
+  <div class="corridor-map" data-corridor-map="the-grove"></div>
+</figure>
+
+One of the most distinctive and well-known streets in St. Louis is The Grove in Forest Park Southeast. It's the only neighborhood that welcomes you with a lit-up neon sign from both ends so there's no confusion about exactly where you are.
+
+The Grove is most famous for being the city's LGBTQ+ nightlife district. On one end, you have Platypus bar and Urban Chestnut brewery, and on the other you have Handlebar, Atomic, and Rehab. In between are a few of my favorite restaurants in the city - Sultan, Grace Meat & Three, and The Gramophone.
+
+## The Delmar Loop
+
+- Street: **Delmar Boulevard**, from Leland to the Pageant
+- Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
+- Vibe: Music, Asian, neon
+- Website: [visittheloop.com](https://visittheloop.com/)
+
+<figure class="corridor-map-figure">
+  <div class="corridor-map" data-corridor-map="delmar-loop"></div>
+</figure>
+
+In 2007, the Delmar Loop was named one of the ["10 Great Streets in America"](https://www.planning.org/greatplaces/streets/2007/delmarloop.htm) by the APA, due to the "sustained efforts of local business, government, and the community to achieve successful physical and economic revitalization".
+
+There are a lot of interesting things to see on the street - the St. Louis Walk of Fame stars along the sidewalk, the Pageant and Delmar Hall for concerts, Moonrise Hotel and tons of neon signs. There's also the Loop Trolley which runs to Forest Park (allegedly - I've never seen it).
+
+Notably, there is a concentration of very good Asian cuisine along Delmar, including my favorite ramen in the world, [[kishimoto-mendo|Kishimoto Mendo]]. The original Salt & Smoke BBQ and Fitz's are here, and Vintage Vinyl is a great spot to browse for vinyl records.
+
+## Washington Avenue
+
+- Street: **Washington Avenue**, from 6th to 18th
+- Neighborhoods: [[downtown|Downtown]]
+- Vibe: Urban, historic, industrial
+- Website: [washaveretail.com](https://www.washaveretail.com/)
+
+<figure class="corridor-map-figure">
+  <div class="corridor-map" data-corridor-map="washington-avenue"></div>
+</figure>
+
+Washington Avenue, often referred to as Wash Ave by locals, is one of the main streets of interest in Downtown. There are a number of restaurants close to the street that serve the business district during lunch hours, such as Sugarfire BBQ and Sauce on the Side, and even the Washington Ave Food Hall.
+
+I've mostly tried to keep common tourist items off this list like the Aquarium, Ballpark Village, etc. - but it's worth mentioning City Museum, one of the most unique and interesting attractions in all of St. Louis, which is right along Wash Ave.
+
+Being downtown, it's as walkable as it gets, and one of the areas most likely to have a lot of foot traffic during the day.
+
+## Ballpark Village
+
+- Street: **Clark Avenue**, from 8th to Broadway
+- Neighborhoods: [[downtown|Downtown]]
+- Vibe: Baseball, entertainment, bars
+- Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
+
+<figure class="corridor-map-figure">
+  <div class="corridor-map" data-corridor-map="ballpark-village"></div>
+</figure>
+
+Right next to Busch Stadium is Ballpark Village, a string of bars and restaurants surrounding a central entertainment district. It's a hub for people to hang out before a ball game or concert.
+
+## Cherokee Street
+
+- Street: **Cherokee Street**, from Nebraska to Lemp
+- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/), [Marine Villa](/neighborhoods/marine-villa/)
+- Vibe: Eclectic, creative, Mexican
+- Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
+
+<figure class="corridor-map-figure">
+  <div class="corridor-map" data-corridor-map="cherokee cherokee-antique-row"></div>
+</figure>
+
+Cherokee St. is the Mexican neighborhood strip in St. Louis. There are several restaurants, panaderias, and Mexican groceries along Cherokee. Although St. Louis does not have the most significant Hispanic neighborhood compared to other American cities, I'm glad there's a main area to go to get good Mexican food, bakery items, and groceries. The Cinco de Mayo festival in St. Louis also happens along Cherokee.
+
+The eastern wing of Cherokee St. is the [antique row](https://cherokeeantiquerow.net/), with spots like Hammond's Antiques and Books and Elder's Antiques and a vinyl record store. This whole area is all small, family-owned storefronts with no chains and has a very eclectic, artistic vibe.
 
 ## Southtown
 

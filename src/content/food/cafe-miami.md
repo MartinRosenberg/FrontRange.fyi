@@ -1,0 +1,14 @@
+---
+title: Cafe Miami
+created: 2026-10-12
+status: want-to-try
+description: Cuban coffee, colada and sandwiches
+cuisine: ['cafe']
+neighborhood: Soulard
+address:
+  - 2022 S 12th St
+  - St. Louis, MO 63104
+coords: [38.607946, -90.209347]
+url: https://www.cafemiamistl.com
+instagram: https://www.instagram.com/cafemiamistl/
+---

@@ -1,0 +1,38 @@
+---
+import IconExternalLink from '../assets/IconExternalLink.astro'
+import IconArrowUpRight from '../assets/IconArrowUpRight.astro'
+
+interface Props {
+  href?: string
+  websiteHref?: string
+  directionsHref?: string
+}
+
+const { href, websiteHref, directionsHref } = Astro.props
+---
+
+<span class="action-buttons">
+  {
+    href && (
+      <a class="btn btn-dark" href={href}>
+        View more
+      </a>
+    )
+  }
+  {
+    websiteHref && (
+      <a class="btn btn-outline" href={websiteHref} target="_blank" rel="noopener">
+        Website
+        <IconExternalLink />
+      </a>
+    )
+  }
+  {
+    directionsHref && (
+      <a class="btn btn-outline" href={directionsHref} target="_blank" rel="noopener">
+        Directions
+        <IconArrowUpRight />
+      </a>
+    )
+  }
+</span>

@@ -43,7 +43,7 @@ const hasCard = hasNumbers || hasVibe
       {hasVibe && (
         <div class:list={['card-section', { 'has-divider': hasNumbers }]}>
           <AsideHeading title="Tags" />
-          <div class="vibe-chips">
+          <div class="tag-chips">
             {tags.map((tag) => (
               <Chip class="chip-blue" href={href(`/tags/${tagSlug(tag)}/`)}>
                 <TagIcon tag={tag} />
@@ -103,16 +103,6 @@ const hasCard = hasNumbers || hasVibe
       padding-block-start: var(--spacing-xs);
       border-block-start: 1px dotted var(--color-line-input);
     }
-  }
-
-  .vibe-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs);
-  }
-
-  .vibe-chips :global(.chip) {
-    border-radius: 0;
   }
 
   @media (max-width: 899px) {

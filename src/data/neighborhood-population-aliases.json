@@ -1,13 +1,9 @@
 {
   "the-grove": "Forest Park Southeast",
-  "dogtown": [
-    "Cheltenham",
-    "Clayton-Tamm",
-    "Franz Park",
-    "Hi-Pointe"
-  ],
+  "dogtown": ["Cheltenham", "Clayton-Tamm", "Franz Park", "Hi-Pointe"],
   "fairground-neighborhood": "Fairground",
   "north-pointe": "North Point",
-  "covenant-blu-grand-center": "Grand Center",
-  "delmar-loop": "Skinker DeBaliviere"
+  "delmar-loop": "Skinker DeBaliviere",
+  "midtown": ["Midtown", "Grand Center"],
+  "downtown": ["Downtown", "Downtown West"]
 }

@@ -17,7 +17,7 @@ import { href, displayUrl, rootRelative } from '../../lib/url'
 import { resolveVerdict, verdictLabels } from '../../lib/verdict'
 import { cuisineLabel } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
-import { spotsIn, spotCategories, type MapSpot } from '../../lib/spots'
+import { spotsIn, spotCategories, type MapSpot, type Spot, groupSpots } from '../../lib/spots'
 import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
 import {
@@ -78,6 +78,7 @@ const sharePhoto = entry?.data.photo
 const hasWriteup = Boolean(entry?.body && entry.body.trim())
 const backlinks = entry ? await getBacklinks(entry.id) : []
 const tags = entry?.data.tags ?? []
+const notes = entry?.data.notes ?? []
 
 const spots = spotsIn(slug)
 const isExternalUrl = (url: string) => /^https?:\/\//.test(url)
@@ -145,25 +146,39 @@ const trail = [
   ...(region ? [{ label: region.label, href: `/neighborhoods/${region.slug}/` }] : []),
 ]
 
+const isCafe = (place: (typeof places)[number]) => place.data.cuisine.includes('cafe')
+const cafes = places.filter(isCafe)
+const eateries = places.filter((place) => !isCafe(place))
+const spotGroups = groupSpots(spots)
+
+const spotPageHref = (spot: Spot) =>
+  spot.url && !isExternalUrl(spot.url) ? href(spot.url) : undefined
+const spotWebsiteHref = (spot: Spot) => (spot.url && isExternalUrl(spot.url) ? spot.url : undefined)
+const spotDirectionsHref = (spot: Spot) =>
+  spot.coords
+    ? googleMapsHref({
+        title: spot.name,
+        address: spot.address ? [spot.address, 'St. Louis, MO'] : undefined,
+        coords: [spot.coords[1], spot.coords[0]],
+      })
+    : undefined
+
 const spotMapSpots: MapSpot[] = spots.flatMap((spot) => {
   if (!spot.coords) {
     return []
   }
-  const external = Boolean(spot.url && isExternalUrl(spot.url))
 
   return [
     {
       title: spot.name,
       category: spot.category,
       coords: spot.coords,
-      url: spot.url ? (external ? spot.url : href(spot.url)) : undefined,
-      external,
+      url: spotPageHref(spot),
+      websiteHref: spotWebsiteHref(spot),
       meta: spotCategories[spot.category].meta,
       tagline: spot.description ?? '',
-      directionsHref: googleMapsHref({
-        title: spot.name,
-        coords: [spot.coords[1], spot.coords[0]],
-      }),
+      addressLines: spot.address ? [spot.address] : [],
+      directionsHref: spotDirectionsHref(spot),
     },
   ]
 })
@@ -189,6 +204,9 @@ const foodMapSpots: MapSpot[] = (
           meta: cuisineLabel(place.data.cuisine[0]),
           verdict: verdict ? { key: verdict, label: verdictLabels[verdict] } : undefined,
           tagline: place.data.description ?? '',
+          addressLines: place.data.address ?? [],
+          directionsHref: googleMapsHref(place.data),
+          websiteHref: place.data.url,
           photo: thumb?.src,
         },
       ]
@@ -219,7 +237,7 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
             <h1 class="detail-pane-title title-page">{title}</h1>
             {summary && <p class="description description--lg detail-pane-tagline">{summary}</p>}
             {
-              (population != null || places.length > 0) && (
+              (population != null || places.length > 0 || spots.length > 0) && (
                 <div class="pane-stats">
                   {population != null && (
                     <div class="pane-stat">
@@ -229,8 +247,14 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
                   )}
                   {places.length > 0 && (
                     <div class="pane-stat">
-                      <span class="pane-stat-label eyebrow eyebrow--muted">Spots explored</span>
+                      <span class="pane-stat-label eyebrow eyebrow--muted">Food & Drink I've Explored</span>
                       <span class="pane-stat-value">{places.length}</span>
+                    </div>
+                  )}
+                  {spots.length > 0 && (
+                    <div class="pane-stat">
+                      <span class="pane-stat-label eyebrow eyebrow--muted">Points of interest</span>
+                      <span class="pane-stat-value">{spots.length + places.length}</span>
                     </div>
                   )}
                   {
@@ -251,7 +275,19 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
           <div class="body">
             {
               hasWriteup && Content ? (
-                <Content />
+                <>
+                  <Content />
+                  {notes.length > 0 && (
+                    <section class="notes">
+                      <Subheading level={4}>Notes</Subheading>
+                      <ul>
+                        {notes.map((note) => (
+                          <li>{note}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  )}
+                </>
               ) : (
                 <div class="not-explored">
                   <p>I haven't written about {title} yet.</p>
@@ -277,16 +313,18 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
           }
 
           {
-            places.length > 0 && (
+            eateries.length > 0 && (
               <CardList title="Food & Drink">
-                {places.map((place) => (
+                {eateries.map((place) => (
                   <Card
                     href={hasBody(place) ? href(`/food/${place.id}/`) : undefined}
-                    class={hasBody(place) ? undefined : 'is-unwritten'}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}
                     verdict={resolveVerdict(place.data)}
+                    websiteHref={place.data.url}
+                    directionsHref={googleMapsHref(place.data)}
+                    mapSpot={place.data.title}
                   />
                 ))}
               </CardList>
@@ -294,19 +332,40 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
           }
 
           {
-            spots.length > 0 && (
-              <CardList title="Notable spots">
-                {spots.map((spot) => (
+            cafes.length > 0 && (
+              <CardList title="Coffee">
+                {cafes.map((place) => (
                   <Card
-                    href={spot.url ? (isExternalUrl(spot.url) ? spot.url : href(spot.url)) : undefined}
-                    title={spot.name}
-                    meta={spotCategories[spot.category].meta}
-                    description={spot.description}
-                    external={Boolean(spot.url && isExternalUrl(spot.url))}
+                    href={hasBody(place) ? href(`/food/${place.id}/`) : undefined}
+                    title={place.data.title}
+                    meta={cuisineLabel(place.data.cuisine[0])}
+                    description={place.data.description}
+                    verdict={resolveVerdict(place.data)}
+                    websiteHref={place.data.url}
+                    directionsHref={googleMapsHref(place.data)}
+                    mapSpot={place.data.title}
                   />
                 ))}
               </CardList>
             )
+          }
+
+          {
+            spotGroups.map((group) => (
+              <CardList title={spotCategories[group.category].label}>
+                {group.spots.map((spot) => (
+                  <Card
+                    href={spotPageHref(spot)}
+                    title={spot.name}
+                    meta={spot.address ?? spotCategories[spot.category].meta}
+                    description={spot.description}
+                    websiteHref={spotWebsiteHref(spot)}
+                    directionsHref={spotDirectionsHref(spot)}
+                    mapSpot={spot.name}
+                  />
+                ))}
+              </CardList>
+            ))
           }
 
           {
@@ -417,6 +476,16 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
 </BaseLayout>
 
 <style>
+  .notes {
+    font-size: var(--font-size-sm);
+    color: var(--color-muted);
+  }
+
+  .notes ul {
+    margin: 0;
+    padding-inline-start: var(--spacing-md);
+  }
+
   .detail-pane-inner {
     max-width: calc(var(--measure-reading) + 2 * var(--spacing-lg));
     margin-inline: auto;

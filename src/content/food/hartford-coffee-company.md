@@ -1,0 +1,14 @@
+---
+title: Hartford Coffee Company
+created: 2026-10-12
+status: want-to-try
+description: Neighborhood café roasting its own beans since 2004
+cuisine: ['cafe']
+neighborhood: Tower Grove South
+address:
+  - 3974 Hartford St
+  - St. Louis, MO 63116
+coords: [38.602579, -90.252416]
+url: https://hartfordcoffee.com
+instagram: https://www.instagram.com/hartfordcoffeeco/
+---

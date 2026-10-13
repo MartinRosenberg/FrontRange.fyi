@@ -3,12 +3,48 @@ import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundaryFor, type BoundaryFeature } from './boundaries'
 import { buildPopupHtml } from './popup'
-import { BADGE_POPUP_OFFSET, createMapPopup, keepPopupInView } from './map-shared'
+import { BADGE_POPUP_OFFSET, bindRowHover, createMapPopup, keepPopupInView } from './map-shared'
 import type { MapSpot } from '../lib/spots'
+import { metersBetween } from '../lib/geo'
 
 const BOUNDARY_SOURCE_ID = 'neighborhood-boundary'
 const BOUNDARY_FILL_LAYER_ID = 'neighborhood-boundary-fill'
 const BOUNDARY_OUTLINE_LAYER_ID = 'neighborhood-boundary-outline'
+const STACKED_BADGE_RADIUS = 22
+const STACKED_BADGE_DISTANCE_METERS = 45
+
+function stackBadges(spots: MapSpot[]): Map<MapSpot, [number, number]> {
+  const stacks: MapSpot[][] = []
+  for (const spot of spots) {
+    const stack = stacks.find(
+      (candidate) =>
+        metersBetween(candidate[0].coords, spot.coords) <= STACKED_BADGE_DISTANCE_METERS,
+    )
+    if (stack) {
+      stack.push(spot)
+    } else {
+      stacks.push([spot])
+    }
+  }
+
+  const offsets = new Map<MapSpot, [number, number]>()
+  for (const stack of stacks) {
+    stack.forEach((spot, index) => {
+      if (stack.length <= 1) {
+        offsets.set(spot, [0, 0])
+
+        return
+      }
+      const angle = (Math.PI * 2 * index) / stack.length
+      offsets.set(spot, [
+        Math.cos(angle) * STACKED_BADGE_RADIUS,
+        Math.sin(angle) * STACKED_BADGE_RADIUS,
+      ])
+    })
+  }
+
+  return offsets
+}
 
 function extendWithGeometry(coordinates: unknown, extend: (point: [number, number]) => void): void {
   if (!Array.isArray(coordinates)) {
@@ -95,8 +131,10 @@ function addSpotMarkers(
   root: HTMLElement,
   spots: MapSpot[],
   openPopup: (spot: MapSpot, badge: HTMLElement) => void,
-): void {
+): Map<string, HTMLElement> {
   const legend = root.querySelector<HTMLElement>('[data-map-legend]')
+  const offsets = stackBadges(spots)
+  const badgeByTitle = new Map<string, HTMLElement>()
 
   for (const spot of spots) {
     const element = spot.url ? document.createElement('a') : document.createElement('button')
@@ -105,10 +143,6 @@ function addSpotMarkers(
     element.setAttribute('aria-label', spot.title)
     if (element instanceof HTMLAnchorElement && spot.url) {
       element.href = spot.url
-      if (spot.external) {
-        element.target = '_blank'
-        element.rel = 'noopener'
-      }
     }
     if (element instanceof HTMLButtonElement) {
       element.type = 'button'
@@ -129,7 +163,42 @@ function addSpotMarkers(
       openPopup(spot, element)
     })
 
-    new maplibregl.Marker({ element, anchor: 'center' }).setLngLat(spot.coords).addTo(map)
+    new maplibregl.Marker({ element, anchor: 'center', offset: offsets.get(spot) ?? [0, 0] })
+      .setLngLat(spot.coords)
+      .addTo(map)
+    badgeByTitle.set(spot.title, element)
+  }
+
+  return badgeByTitle
+}
+
+function bindCardHover(badgeByTitle: Map<string, HTMLElement>): void {
+  const cards = document.querySelectorAll<HTMLElement>('[data-map-spot]')
+  bindRowHover(cards, {
+    enter: (card) => badgeByTitle.get(card.dataset.mapSpot ?? '')?.classList.add('is-hovered'),
+    leave: (card) => badgeByTitle.get(card.dataset.mapSpot ?? '')?.classList.remove('is-hovered'),
+  })
+}
+
+function bindLegendToggles(root: HTMLElement, closePopupFor: (category: string) => void): void {
+  const legend = root.querySelector<HTMLElement>('[data-map-legend]')
+  if (!legend) {
+    return
+  }
+  for (const item of legend.querySelectorAll<HTMLButtonElement>('[data-legend-category]')) {
+    item.addEventListener('click', () => {
+      const category = item.dataset.legendCategory ?? ''
+      const showing = item.getAttribute('aria-pressed') !== 'false'
+      item.setAttribute('aria-pressed', String(!showing))
+      for (const badge of root.querySelectorAll<HTMLElement>(
+        `.map-badge[data-category="${category}"]`,
+      )) {
+        badge.hidden = showing
+      }
+      if (showing) {
+        closePopupFor(category)
+      }
+    })
   }
 }
 
@@ -177,12 +246,13 @@ export function initMapPane(): void {
     const popupHtml = buildPopupHtml({
       title: spot.title,
       link: spot.url,
-      external: spot.external,
       chips: spot.meta ? [{ label: spot.meta }] : [],
       verdict: spot.verdict,
       showRating: spot.category === 'food',
       excerpt: spot.tagline ?? '',
+      addressLines: spot.addressLines ?? [],
       directionsHref: spot.directionsHref,
+      websiteHref: spot.websiteHref,
       photo: spot.photo ?? '',
     })
     selectedBadge?.classList.remove('is-selected')
@@ -193,6 +263,12 @@ export function initMapPane(): void {
   }
 
   map.on('click', () => popup.remove())
+
+  bindLegendToggles(root, (category) => {
+    if (selectedBadge?.dataset.category === category) {
+      popup.remove()
+    }
+  })
 
   const frameView = (bounds: LngLatBoundsLike | undefined): void => {
     if (bounds) {
@@ -223,5 +299,5 @@ export function initMapPane(): void {
     })
   })
 
-  addSpotMarkers(map, root, spots, openSpotPopup)
+  bindCardHover(addSpotMarkers(map, root, spots, openSpotPopup))
 }

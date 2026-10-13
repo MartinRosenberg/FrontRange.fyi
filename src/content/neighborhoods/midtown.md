@@ -9,6 +9,8 @@ tags:
   - college
   - tech
   - urban
+notes:
+  - "This page combines the Midtown and Covenant Blu-Grand Center city neighborhoods, since Grand Center is known as part of Midtown."
 ---
 
 Midtown is an area wedged between [[downtown|Downtown]] and [[forest-park|Forest Park]] that is seeing a lot of revival right now. One of the biggest draws of the area is the City Foundry, a food hall and market built into a restored vacant foundry building.
@@ -19,4 +21,4 @@ I'm hopeful about these projects that are being implemented to help stimulate th
 
 ### Impressions
 
-Midtown does not feel very walkable - the food hall is surrounded on all sides by highways, so it's not as easy to get to as other food halls that are located right in a downtown walkable area like in Nashville. There's a large Ikea and some large office buildings and a lot of space dedicated to parking lots.
+The Cortex area of Midtown (technically in Central West End) does not feel very walkable, and the food hall is surrounded on all sides by highways, so it's not as easy to get to as other food halls that are located right in a downtown walkable area like in Nashville. There's a large Ikea and some large office buildings and a lot of space dedicated to parking lots in that area, so it just doesn't feel very walkable.

@@ -9,6 +9,7 @@ export interface NeighborhoodRecord {
   type?: string
   coords?: [number, number]
   ignored?: boolean
+  mergedInto?: string
 }
 
 export const neighborhoodRecords = optionalData<NeighborhoodRecord[]>(

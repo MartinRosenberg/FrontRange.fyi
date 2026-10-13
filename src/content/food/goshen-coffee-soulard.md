@@ -1,0 +1,14 @@
+---
+title: Goshen Coffee
+created: 2026-10-12
+status: want-to-try
+description: Soulard café of the Illinois roaster
+cuisine: ['cafe']
+neighborhood: Soulard
+address:
+  - 910 Geyer Ave
+  - St. Louis, MO 63104
+coords: [38.608422, -90.205142]
+url: https://goshencoffee.com/pages/soulard-cafe
+instagram: https://instagram.com/goshencoffee
+---

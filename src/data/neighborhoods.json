@@ -38,9 +38,28 @@
     "group": "South City"
   },
   { "number": 34, "name": "LaSalle Park", "slug": "lasalle-park", "group": "South City" },
-  { "number": 35, "name": "Downtown", "slug": "downtown", "group": "Central Corridor" },
-  { "number": 36, "name": "Downtown West", "slug": "downtown-west", "group": "Central Corridor" },
-  { "number": 37, "name": "Midtown", "slug": "midtown", "group": "Central Corridor" },
+  {
+    "number": 35,
+    "name": "Downtown",
+    "slug": "downtown",
+    "numberLabel": "35, 36",
+    "group": "Central Corridor"
+  },
+  {
+    "number": 36,
+    "name": "Downtown West",
+    "slug": "downtown-west",
+    "group": "Central Corridor",
+    "ignored": true,
+    "mergedInto": "downtown"
+  },
+  {
+    "number": 37,
+    "name": "Midtown",
+    "slug": "midtown",
+    "group": "Central Corridor",
+    "numberLabel": "37, 77"
+  },
   {
     "number": 38,
     "name": "Central West End",
@@ -61,28 +80,32 @@
     "name": "Cheltenham",
     "slug": "cheltenham",
     "ignored": true,
-    "group": "Central Corridor"
+    "group": "Central Corridor",
+    "mergedInto": "dogtown"
   },
   {
     "number": 42,
     "name": "Clayton-Tamm",
     "slug": "clayton-tamm",
     "ignored": true,
-    "group": "Central Corridor"
+    "group": "Central Corridor",
+    "mergedInto": "dogtown"
   },
   {
     "number": 43,
     "name": "Franz Park",
     "slug": "franz-park",
     "ignored": true,
-    "group": "Central Corridor"
+    "group": "Central Corridor",
+    "mergedInto": "dogtown"
   },
   {
     "number": 44,
     "name": "Hi-Pointe",
     "slug": "hi-pointe",
     "ignored": true,
-    "group": "Central Corridor"
+    "group": "Central Corridor",
+    "mergedInto": "dogtown"
   },
   { "number": 45, "name": "Wydown Skinker", "slug": "wydown-skinker", "group": "Central Corridor" },
   { "number": 46, "name": "Delmar Loop", "slug": "delmar-loop", "group": "Central Corridor" },
@@ -145,7 +168,9 @@
     "number": 77,
     "name": "Covenant Blu-Grand Center",
     "slug": "covenant-blu-grand-center",
-    "group": "Central Corridor"
+    "group": "Central Corridor",
+    "ignored": true,
+    "mergedInto": "midtown"
   },
   { "number": 78, "name": "Hamilton Heights", "slug": "hamilton-heights", "group": "North City" },
   { "number": 79, "name": "North Riverfront", "slug": "north-riverfront", "group": "North City" },

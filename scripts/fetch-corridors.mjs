@@ -295,7 +295,7 @@ const corridors = [
     to: { label: '18th', names: ['North 18th Street', '18th Street'] },
     center: [38.631, -90.197],
     anchor: 'washington-avenue',
-    neighborhoods: ['downtown', 'downtown-west'],
+    neighborhoods: ['downtown'],
     website: 'https://www.washaveretail.com/',
   },
   {

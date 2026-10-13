@@ -97,19 +97,19 @@ export function buildPopupHtml(config: PopupConfig): string {
 
   const excerptHtml = excerpt ? `<p class="popup-excerpt excerpt">${escapeHtml(excerpt)}</p>` : ''
 
-  const moreHtml = link
-    ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>`
-    : websiteHref
-      ? `<a class="btn btn-dark" href="${escapeHtml(websiteHref)}" target="_blank" rel="noopener">Website${EXTERNAL_ICON}</a>`
-      : ''
+  const moreHtml = link ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>` : ''
+
+  const websiteHtml = websiteHref
+    ? `<a class="btn btn-outline" href="${escapeHtml(websiteHref)}" target="_blank" rel="noopener">Website${EXTERNAL_ICON}</a>`
+    : ''
 
   const directionsHtml = directionsHref
     ? `<a class="btn btn-outline" href="${directionsHref}" target="_blank" rel="noopener">Directions${DIRECTIONS_ICON}</a>`
     : ''
 
   const footerHtml =
-    moreHtml || directionsHtml
-      ? `<div class="popup-actions">${moreHtml}${directionsHtml}</div>`
+    moreHtml || websiteHtml || directionsHtml
+      ? `<div class="action-buttons">${moreHtml}${websiteHtml}${directionsHtml}</div>`
       : ''
 
   return `<div class="popup-scroll">${photoHtml}${ratingHtml}${metaHtml}${titleHtml}${taglineHtml}${addressHtml}${excerptHtml}${footerHtml}</div>`

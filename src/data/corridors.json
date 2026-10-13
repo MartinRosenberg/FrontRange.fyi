@@ -730,7 +730,7 @@
       "from": "6th",
       "to": "18th",
       "anchor": "washington-avenue",
-      "neighborhoods": ["downtown", "downtown-west"],
+      "neighborhoods": ["downtown"],
       "website": "https://www.washaveretail.com/",
       "line": [
         [-90.189351, 38.630211],

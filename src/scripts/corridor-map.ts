@@ -3,14 +3,11 @@ import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundariesFor, type BoundaryFeature } from './boundaries'
 import { optionalData } from '../lib/optional-data'
+import { projectOntoLine } from '../lib/geo'
 
 const corridorData = optionalData<{ corridors: unknown[] }>(
   import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
   { corridors: [] },
-)
-const corridorSpots = optionalData<Record<string, unknown[]>>(
-  import.meta.glob('../data/corridor-spots.json', { eager: true, import: 'default' }),
-  {},
 )
 
 const SOURCE_ID = 'corridor'
@@ -38,42 +35,43 @@ const corridors = new Map<string, Corridor>(
 
 interface Spot {
   name: string
+  category: string
   coords: number[]
   link?: string
 }
 
-const spotsByCorridor = corridorSpots as Record<string, Spot[]>
+function readSpotsByCorridor(): Record<string, Spot[]> {
+  const holder = document.querySelector('script[data-corridor-spots]')
+  if (!holder?.textContent) {
+    return {}
+  }
 
-const pinSvg = `<svg class="marker-pin" viewBox="-2 -2 28 36" width="28" height="36" fill="none" aria-hidden="true"><path class="marker-pin-body" d="M12 0C5.383 0 0 5.383 0 12c0 9 12 20 12 20s12-11 12-20c0-6.617-5.383-12-12-12z" fill="currentColor" /><circle class="marker-pin-dot" cx="12" cy="12" r="4.5" /></svg>`
+  try {
+    return JSON.parse(holder.textContent) as Record<string, Spot[]>
+  } catch {
+    return {}
+  }
+}
+
+const spotsByCorridor = readSpotsByCorridor()
+
+function badgeIconFor(category: string): Node | undefined {
+  const template = document.querySelector<HTMLTemplateElement>('template[data-badge-icons]')
+  const icon = template?.content.querySelector(`[data-category="${category}"] .icon`)
+
+  return icon?.cloneNode(true)
+}
 
 const SNAP_METERS = 75
 
 function snapToLines(point: [number, number], group: Corridor[]): [number, number] {
-  const metersPerLng = Math.cos((point[1] * Math.PI) / 180) * 111320
-  const metersPerLat = 110970
-  let best: [number, number] = point
+  let best = point
   let bestDistance = Infinity
-
   for (const corridor of group) {
-    const line = corridor.line
-    for (let index = 0; index < line.length - 1; index += 1) {
-      const [startLng, startLat] = line[index]
-      const [endLng, endLat] = line[index + 1]
-      const segmentX = (endLng - startLng) * metersPerLng
-      const segmentY = (endLat - startLat) * metersPerLat
-      const pointX = (point[0] - startLng) * metersPerLng
-      const pointY = (point[1] - startLat) * metersPerLat
-      const lengthSquared = segmentX * segmentX + segmentY * segmentY
-      const along =
-        lengthSquared === 0
-          ? 0
-          : Math.max(0, Math.min(1, (pointX * segmentX + pointY * segmentY) / lengthSquared))
-      const distance = Math.hypot(pointX - along * segmentX, pointY - along * segmentY)
-
-      if (distance < bestDistance) {
-        bestDistance = distance
-        best = [startLng + (endLng - startLng) * along, startLat + (endLat - startLat) * along]
-      }
+    const projection = projectOntoLine(point, corridor.line)
+    if (projection.distance < bestDistance) {
+      bestDistance = projection.distance
+      best = projection.point
     }
   }
 
@@ -86,23 +84,29 @@ function addSpotMarkers(map: MapLibreMap, group: Corridor[]): void {
     if (spots.length === 0) {
       continue
     }
-    const horizontal = isMostlyNorthSouth([corridor])
-
     for (const spot of spots) {
       const element = document.createElement(spot.link ? 'a' : 'span')
-      element.className = horizontal ? 'corridor-spot is-horizontal' : 'corridor-spot'
+      element.className = 'corridor-spot map-badge'
+      element.dataset.category = spot.category
       element.setAttribute('aria-label', spot.name)
       if (spot.link && element instanceof HTMLAnchorElement) {
         element.href = import.meta.env.BASE_URL.replace(/\/$/, '') + spot.link
       }
 
-      element.innerHTML = pinSvg
+      const body = document.createElement('span')
+      body.className = 'map-badge-body'
+      const icon = badgeIconFor(spot.category)
+      if (icon) {
+        body.append(icon)
+      }
+      element.append(body)
+
       const name = document.createElement('span')
       name.className = 'corridor-spot-name'
       name.textContent = spot.name
       element.append(name)
 
-      new maplibregl.Marker({ element, anchor: 'bottom' })
+      new maplibregl.Marker({ element, anchor: 'center' })
         .setLngLat(snapToLines(spot.coords as [number, number], [corridor]))
         .addTo(map)
     }
@@ -138,13 +142,6 @@ function boundsOf(group: Corridor[]): LngLatBoundsLike {
     [west, south],
     [east, north],
   ]
-}
-
-function isMostlyNorthSouth(group: Corridor[]): boolean {
-  const [[west, south], [east, north]] = boundsOf(group) as [[number, number], [number, number]]
-  const metersPerDegree = Math.cos((((south + north) / 2) * Math.PI) / 180)
-
-  return north - south > (east - west) * metersPerDegree
 }
 
 function readCorridorColors(): { line: string; halo: string } {
@@ -323,7 +320,7 @@ function mountCorridorMap(element: HTMLElement, group: Corridor[]): MountedMap {
     applyCorridorLayers(map, group)
     const camera = map.cameraForBounds(figureBounds(group), { padding: 36 })
     if (camera) {
-      map.jumpTo({ center: camera.center, zoom: (camera.zoom ?? 14) - 1.25 })
+      map.jumpTo({ center: camera.center, zoom: (camera.zoom ?? 14) - 0.25 })
     }
   })
 

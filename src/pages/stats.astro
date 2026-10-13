@@ -10,6 +10,7 @@ import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../lib/cuisine'
 import { NEIGHBORHOODS_ENABLED, neighborhoodRecords } from '../lib/neighborhood-data'
 import { neighborhoodShapes } from '../lib/neighborhoods'
 import { href } from '../lib/url'
+import { allSpots, spotCategories, SPOT_SECTION_ORDER } from '../lib/spots'
 
 const allFood = published(await getCollection('food'))
 const written = allFood.filter((place) => hasBody(place))
@@ -47,6 +48,12 @@ const cuisineCounts = [...cuisinePages.entries()]
   .sort((left, right) => right.tried - left.tried || right.total - left.total)
   .slice(0, 10)
 
+const spots = allSpots()
+const spotCounts = SPOT_SECTION_ORDER.map((category) => ({
+  category,
+  label: spotCategories[category].label,
+  count: spots.filter((spot) => spot.category === category).length,
+})).filter((row) => row.count > 0)
 const description = `Raw data about St. Louing`
 ---
 
@@ -88,6 +95,14 @@ const description = `Raw data about St. Louing`
             <dt class="eyebrow eyebrow--muted">Cuisines</dt>
             <dd class="stats-value">{cuisinePages.size}</dd>
           </div>
+          {
+            NEIGHBORHOODS_ENABLED && spots.length > 0 && (
+              <div class="stats-cell">
+                <dt class="eyebrow eyebrow--muted">Points of interest</dt>
+                <dd class="stats-value">{spots.length}</dd>
+              </div>
+            )
+          }
         </dl>
       </section>
 
@@ -167,6 +182,28 @@ const description = `Raw data about St. Louing`
           </section>
         )
       }
+      {
+        NEIGHBORHOODS_ENABLED && spotCounts.length > 0 && (
+          <section class="stats-section stats-spots">
+            <Heading>
+              Points of interest
+              <span slot="aside" class="eyebrow eyebrow--muted">
+                On the neighborhood maps
+              </span>
+            </Heading>
+            <ol class="divided-list stats-rows stats-rows--plain">
+              {spotCounts.map((row) => (
+                <li class="stats-row">
+                  <span class="title-serif">{row.label}</span>
+                  <span class="stats-ratio">
+                    <strong>{row.count}</strong>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )
+      }
     </div>
   </article>
 </BaseLayout>
@@ -183,7 +220,8 @@ const description = `Raw data about St. Louing`
       grid-template-columns: minmax(16rem, 1fr) minmax(0, 2.5fr);
       grid-template-areas:
         'ground numbers'
-        'ground cuisines';
+        'ground cuisines'
+        'ground spots';
       column-gap: var(--spacing-xl);
       align-items: start;
     }
@@ -201,6 +239,10 @@ const description = `Raw data about St. Louing`
 
     .stats-cuisines {
       grid-area: cuisines;
+    }
+
+    .stats-spots {
+      grid-area: spots;
     }
 
   }
@@ -320,6 +362,10 @@ const description = `Raw data about St. Louing`
     align-items: center;
     column-gap: var(--spacing-lg);
     padding-block: var(--spacing-sm);
+  }
+
+  .stats-rows--plain .stats-row {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .stats-meter {

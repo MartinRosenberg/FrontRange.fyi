@@ -28,6 +28,11 @@ const pointNumbers = new Set(
 const slugByNumber = new Map(
   drawnNeighborhoods.map((neighborhood) => [Number(neighborhood.number), neighborhood.slug]),
 )
+for (const neighborhood of neighborhoods) {
+  if (neighborhood.mergedInto) {
+    slugByNumber.set(Number(neighborhood.number), neighborhood.mergedInto)
+  }
+}
 
 const ringsOf = (geometry) => {
   if (geometry.type === 'Polygon') {
@@ -66,7 +71,12 @@ for (const feature of geojson.features) {
     }
   }
 
-  features.push({ slug, rings })
+  const existing = features.find((feature) => feature.slug === slug)
+  if (existing) {
+    existing.rings.push(...rings)
+  } else {
+    features.push({ slug, rings })
+  }
 }
 
 const longitudeScale = Math.cos(((bounds.south + bounds.north) / 2) * (Math.PI / 180))

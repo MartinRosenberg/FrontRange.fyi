@@ -9,6 +9,8 @@ tags:
   - music
   - brewery
   - dining
+notes:
+  - "The city officially names this neighborhood Forest Park Southeast, but it's listed as The Grove because that's how I think people more commonly refer to the neighborhood."
 ---
 
 The Grove is the LGBTQ neighborhood in St. Louis, and is home to a strip of local restaurants and bars. The city neighborhood is officially named "Forest Park Southeast", but everyone knows this area as The Grove.

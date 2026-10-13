@@ -1,4 +1,7 @@
-import { NEIGHBORHOODS_ENABLED, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
+import {
+  NEIGHBORHOODS_ENABLED,
+  neighborhoodRecords as neighborhoods,
+} from '../lib/neighborhood-data'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
 
 export interface BoundaryFeature {
@@ -7,11 +10,39 @@ export interface BoundaryFeature {
   geometry: { type: string; coordinates: unknown }
 }
 
-const numberBySlug = new Map(
-  neighborhoods
-    .filter((neighborhood) => !('ignored' in neighborhood))
-    .map((neighborhood) => [neighborhood.slug, neighborhood.number]),
-)
+const numbersBySlug = new Map<string, number[]>()
+for (const neighborhood of neighborhoods) {
+  const slug = neighborhood.mergedInto ?? neighborhood.slug
+  if (!neighborhood.mergedInto && 'ignored' in neighborhood) {
+    continue
+  }
+  const numbers = numbersBySlug.get(slug) ?? []
+  numbers.push(neighborhood.number)
+  numbersBySlug.set(slug, numbers)
+}
+
+function polygonsOf(feature: BoundaryFeature): unknown[] {
+  if (feature.geometry.type === 'Polygon') {
+    return [feature.geometry.coordinates]
+  }
+  if (feature.geometry.type === 'MultiPolygon') {
+    return feature.geometry.coordinates as unknown[]
+  }
+
+  return []
+}
+
+function combineFeatures(features: BoundaryFeature[]): BoundaryFeature | undefined {
+  if (features.length <= 1) {
+    return features[0]
+  }
+
+  return {
+    type: 'Feature',
+    properties: features[0].properties,
+    geometry: { type: 'MultiPolygon', coordinates: features.flatMap(polygonsOf) },
+  }
+}
 
 let featuresPromise: Promise<BoundaryFeature[]> | null = null
 
@@ -33,8 +64,7 @@ function loadFeatures(): Promise<BoundaryFeature[]> {
 function numbersFor(slugs: Iterable<string>): Set<number> {
   const numbers = new Set<number>()
   for (const slug of slugs) {
-    const number = numberBySlug.get(slug)
-    if (number !== undefined) {
+    for (const number of numbersBySlug.get(slug) ?? []) {
       numbers.add(number)
     }
   }
@@ -43,14 +73,16 @@ function numbersFor(slugs: Iterable<string>): Set<number> {
 }
 
 export async function boundaryFor(slug: string): Promise<BoundaryFeature | undefined> {
-  const number = numberBySlug.get(slug)
-  if (number === undefined) {
+  const numbers = numbersFor([slug])
+  if (numbers.size === 0) {
     return undefined
   }
 
   const features = await loadFeatures()
 
-  return features.find((feature) => Number(feature.properties?.NHD_NUM) === number)
+  return combineFeatures(
+    features.filter((feature) => numbers.has(Number(feature.properties?.NHD_NUM))),
+  )
 }
 
 export async function boundariesFor(slugs: Iterable<string>): Promise<BoundaryFeature[]> {

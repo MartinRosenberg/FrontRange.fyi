@@ -19,6 +19,7 @@
     "build:basemap": "scripts/build-basemap.sh",
     "build:geo": "node scripts/build-neighborhood-geo.mjs",
     "build:population": "node scripts/build-neighborhood-population.mjs",
+    "geocode:spots": "node scripts/geocode-spots.mjs",
     "prettier": "prettier . --write"
   },
   "dependencies": {

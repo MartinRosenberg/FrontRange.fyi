@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import BoundaryMap from '../components/BoundaryMap.astro'
 import Comments from '../components/Comments.astro'
 import CorridorMap from '../components/CorridorMap.astro'
+import { corridorSpotsByCorridor } from '../lib/corridor-spots'
 import Entry from '../components/Entry.astro'
 import EntryDates from '../components/EntryDates.astro'
 import { published } from '../lib/content'
@@ -25,6 +26,7 @@ const backlinks = await getBacklinks(entry.id)
 
 const hasBoundaryMap = (entry.body ?? '').includes('data-boundary-map')
 const hasCorridorMap = (entry.body ?? '').includes('data-corridor-map')
+const corridorSpots = hasCorridorMap ? await corridorSpotsByCorridor() : {}
 
 const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
 const permalink = new URL(`/${entry.id}/`, siteOrigin).href
@@ -53,7 +55,7 @@ const schema = articleSchema(
   tags={data.tags}
   jsonLd={schema}>
   {hasBoundaryMap && <BoundaryMap />}
-  {hasCorridorMap && <CorridorMap />}
+  {hasCorridorMap && <CorridorMap spots={corridorSpots} />}
   <Entry
     title={data.title}
     tags={data.tags}

@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro'
 import { Image } from 'astro:assets'
 import Rating from './Rating.astro'
+import ActionButtons from './ActionButtons.astro'
 import type { Verdict } from '../lib/verdict'
 
 interface Props {
@@ -16,6 +17,9 @@ interface Props {
   photoSizes?: string
   verdict?: Verdict
   external?: boolean
+  websiteHref?: string
+  directionsHref?: string
+  mapSpot?: string
   class?: string
 }
 
@@ -31,22 +35,28 @@ const {
   photoSizes = '(min-width: 700px) 520px, 100vw',
   verdict,
   external = false,
+  websiteHref,
+  directionsHref,
+  mapSpot,
   class: className,
 } = Astro.props
+
 
 const metaParts = (Array.isArray(meta) ? meta : [meta]).filter(
   (part): part is string => Boolean(part),
 )
 const hasIcon = Astro.slots.has('icon')
-const Tag = href ? 'a' : 'div'
-const linkAttributes = href
+const showActions = Boolean(websiteHref || directionsHref)
+const wrapsLink = Boolean(href) && !showActions
+const Tag = wrapsLink ? 'a' : 'div'
+const linkAttributes = wrapsLink
   ? external
     ? { href, target: '_blank', rel: 'noopener' }
     : { href }
   : {}
 ---
 
-<Tag class:list={['card', className]} {...linkAttributes}>
+<Tag class:list={['card', className]} data-map-spot={mapSpot} {...linkAttributes}>
   {
     photo && (
       <Image
@@ -78,10 +88,23 @@ const linkAttributes = href
         </span>
       )
     }
-    <span class="title-serif title-link">{title}</span>
+    {
+      href && showActions ? (
+        <a class="title-serif title-link" href={href}>
+          {title}
+        </a>
+      ) : (
+        <span class="title-serif title-link">{title}</span>
+      )
+    }
     {description && <p class="card-description description">{description}</p>}
     {excerpt && <p class="card-excerpt excerpt">{excerpt}</p>}
     <slot />
   </span>
   {verdict && <Rating verdict={verdict} />}
+  {
+    showActions && (
+      <ActionButtons href={href} websiteHref={websiteHref} directionsHref={directionsHref} />
+    )
+  }
 </Tag>

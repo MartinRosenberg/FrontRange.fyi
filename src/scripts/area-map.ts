@@ -13,10 +13,17 @@ import {
 import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
 
+const bySlug = new Map(neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood]))
 const byNumber = new Map(
-  neighborhoods
-    .filter((neighborhood) => !('ignored' in neighborhood))
-    .map((neighborhood) => [neighborhood.number, neighborhood]),
+  neighborhoods.flatMap((neighborhood) => {
+    if (neighborhood.mergedInto) {
+      const parent = bySlug.get(neighborhood.mergedInto)
+
+      return parent ? [[neighborhood.number, parent] as const] : []
+    }
+
+    return 'ignored' in neighborhood ? [] : [[neighborhood.number, neighborhood] as const]
+  }),
 )
 
 function forEachPosition(geometry: Geometry, fn: (position: Position) => void): void {

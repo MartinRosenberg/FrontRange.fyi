@@ -37,8 +37,13 @@
   --color-map-corridor: #c70f2e;
 
   --color-spot-landmark: var(--color-map-county);
+  --color-spot-museum: #1f8a8a;
   --color-spot-park: var(--color-map-park);
-  --color-spot-shop: var(--color-map-central);
+  --color-spot-market: var(--color-map-central);
+  --color-spot-mural: var(--color-map-corridor);
+  --color-spot-thrift: var(--color-map-south);
+  --color-spot-records: #d9731a;
+  --color-spot-books: var(--color-text-heading);
   --color-spot-food: var(--color-accent-blue);
 
   --color-link: #225aa9;
@@ -63,6 +68,7 @@
   --measure: 900px;
   --measure-reading: 650px;
   --measure-wide: 1280px;
+  --spacing-xxs: 0.125rem;
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-shmedium: 0.75rem;
@@ -121,6 +127,8 @@
   --color-map-south: #e6877a;
   --color-map-park: #7ec98a;
   --color-map-corridor: #f88c9e;
+  --color-spot-records: #f0a052;
+  --color-spot-museum: #5fc3c3;
   --color-link: #99c3ff;
   --color-link-hover: #b5d4ff;
   --color-pin: #f64c68;
@@ -552,34 +560,12 @@ tbody tr:last-child td {
   text-underline-offset: 2px;
 }
 
-.corridor-spot {
-  display: block;
-  color: var(--color-pin);
-}
-
-.corridor-spot:hover,
-.corridor-spot:focus-visible {
-  z-index: 2;
-  color: var(--color-pin);
-}
-
-a.corridor-spot {
-  cursor: pointer;
-}
-
-.corridor-spot:hover .marker-pin,
-.corridor-spot:focus-visible .marker-pin,
 .map-pin:hover .marker-pin {
   transform: scale(1.12);
 }
 
-.corridor-spot.is-horizontal .marker-pin {
-  transform: rotate(90deg);
-}
-
-.corridor-spot.is-horizontal:hover .marker-pin,
-.corridor-spot.is-horizontal:focus-visible .marker-pin {
-  transform: rotate(90deg) scale(1.12);
+.corridor-spot {
+  position: relative;
 }
 
 .corridor-spot-name {
@@ -608,10 +594,6 @@ a.corridor-spot {
   visibility: visible;
   opacity: 1;
   z-index: 99999;
-}
-
-.corridor-spot.is-horizontal .corridor-spot-name {
-  bottom: calc(50% + 2px);
 }
 
 :target {
@@ -769,12 +751,6 @@ button.chip:hover {
   --chip-border: var(--color-accent);
   --chip-color: var(--color-accent);
   background: transparent;
-}
-
-.chip--lg {
-  --chip-color: var(--color-text);
-  font-size: var(--font-size-xs);
-  line-height: 1;
 }
 
 .chip-filter {
@@ -1127,12 +1103,36 @@ body:has(.map-split) main > .wrap,
   --badge-color: var(--color-spot-landmark);
 }
 
+.map-badge[data-category='museum'] {
+  --badge-color: var(--color-spot-museum);
+}
+
 .map-badge[data-category='park'] {
   --badge-color: var(--color-spot-park);
 }
 
-.map-badge[data-category='shop'] {
-  --badge-color: var(--color-spot-shop);
+.map-badge[data-category='market'] {
+  --badge-color: var(--color-spot-market);
+}
+
+.map-badge[data-category='mural'] {
+  --badge-color: var(--color-spot-mural);
+}
+
+.map-badge[data-category='thrift'] {
+  --badge-color: var(--color-spot-thrift);
+}
+
+.map-badge[data-category='records'] {
+  --badge-color: var(--color-spot-records);
+}
+
+.map-badge[data-category='books'] {
+  --badge-color: var(--color-spot-books);
+}
+
+.map-badge[hidden] {
+  display: none;
 }
 
 .map-badge[data-category='food'] {
@@ -1156,6 +1156,15 @@ body:has(.map-split) main > .wrap,
   transform: scale(1.12);
 }
 
+.map-badge.is-hovered {
+  z-index: 2;
+}
+
+.map-badge.is-hovered .map-badge-body {
+  transform: scale(1.3);
+  filter: var(--drop-shadow-lifted);
+}
+
 .map-badge.is-selected .map-badge-body {
   border-color: var(--color-accent-blue);
 }
@@ -1167,7 +1176,7 @@ body:has(.map-split) main > .wrap,
   z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 0;
   margin: 0;
   padding: var(--spacing-xs) var(--spacing-sm);
   list-style: none;
@@ -1187,7 +1196,34 @@ body:has(.map-split) main > .wrap,
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  margin: 0;
+  width: calc(100% + 2 * var(--spacing-xs));
+  margin-block: 0;
+  margin-inline: calc(-1 * var(--spacing-xs));
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.map-legend-item:hover {
+  color: var(--color-accent-blue);
+}
+
+.map-legend-item[aria-pressed='false'] {
+  color: var(--color-muted);
+}
+
+.map-legend-item[aria-pressed='false'] .map-legend-swatch {
+  background: var(--color-surface-2);
+  box-shadow: inset 0 0 0 1px var(--badge-color, var(--color-pin));
+}
+
+.map-legend-item[aria-pressed='false'] .map-legend-swatch .icon {
+  color: var(--badge-color, var(--color-pin));
 }
 
 .map-legend-swatch {
@@ -1317,8 +1353,14 @@ body:has(.map-split) main > .wrap,
   inset: 0;
 }
 
-.map-list .list-description .more {
+.map-list .list-description :is(.more, .continue-link, .action-buttons) {
   margin-block-start: var(--spacing-sm);
+}
+
+.map-list .list-description .continue-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .map-split :is([data-map], .area-map) {
@@ -1363,22 +1405,22 @@ body:has(.map-split) main > .wrap,
     height: auto;
   }
 
+  .map-split.detail-split {
+    --detail-map-height: 360px;
+  }
+
   .map-split.detail-split .results {
-    grid-template-rows: 300px auto;
+    grid-template-rows: var(--detail-map-height) auto;
   }
 
   .map-split.detail-split .map-pane {
     grid-row: 1;
-    height: 300px;
+    height: var(--detail-map-height);
   }
 
   .map-split.detail-split .map-legend {
-    inset-block-start: auto;
-    inset-block-end: var(--spacing-sm);
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--spacing-xs) var(--spacing-sm);
-    max-width: calc(100% - 2 * var(--spacing-sm));
+    inset-inline-start: auto;
+    inset-inline-end: var(--spacing-sm);
   }
 
   .map-split.detail-split .detail-pane {
@@ -1701,25 +1743,22 @@ body:has([data-filter-root]) .masthead-nav {
   text-underline-offset: 2px;
 }
 
-.maplibregl-popup.map-popup .popup-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
+.maplibregl-popup.map-popup .action-buttons {
+  gap: var(--spacing-xs);
   margin-block-start: var(--spacing-sm);
   border-top: 1px dotted var(--color-line-input);
   padding-top: var(--spacing-sm);
 }
 
-.maplibregl-popup.map-popup .popup-actions .btn {
-  justify-content: center;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-rounded);
-  text-transform: none;
-  font-size: var(--font-size-sm);
+.maplibregl-popup.map-popup .action-buttons .btn {
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
 }
 
-.maplibregl-popup.map-popup .popup-actions .btn-outline {
-  background: transparent;
+.maplibregl-popup.map-popup .action-buttons .icon {
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 .maplibregl-popup.map-popup .maplibregl-popup-close-button {
@@ -1882,6 +1921,76 @@ body:has([data-filter-root]) .masthead-nav {
 
 :is(.chip, .btn, .continue-link) .icon {
   color: inherit;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.action-buttons .btn {
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-rounded);
+  text-transform: none;
+  font-size: var(--font-size-sm);
+}
+
+.action-buttons .btn-outline {
+  background: transparent;
+}
+
+.action-buttons .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.card-rows .card:has(> .action-buttons) {
+  flex-wrap: wrap;
+  row-gap: var(--spacing-xs);
+}
+
+.card-rows .card > .action-buttons {
+  flex-basis: 100%;
+}
+
+:is(.card, .map-list) .action-buttons .btn {
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xxs) var(--spacing-sm);
+  font-size: var(--font-size-xxs);
+}
+
+:is(.card, .map-list) .action-buttons .icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+@media (min-width: 701px) {
+  .card-rows .card:has(> .action-buttons) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    column-gap: var(--spacing-md);
+  }
+
+  .card-rows .card:has(> .action-buttons) > .card-body {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .card-rows .card:has(> .action-buttons) > .rating {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .card-rows .card > .action-buttons {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+    flex-basis: auto;
+  }
 }
 
 .btn-outline {
@@ -2110,6 +2219,7 @@ label {
 
 .card {
   position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -2119,7 +2229,7 @@ label {
   text-decoration: none;
 }
 
-a.card::before {
+:is(a.card, .card[data-map-spot])::before {
   content: '';
   position: absolute;
   z-index: -1;
@@ -2131,7 +2241,7 @@ a.card::before {
   transition: opacity var(--duration-fast) ease;
 }
 
-a.card:hover::before {
+:is(a.card, .card[data-map-spot]):hover::before {
   opacity: 1;
 }
 
@@ -2236,7 +2346,7 @@ a.card:hover::before {
     max-width: calc(100% - 9.5rem);
   }
 
-  .card-cells .card-rows a.card::before {
+  .card-cells .card-rows :is(a.card, .card[data-map-spot])::before {
     inset-inline: 0;
   }
 }
@@ -2527,12 +2637,14 @@ button.title-link:hover {
 }
 
 .hover-wash,
+.map-legend-item,
 .map-list .list > li,
 .detail-links > * {
   transition: background-color var(--duration-fast) ease;
 }
 
 .hover-wash:hover,
+.map-legend-item:hover,
 .map-list .list > li:not(.group-header):not(.section-head):hover,
 .detail-links > *:hover {
   background: var(--color-wash);
@@ -2856,10 +2968,38 @@ button.title-link:hover {
   }
 }
 
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-chips > li {
+  margin: 0;
+}
+
+.tag-chips .chip {
+  border-radius: var(--radius);
+}
+
+.tag-chips .icon {
+  width: 14px;
+  height: 14px;
+}
+
 .chip.chip-blue {
   background: var(--color-accent-blue);
   border-color: var(--color-accent-blue);
   color: var(--color-background);
+}
+
+.chip.chip-blue .count {
+  font-size: inherit;
+  color: inherit;
+  opacity: 0.8;
 }
 
 a.chip.chip-blue:hover,

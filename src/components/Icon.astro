@@ -18,6 +18,10 @@ import IconMessageCircleHeart from '../assets/IconMessageCircleHeart.astro'
 import IconFolderTree from '../assets/IconFolderTree.astro'
 import IconTree from '../assets/IconTree.astro'
 import IconShoppingBag from '../assets/IconShoppingBag.astro'
+import IconPalette from '../assets/IconPalette.astro'
+import IconHanger from '../assets/IconHanger.astro'
+import IconMusic from '../assets/IconMusic.astro'
+import IconBuildingMuseum from '../assets/IconBuildingMuseum.astro'
 
 interface Props {
   name?: string
@@ -43,6 +47,10 @@ const iconByKeyword: Record<string, typeof IconBook> = {
   'folder-tree': IconFolderTree,
   tree: IconTree,
   'shopping-bag': IconShoppingBag,
+  palette: IconPalette,
+  hanger: IconHanger,
+  music: IconMusic,
+  museum: IconBuildingMuseum,
 }
 
 const { name } = Astro.props

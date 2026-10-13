@@ -10,6 +10,8 @@ tags:
   - green
   - residential
   - international
+notes:
+  - "Some places on the east side of South Grand are officially in Tower Grove East, but they're listed here because the South Grand strip reads as one neighborhood."
 ---
 
 Tower Grove South is the aptly named neighborhood just south of [[tower-grove-park|Tower Grove Park]]. The area is largely residential with two main business strips - one near the western edge along Morganford Rd, and one on the eastern edge along South Grand Blvd. There are a few cafes and bars scattered around the rest of the neighborhood.

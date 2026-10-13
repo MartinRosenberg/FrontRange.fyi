@@ -11,6 +11,8 @@ import AreaMap from '../components/AreaMap.astro'
 import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
 import { neighborhoodResourceLinks } from '../lib/neighborhoods'
+import { href } from '../lib/url'
+import IconArrowRight from '../assets/IconArrowRight.astro'
 
 const entries = published(await getCollection('neighborhoods'))
 const entryBySlug = new Map(entries.map((entry) => [entry.id, entry]))
@@ -156,9 +158,14 @@ function sectionOf(area: { group?: string; type?: string }): string {
                       />
                     )}
                     {written && entry && (
-                      <div class="map-preview excerpt">
-                        {excerpt(entry.body, PREVIEW_EXCERPT_CHARS)}
-                      </div>
+                      <Fragment>
+                        <div class="map-preview excerpt">
+                          {excerpt(entry.body, PREVIEW_EXCERPT_CHARS)}
+                        </div>
+                        <a class="continue-link" href={href(`/neighborhoods/${neighborhood.slug}/`)}>
+                          Continue reading <IconArrowRight />
+                        </a>
+                      </Fragment>
                     )}
                   </MapRow>
                 </Fragment>

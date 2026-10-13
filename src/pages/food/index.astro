@@ -110,6 +110,8 @@ const description = [
               title={place.data.title}
               detailHref={hasBody(place) ? `/food/${place.id}/` : undefined}
               readMore={false}
+              websiteHref={place.data.url}
+              directionsHref={googleMapsHref(place.data)}
               coords={place.data.coords?.join(',') ?? ''}
               search={[
                 place.data.title,

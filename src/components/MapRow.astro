@@ -1,6 +1,7 @@
 ---
 import { href } from '../lib/url'
 import IconArrowRight from '../assets/IconArrowRight.astro'
+import ActionButtons from './ActionButtons.astro'
 
 interface Props {
   id: string
@@ -11,6 +12,8 @@ interface Props {
   coords?: string
   search?: string
   attrs?: Record<string, string>
+  websiteHref?: string
+  directionsHref?: string
   class?: string
 }
 
@@ -23,6 +26,8 @@ const {
   coords = '',
   search = '',
   attrs = {},
+  websiteHref,
+  directionsHref,
   class: className,
 } = Astro.props
 
@@ -38,7 +43,8 @@ const filterAttrs = filterable
 const slotHtml = Astro.slots.has('default') ? (await Astro.slots.render('default')).trim() : ''
 const subHtml = Astro.slots.has('sub') ? (await Astro.slots.render('sub')).trim() : ''
 const showReadMore = readMore && Boolean(detailHref)
-const showPanel = slotHtml.length > 0 || showReadMore
+const showActions = Boolean(websiteHref || directionsHref)
+const showPanel = slotHtml.length > 0 || showReadMore || showActions
 ---
 
 <li id={id} class:list={[className, { 'is-unwritten': !detailHref }]} {...filterAttrs} {...attrs}>
@@ -70,6 +76,13 @@ const showPanel = slotHtml.length > 0 || showReadMore
           <a class="more" href={href(detailHref ?? '')} aria-label={`Read more about ${title}`}>
             Read more <IconArrowRight />
           </a>
+        )}
+        {showActions && (
+          <ActionButtons
+            href={detailHref ? href(detailHref) : undefined}
+            websiteHref={websiteHref}
+            directionsHref={directionsHref}
+          />
         )}
       </div>
     )

@@ -28,14 +28,20 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
     legendCategories.length > 0 && (
       <ul class="map-legend map-overlay" data-map-legend role="list" aria-label="Map legend">
         {legendCategories.map((key) => (
-          <li class="map-legend-item" data-legend-category={key}>
-            <span
-              class="map-legend-swatch"
-              style={`--badge-color: var(${spotCategories[key].token})`}
-              aria-hidden="true">
-              <Icon name={spotCategories[key].icon} />
-            </span>
-            {spotCategories[key].label}
+          <li>
+            <button
+              type="button"
+              class="map-legend-item"
+              data-legend-category={key}
+              aria-pressed="true">
+              <span
+                class="map-legend-swatch"
+                style={`--badge-color: var(${spotCategories[key].token})`}
+                aria-hidden="true">
+                <Icon name={spotCategories[key].icon} />
+              </span>
+              {spotCategories[key].label}
+            </button>
           </li>
         ))}
       </ul>

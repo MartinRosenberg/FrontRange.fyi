@@ -157,8 +157,11 @@ Unmatched names are listed at the end of the run.
   `corridors` list at the top of that script (street name, the two cross-street
   endpoints, and a rough `center`), then run it. Passing corridor ids re-fetches
   just those. Set `OVERPASS_URL` to a mirror if the default rate-limits you.
-- **Corridor spots** — `src/data/corridor-spots.json`, keyed by corridor id,
-  `coords: [lng, lat]`.
+- **Corridor spots** — derived at build time (`src/lib/corridor-spots.ts`) from
+  every food post and `spots.json` entry within 75 m of a corridor line, ordered
+  along the street. `src/data/corridor-spots.json` (keyed by corridor id,
+  `coords: [lng, lat]`) holds only places that are neither a food post nor a
+  spot; anything with the same name as derived data is dropped.
 
 **Watch the coordinate order.** It isn't uniform:
 
@@ -195,3 +198,5 @@ neighborhood pages.
 The basemap and corridor geometry are OpenStreetMap data under the
 [ODbL](https://opendatacommons.org/licenses/odbl/). The "© OpenStreetMap"
 credit shown on every map is what the licence requires, so keep it visible.
+
+- `npm run geocode:spots` fills in `coords` for any `src/data/spots.json` entry that has an `address` but no coordinates (Nominatim, one request per second; results are `[lng, lat]`).

@@ -29,10 +29,10 @@ const groups = [
         groups.map((group) => (
           <section>
             <Heading>{group.label}</Heading>
-            <ul class="tag-row">
+            <ul class="tag-chips">
               {group.tags.map(({ tag, count }) => (
                 <li>
-                  <Chip class="chip--lg" href={href(`/tags/${tagSlug(tag)}/`)}>
+                  <Chip class="chip-blue" href={href(`/tags/${tagSlug(tag)}/`)}>
                     {group.kind === 'vibe' && <TagIcon tag={tag} />}
                     <span>{group.kind === 'cuisine' ? cuisineLabel(tag) : tag}</span>
                     {count > 1 && <span class="count">{count}</span>}
@@ -48,28 +48,13 @@ const groups = [
 </BaseLayout>
 
 <style>
-
   .tag-groups {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
   }
 
-  .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    margin-block: var(--spacing-sm) 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-      margin: 0;
-    }
-  }
-
-  .tag-row :global(.icon) {
-    width: 14px;
-    height: 14px;
+  .tag-groups :global(.tag-chips) {
+    margin-block-start: var(--spacing-sm);
   }
 </style>
