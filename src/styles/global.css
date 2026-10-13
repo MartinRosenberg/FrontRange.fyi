@@ -572,10 +572,6 @@ tbody tr:last-child td {
   transform: scale(1.12);
 }
 
-.corridor-spot {
-  position: relative;
-}
-
 .corridor-spot-name {
   position: absolute;
   bottom: calc(100% + var(--spacing-xs));

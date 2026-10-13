@@ -196,7 +196,7 @@ Notably, there is a concentration of very good Asian cuisine along Delmar, inclu
 
 Washington Avenue, often referred to as Wash Ave by locals, is one of the main streets of interest in Downtown. There are a number of restaurants close to the street that serve the business district during lunch hours, such as Sugarfire BBQ and Sauce on the Side, and even the Washington Ave Food Hall.
 
-I've mostly tried to keep common tourist items off this list like the Aquarium, Ballpark Village, etc. - but it's worth mentioning City Museum, one of the most unique and interesting attractions in all of St. Louis, which is right along Wash Ave.
+It's always worth mentioning City Museum, one of the most unique and interesting attractions in all of St. Louis, which is right along Wash Ave.
 
 Being downtown, it's as walkable as it gets, and one of the areas most likely to have a lot of foot traffic during the day.
 
