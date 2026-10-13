@@ -1023,5 +1023,32 @@
     "description": "Two floors of new and used vinyl and CDs, in business since 1981 and now in Old Webster.",
     "address": "19 N Gore Ave",
     "coords": [-90.35967, 38.59361]
+  },
+  {
+    "name": "Delmar Hall",
+    "category": "landmark",
+    "neighborhoods": ["delmar-loop"],
+    "url": "https://www.thepageant.com/venue-info/delmar-hall/",
+    "description": "Concert venue opened in 2016 beside The Pageant, holding 350 to 750 people.",
+    "address": "6133 Delmar Blvd",
+    "coords": [-90.297253, 38.655509]
+  },
+  {
+    "name": "Global Foods Market",
+    "category": "market",
+    "neighborhoods": ["kirkwood"],
+    "url": "https://www.globalfoodstl.com/",
+    "description": "International grocery open daily, with monthly specials and aisles organized by country.",
+    "address": "421 N Kirkwood Rd",
+    "coords": [-90.407064, 38.585197]
+  },
+  {
+    "name": "Flamingo Bowl",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://flamingobowl.com/",
+    "description": "Bowling lounge on Washington Avenue, hosting private events while walk-in bowling reopens under new management.",
+    "address": "1117 Washington Ave",
+    "coords": [-90.195557, 38.631712]
   }
 ]

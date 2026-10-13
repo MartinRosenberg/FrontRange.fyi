@@ -45,6 +45,7 @@
   --color-spot-records: #d9731a;
   --color-spot-books: var(--color-text-heading);
   --color-spot-food: var(--color-accent-blue);
+  --color-badge-ring: var(--color-surface);
 
   --color-link: #225aa9;
   --color-link-hover: #17488d;
@@ -130,6 +131,7 @@
   --color-spot-records: #f0a052;
   --color-spot-museum: #5fc3c3;
   --color-spot-mural: #e08ad0;
+  --color-badge-ring: var(--color-text-heading);
   --color-link: #99c3ff;
   --color-link-hover: #b5d4ff;
   --color-pin: #f64c68;
@@ -1149,7 +1151,7 @@ body:has(.map-split) main > .wrap,
   justify-content: center;
   width: 100%;
   height: 100%;
-  border: 2px solid var(--color-surface);
+  border: 2px solid var(--color-badge-ring);
   border-radius: var(--radius-pill);
   background: var(--badge-color, var(--color-pin));
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);

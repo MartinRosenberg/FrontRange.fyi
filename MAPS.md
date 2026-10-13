@@ -159,10 +159,12 @@ Unmatched names are listed at the end of the run.
   endpoints, and a rough `center`), then run it. Passing corridor ids re-fetches
   just those. Set `OVERPASS_URL` to a mirror if the default rate-limits you.
 - **Corridor spots** — derived at build time (`src/lib/corridor-spots.ts`) from
-  every food post and `spots.json` entry within 75 m of a corridor line, ordered
-  along the street. `src/data/corridor-spots.json` (keyed by corridor id,
-  `coords: [lng, lat]`) holds only places that are neither a food post nor a
-  spot; anything with the same name as derived data is dropped.
+  every food post and `spots.json` entry within 200 m of a corridor line, ordered
+  along the street. A corridor's `include` list (names) pulls in places that sit
+  further out, and `exclude` drops ones that fall inside the range; both are set
+  in the `corridors` config at the top of `scripts/fetch-corridors.mjs` and
+  carried into `corridors.json`. There is no hand-placed pin list any more: a
+  place that should be on a corridor map must be a food post or a spot.
 
 **Watch the coordinate order.** It isn't uniform:
 

@@ -1,0 +1,13 @@
+---
+title: Clementine's Creamery
+created: 2026-10-13
+status: tried
+description: Ice cream parlor, the original Lafayette Square location of a local chain
+cuisine: ['dessert']
+neighborhood: Lafayette Square
+address:
+  - 1637 S 18th St
+  - St. Louis, MO 63104
+coords: [38.61395, -90.211953]
+url: https://www.clementinescreamery.com/
+---

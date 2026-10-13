@@ -1,0 +1,13 @@
+---
+title: Russell's on Macklind
+created: 2026-10-13
+status: want-to-try
+description: Farm-to-table dinner, weekend brunch and a bakery
+cuisine: ['breakfast', 'american']
+neighborhood: Southampton
+address:
+  - 5400 Murdoch Ave
+  - St. Louis, MO 63109
+coords: [38.586837, -90.284418]
+url: https://macklind.russellscafe.com/
+---

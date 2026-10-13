@@ -43,7 +43,6 @@ const corridors = [
   },
   {
     id: 'euclid',
-    range: 210,
     name: 'Euclid Avenue',
     street: 'Euclid Avenue',
     streetNames: ['North Euclid Avenue', 'South Euclid Avenue', 'Euclid Avenue'],
@@ -103,7 +102,7 @@ const corridors = [
   },
   {
     id: 'the-hill',
-    range: 400,
+    include: ["Gioia's Deli"],
     name: 'The Hill',
     street: 'Marconi Avenue',
     streetNames: ['Marconi Avenue'],
@@ -178,7 +177,6 @@ const corridors = [
   },
   {
     id: 'maplewood',
-    range: 160,
     name: 'Maplewood',
     street: 'Manchester Road',
     streetNames: ['Manchester Road', 'Manchester Avenue'],
@@ -191,7 +189,7 @@ const corridors = [
   },
   {
     id: 'old-webster',
-    range: 260,
+    include: ['Telva at the Ridge'],
     name: 'Old Webster',
     street: 'Lockwood Avenue',
     streetNames: ['West Lockwood Avenue', 'East Lockwood Avenue', 'Lockwood Avenue'],
@@ -204,7 +202,6 @@ const corridors = [
   },
   {
     id: 'kirkwood',
-    range: 170,
     name: 'Kirkwood',
     street: 'Kirkwood Road',
     streetNames: ['North Kirkwood Road', 'South Kirkwood Road', 'Kirkwood Road'],
@@ -217,6 +214,7 @@ const corridors = [
   },
   {
     id: 'lafayette-square',
+    include: ["Clementine's Creamery"],
     name: 'Lafayette Square',
     street: 'Park Avenue',
     streetNames: ['Park Avenue'],
@@ -247,7 +245,15 @@ const corridors = [
   },
   {
     id: 'soulard',
-    range: 700,
+    include: [
+      'Soulard Farmers Market',
+      "Bogart's Smokehouse",
+      "Molly's in Soulard",
+      "D's Place",
+      "Cat's Meow",
+      "Big Daddy's Soulard",
+      "Jack Nolen's",
+    ],
     name: 'Soulard',
     street: 'South 12th Street',
     streetNames: ['South 12th Street'],
@@ -271,7 +277,6 @@ const corridors = [
   },
   {
     id: 'dogtown-clayton',
-    range: 120,
     name: 'Dogtown',
     label: 'Clayton Ave',
     street: 'Clayton Avenue',
@@ -284,7 +289,7 @@ const corridors = [
   },
   {
     id: 'shaw',
-    range: 420,
+    include: ["Sasha's on Shaw", 'Fiddlehead Fern Cafe'],
     name: 'Shaw',
     street: 'South 39th Street',
     streetNames: ['South 39th Street', '39th Street'],
@@ -296,7 +301,6 @@ const corridors = [
   },
   {
     id: 'washington-avenue',
-    range: 140,
     name: 'Washington Avenue',
     street: 'Washington Avenue',
     streetNames: ['Washington Avenue'],
@@ -542,7 +546,8 @@ for (const corridor of targets) {
     anchor: corridor.anchor,
     neighborhoods: corridor.neighborhoods,
     website: corridor.website,
-    range: corridor.range,
+    include: corridor.include,
+    exclude: corridor.exclude,
     line: built.line,
   })
 }
