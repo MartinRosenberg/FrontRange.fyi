@@ -200,4 +200,5 @@ The basemap and corridor geometry are OpenStreetMap data under the
 [ODbL](https://opendatacommons.org/licenses/odbl/). The "© OpenStreetMap"
 credit shown on every map is what the licence requires, so keep it visible.
 
+- Under 700px every map popup (food pins, neighborhood badges and polygons) opens as a bottom sheet fixed to the viewport instead of an anchored popup, and the category legend collapses to a "Filter · n of m" pill; both live in `src/scripts/map-shared.ts` / `map-pane.ts`.
 - `npm run geocode:spots` fills in `coords` for any `src/data/spots.json` entry that has an `address` but no coordinates (Nominatim, one request per second; results are `[lng, lat]`).

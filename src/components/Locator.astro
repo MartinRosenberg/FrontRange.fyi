@@ -31,8 +31,9 @@ const description = label ? `Map showing this spot in ${label}` : 'Map showing t
   .locator-map {
     position: relative;
     height: 220px;
+    overflow: hidden;
     border: 1px solid var(--color-line);
-    border-radius: var(--radius);
+    border-radius: var(--radius-rounded);
     background:
       repeating-linear-gradient(
         45deg,

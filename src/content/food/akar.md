@@ -3,7 +3,7 @@ title: Akar
 created: 2026-10-09
 status: want-to-try
 description: Malaysian cooking from chef Bernie Lee
-cuisine: ['malaysian']
+cuisine: ['asian']
 neighborhood: Clayton
 address:
   - 7641 Wydown Blvd

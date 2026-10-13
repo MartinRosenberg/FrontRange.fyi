@@ -9,12 +9,13 @@ import {
   bindRowHover,
   createMapPopup,
   frameCityView,
-  keepPopupInView,
+  settlePopup,
 } from './map-shared'
 import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import type { MapSpot } from '../lib/spots'
 import {
   activeLegendCategories,
+  bindLegendCollapse,
   bindLegendToggles,
   createBadge,
   legendIconFor,
@@ -267,11 +268,10 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     }
     popup.setLngLat(center).setHTML(popupHtmlFor(slug)).addTo(map)
     activate(slug)
-    const getPopupEl = () => popup.getElement() ?? undefined
     if (deferKeepInView) {
-      map.once('moveend', () => keepPopupInView(map, getPopupEl))
+      map.once('moveend', () => settlePopup(map, popup))
     } else {
-      keepPopupInView(map, getPopupEl)
+      settlePopup(map, popup)
     }
   }
 
@@ -393,7 +393,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     selectedBadge = badge
     badge.classList.add('is-selected')
     badgePopup.setLngLat(spot.coords).setHTML(spotPopupHtml(spot)).addTo(map)
-    keepPopupInView(map, () => badgePopup.getElement() ?? undefined)
+    settlePopup(map, badgePopup)
   }
 
   type LeafProps = { spotIndex: number }
@@ -561,6 +561,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     bindRowHighlights()
     renderBadges()
     map.on('moveend', renderBadges)
+    bindLegendCollapse(element)
     bindLegendToggles(element, (category, showing) => {
       if (!showing && selectedBadge?.dataset.category === category) {
         badgePopup.remove()

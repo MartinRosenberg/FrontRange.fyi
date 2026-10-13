@@ -65,14 +65,14 @@
     "neighborhoods": ["bevo-mill"],
     "description": "Sixteen-acre park opened in 2000 with soccer and softball fields and a playground.",
     "address": "Christy Ave & Gravois Ave",
-    "coords": [-90.27605, 38.57665]
+    "coords": [-90.27626, 38.5738]
   },
   {
     "name": "Carondelet Park",
     "category": "park",
     "description": "The city's third-largest park, with two lakes, a boathouse and a 1929 pavilion.",
-    "address": "Loughborough Ave & S Grand Blvd",
-    "coords": [-90.26237, 38.55739],
+    "address": "3900 Holly Hills Blvd",
+    "coords": [-90.26577, 38.56289],
     "neighborhoods": ["bevo-mill", "carondelet"]
   },
   {
@@ -141,7 +141,7 @@
     "url": "https://www.forestparkforever.org/",
     "description": "The 1,300-acre city park, larger than Central Park, home to the zoo, art museum, and history museum.",
     "address": "5595 Grand Dr",
-    "coords": [-90.28346, 38.64404]
+    "coords": [-90.2847, 38.63819]
   },
   {
     "name": "Samuel Kennedy Park",
@@ -182,7 +182,7 @@
     "neighborhoods": ["chesterfield"],
     "description": "A county park with a restored antique carousel and a historic village.",
     "address": "15185 Olive Blvd",
-    "coords": [-90.54062, 38.66646]
+    "coords": [-90.54296, 38.66993]
   },
   {
     "name": "Sophia M. Sachs Butterfly House",
@@ -198,15 +198,15 @@
     "neighborhoods": ["clayton"],
     "description": "Clayton's main park that has an ice rink, an aquatic center, tennis courts, and trails.",
     "address": "27 S Brentwood Blvd",
-    "coords": [-90.34158, 38.65012]
+    "coords": [-90.34515, 38.64832]
   },
   {
     "name": "Oak Knoll Park",
     "category": "park",
     "neighborhoods": ["clayton"],
     "description": "A quiet park known for its native post oaks and historic stone mansions.",
-    "address": "Big Bend Blvd & Clayton Rd",
-    "coords": [-90.31669, 38.64298]
+    "address": "1 Oak Knoll Park",
+    "coords": [-90.31844, 38.63764]
   },
   {
     "name": "Kingsbury Place & Washington Terrace",
@@ -293,7 +293,7 @@
     "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=42",
     "description": "Land given to the city by Sophia Franz in 1915; playground, softball, soccer and tennis.",
     "address": "Mitchell Ave & Prather Ave",
-    "coords": [-90.30469, 38.62294]
+    "coords": [-90.30317, 38.62174]
   },
   {
     "name": "Gateway Arch",
@@ -328,7 +328,7 @@
     "neighborhoods": ["downtown"],
     "description": "A downtown sculpture park with fountains and public art.",
     "address": "801 Market St",
-    "coords": [-90.19343, 38.62635]
+    "coords": [-90.19428, 38.62694]
   },
   {
     "name": "Union Station",
@@ -402,7 +402,7 @@
     "neighborhoods": ["lafayette-square"],
     "description": "A charming park with a lake and an iron bridge.",
     "address": "2023 Lafayette Ave",
-    "coords": [-90.21493, 38.61437]
+    "coords": [-90.21606, 38.61602]
   },
   {
     "name": "Benton Place",
@@ -418,7 +418,7 @@
     "neighborhoods": ["lindenwood-park"],
     "description": "The neighborhood's city park, with a roller rink, baseball fields, and tennis courts.",
     "address": "Pernod Ave & Jamieson Ave",
-    "coords": [-90.30362, 38.59884]
+    "coords": [-90.30741, 38.59714]
   },
   {
     "name": "Donut Drive-In",
@@ -532,7 +532,7 @@
     "neighborhoods": ["midtown"],
     "description": "The plaza across from the Fox, named for preservationist Leon Strauss.",
     "address": "522 N Grand Blvd",
-    "coords": [-90.23159, 38.63867]
+    "coords": [-90.23123, 38.63883]
   },
   {
     "name": "thorn Vintage",
@@ -591,7 +591,7 @@
     "url": "https://www.towergrovepark.org",
     "description": "The 289-acre Victorian park Henry Shaw gave the city in 1868, with ornate pavilions and a Saturday farmers market.",
     "address": "4257 Northeast Dr",
-    "coords": [-90.25688, 38.60812]
+    "coords": [-90.25529, 38.60634]
   },
   {
     "name": "Shaw Dog Park",
@@ -738,7 +738,7 @@
     "neighborhoods": ["st-louis-hills"],
     "description": "The neighborhood's central park, with a lily-pad lagoon, a walking loop, and beer garden.",
     "address": "5399 Donovan Ave",
-    "coords": [-90.30463, 38.58266]
+    "coords": [-90.30167, 38.58496]
   },
   {
     "name": "Ted Drewes Frozen Custard",
@@ -794,7 +794,7 @@
     "neighborhoods": ["the-hill"],
     "description": "A 4.8-acre park bought in 1945 and renamed in 1965 for Louis \"Midge\" Berra.",
     "address": "5100 Shaw Ave",
-    "coords": [-90.27068, 38.61765]
+    "coords": [-90.27807, 38.61794]
   },
   {
     "name": "DiGregorio's Italian Market",
@@ -974,5 +974,62 @@
     "description": "Bookstore specializing in comics, graphic novels, manga and children's books.",
     "address": "8772 Big Bend Blvd",
     "coords": [-90.35966, 38.58212]
+  },
+  {
+    "name": "Becoming One With Nature",
+    "category": "mural",
+    "neighborhoods": ["carondelet"],
+    "description": "Mural by Lu Ray & Wiegand.",
+    "address": "7031 S Broadway",
+    "coords": [-90.25334, 38.55155]
+  },
+  {
+    "name": "Wild River",
+    "category": "mural",
+    "neighborhoods": ["patch", "carondelet"],
+    "description": "Mural by Neeka.",
+    "address": "7401 S Broadway",
+    "coords": [-90.25657, 38.54891]
+  },
+  {
+    "name": "All Heart",
+    "category": "mural",
+    "neighborhoods": ["bevo-mill"],
+    "description": "Mural by Amy S. Miller.",
+    "address": "5801 Gravois Ave",
+    "coords": [-90.27463, 38.57729]
+  },
+  {
+    "name": "History of Dogtown",
+    "category": "mural",
+    "neighborhoods": ["clifton-heights", "dogtown"],
+    "description": "Mural by Cori Teer & Adam Sherman on Safe Connections.",
+    "address": "2165 Hampton Ave",
+    "coords": [-90.28732, 38.61698]
+  },
+  {
+    "name": "LOVE",
+    "category": "mural",
+    "neighborhoods": ["the-grove"],
+    "description": "Mural by Lisa Marie Thalhammer on Platypus.",
+    "address": "4501 Manchester Ave",
+    "coords": [-90.26179, 38.62637]
+  },
+  {
+    "name": "Atomic Flower of Light",
+    "category": "mural",
+    "neighborhoods": ["the-grove"],
+    "description": "Mural by Killer Napkins on Atomic by Jamo.",
+    "address": "4140 Manchester Ave",
+    "coords": [-90.2518, 38.62748]
+  },
+  {
+    "name": "Mural Mile",
+    "category": "mural",
+    "neighborhoods": ["kosciusko", "soulard"],
+    "url": "https://racstl.org/public-art/the-mural-mile-floodwall/",
+    "description": "Graffiti murals along the Mississippi floodwall between Chouteau and Victor, painted each Labor Day weekend by Paint Louis since 1997.",
+    "address": "Chouteau Ave & Leonor K Sullivan Blvd",
+    "coords": [-90.1905, 38.6135]
   }
 ]

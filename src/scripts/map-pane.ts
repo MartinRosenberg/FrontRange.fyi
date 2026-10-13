@@ -3,7 +3,7 @@ import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundaryFor, type BoundaryFeature } from './boundaries'
 import { buildPopupHtml } from './popup'
-import { BADGE_POPUP_OFFSET, bindRowHover, createMapPopup, keepPopupInView } from './map-shared'
+import { BADGE_POPUP_OFFSET, bindRowHover, createMapPopup, settlePopup } from './map-shared'
 import type { MapSpot } from '../lib/spots'
 import { metersBetween } from '../lib/geo'
 
@@ -239,14 +239,54 @@ export function bindLegendToggles(
   }
 }
 
+const LEGEND_DOT_LIMIT = 4
+
 function updateLegendShown(root: HTMLElement): void {
-  const shown = root.querySelector('[data-legend-shown]')
-  if (!shown) {
+  const items = [...root.querySelectorAll<HTMLElement>('[data-map-legend] [data-legend-category]')]
+  const active = activeLegendCategories(root)
+  for (const shown of root.querySelectorAll<HTMLElement>('[data-legend-shown]')) {
+    const suffix = shown.dataset.legendShown === 'short' ? '' : ' shown'
+    shown.textContent = `${active.size} of ${items.length}${suffix}`
+  }
+  const dots = root.querySelector<HTMLElement>('[data-legend-dots]')
+  if (dots) {
+    dots.replaceChildren()
+    for (const item of items
+      .filter((candidate) => active.has(candidate.dataset.legendCategory ?? ''))
+      .slice(0, LEGEND_DOT_LIMIT)) {
+      const swatch = item.querySelector<HTMLElement>('.map-legend-swatch')
+      const dot = document.createElement('span')
+      dot.className = 'map-legend-dot'
+      dot.style.setProperty('--badge-color', swatch?.style.getPropertyValue('--badge-color') ?? '')
+      dots.append(dot)
+    }
+  }
+}
+
+export function bindLegendCollapse(root: HTMLElement): void {
+  const legend = root.querySelector<HTMLElement>('[data-map-legend]')
+  const toggle = legend?.querySelector<HTMLButtonElement>('[data-legend-toggle]')
+  if (!legend || !toggle) {
     return
   }
-  const items = root.querySelectorAll('[data-map-legend] [data-legend-category]')
-  const active = activeLegendCategories(root).size
-  shown.textContent = `${active} of ${items.length} shown`
+  const setExpanded = (expanded: boolean) => {
+    toggle.setAttribute('aria-expanded', String(expanded))
+    legend.dataset.expanded = String(expanded)
+  }
+  toggle.addEventListener('click', () => {
+    setExpanded(toggle.getAttribute('aria-expanded') !== 'true')
+  })
+  document.addEventListener('pointerdown', (event) => {
+    if (!legend.contains(event.target as Node)) {
+      setExpanded(false)
+    }
+  })
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setExpanded(false)
+    }
+  })
+  updateLegendShown(root)
 }
 
 function readSpots(root: HTMLElement): MapSpot[] {
@@ -294,11 +334,12 @@ export function initMapPane(): void {
     selectedBadge = badge
     badge.classList.add('is-selected')
     popup.setLngLat(spot.coords).setHTML(spotPopupHtml(spot)).addTo(map)
-    keepPopupInView(map, () => popup.getElement() ?? undefined)
+    settlePopup(map, popup)
   }
 
   map.on('click', () => popup.remove())
 
+  bindLegendCollapse(root)
   bindLegendToggles(root, (category, showing) => {
     for (const badge of root.querySelectorAll<HTMLElement>(
       `.map-badge[data-category="${category}"]`,

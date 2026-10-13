@@ -8,7 +8,8 @@ import {
   bindRowHover,
   fitZoomFor,
   frameCityView,
-  keepPopupInView,
+  settlePopup,
+  type MapPopup,
 } from './map-shared'
 import { verdictLabels, type Verdict } from '../lib/verdict'
 import { cuisineLabel } from '../lib/cuisine'
@@ -84,7 +85,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
 
   const items = [...scope.querySelectorAll<HTMLElement>('[data-filter-item]')]
   const markers = new Map<HTMLElement, maplibregl.Marker>()
-  const popups = new Map<HTMLElement, maplibregl.Popup>()
+  const popups = new Map<HTMLElement, MapPopup>()
 
   let index: Supercluster<LeafProps> | null = null
   const shownLeaves = new Set<HTMLElement>()
@@ -173,23 +174,28 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
       websiteHref: item.dataset.website ?? '',
     })
 
-    const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml)
+    const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml).setLngLat(lngLat)
 
-    const marker = new maplibregl.Marker({ element, anchor: 'bottom' })
-      .setLngLat(lngLat)
-      .setPopup(popup)
+    const marker = new maplibregl.Marker({ element, anchor: 'bottom' }).setLngLat(lngLat)
+    element.addEventListener('click', (clickEvent) => {
+      clickEvent.stopPropagation()
+      if (popup.isOpen()) {
+        popup.remove()
+      } else {
+        popup.addTo(map)
+      }
+    })
 
     popup.on('open', () => {
       if (activeItem && activeItem !== item) {
         popups.get(activeItem)?.remove()
       }
       activate(item)
-      const getPopupEl = () => popup.getElement() ?? undefined
       if (deferKeepInView) {
         deferKeepInView = false
-        map.once('moveend', () => keepPopupInView(map, getPopupEl))
+        map.once('moveend', () => settlePopup(map, popup))
       } else {
-        keepPopupInView(map, getPopupEl)
+        settlePopup(map, popup)
       }
     })
     popup.on('close', () => deactivate(item))
@@ -298,7 +304,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
     clusterBubbles = clusterFeatures.map(buildClusterMarker)
 
     if (pendingOpenItem && shownLeaves.has(pendingOpenItem)) {
-      markers.get(pendingOpenItem)?.togglePopup()
+      popups.get(pendingOpenItem)?.addTo(map)
       pendingOpenItem = null
     } else if (pendingOpenItem && !pendingOpenItem.hidden && map.getZoom() < map.getMaxZoom()) {
       const lngLat = lngLatFromItem(pendingOpenItem)
@@ -404,14 +410,20 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
     }
 
     const marker = markers.get(item)
-    if (!marker) {
+    const popup = popups.get(item)
+    if (!marker || !popup) {
+      return
+    }
+    if (popup.isOpen()) {
+      popup.remove()
+
       return
     }
     if (activeItem !== item) {
       deferKeepInView = true
       map.easeTo({ center: marker.getLngLat() })
     }
-    marker.togglePopup()
+    popup.addTo(map)
   }
 
   function deselect(): void {

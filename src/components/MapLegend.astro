@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro'
 import IconCheck from '../assets/IconCheck.astro'
+import IconChevronDown from '../assets/IconChevronDown.astro'
 import { spotCategories, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -9,15 +10,37 @@ interface Props {
 }
 
 const { categories, off = [] } = Astro.props
-const shown = categories.filter((key) => !off.includes(key)).length
+const active = categories.filter((key) => !off.includes(key))
+const shown = active.length
+const LEGEND_DOT_LIMIT = 4
 ---
 
 {
   categories.length > 0 && (
-    <div class="map-legend map-overlay" data-map-legend>
+    <div class="map-legend" data-map-legend data-expanded="true">
+      <button
+        type="button"
+        class="map-legend-toggle map-overlay"
+        data-legend-toggle
+        aria-expanded="true"
+        aria-controls="map-legend-panel">
+        <span class="map-legend-dots" data-legend-dots aria-hidden="true">
+          {active.slice(0, LEGEND_DOT_LIMIT).map((key) => (
+            <span
+              class="map-legend-dot"
+              style={`--badge-color: var(${spotCategories[key].token})`}
+            />
+          ))}
+        </span>
+        <span class="map-legend-toggle-label">
+          Filter · <span data-legend-shown="short">{shown} of {categories.length}</span>
+        </span>
+        <IconChevronDown />
+      </button>
+      <div class="map-legend-panel map-overlay" id="map-legend-panel" data-legend-panel>
       <div class="map-legend-header">
         <span class="map-legend-title">Filter</span>
-        <span class="map-legend-shown" data-legend-shown>
+        <span class="map-legend-shown" data-legend-shown="long">
           {shown} of {categories.length} shown
         </span>
       </div>
@@ -43,6 +66,7 @@ const shown = categories.filter((key) => !off.includes(key)).length
           </li>
         ))}
       </ul>
+      </div>
     </div>
   )
 }

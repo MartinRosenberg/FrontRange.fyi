@@ -38,7 +38,72 @@ function replaceCloseGlyph(popup: maplibregl.Popup): void {
   }
 }
 
-export function createMapPopup(offset: number): maplibregl.Popup {
+export const SHEET_QUERY = '(max-width: 700px)'
+
+type PopupEvent = 'open' | 'close'
+
+export interface MapPopup {
+  setLngLat(lngLat: [number, number]): MapPopup
+  setHTML(html: string): MapPopup
+  addTo(map: maplibregl.Map): MapPopup
+  remove(): MapPopup
+  isOpen(): boolean
+  getElement(): HTMLElement | undefined
+  getLngLat(): [number, number] | undefined
+  on(event: PopupEvent, handler: () => void): MapPopup
+}
+
+interface Sheet {
+  root: HTMLElement
+  body: HTMLElement
+  owner: MapPopup | null
+}
+
+let sheet: Sheet | null = null
+
+function ensureSheet(): Sheet {
+  if (sheet) {
+    return sheet
+  }
+  const root = document.createElement('div')
+  root.className = 'map-sheet'
+  root.setAttribute('role', 'dialog')
+  root.setAttribute('aria-label', 'Place details')
+  root.hidden = true
+
+  const close = document.createElement('button')
+  close.type = 'button'
+  close.className = 'map-sheet-close'
+  close.setAttribute('aria-label', 'Close')
+  close.append(buildCloseIcon())
+  close.addEventListener('click', () => sheet?.owner?.remove())
+
+  const body = document.createElement('div')
+  body.className = 'map-sheet-body'
+
+  root.append(close, body)
+  document.body.append(root)
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      sheet?.owner?.remove()
+    }
+  })
+
+  sheet = { root, body, owner: null }
+
+  return sheet
+}
+
+export function sheetHeight(): number {
+  return sheet && !sheet.root.hidden ? sheet.root.getBoundingClientRect().height : 0
+}
+
+function usesSheet(): boolean {
+  return window.matchMedia(SHEET_QUERY).matches
+}
+
+export function createMapPopup(offset: number): MapPopup {
   const popup = new maplibregl.Popup({
     className: 'map-popup',
     closeButton: true,
@@ -48,9 +113,113 @@ export function createMapPopup(offset: number): maplibregl.Popup {
     offset,
     focusAfterOpen: false,
   })
-  popup.on('open', () => replaceCloseGlyph(popup))
+  const handlers: Record<PopupEvent, Array<() => void>> = { open: [], close: [] }
+  const emit = (event: PopupEvent) => handlers[event].forEach((handler) => handler())
+  let html = ''
+  let lngLat: [number, number] | undefined
+  let inSheet = false
 
-  return popup
+  popup.on('open', () => {
+    replaceCloseGlyph(popup)
+    emit('open')
+  })
+  popup.on('close', () => emit('close'))
+
+  const facade: MapPopup = {
+    setLngLat(next) {
+      lngLat = next
+      popup.setLngLat(next)
+
+      return facade
+    },
+    setHTML(next) {
+      html = next
+      popup.setHTML(next)
+
+      return facade
+    },
+    addTo(map) {
+      if (!usesSheet()) {
+        popup.addTo(map)
+
+        return facade
+      }
+      const target = ensureSheet()
+      if (target.owner && target.owner !== facade) {
+        target.owner.remove()
+      }
+      target.owner = facade
+      target.body.innerHTML = html
+      target.root.hidden = false
+      inSheet = true
+      emit('open')
+
+      return facade
+    },
+    remove() {
+      if (inSheet) {
+        inSheet = false
+        if (sheet?.owner === facade) {
+          sheet.owner = null
+          sheet.root.hidden = true
+          sheet.body.replaceChildren()
+        }
+        emit('close')
+      } else {
+        popup.remove()
+      }
+
+      return facade
+    },
+    isOpen() {
+      return inSheet || popup.isOpen()
+    },
+    getElement() {
+      return inSheet ? undefined : popup.getElement()
+    },
+    getLngLat() {
+      return lngLat
+    },
+    on(event, handler) {
+      handlers[event].push(handler)
+
+      return facade
+    },
+  }
+
+  return facade
+}
+
+export function revealAboveSheet(
+  map: PannableMap & { project(lngLat: [number, number]): { y: number } },
+  lngLat: [number, number],
+): void {
+  requestAnimationFrame(() => {
+    const covered = sheetHeight()
+    if (covered === 0) {
+      return
+    }
+    const mapRect = map.getContainer().getBoundingClientRect()
+    const visibleBottom = window.innerHeight - covered
+    const pointY = mapRect.top + map.project(lngLat).y
+    const limit = Math.min(mapRect.bottom, visibleBottom) - 24
+    if (pointY > limit) {
+      map.panBy([0, pointY - limit])
+    }
+  })
+}
+
+export function settlePopup(
+  map: PannableMap & { project(lngLat: [number, number]): { y: number } },
+  popup: MapPopup,
+): void {
+  const element = popup.getElement()
+  const lngLat = popup.getLngLat()
+  if (element) {
+    keepPopupInView(map, () => element)
+  } else if (lngLat) {
+    revealAboveSheet(map, lngLat)
+  }
 }
 
 export const CITY_BOUNDS = CONFIGURED_CITY_BOUNDS as [[number, number], [number, number]]

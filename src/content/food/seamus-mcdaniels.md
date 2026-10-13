@@ -3,7 +3,7 @@ title: Seamus McDaniel's
 created: 2026-08-30
 status: tried
 description: Irish pub and grill since 1985
-cuisine: ['burgers']
+cuisine: ['bar']
 neighborhood: Dogtown
 address:
   - 1208 Tamm Ave
