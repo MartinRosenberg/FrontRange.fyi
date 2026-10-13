@@ -1,8 +1,8 @@
 import { optionalData } from './optional-data'
 
-const spotsData = optionalData<Record<string, unknown[]>>(
+const spotsData = optionalData<unknown[]>(
   import.meta.glob('../data/spots.json', { eager: true, import: 'default' }),
-  {},
+  [],
 )
 
 export const spotCategories = {
@@ -60,6 +60,7 @@ export const SPOT_SECTION_ORDER: SpotSectionKey[] = [
 export interface Spot {
   name: string
   category: SpotSectionKey
+  neighborhoods: string[]
   url?: string
   description?: string
   address?: string
@@ -80,12 +81,12 @@ export interface MapSpot {
   photo?: string
 }
 
-export function spotsIn(slug: string): Spot[] {
-  return (spotsData as Record<string, Spot[]>)[slug] ?? []
+export function allSpots(): Spot[] {
+  return spotsData as Spot[]
 }
 
-export function allSpots(): Spot[] {
-  return Object.values(spotsData as Record<string, Spot[]>).flat()
+export function spotsIn(slug: string): Spot[] {
+  return allSpots().filter((spot) => spot.neighborhoods.includes(slug))
 }
 
 export function groupSpots(spots: Spot[]): { category: SpotSectionKey; spots: Spot[] }[] {

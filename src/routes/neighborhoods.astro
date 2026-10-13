@@ -10,7 +10,10 @@ import PaneSearch from '../components/PaneSearch.astro'
 import AreaMap from '../components/AreaMap.astro'
 import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
-import { neighborhoodResourceLinks } from '../lib/neighborhoods'
+import { neighborhoodResourceLinks, foodByNeighborhood, normalizeName } from '../lib/neighborhoods'
+import { allSpots, spotsIn, spotCategories, type SpotCategoryKey } from '../lib/spots'
+import Icon from '../components/Icon.astro'
+import { toMapSpots } from '../lib/map-spots'
 import { href } from '../lib/url'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 
@@ -25,6 +28,21 @@ for (const [slug, entry] of entryBySlug) {
   }
 }
 const isWritten = (slug: string) => hasBody(entryBySlug.get(slug) ?? {})
+const mapSpots = await toMapSpots(allSpots(), published(await getCollection('food')))
+const placesByNeighborhood = await foodByNeighborhood()
+const categoryKeys = Object.keys(spotCategories) as SpotCategoryKey[]
+
+function countPills(slug: string, name: string): { key: SpotCategoryKey; count: number }[] {
+  const spots = spotsIn(slug)
+  const food = placesByNeighborhood.get(normalizeName(name))?.length ?? 0
+
+  return categoryKeys
+    .map((key) => ({
+      key,
+      count: key === 'food' ? food : spots.filter((spot) => spot.category === key).length,
+    }))
+    .filter((pill) => pill.count > 0)
+}
 
 const listed = neighborhoods
   .filter((neighborhood) => !('ignored' in neighborhood))
@@ -93,6 +111,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
               const section = sectionOf(neighborhood)
               const regionKey = sectionOf({ group: neighborhood.group })
               const entry = entryBySlug.get(neighborhood.slug)
+              const pills = countPills(neighborhood.slug, neighborhood.name)
               const resourceLinks = written
                 ? neighborhoodResourceLinks(
                     neighborhood.slug,
@@ -158,14 +177,30 @@ function sectionOf(area: { group?: string; type?: string }): string {
                       />
                     )}
                     {written && entry && (
-                      <Fragment>
-                        <div class="map-preview excerpt">
-                          {excerpt(entry.body, PREVIEW_EXCERPT_CHARS)}
-                        </div>
-                        <a class="continue-link" href={href(`/neighborhoods/${neighborhood.slug}/`)}>
-                          Continue reading <IconArrowRight />
-                        </a>
-                      </Fragment>
+                      <div class="map-preview excerpt">
+                        {excerpt(entry.body, PREVIEW_EXCERPT_CHARS)}
+                      </div>
+                    )}
+                    {pills.length > 0 && (
+                      <ul class="count-pills" aria-label="Places on the map">
+                        {pills.map((pill) => (
+                          <li class="chip count-pill">
+                            <span
+                              class="map-legend-swatch"
+                              style={`--badge-color: var(${spotCategories[pill.key].token})`}
+                              aria-hidden="true">
+                              <Icon name={spotCategories[pill.key].icon} />
+                            </span>
+                            <span class="count">{pill.count}</span>
+                            <span class="visually-hidden">{spotCategories[pill.key].label}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {written && (
+                      <a class="continue-link" href={href(`/neighborhoods/${neighborhood.slug}/`)}>
+                        Continue reading <IconArrowRight />
+                      </a>
                     )}
                   </MapRow>
                 </Fragment>
@@ -174,7 +209,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
           }
         </ul>
       </article>
-      <AreaMap />
+      <AreaMap spots={mapSpots} />
       <p class="empty" data-filter-empty hidden>
         No neighborhoods match.
         <ClearFilters />

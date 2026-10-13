@@ -14,10 +14,11 @@ import MapPane from '../../components/MapPane.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
-import { resolveVerdict, verdictLabels } from '../../lib/verdict'
+import { resolveVerdict } from '../../lib/verdict'
 import { cuisineLabel } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
-import { spotsIn, spotCategories, type MapSpot, type Spot, groupSpots } from '../../lib/spots'
+import { spotsIn, spotCategories, groupSpots } from '../../lib/spots'
+import { toMapSpots, spotPageHref, spotWebsiteHref, spotDirectionsHref } from '../../lib/map-spots'
 import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
 import {
@@ -81,7 +82,6 @@ const tags = entry?.data.tags ?? []
 const notes = entry?.data.notes ?? []
 
 const spots = spotsIn(slug)
-const isExternalUrl = (url: string) => /^https?:\/\//.test(url)
 
 const population = neighborhoodPopulation(slug)
 const neighbors =
@@ -151,70 +151,7 @@ const cafes = places.filter(isCafe)
 const eateries = places.filter((place) => !isCafe(place))
 const spotGroups = groupSpots(spots)
 
-const spotPageHref = (spot: Spot) =>
-  spot.url && !isExternalUrl(spot.url) ? href(spot.url) : undefined
-const spotWebsiteHref = (spot: Spot) => (spot.url && isExternalUrl(spot.url) ? spot.url : undefined)
-const spotDirectionsHref = (spot: Spot) =>
-  spot.coords
-    ? googleMapsHref({
-        title: spot.name,
-        address: spot.address ? [spot.address, 'St. Louis, MO'] : undefined,
-        coords: [spot.coords[1], spot.coords[0]],
-      })
-    : undefined
-
-const spotMapSpots: MapSpot[] = spots.flatMap((spot) => {
-  if (!spot.coords) {
-    return []
-  }
-
-  return [
-    {
-      title: spot.name,
-      category: spot.category,
-      coords: spot.coords,
-      url: spotPageHref(spot),
-      websiteHref: spotWebsiteHref(spot),
-      meta: spotCategories[spot.category].meta,
-      tagline: spot.description ?? '',
-      addressLines: spot.address ? [spot.address] : [],
-      directionsHref: spotDirectionsHref(spot),
-    },
-  ]
-})
-
-const foodMapSpots: MapSpot[] = (
-  await Promise.all(
-    places.map(async (place) => {
-      const [lat, lng] = place.data.coords ?? []
-      if (lat === undefined || lng === undefined) {
-        return []
-      }
-      const verdict = resolveVerdict(place.data)
-      const thumb = place.data.photo
-        ? await getImage({ src: place.data.photo, width: 480, format: 'webp' })
-        : undefined
-
-      return [
-        {
-          title: place.data.title,
-          category: 'food' as const,
-          url: hasBody(place) ? href(`/food/${place.id}/`) : undefined,
-          coords: [lng, lat] as [number, number],
-          meta: cuisineLabel(place.data.cuisine[0]),
-          verdict: verdict ? { key: verdict, label: verdictLabels[verdict] } : undefined,
-          tagline: place.data.description ?? '',
-          addressLines: place.data.address ?? [],
-          directionsHref: googleMapsHref(place.data),
-          websiteHref: place.data.url,
-          photo: thumb?.src,
-        },
-      ]
-    }),
-  )
-).flat()
-
-const mapSpots = [...spotMapSpots, ...foodMapSpots]
+const mapSpots = await toMapSpots(spots, places)
 
 const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-accent'
 ---

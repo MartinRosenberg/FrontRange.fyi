@@ -2,23 +2,16 @@
 import PageMasthead from '../components/PageMasthead.astro'
 import FeedbackForm from '../components/FeedbackForm.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import {
-  CITY,
-  CONTACT_EMAIL,
-  FEEDBACK_EMAIL,
-  INSTAGRAM_HANDLE,
-  SITE_NAME,
-} from '../lib/site'
+import { CITY, CONTACT_EMAIL, FEEDBACK_EMAIL, INSTAGRAM_HANDLE, SITE_NAME } from '../lib/site'
 
-const description =
-  `Send a note, a correction, or a recommendation to ${SITE_NAME}, an independent guide to ${CITY} food, neighborhoods, and culture.`
+const description = `Send a note, a correction, or a recommendation to ${SITE_NAME}, an independent guide to ${CITY} food, neighborhoods, and culture.`
 ---
 
 <BaseLayout article crumb="Contact" title={`Contact - ${SITE_NAME}`} description={description}>
   <article>
     <PageMasthead title="Contact">
       <p slot="lede">
-        If you have a question, comment, or if I got something wrong, please reach out!
+        If you have a suggestion, question, comment, or if I got something wrong, please reach out!
       </p>
     </PageMasthead>
 
@@ -28,8 +21,7 @@ const description =
       </section>
       <div class="feedback-alt">
         <p>
-          <strong>Email</strong>: <a href={`mailto:${FEEDBACK_EMAIL}`}>{CONTACT_EMAIL}</a
-          >
+          <strong>Email</strong>: <a href={`mailto:${FEEDBACK_EMAIL}`}>{CONTACT_EMAIL}</a>
           {
             INSTAGRAM_HANDLE && (
               <>

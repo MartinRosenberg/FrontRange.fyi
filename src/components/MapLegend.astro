@@ -1,0 +1,48 @@
+---
+import Icon from './Icon.astro'
+import IconCheck from '../assets/IconCheck.astro'
+import { spotCategories, type SpotCategoryKey } from '../lib/spots'
+
+interface Props {
+  categories: SpotCategoryKey[]
+  off?: SpotCategoryKey[]
+}
+
+const { categories, off = [] } = Astro.props
+const shown = categories.filter((key) => !off.includes(key)).length
+---
+
+{
+  categories.length > 0 && (
+    <div class="map-legend map-overlay" data-map-legend>
+      <div class="map-legend-header">
+        <span class="map-legend-title">Filter</span>
+        <span class="map-legend-shown" data-legend-shown>
+          {shown} of {categories.length} shown
+        </span>
+      </div>
+      <ul class="map-legend-list" role="list" aria-label="Map legend">
+        {categories.map((key) => (
+          <li>
+            <button
+              type="button"
+              class="map-legend-item"
+              data-legend-category={key}
+              aria-pressed={off.includes(key) ? 'false' : 'true'}>
+              <span
+                class="map-legend-swatch"
+                style={`--badge-color: var(${spotCategories[key].token})`}
+                aria-hidden="true">
+                <Icon name={spotCategories[key].icon} />
+              </span>
+              <span class="map-legend-label">{spotCategories[key].label}</span>
+              <span class="map-legend-check" aria-hidden="true">
+                <IconCheck />
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

@@ -1,5 +1,5 @@
 ---
-import Icon from './Icon.astro'
+import MapLegend from './MapLegend.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -24,29 +24,7 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   data-coords={coords?.join(',')}
   role="application"
   aria-label={`Map of the neighborhood and its notable spots`}>
-  {
-    legendCategories.length > 0 && (
-      <ul class="map-legend map-overlay" data-map-legend role="list" aria-label="Map legend">
-        {legendCategories.map((key) => (
-          <li>
-            <button
-              type="button"
-              class="map-legend-item"
-              data-legend-category={key}
-              aria-pressed="true">
-              <span
-                class="map-legend-swatch"
-                style={`--badge-color: var(${spotCategories[key].token})`}
-                aria-hidden="true">
-                <Icon name={spotCategories[key].icon} />
-              </span>
-              {spotCategories[key].label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  <MapLegend categories={legendCategories} />
 </div>
 <script
   is:inline

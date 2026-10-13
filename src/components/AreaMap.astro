@@ -1,6 +1,16 @@
 ---
 import { CITY } from '../lib/site'
-import { regions, regionTokenBySlug } from '../lib/neighborhoods'
+import MapLegend from './MapLegend.astro'
+import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
+
+interface Props {
+  spots: MapSpot[]
+}
+
+const { spots } = Astro.props
+const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filter((key) =>
+  spots.some((spot) => spot.category === key),
+)
 ---
 
 <div
@@ -8,21 +18,9 @@ import { regions, regionTokenBySlug } from '../lib/neighborhoods'
   data-area-map
   role="application"
   aria-label={`Map of ${CITY} neighborhoods — click a neighborhood to jump to it`}>
-  <ul class="map-legend map-overlay" role="list" aria-label="Map legend">
-    {
-      regions.map((region) => (
-        <li class="map-legend-item">
-          <span
-            class="map-legend-swatch"
-            style={`--badge-color: var(${regionTokenBySlug[region.slug]})`}
-            aria-hidden="true"
-          />
-          {region.label}
-        </li>
-      ))
-    }
-  </ul>
+  <MapLegend categories={legendCategories} off={['food']} />
 </div>
+<script is:inline type="application/json" data-area-map-spots set:html={JSON.stringify(spots)} />
 
 <button type="button" class="map-split-toggle btn-dark" data-map-split-toggle>View map</button>
 

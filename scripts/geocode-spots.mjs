@@ -23,22 +23,21 @@ async function search(query) {
 const unresolved = []
 let resolved = 0
 
-for (const [slug, entries] of Object.entries(spots)) {
-  for (const spot of entries) {
-    if (spot.coords || !spot.address) {
-      continue
-    }
-    const query = `${spot.address}, ${CITY}, ${REGION}`
-    const [match] = await search(query)
-    await sleep(1100)
-    if (!match) {
-      unresolved.push(`${slug}: ${spot.name} (${spot.address})`)
-      continue
-    }
-    spot.coords = [Number(Number(match.lon).toFixed(5)), Number(Number(match.lat).toFixed(5))]
-    resolved += 1
-    console.log(`${slug}: ${spot.name} -> ${spot.coords.join(', ')}`)
+for (const spot of spots) {
+  if (spot.coords || !spot.address) {
+    continue
   }
+  const label = `${spot.neighborhoods.join('+')}: ${spot.name}`
+  const query = `${spot.address}, ${CITY}, ${REGION}`
+  const [match] = await search(query)
+  await sleep(1100)
+  if (!match) {
+    unresolved.push(`${label} (${spot.address})`)
+    continue
+  }
+  spot.coords = [Number(Number(match.lon).toFixed(5)), Number(Number(match.lat).toFixed(5))]
+  resolved += 1
+  console.log(`${label} -> ${spot.coords.join(', ')}`)
 }
 
 writeFileSync(spotsPath, `${JSON.stringify(spots, null, 2)}\n`)

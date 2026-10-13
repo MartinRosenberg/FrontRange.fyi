@@ -3,7 +3,7 @@ title: Grace Meat + Three
 description: Comfort-food fried chicken and sides
 created: 2026-06-23
 rating: 8.5
-cuisine: ['chicken']
+cuisine: ['fried chicken']
 neighborhood: The Grove
 address:
   - 4270 Manchester Ave

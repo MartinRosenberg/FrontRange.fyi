@@ -3,7 +3,7 @@ title: McGurk's
 created: 2026-08-30
 status: want-to-try
 description: Irish pub with a big garden
-cuisine: ['irish']
+cuisine: ['bar']
 neighborhood: Soulard
 address:
   - 1200 Russell Blvd

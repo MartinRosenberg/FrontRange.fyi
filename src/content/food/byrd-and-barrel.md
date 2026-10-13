@@ -3,7 +3,7 @@ title: Byrd & Barrel
 created: 2026-10-09
 status: want-to-try
 description: Fried chicken and beer
-cuisine: ['chicken']
+cuisine: ['fried chicken']
 neighborhood: Dogtown
 address:
   - 1221 Tamm Ave

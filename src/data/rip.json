@@ -21,7 +21,7 @@
     "note": "It was a good hole-in-the-wall spot."
   },
   { "name": "Pie Guy", "cuisine": ["pizza"], "note": "It was my favorite NY-style pizza." },
-  { "name": "Southern", "cuisine": ["chicken"], "note": "One of the few good fried chicken spots" },
+  { "name": "Southern", "cuisine": ["fried chicken"], "note": "One of the few good fried chicken spots" },
   {
     "name": "The Shaved Duck",
     "cuisine": ["bbq"],

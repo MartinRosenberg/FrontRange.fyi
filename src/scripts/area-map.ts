@@ -4,6 +4,7 @@ import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { buildPopupHtml, escapeHtml, type PopupChip } from './popup'
 import {
+  BADGE_POPUP_OFFSET,
   PIN_POPUP_OFFSET,
   bindRowHover,
   createMapPopup,
@@ -11,7 +12,20 @@ import {
   keepPopupInView,
 } from './map-shared'
 import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
+import type { MapSpot } from '../lib/spots'
+import {
+  activeLegendCategories,
+  bindLegendToggles,
+  createBadge,
+  legendIconFor,
+  spotPopupHtml,
+  stackBadges,
+} from './map-pane'
+import Supercluster from 'supercluster'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
+
+const CITY_VIEW_ZOOM_IN = 0.5
+const CITY_VIEW_SOUTH_BIAS = 0.08
 
 const bySlug = new Map(neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood]))
 const byNumber = new Map(
@@ -25,6 +39,32 @@ const byNumber = new Map(
     return 'ignored' in neighborhood ? [] : [[neighborhood.number, neighborhood] as const]
   }),
 )
+
+function readAreaSpots(element: HTMLElement): MapSpot[] {
+  const holder = element.parentElement?.querySelector('script[data-area-map-spots]')
+  if (!holder?.textContent) {
+    return []
+  }
+
+  try {
+    const parsed = JSON.parse(holder.textContent) as MapSpot[]
+
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    return []
+  }
+}
+
+function groupByCategory(spots: MapSpot[]): Map<string, MapSpot[]> {
+  const groups = new Map<string, MapSpot[]>()
+  for (const spot of spots) {
+    const group = groups.get(spot.category) ?? []
+    group.push(spot)
+    groups.set(spot.category, group)
+  }
+
+  return groups
+}
 
 function forEachPosition(geometry: Geometry, fn: (position: Position) => void): void {
   if (geometry.type === 'Polygon') {
@@ -114,7 +154,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   }
 
   const rows = [...document.querySelectorAll<HTMLElement>('[data-section]')]
-  const markerBySlug = new Map<string, HTMLElement>()
+  const spots = readAreaSpots(element)
   function rowFor(slug: string): HTMLElement | undefined {
     return rows.find((row) => row.dataset.section === slug)
   }
@@ -151,7 +191,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     }
   })
 
-  const map = createBasemapMap(element, { minZoom: 10, maxZoom: 13 })
+  const map = createBasemapMap(element, { minZoom: 10, maxZoom: 16 })
 
   const canHover = window.matchMedia('(hover: hover)').matches
 
@@ -280,49 +320,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     }
   }
 
-  function addExploredMarkers(): void {
-    for (const [slug, ids] of slugToFeatureIds) {
-      if (ids.length === 0) {
-        continue
-      }
-      const explored = rowFor(slug)?.classList.contains('is-written') ?? false
-      if (!explored) {
-        continue
-      }
-      const center = centerBySlug.get(slug)
-      if (!center) {
-        continue
-      }
-
-      const element = document.createElement('div')
-      element.className = 'map-pin'
-      element.dataset.region = regionKeyBySlug.get(slug) ?? 'central'
-      element.innerHTML = `<svg class="marker-pin" viewBox="-2 -2 28 36" width="28" height="36" fill="none" aria-hidden="true"><path class="marker-pin-body" d="M12 0C5.383 0 0 5.383 0 12c0 9 12 20 12 20s12-11 12-20c0-6.617-5.383-12-12-12z" fill="currentColor" /><circle class="marker-pin-dot" cx="12" cy="12" r="4.5" /></svg>`
-
-      new maplibregl.Marker({ element, anchor: 'bottom' }).setLngLat(center).addTo(map)
-      markerBySlug.set(slug, element)
-
-      element.addEventListener('click', (event) => {
-        event.stopPropagation()
-        openPopupFor(slug)
-      })
-      element.addEventListener('mouseenter', () => {
-        if (!canHover) {
-          return
-        }
-        if (slug !== selectedSlug) {
-          setSlugState(slug, { hover: true })
-        }
-      })
-      element.addEventListener('mouseleave', () => {
-        if (!canHover) {
-          return
-        }
-        setSlugState(slug, { hover: false })
-      })
-    }
-  }
-
   function bindRowHighlights(): void {
     bindRowHover(rows, {
       enter: (row) => {
@@ -333,7 +330,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
         if (slug !== selectedSlug) {
           setSlugState(slug, { hover: true })
         }
-        markerBySlug.get(slug)?.classList.add('is-hovered')
       },
       leave: (row) => {
         const slug = row.dataset.section
@@ -341,7 +337,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
           return
         }
         setSlugState(slug, { hover: false })
-        markerBySlug.get(slug)?.classList.remove('is-hovered')
       },
     })
   }
@@ -381,7 +376,141 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
       } else {
         popup.remove()
       }
+      badgePopup.remove()
     })
+  }
+
+  const badgePopup = createMapPopup(BADGE_POPUP_OFFSET)
+  let selectedBadge: HTMLElement | null = null
+  badgePopup.on('close', () => {
+    selectedBadge?.classList.remove('is-selected')
+    selectedBadge = null
+  })
+
+  function openBadgePopup(spot: MapSpot, badge: HTMLElement): void {
+    popup.remove()
+    selectedBadge?.classList.remove('is-selected')
+    selectedBadge = badge
+    badge.classList.add('is-selected')
+    badgePopup.setLngLat(spot.coords).setHTML(spotPopupHtml(spot)).addTo(map)
+    keepPopupInView(map, () => badgePopup.getElement() ?? undefined)
+  }
+
+  type LeafProps = { spotIndex: number }
+  const indexByCategory = new Map<string, Supercluster<LeafProps>>()
+  for (const [category, categorySpots] of groupByCategory(spots)) {
+    const features: Supercluster.PointFeature<LeafProps>[] = categorySpots.map((spot) => ({
+      type: 'Feature',
+      geometry: { type: 'Point', coordinates: spot.coords },
+      properties: { spotIndex: spots.indexOf(spot) },
+    }))
+    indexByCategory.set(
+      category,
+      new Supercluster<LeafProps>({ radius: 22, minPoints: 2, minZoom: 10, maxZoom: 15 }).load(
+        features,
+      ),
+    )
+  }
+
+  let badgeMarkers: maplibregl.Marker[] = []
+
+  function createClusterBadge(
+    category: string,
+    count: number,
+    clusterId: number,
+    center: [number, number],
+  ): HTMLElement {
+    const badge = document.createElement('button')
+    badge.type = 'button'
+    badge.className = 'map-badge map-badge--cluster'
+    badge.dataset.category = category
+    badge.setAttribute('aria-label', `${count} places, zoom in`)
+    const body = document.createElement('span')
+    body.className = 'map-badge-body'
+    const icon = legendIconFor(element, category)
+    if (icon) {
+      body.append(icon)
+    }
+    const label = document.createElement('span')
+    label.className = 'map-badge-count'
+    label.textContent = String(count)
+    body.append(label)
+    badge.append(body)
+    badge.addEventListener('click', (clickEvent) => {
+      clickEvent.stopPropagation()
+      const index = indexByCategory.get(category)
+      const expansionZoom = index?.getClusterExpansionZoom(clusterId) ?? map.getZoom() + 2
+      const target = Math.min(
+        map.getMaxZoom(),
+        Math.max(expansionZoom, Math.floor(map.getZoom()) + 1),
+      )
+      map.easeTo({ center, zoom: target })
+    })
+
+    return badge
+  }
+
+  function renderBadges(): void {
+    for (const marker of badgeMarkers) {
+      marker.remove()
+    }
+    badgeMarkers = []
+    const active = activeLegendCategories(element)
+    const viewport = map.getBounds()
+    const bbox: [number, number, number, number] = [
+      viewport.getWest(),
+      viewport.getSouth(),
+      viewport.getEast(),
+      viewport.getNorth(),
+    ]
+    const zoom = Math.floor(map.getZoom())
+    const placed: { spot: MapSpot; element: HTMLElement }[] = []
+
+    for (const [category, index] of indexByCategory) {
+      if (!active.has(category)) {
+        continue
+      }
+      for (const feature of index.getClusters(bbox, zoom)) {
+        const center = feature.geometry.coordinates as [number, number]
+        if (feature.properties && 'cluster' in feature.properties) {
+          const clusterProperties = feature.properties as Supercluster.ClusterProperties
+          const badge = createClusterBadge(
+            category,
+            clusterProperties.point_count,
+            clusterProperties.cluster_id,
+            center,
+          )
+          placed.push({
+            spot: { title: '', category: category as MapSpot['category'], coords: center },
+            element: badge,
+          })
+        } else {
+          const spot = spots[(feature.properties as LeafProps).spotIndex]
+          placed.push({ spot, element: createBadge(element, spot, openBadgePopup) })
+        }
+      }
+    }
+
+    const offsets = stackBadges(placed.map((entry) => entry.spot))
+    for (const entry of placed) {
+      if (
+        selectedBadge &&
+        entry.spot.title &&
+        selectedBadge.getAttribute('aria-label') === entry.spot.title
+      ) {
+        entry.element.classList.add('is-selected')
+        selectedBadge = entry.element
+      }
+      badgeMarkers.push(
+        new maplibregl.Marker({
+          element: entry.element,
+          anchor: 'center',
+          offset: offsets.get(entry.spot) ?? [0, 0],
+        })
+          .setLngLat(entry.spot.coords)
+          .addTo(map),
+      )
+    }
   }
 
   const split = document.querySelector('[data-map-split]')
@@ -396,6 +525,13 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
       }
     } else {
       frameCityView(map, 40, false)
+      const visibleBounds = map.getBounds()
+      const latSpan = visibleBounds.getNorth() - visibleBounds.getSouth()
+      const center = map.getCenter()
+      map.jumpTo({
+        center: [center.lng, center.lat - latSpan * CITY_VIEW_SOUTH_BIAS],
+        zoom: map.getZoom() + CITY_VIEW_ZOOM_IN,
+      })
     }
   }
 
@@ -422,8 +558,15 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   map.on('load', () => {
     addBoundaryLayers()
     addBoundaryInteractions()
-    addExploredMarkers()
     bindRowHighlights()
+    renderBadges()
+    map.on('moveend', renderBadges)
+    bindLegendToggles(element, (category, showing) => {
+      if (!showing && selectedBadge?.dataset.category === category) {
+        badgePopup.remove()
+      }
+      renderBadges()
+    })
     watchThemeChanges(map, () => {
       regionColors = readRegionColors()
       if (map.getLayer(FILL_LAYER)) {

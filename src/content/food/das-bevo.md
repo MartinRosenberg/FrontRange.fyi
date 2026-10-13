@@ -3,7 +3,7 @@ title: Das Bevo
 created: 2026-08-30
 status: want-to-try
 description: Biergarten in the 1917 windmill
-cuisine: ['german']
+cuisine: ['european']
 neighborhood: Bevo Mill
 address:
   - 4749 Gravois Ave

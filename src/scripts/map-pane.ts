@@ -13,7 +13,7 @@ const BOUNDARY_OUTLINE_LAYER_ID = 'neighborhood-boundary-outline'
 const STACKED_BADGE_RADIUS = 22
 const STACKED_BADGE_DISTANCE_METERS = 45
 
-function stackBadges(spots: MapSpot[]): Map<MapSpot, [number, number]> {
+export function stackBadges(spots: MapSpot[]): Map<MapSpot, [number, number]> {
   const stacks: MapSpot[][] = []
   for (const spot of spots) {
     const stack = stacks.find(
@@ -126,42 +126,71 @@ function applyBoundaryLayers(map: MapLibreMap, boundary: BoundaryFeature, token:
   })
 }
 
+export function legendIconFor(root: HTMLElement, category: string): Node | undefined {
+  const icon = root.querySelector(`[data-map-legend] [data-legend-category="${category}"] .icon`)
+
+  return icon?.cloneNode(true)
+}
+
+export function createBadge(
+  root: HTMLElement,
+  spot: MapSpot,
+  onClick: (spot: MapSpot, badge: HTMLElement) => void,
+): HTMLElement {
+  const element = spot.url ? document.createElement('a') : document.createElement('button')
+  element.className = 'map-badge'
+  element.dataset.category = spot.category
+  element.setAttribute('aria-label', spot.title)
+  if (element instanceof HTMLAnchorElement && spot.url) {
+    element.href = spot.url
+  }
+  if (element instanceof HTMLButtonElement) {
+    element.type = 'button'
+  }
+
+  const body = document.createElement('span')
+  body.className = 'map-badge-body'
+  const icon = legendIconFor(root, spot.category)
+  if (icon) {
+    body.append(icon)
+  }
+  element.append(body)
+
+  element.addEventListener('click', (clickEvent) => {
+    clickEvent.preventDefault()
+    clickEvent.stopPropagation()
+    onClick(spot, element)
+  })
+
+  return element
+}
+
+export function spotPopupHtml(spot: MapSpot): string {
+  return buildPopupHtml({
+    title: spot.title,
+    link: spot.url,
+    chips: spot.meta ? [{ label: spot.meta }] : [],
+    verdict: spot.verdict,
+    showRating: spot.category === 'food',
+    excerpt: spot.tagline ?? '',
+    addressLines: spot.addressLines ?? [],
+    directionsHref: spot.directionsHref,
+    websiteHref: spot.websiteHref,
+    photo: spot.photo ?? '',
+  })
+}
+
 function addSpotMarkers(
   map: MapLibreMap,
   root: HTMLElement,
   spots: MapSpot[],
   openPopup: (spot: MapSpot, badge: HTMLElement) => void,
 ): Map<string, HTMLElement> {
-  const legend = root.querySelector<HTMLElement>('[data-map-legend]')
   const offsets = stackBadges(spots)
   const badgeByTitle = new Map<string, HTMLElement>()
 
   for (const spot of spots) {
-    const element = spot.url ? document.createElement('a') : document.createElement('button')
-    element.className = 'map-badge'
-    element.dataset.category = spot.category
-    element.setAttribute('aria-label', spot.title)
-    if (element instanceof HTMLAnchorElement && spot.url) {
-      element.href = spot.url
-    }
-    if (element instanceof HTMLButtonElement) {
-      element.type = 'button'
-    }
-
-    const body = document.createElement('span')
-    body.className = 'map-badge-body'
-
-    const legendIcon = legend?.querySelector(`[data-legend-category="${spot.category}"] .icon`)
-    if (legendIcon) {
-      body.append(legendIcon.cloneNode(true))
-    }
-    element.append(body)
-
-    element.addEventListener('click', (clickEvent) => {
-      clickEvent.preventDefault()
-      clickEvent.stopPropagation()
-      openPopup(spot, element)
-    })
+    const element = createBadge(root, spot, openPopup)
 
     new maplibregl.Marker({ element, anchor: 'center', offset: offsets.get(spot) ?? [0, 0] })
       .setLngLat(spot.coords)
@@ -180,26 +209,44 @@ function bindCardHover(badgeByTitle: Map<string, HTMLElement>): void {
   })
 }
 
-function bindLegendToggles(root: HTMLElement, closePopupFor: (category: string) => void): void {
-  const legend = root.querySelector<HTMLElement>('[data-map-legend]')
-  if (!legend) {
-    return
+export function activeLegendCategories(root: HTMLElement): Set<string> {
+  const active = new Set<string>()
+  for (const item of root.querySelectorAll<HTMLButtonElement>(
+    '[data-map-legend] [data-legend-category]',
+  )) {
+    if (item.getAttribute('aria-pressed') !== 'false') {
+      active.add(item.dataset.legendCategory ?? '')
+    }
   }
-  for (const item of legend.querySelectorAll<HTMLButtonElement>('[data-legend-category]')) {
+
+  return active
+}
+
+export function bindLegendToggles(
+  root: HTMLElement,
+  onToggle: (category: string, showing: boolean) => void,
+): void {
+  for (const item of root.querySelectorAll<HTMLButtonElement>(
+    '[data-map-legend] [data-legend-category]',
+  )) {
     item.addEventListener('click', () => {
       const category = item.dataset.legendCategory ?? ''
-      const showing = item.getAttribute('aria-pressed') !== 'false'
-      item.setAttribute('aria-pressed', String(!showing))
-      for (const badge of root.querySelectorAll<HTMLElement>(
-        `.map-badge[data-category="${category}"]`,
-      )) {
-        badge.hidden = showing
-      }
-      if (showing) {
-        closePopupFor(category)
-      }
+      const showing = item.getAttribute('aria-pressed') === 'false'
+      item.setAttribute('aria-pressed', String(showing))
+      updateLegendShown(root)
+      onToggle(category, showing)
     })
   }
+}
+
+function updateLegendShown(root: HTMLElement): void {
+  const shown = root.querySelector('[data-legend-shown]')
+  if (!shown) {
+    return
+  }
+  const items = root.querySelectorAll('[data-map-legend] [data-legend-category]')
+  const active = activeLegendCategories(root).size
+  shown.textContent = `${active} of ${items.length} shown`
 }
 
 function readSpots(root: HTMLElement): MapSpot[] {
@@ -243,29 +290,22 @@ export function initMapPane(): void {
   })
 
   const openSpotPopup = (spot: MapSpot, badge: HTMLElement): void => {
-    const popupHtml = buildPopupHtml({
-      title: spot.title,
-      link: spot.url,
-      chips: spot.meta ? [{ label: spot.meta }] : [],
-      verdict: spot.verdict,
-      showRating: spot.category === 'food',
-      excerpt: spot.tagline ?? '',
-      addressLines: spot.addressLines ?? [],
-      directionsHref: spot.directionsHref,
-      websiteHref: spot.websiteHref,
-      photo: spot.photo ?? '',
-    })
     selectedBadge?.classList.remove('is-selected')
     selectedBadge = badge
     badge.classList.add('is-selected')
-    popup.setLngLat(spot.coords).setHTML(popupHtml).addTo(map)
+    popup.setLngLat(spot.coords).setHTML(spotPopupHtml(spot)).addTo(map)
     keepPopupInView(map, () => popup.getElement() ?? undefined)
   }
 
   map.on('click', () => popup.remove())
 
-  bindLegendToggles(root, (category) => {
-    if (selectedBadge?.dataset.category === category) {
+  bindLegendToggles(root, (category, showing) => {
+    for (const badge of root.querySelectorAll<HTMLElement>(
+      `.map-badge[data-category="${category}"]`,
+    )) {
+      badge.hidden = !showing
+    }
+    if (!showing && selectedBadge?.dataset.category === category) {
       popup.remove()
     }
   })

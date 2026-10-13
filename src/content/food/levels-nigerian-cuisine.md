@@ -3,7 +3,7 @@ title: Levels Nigerian Cuisine
 created: 2026-10-09
 status: want-to-try
 description: Nigerian cooking on Wash Ave
-cuisine: ['nigerian']
+cuisine: ['african']
 neighborhood: Downtown
 address:
   - 1405 Washington Ave

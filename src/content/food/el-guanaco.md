@@ -3,7 +3,7 @@ title: El Guanaco
 created: 2026-08-30
 status: want-to-try
 description: Salvadoran pupusas and tacos
-cuisine: ['salvadoran']
+cuisine: ['latin american']
 neighborhood: Overland
 address:
   - 10633 Page Ave

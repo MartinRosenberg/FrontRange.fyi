@@ -150,7 +150,8 @@ Unmatched names are listed at the end of the run.
 
 - **Food** — each entry in `src/content/food/` has `coords: [lat, lng]` and a
   `neighborhood` name in its frontmatter.
-- **Notable spots** — `src/data/spots.json`, keyed by neighborhood slug, with
+- **Notable spots** — `src/data/spots.json`, a flat list where each entry names
+  its `neighborhoods` (a park can belong to several), with
   `coords: [lng, lat]`.
 - **Walkable corridors** — street polylines in `src/data/corridors.json`,
   generated from OpenStreetMap by `node scripts/fetch-corridors.mjs`. Edit the

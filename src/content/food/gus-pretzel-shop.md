@@ -3,7 +3,7 @@ title: Gus' Pretzel Shop
 created: 2026-08-30
 status: tried
 description: Hand-twisted pretzels since 1920
-cuisine: ['bakery']
+cuisine: ['cafe']
 neighborhood: Benton Park
 address:
   - 1820 Arsenal St
