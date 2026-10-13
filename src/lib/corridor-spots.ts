@@ -16,6 +16,7 @@ export interface CorridorSpot {
 interface CorridorLine {
   id: string
   line: number[][]
+  range?: number
 }
 
 const corridorData = optionalData<{ corridors: CorridorLine[] }>(
@@ -42,7 +43,7 @@ function nearestCorridor(
   for (const corridor of corridors) {
     const projection = projectOntoLine(coords, corridor.line)
     if (
-      projection.distance <= CORRIDOR_SPOT_RANGE_METERS &&
+      projection.distance <= (corridor.range ?? CORRIDOR_SPOT_RANGE_METERS) &&
       projection.distance < (best?.distance ?? Infinity)
     ) {
       best = { id: corridor.id, along: projection.along, distance: projection.distance }

@@ -89,6 +89,7 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
   const opener = document.querySelector<HTMLButtonElement>('[data-suggest-open]')
   const form = dialog?.querySelector<HTMLFormElement>('.suggest-form')
   const status = dialog?.querySelector<HTMLElement>('[data-form-status]')
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
 
   if (dialog && opener && form && status) {
     opener.addEventListener('click', () => {
@@ -98,7 +99,9 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
         return
       }
       dialog.show()
-      form.querySelector<HTMLInputElement>('input[name="place"]')?.focus()
+      if (finePointer.matches) {
+        form.querySelector<HTMLInputElement>('input[name="place"]')?.focus()
+      }
     })
     dialog.querySelector('[data-suggest-close]')?.addEventListener('click', () => dialog.close())
     window.addEventListener('keydown', (event) => {

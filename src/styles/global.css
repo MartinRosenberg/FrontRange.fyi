@@ -930,6 +930,13 @@ select {
   max-width: 150px;
 }
 
+@media (max-width: 700px) {
+  input,
+  select {
+    font-size: var(--font-size-md);
+  }
+}
+
 .field {
   display: flex;
   flex-direction: column;
