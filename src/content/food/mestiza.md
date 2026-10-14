@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Street tacos from the Malinche team
 cuisine: ['mexican']
-neighborhood: Northampton
+neighborhood: North Hampton
 address:
   - 3279 Hampton Ave
   - St. Louis, MO 63139

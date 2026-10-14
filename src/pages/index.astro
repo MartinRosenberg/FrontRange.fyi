@@ -15,6 +15,7 @@ import {
   hasBody,
 } from '../lib/content'
 import { isExplored } from '../lib/verdict'
+import { foodStatus } from '../lib/content'
 import { formatDate } from '../lib/dates'
 import { websiteSchema } from '../lib/schema'
 import {
@@ -56,7 +57,7 @@ const TOPIC_PROMO_EXCERPT_CHARS = 200
 
 const allFood = published(await getCollection('food'))
 const allNeighborhoods = published(await getCollection('neighborhoods'))
-const visitedCount = allFood.filter((place) => isExplored(place.data.status)).length
+const visitedCount = allFood.filter((place) => isExplored(foodStatus(place))).length
 const wanderedCount = allNeighborhoods.length
 
 const exploreGroup = groups.find((group) => group.id === 'explore')

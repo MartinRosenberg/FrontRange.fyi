@@ -1,7 +1,7 @@
 ---
 title: Platypus
 created: 2026-10-13
-status: want-to-try
+status: tried
 description: Neighborhood bar at the west entrance of The Grove
 cuisine: ['bar']
 neighborhood: The Grove

@@ -4,7 +4,6 @@ const groupLabels: Record<string, string> = {
   ...verdictLabels,
   tried: 'Tried, not yet rated',
   'want-to-try': 'Want to try',
-  suggested: 'Suggested by readers',
 }
 
 const verdictKeys = new Set<string>(['loved', 'liked', 'neutral', 'not-for-me'])

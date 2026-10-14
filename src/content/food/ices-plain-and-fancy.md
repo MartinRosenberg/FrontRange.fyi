@@ -1,7 +1,7 @@
 ---
 title: Ices Plain & Fancy
 created: 2026-10-13
-status: want-to-try
+status: tried
 description: Ice cream flash-churned to order with liquid nitrogen
 cuisine: ['dessert']
 neighborhood: Shaw

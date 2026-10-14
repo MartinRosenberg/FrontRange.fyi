@@ -4,7 +4,6 @@ description: Crispy, fluffy pancakes in a family-owned bistro
 photo: ../images/food/grandpied/grandpied1.jpg
 created: 2026-10-05
 rating: 9.5
-status: tried
 neighborhood: Tower Grove South
 address:
   - 3137 Morganford Rd

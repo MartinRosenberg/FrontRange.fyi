@@ -1,7 +1,6 @@
 ---
 title: The Gramophone
 created: 2026-07-16
-status: tried
 rating: 9
 description: Late-night sandwiches
 cuisine: ['sandwiches']

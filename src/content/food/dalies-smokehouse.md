@@ -2,7 +2,6 @@
 title: Dalie's Smokehouse
 photo: ../images/food/dalies/dalies2.jpg
 created: 2026-07-16
-status: tried
 rating: 9
 description: Barbecue from the Pappy's/Bogart's crew
 cuisine: ['bbq']

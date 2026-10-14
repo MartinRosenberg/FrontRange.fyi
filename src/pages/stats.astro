@@ -4,7 +4,7 @@ import { CITY, SITE_NAME } from '../lib/site'
 import PageMasthead from '../components/PageMasthead.astro'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Heading from '../components/Heading.astro'
-import { published, hasBody } from '../lib/content'
+import { published, hasBody, foodStatus } from '../lib/content'
 import { isExplored } from '../lib/verdict'
 import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../lib/cuisine'
 import { NEIGHBORHOODS_ENABLED, neighborhoodRecords } from '../lib/neighborhood-data'
@@ -14,8 +14,8 @@ import { allSpots, spotCategories, SPOT_SECTION_ORDER } from '../lib/spots'
 
 const allFood = published(await getCollection('food'))
 const written = allFood.filter((place) => hasBody(place))
-const tried = allFood.filter((place) => isExplored(place.data.status))
-const backlog = allFood.filter((place) => !isExplored(place.data.status))
+const tried = allFood.filter((place) => isExplored(foodStatus(place)))
+const backlog = allFood.filter((place) => !isExplored(foodStatus(place)))
 
 const neighborhoodsWritten = new Set(
   published(await getCollection('neighborhoods'))
@@ -42,7 +42,7 @@ const cuisineCounts = [...cuisinePages.entries()]
     cuisine,
     label: cuisineLabel(cuisine),
     total: places.length,
-    tried: places.filter((place) => isExplored((place as (typeof allFood)[number]).data.status))
+    tried: places.filter((place) => isExplored(foodStatus(place as (typeof allFood)[number])))
       .length,
   }))
   .sort((left, right) => right.tried - left.tried || right.total - left.total)

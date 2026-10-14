@@ -45,7 +45,7 @@ export const verdictSortValue: Record<Verdict, number> = {
   'not-for-me': 2,
 }
 
-export type FoodStatus = 'written' | 'tried' | 'want-to-try' | 'suggested'
+export type FoodStatus = 'written' | 'tried' | 'want-to-try'
 
 export interface WriterState {
   statement: string

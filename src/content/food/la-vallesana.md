@@ -1,7 +1,7 @@
 ---
 title: La Vallesana
 created: 2026-10-13
-status: want-to-try
+status: tried
 description: Cherokee Street Mexican restaurant
 cuisine: ['mexican']
 neighborhood: Greater Dutchtown

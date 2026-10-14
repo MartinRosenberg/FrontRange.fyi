@@ -17,7 +17,7 @@ const food = defineCollection({
       updated: z.coerce.date().optional(),
       rating: z.number().min(0).max(10).optional(),
       verdict: z.enum(['loved', 'liked', 'neutral', 'not-for-me']).optional(),
-      status: z.enum(['written', 'tried', 'want-to-try', 'suggested']).default('written'),
+      status: z.enum(['written', 'tried', 'want-to-try']).default('written'),
       excludeFromMapFit: z.boolean().default(false),
       cuisine: z.array(z.string()).default([]),
       neighborhood: z.string().optional(),

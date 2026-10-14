@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import Heading from '../../components/Heading.astro'
 import Card from '../../components/Card.astro'
-import { published } from '../../lib/content'
+import { published, foodStatus } from '../../lib/content'
 import { optionalData } from '../../lib/optional-data'
 import { cuisineLabel } from '../../lib/cuisine'
 import { href } from '../../lib/url'
@@ -23,8 +23,8 @@ type CardData = { cuisine?: string[]; neighborhood?: string }
 const allFood = published(await getCollection('food'))
 const byTitle = (left: { data: { title: string } }, right: { data: { title: string } }) =>
   left.data.title.localeCompare(right.data.title)
-const wishlist = allFood.filter((place) => place.data.status === 'want-to-try').sort(byTitle)
-const triedList = allFood.filter((place) => place.data.status === 'tried').sort(byTitle)
+const wishlist = allFood.filter((place) => foodStatus(place) === 'want-to-try').sort(byTitle)
+const triedList = allFood.filter((place) => foodStatus(place) === 'tried').sort(byTitle)
 
 const byName = (left: FoodNote, right: FoodNote) => left.name.localeCompare(right.name)
 const rip = optionalData<FoodNote[]>(

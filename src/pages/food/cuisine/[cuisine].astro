@@ -7,7 +7,7 @@ import SectionHeading from '../../../components/SectionHeading.astro'
 import CardList from '../../../components/CardList.astro'
 import { Image } from 'astro:assets'
 import Card from '../../../components/Card.astro'
-import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../../../lib/content'
+import { published, hasBody, excerpt, foodStatus, PREVIEW_EXCERPT_CHARS } from '../../../lib/content'
 import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../../../lib/cuisine'
 import { resolveVerdict, verdictSortValue } from '../../../lib/verdict'
 import { optionalData } from '../../../lib/optional-data'
@@ -46,7 +46,7 @@ const bestPicks = awards.flatMap((award) => {
   return place ? [{ label: award.label, place }] : []
 })
 
-const statusRank: Record<string, number> = { written: 0, tried: 1, 'want-to-try': 2, suggested: 3 }
+const statusRank: Record<string, number> = { written: 0, tried: 1, 'want-to-try': 2 }
 const sortValue = (place: (typeof places)[number]): number => {
   const verdict = resolveVerdict(place.data)
 
@@ -64,7 +64,7 @@ const unwritten = places
   .filter((place) => !hasBody(place))
   .sort(
     (left, right) =>
-      statusRank[left.data.status] - statusRank[right.data.status] ||
+      statusRank[foodStatus(left)] - statusRank[foodStatus(right)] ||
       left.data.title.localeCompare(right.data.title),
   )
 

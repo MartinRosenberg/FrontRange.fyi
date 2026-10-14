@@ -1,3 +1,4 @@
+import type { FoodStatus } from './verdict'
 import { PINNED_TOPIC_ID } from '../../site.config.mjs'
 
 export function published<
@@ -29,6 +30,20 @@ export function hasBody(entry: { body?: string }): boolean {
   const text = (entry.body ?? '').replace(/<!--[\s\S]*?-->/g, '').trim()
 
   return text.length > 0
+}
+
+export function foodStatus(entry: {
+  body?: string
+  data: { status?: FoodStatus; rating?: number; verdict?: string }
+}): FoodStatus {
+  if (hasBody(entry)) {
+    return 'written'
+  }
+  if (typeof entry.data.rating === 'number' || entry.data.verdict) {
+    return 'tried'
+  }
+
+  return entry.data.status ?? 'want-to-try'
 }
 
 export const PREVIEW_EXCERPT_CHARS = 120

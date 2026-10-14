@@ -1,7 +1,7 @@
 ---
 title: McGurk's
 created: 2026-08-30
-status: want-to-try
+status: tried
 description: Irish pub with a big garden
 cuisine: ['bar']
 neighborhood: Soulard

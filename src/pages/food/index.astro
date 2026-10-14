@@ -11,7 +11,7 @@ import PaneSearch from '../../components/PaneSearch.astro'
 import Rating from '../../components/Rating.astro'
 import BadgeIcons from '../../components/BadgeIcons.astro'
 import SourceLink from '../../components/SourceLink.astro'
-import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../../lib/content'
+import { published, hasBody, excerpt, foodStatus, PREVIEW_EXCERPT_CHARS } from '../../lib/content'
 import { cuisineLabel } from '../../lib/cuisine'
 import IconDice from '../../assets/IconDice.astro'
 import { googleMapsHref } from '../../lib/maps'
@@ -25,10 +25,9 @@ const verdictRankLetter: Record<Verdict, string> = {
   neutral: 'c',
   'not-for-me': 'd',
 }
-const statusRankLetter: Record<'tried' | 'want-to-try' | 'suggested', string> = {
+const statusRankLetter: Record<'tried' | 'want-to-try', string> = {
   tried: 'e',
   'want-to-try': 'f',
-  suggested: 'g',
 }
 
 const all = published(await getCollection('food'))
@@ -37,10 +36,10 @@ const rows = (
   await Promise.all(
     all.map(async (place) => {
       const verdict = resolveVerdict(place.data)
-      const groupKey = verdict ?? place.data.status
+      const groupKey = verdict ?? foodStatus(place)
       const rankLetter = verdict
         ? verdictRankLetter[verdict]
-        : (statusRankLetter[place.data.status as keyof typeof statusRankLetter] ?? 'h')
+        : (statusRankLetter[foodStatus(place) as keyof typeof statusRankLetter] ?? 'h')
       const thumb = place.data.photo
         ? await getImage({ src: place.data.photo, width: 480, format: 'webp' })
         : undefined

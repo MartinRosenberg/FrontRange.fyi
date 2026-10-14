@@ -18,7 +18,7 @@ import Rating from '../../components/Rating.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
-import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { published, excerpt, hasBody, foodStatus, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
 import { neighborhoodHref } from '../../lib/neighborhoods'
 import { resolveVerdict, resolveWriterState, verdictLabels } from '../../lib/verdict'
@@ -38,7 +38,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props
 const { data } = entry
-const writerState = resolveWriterState(data)
+const writerState = resolveWriterState({ ...data, status: foodStatus(entry) })
 const stubNote =
   writerState.kind === 'pending'
     ? `I've been to ${data.title}, but I haven't written up a review yet.`
