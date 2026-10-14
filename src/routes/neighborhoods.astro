@@ -44,9 +44,28 @@ function countPills(slug: string, name: string): { key: SpotCategoryKey; count: 
     .filter((pill) => pill.count > 0)
 }
 
+const placeTotal = (neighborhood: { slug: string; name: string }) =>
+  countPills(neighborhood.slug, neighborhood.name).reduce((sum, pill) => sum + pill.count, 0)
+
+const featuredRank = (slug: string) => entryBySlug.get(slug)?.data.featured ?? Infinity
+
 const listed = neighborhoods
   .filter((neighborhood) => !('ignored' in neighborhood))
-  .sort((left, right) => Number(isWritten(right.slug)) - Number(isWritten(left.slug)))
+  .sort((left, right) => {
+    const writtenOrder = Number(isWritten(right.slug)) - Number(isWritten(left.slug))
+    if (writtenOrder !== 0 || !isWritten(left.slug)) {
+      return writtenOrder
+    }
+    const featuredOrder = featuredRank(left.slug) - featuredRank(right.slug)
+    if (featuredOrder !== 0 && Number.isFinite(featuredOrder)) {
+      return featuredOrder
+    }
+    if (Number.isFinite(featuredRank(left.slug)) !== Number.isFinite(featuredRank(right.slug))) {
+      return Number.isFinite(featuredRank(left.slug)) ? -1 : 1
+    }
+
+    return placeTotal(right) - placeTotal(left) || left.name.localeCompare(right.name)
+  })
 const count = listed.length
 const writtenCount = listed.filter((neighborhood) => isWritten(neighborhood.slug)).length
 const restCount = listed.length - writtenCount

@@ -58,6 +58,7 @@ const neighborhoods = defineCollection({
       wikipedia: z.string().url().optional(),
       neighbors: z.array(z.string()).default([]),
       notes: z.array(z.string()).default([]),
+      featured: z.number().optional(),
       ...taggable,
     }),
 })

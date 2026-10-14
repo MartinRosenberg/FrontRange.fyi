@@ -9,6 +9,7 @@ tags:
   - italian
   - walkable
   - residential
+featured: 3
 ---
 
 The Hill is the Italian-American neighborhood in St. Louis. It has been called [America's Last Little Italy](https://www.youtube.com/watch?v=jvWa4euR-AA). The neighborhood is fiercely proud of its Italian heritage, with Italian flag banners posted all throughout the neighborhood, and fire hydrants and crosswalks painted in the Italian colors.

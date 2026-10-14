@@ -1,5 +1,6 @@
 ---
 import FilterBar from './FilterBar.astro'
+import MapActions from './MapActions.astro'
 import ClearFilters from './ClearFilters.astro'
 
 interface Facet {
@@ -61,9 +62,7 @@ const {
   <div class="results">
     <slot />
     <div class="map" data-map data-map-cluster={cluster ? '' : undefined} aria-label={mapLabel} />
-    <button type="button" class="map-split-toggle btn-dark" data-map-split-toggle>
-      View list
-    </button>
+    <MapActions label="View list" />
     <p class="empty" data-filter-empty hidden>
       {emptyText}
       <ClearFilters />

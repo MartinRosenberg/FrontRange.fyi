@@ -35,7 +35,6 @@ This is a map of all the walkable St. Louis streets you'll see throughout the ar
 
 - Street: **Euclid Avenue**, from Laclede to Delmar
 - Neighborhood: [[central-west-end|Central West End]]
-- Vibe: Upscale, urban
 - Website: [cwescene.com](https://cwescene.com/)
 
 <figure class="corridor-map-figure">
@@ -54,7 +53,6 @@ Euclid is just a few short blocks from Forest Park, the proximity of which is a 
 
 - Street: **Tamm Avenue**, from Oakland to Mitchell
 - Neighborhood: [[dogtown|Dogtown]]
-- Vibe: Irish, local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="dogtown dogtown-clayton"></div>
@@ -66,10 +64,8 @@ Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tam
 
 - Street: **Grand Boulevard**, from Arsenal to Utah
 - Neighborhoods: [[tower-grove-south|Tower Grove South]], [Tower Grove East](/neighborhoods/tower-grove-east/)
-- Vibe: International
 - Street: **Morganford Road**, from Arsenal to Utah
 - Neighborhoods: [[tower-grove-south|Tower Grove South]]
-- Vibe: Local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="south-grand morganford"></div>
@@ -87,7 +83,6 @@ There's also a smaller strip along Morganford with a few places of interest, suc
 
 - Street: **South 39th Street**, from Shaw to Magnolia
 - Neighborhood: [[shaw|Shaw]]
-- Vibe: Quaint, charming, quiet
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="shaw"></div>
@@ -103,10 +98,8 @@ Flora Place is a particularly pretty boulevard to walk along, showcasing many be
 
 - Street: **Hampton Avenue**, from Chippewa to Gravois
 - Neighborhoods: [[st-louis-hills|St. Louis Hills]], [[southampton|Southampton]], [Princeton Heights](/neighborhoods/princeton-heights/)
-- Vibe: Local
 - Street: **Macklind Avenue**, from Lansdowne to Nottingham
 - Neighborhoods: [[southampton|Southampton]]
-- Vibe: Local
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="hampton macklind"></div>
@@ -122,7 +115,6 @@ There's also another small strip nearby on Macklind with a Clementine's ice crea
 
 - Street: **Marconi Avenue**, from Shaw to Elizabeth
 - Neighborhood: [[the-hill|The Hill]]
-- Vibe: Italian
 - Website: [hillstl.org](https://www.hillstl.org/)
 
 <figure class="corridor-map-figure">
@@ -139,7 +131,6 @@ My two favorites are [[nicky-slices|Nicky Slices]] for Detroit-style pizza, and 
 
 - Street: **Gravois Avenue**, from Taft to Christy
 - Neighborhood: [[bevo-mill|Bevo Mill]]
-- Vibe: Bosnian
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="bevo"></div>
@@ -155,7 +146,6 @@ Although it has been thirty years since the Bosnian refugees settled in Bevo, th
 
 - Street: **Manchester Avenue**, from the west arch to the east arch
 - Neighborhood: [[the-grove|Forest Park Southeast]]
-- Vibe: Fun, nightlife, LGBTQ
 - Website: [thegrovestl.com](https://www.thegrovestl.com/)
 
 <figure class="corridor-map-figure">
@@ -170,7 +160,6 @@ The Grove is most famous for being the city's LGBTQ+ nightlife district. On one 
 
 - Street: **Delmar Boulevard**, from Leland to the Pageant
 - Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
-- Vibe: Music, Asian, neon
 - Website: [visittheloop.com](https://visittheloop.com/)
 
 <figure class="corridor-map-figure">
@@ -187,7 +176,6 @@ Notably, there is a concentration of very good Asian cuisine along Delmar, inclu
 
 - Street: **Washington Avenue**, from 6th to 18th
 - Neighborhoods: [[downtown|Downtown]]
-- Vibe: Urban, historic, industrial
 - Website: [washaveretail.com](https://www.washaveretail.com/)
 
 <figure class="corridor-map-figure">
@@ -204,7 +192,6 @@ Being downtown, it's as walkable as it gets, and one of the areas most likely to
 
 - Street: **Clark Avenue**, from 8th to Broadway
 - Neighborhoods: [[downtown|Downtown]]
-- Vibe: Baseball, entertainment, bars
 - Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
 
 <figure class="corridor-map-figure">
@@ -217,7 +204,6 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 
 - Street: **Cherokee Street**, from Nebraska to Lemp
 - Neighborhoods: [Greater Dutchtown](/neighborhoods/dutchtown/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
-- Vibe: Eclectic, creative, Mexican
 - Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
 <figure class="corridor-map-figure">
@@ -232,7 +218,6 @@ The eastern wing of Cherokee St. is the [antique row](https://cherokeeantiquerow
 
 - Street: **South Kingshighway**, from Fyler to Devonshire
 - Neighborhoods: [North Hampton](/neighborhoods/north-hampton/), [[southampton|Southampton]], [[tower-grove-south|Tower Grove South]]
-- Vibe: Commercial
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="south-town"></div>
@@ -248,7 +233,6 @@ Now, there are new restaurants and bars filling up the space, such as the Golden
 
 - Street: **South 12th Street**, from Shenandoah to Gravois
 - Neighborhood: [[soulard|Soulard]]
-- Vibe: Historic, nightlife
 - Website: [soulard.org](https://www.soulard.org/)
 
 <figure class="corridor-map-figure">
@@ -269,7 +253,6 @@ The north and south ends of Soulard have a different feel, with the north side b
 
 - Street: **Park Avenue**, from Mississippi to 18th
 - Neighborhood: [[lafayette-square|Lafayette Square]]
-- Vibe: Victorian, historic
 - Website: [lafayettesquare.org](https://lafayettesquare.org/)
 
 <figure class="corridor-map-figure">
@@ -286,7 +269,6 @@ In addition to the park, there are also beautiful, historic mansions painted in 
 
 - Street: **South Broadway**, from Blow to Steins
 - Neighborhoods: [[carondelet|Carondelet]]
-- Vibe: Riverside
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="carondelet"></div>
@@ -302,7 +284,6 @@ I have not personally explored this area outside of driving through and I don't 
 
 - Street: **DeMun Avenue**, from Northwood to Southwood
 - Neighborhood: [[clayton|Clayton]]
-- Vibe: Cozy, upscale
 
 <figure class="corridor-map-figure">
   <div class="corridor-map" data-corridor-map="demun"></div>
@@ -318,7 +299,6 @@ Demun is a small spot overall, but worth mentioning for how pleasant it is.
 
 - Street: **Manchester Road**, from Big Bend to Bellevue
 - Neighborhood: [[maplewood|Maplewood]]
-- Vibe: Indie, breweries
 - Website: [maplewoodmo.gov](https://www.maplewoodmo.gov/)
 
 <figure class="corridor-map-figure">
@@ -335,11 +315,9 @@ Maplewood is a streetcar suburb with Metrolink access to the city, making it one
 
 - Street: **Big Bend Boulevard**, from Lockwood to Oakwood
 - Neighborhood: [[webster-groves|Webster Groves]]
-- Vibe: Charming, wealthy
 - Website: [oldorchardwebstergroves.com](https://www.oldorchardwebstergroves.com/)
 - Street: **Lockwood Avenue**, from Jefferson to Maple
 - Neighborhood: [[webster-groves|Webster Groves]]
-- Vibe: Charming, wealthy
 - Website: [webstergrovesmo.gov](https://www.webstergrovesmo.gov/)
 
 <figure class="corridor-map-figure">
@@ -354,7 +332,6 @@ On the east end of Webster, there's another main retail area with Telva at the R
 
 - Street: **Kirkwood Road**, from Bodley to Monroe
 - Neighborhood: [[kirkwood|Kirkwood]]
-- Vibe: Suburban, charming
 - Website: [downtownkirkwood.com](https://www.downtownkirkwood.com/), [kirkwoodmo.org](https://www.kirkwoodmo.org/)
 
 <figure class="corridor-map-figure">

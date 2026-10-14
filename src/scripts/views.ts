@@ -12,6 +12,7 @@ export function initFilterableMapPage(rootSelector = '[data-filter-root]'): void
   initFilter(rootSelector)
 
   const floatingToggle = root.querySelector<HTMLButtonElement>('[data-map-split-toggle]')
+  const floatingToggleLabel = root.querySelector<HTMLElement>('[data-map-split-label]')
   const items = [...root.querySelectorAll<HTMLElement>('[data-filter-item]')]
 
   let mapApi: MapApi | null = null
@@ -23,8 +24,8 @@ export function initFilterableMapPage(rootSelector = '[data-filter-root]'): void
 
     root.dataset.view = view
 
-    if (floatingToggle) {
-      floatingToggle.textContent = view === 'map' ? 'View list' : 'View map'
+    if (floatingToggleLabel) {
+      floatingToggleLabel.textContent = view === 'map' ? 'View list' : 'View map'
     }
 
     if (view === 'map') {

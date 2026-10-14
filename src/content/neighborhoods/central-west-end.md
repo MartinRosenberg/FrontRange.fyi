@@ -9,6 +9,7 @@ tags:
   - dining
   - urban
   - upscale
+featured: 5
 ---
 
 Central West End is an upscale urban neighborhood in St. Louis city. It sits right along Forest Park and has a walkable downtown vibe. It's the biggest and most populated neighborhood in the city, and is often recommended for new transplants.

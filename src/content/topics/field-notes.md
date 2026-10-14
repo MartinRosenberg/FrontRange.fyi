@@ -38,6 +38,10 @@ One thing to get used to in St. Louis is how red everything is. St. Louis was on
 
 Many homes throughout the city are early 20th century brick-built homes, and entire historic neighborhoods are preserved in this style, such as Shaw and Lafayette Square.
 
+## Walkable
+
+St. Louis is not the most walkable city, but all the areas I've discovered that have walkable points of interest have been documented in [[walkable-st-louis|St. Louis's Most Walkable Streets]].
+
 ## Free Attractions
 
 St. Louis actually has an impressive amount of free amenities, especially relative to other mid-sized cities.

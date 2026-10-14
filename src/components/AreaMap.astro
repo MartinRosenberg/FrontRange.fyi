@@ -2,8 +2,7 @@
 import { CITY } from '../lib/site'
 import MapLegend from './MapLegend.astro'
 import BadgeIcons from './BadgeIcons.astro'
-import SuggestSpot from './SuggestSpot.astro'
-import IconMenu from '../assets/IconMenu.astro'
+import MapActions from './MapActions.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -23,15 +22,7 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   aria-label={`Map of ${CITY} neighborhoods — click a neighborhood to jump to it`}>
   <MapLegend categories={legendCategories} off={['food']} />
 </div>
-<div class="map-actions">
-  <button type="button" class="map-split-toggle" data-map-split-toggle>
-    <span class="map-split-toggle-icon" aria-hidden="true">
-      <IconMenu />
-    </span>
-    <span data-map-split-label>View map</span>
-  </button>
-  <SuggestSpot />
-</div>
+<MapActions label="View map" />
 <BadgeIcons />
 <script is:inline type="application/json" data-area-map-spots set:html={JSON.stringify(spots)} />
 

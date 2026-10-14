@@ -9,6 +9,7 @@ tags:
   - walkable
   - music
   - brewery
+featured: 4
 ---
 
 Soulard is known as the bar and nightlife part of town. It's the oldest residential neighborhood in St. Louis, and has kept much of its original character in tact. There are many small, winding streets with bars, restaurants, clubs, cafes, and live music dotted throughout.
