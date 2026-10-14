@@ -39,7 +39,7 @@
     "category": "museum",
     "neighborhoods": ["bevo-mill"],
     "url": "https://www.miniaturemuseum.org",
-    "description": "Two floors of room boxes and dollhouses; open Friday through Sunday.",
+    "description": "Two floors of room boxes and dollhouses.",
     "address": "4746 Gravois Ave",
     "coords": [-90.26583, 38.58224]
   },
@@ -453,7 +453,7 @@
     "category": "museum",
     "neighborhoods": ["midtown"],
     "url": "https://camstl.org",
-    "description": "A free contemporary art museum, open Wednesday through Sunday.",
+    "description": "A free contemporary art museum.",
     "address": "3750 Washington Blvd",
     "coords": [-90.23451, 38.6406]
   },
@@ -547,7 +547,7 @@
     "name": "Soulard Farmers Market",
     "category": "market",
     "neighborhoods": ["soulard"],
-    "description": "One of the oldest public markets in the country, open Wednesday through Saturday.",
+    "description": "One of the oldest public markets in the country.",
     "address": "730 Carroll St",
     "coords": [-90.20114, 38.61065]
   },
@@ -600,7 +600,7 @@
     "category": "landmark",
     "neighborhoods": ["soulard"],
     "url": "https://www.soulardartgallery.com",
-    "description": "Co-op gallery of a dozen resident artists, open Thursday through Sunday.",
+    "description": "Co-op gallery of a dozen resident artists.",
     "address": "2028 S 12th St",
     "coords": [-90.20932, 38.60779]
   },
@@ -791,7 +791,7 @@
     "name": "Circa: Now! Records",
     "category": "records",
     "neighborhoods": ["tower-grove-south"],
-    "description": "Used and new vinyl shop on South Grand, open Wednesday through Sunday afternoons.",
+    "description": "Used and new vinyl shop on South Grand.",
     "address": "3238 S Grand Blvd",
     "coords": [-90.24281, 38.59834]
   },
@@ -1012,7 +1012,7 @@
     "category": "market",
     "neighborhoods": ["kirkwood"],
     "url": "https://www.globalfoodstl.com/",
-    "description": "International grocery open daily, with monthly specials and aisles organized by country.",
+    "description": "International grocery with aisles organized by country.",
     "address": "421 N Kirkwood Rd",
     "coords": [-90.407064, 38.585197]
   },
@@ -1048,7 +1048,7 @@
     "category": "park",
     "neighborhoods": [],
     "url": "https://www.laumeiersculpturepark.org/",
-    "description": "Free outdoor sculpture park in Sunset Hills, open daily since 1976.",
+    "description": "Free outdoor sculpture park in Sunset Hills, founded in 1976.",
     "address": "12580 Rott Rd",
     "coords": [-90.41502, 38.54811]
   },

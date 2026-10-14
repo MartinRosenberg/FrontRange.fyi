@@ -2,7 +2,7 @@
 title: Kenny's Upstairs
 created: 2026-10-13
 status: want-to-try
-description: Second-floor bar at Hartford and South Grand, open until 1:30 am
+description: Second-floor bar at Hartford and South Grand
 cuisine: ['bar']
 neighborhood: Tower Grove South
 address:

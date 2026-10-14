@@ -2,7 +2,7 @@
 title: Protagonist Cafe
 created: 2026-10-12
 status: want-to-try
-description: Book-lined café open seven days
+description: Book-lined café
 cuisine: ['cafe']
 neighborhood: Soulard
 address:
