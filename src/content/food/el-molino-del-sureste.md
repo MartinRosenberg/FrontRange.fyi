@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Yucatecan cooking with an in-house corn mill
 cuisine: ['mexican']
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 5005 S Kingshighway Blvd
   - St. Louis, MO 63109

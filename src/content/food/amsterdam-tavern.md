@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Soccer bar with a patio
 cuisine: ['bar']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3175 Morganford Rd
   - St. Louis, MO 63116

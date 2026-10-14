@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Soulard bar with weekend DJs and a free event shuttle
 cuisine: ['bar']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1000 Sidney St
   - St. Louis, MO 63104

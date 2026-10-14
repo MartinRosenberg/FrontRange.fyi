@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Vegetable-forward restaurant in the Cortex district
 cuisine: ['american']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 4260 Forest Park Ave
   - St. Louis, MO 63108

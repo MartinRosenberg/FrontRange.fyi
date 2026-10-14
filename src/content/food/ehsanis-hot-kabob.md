@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Persian kabobs cooked over fire
 cuisine: ['middle eastern']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 4561 Gravois Ave
   - St. Louis, MO 63116

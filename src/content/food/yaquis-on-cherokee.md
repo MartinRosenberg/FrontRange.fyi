@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Wood-fired pizza and live music
 cuisine: ['pizza']
-neighborhood: Greater Dutchtown
+neighborhood: dutchtown
 address:
   - 2728 Cherokee St
   - St. Louis, MO 63118

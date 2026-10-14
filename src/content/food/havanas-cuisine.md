@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Cuban sandwiches and slow-cooked classics
 cuisine: ['latin american']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 12 S Euclid Ave
   - St. Louis, MO 63108

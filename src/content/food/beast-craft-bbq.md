@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Craft barbecue, smoked sausage, and pork steaks
 cuisine: ['bbq']
-neighborhood: Belleville
+neighborhood: belleville
 address:
   - 20 S Belt W
   - Belleville, IL 62220

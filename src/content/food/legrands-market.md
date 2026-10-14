@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Deli sandwiches and fresh-cut meats
 cuisine: ['sandwiches']
-neighborhood: St. Louis Hills
+neighborhood: st-louis-hills
 address:
   - 4414 Donovan Ave
   - St. Louis, MO 63109

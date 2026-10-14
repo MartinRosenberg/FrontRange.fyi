@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-07-22
 rating: 9
 cuisine: ['hot dogs']
-neighborhood: Overland
+neighborhood: overland
 address:
   - 1919 Woodson Rd
   - St. Louis, MO 63114

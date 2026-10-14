@@ -9,7 +9,7 @@ address:
   - St Ann, MO 63074
 coords: [38.722795, -90.407821]
 url: http://www.latejanastl.com
-neighborhood: St. Ann
+neighborhood: st-ann
 verdict: not-for-me
 ---
 

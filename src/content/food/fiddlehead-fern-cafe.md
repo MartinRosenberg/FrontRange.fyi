@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Daytime coffee shop and café
 cuisine: ['cafe']
-neighborhood: Shaw
+neighborhood: shaw
 address:
   - 4066 Russell Blvd
   - St. Louis, MO 63110

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Arcade bar with two levels and DDR
 cuisine: ['bar']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 405 N Euclid Ave
   - St. Louis, MO 63108

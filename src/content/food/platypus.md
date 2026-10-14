@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Neighborhood bar at the west entrance of The Grove
 cuisine: ['bar']
-neighborhood: The Grove
+neighborhood: the-grove
 address:
   - 4501 Manchester Ave
   - St. Louis, MO 63110

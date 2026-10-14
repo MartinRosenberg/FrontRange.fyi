@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Piano-themed coffee shop
 cuisine: ['cafe']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 504 N Newstead Ave
   - St. Louis, MO 63108

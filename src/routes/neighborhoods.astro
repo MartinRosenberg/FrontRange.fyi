@@ -10,7 +10,7 @@ import PaneSearch from '../components/PaneSearch.astro'
 import AreaMap from '../components/AreaMap.astro'
 import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
-import { neighborhoodResourceLinks, foodByNeighborhood, normalizeName } from '../lib/neighborhoods'
+import { neighborhoodResourceLinks, foodByNeighborhood } from '../lib/neighborhoods'
 import { allSpots, spotsIn, spotCategories, type SpotCategoryKey } from '../lib/spots'
 import CategoryChip from '../components/CategoryChip.astro'
 import { toMapSpots } from '../lib/map-spots'
@@ -34,7 +34,7 @@ const categoryKeys = Object.keys(spotCategories) as SpotCategoryKey[]
 
 function countPills(slug: string, name: string): { key: SpotCategoryKey; count: number }[] {
   const spots = spotsIn(slug)
-  const food = placesByNeighborhood.get(normalizeName(name))?.length ?? 0
+  const food = placesByNeighborhood.get(slug)?.length ?? 0
 
   return categoryKeys
     .map((key) => ({

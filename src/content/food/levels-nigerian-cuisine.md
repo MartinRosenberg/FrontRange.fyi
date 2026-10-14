@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Nigerian cooking on Wash Ave
 cuisine: ['african']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 1405 Washington Ave
   - St. Louis, MO 63103

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Wood-fired Neapolitan pizza
 cuisine: ['pizza']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1928 S 12th St
   - St. Louis, MO 63104

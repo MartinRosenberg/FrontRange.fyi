@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Smoked hot dogs on South Grand
 cuisine: ['hot dogs']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3145 S Grand Blvd
   - St. Louis, MO 63118

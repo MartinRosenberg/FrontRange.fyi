@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Hand-twisted pretzels since 1920
 cuisine: ['cafe']
-neighborhood: Benton Park
+neighborhood: benton-park
 address:
   - 1820 Arsenal St
   - St. Louis, MO 63118

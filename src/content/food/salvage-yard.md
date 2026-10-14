@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Chicago deep dish and St. Louis thin crust
 cuisine: ['pizza']
-neighborhood: Princeton Heights
+neighborhood: princeton-heights
 address:
   - 5406 Hampton Ave
   - St. Louis, MO 63109

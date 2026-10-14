@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Hand-pulled noodles and soup dumplings
 cuisine: ['chinese']
-neighborhood: Delmar Loop
+neighborhood: delmar-loop
 address:
   - 6623 Delmar Blvd
   - University City, MO 63130

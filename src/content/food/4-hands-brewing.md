@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Brewery and taproom, home of City Wide
 cuisine: ['brewery']
-neighborhood: LaSalle Park
+neighborhood: lasalle-park
 address:
   - 1220 S 8th St
   - St. Louis, MO 63104

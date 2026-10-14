@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Wine bar and small plates
 cuisine: ['bar']
-neighborhood: Clayton
+neighborhood: clayton
 address:
   - 706 De Mun Ave
   - Clayton, MO 63105

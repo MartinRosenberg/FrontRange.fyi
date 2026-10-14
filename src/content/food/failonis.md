@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-07-22
 rating: 6
 cuisine: ['pizza']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 6715 Manchester Ave
   - St. Louis, MO 63139

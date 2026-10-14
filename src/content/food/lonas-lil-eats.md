@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Chinese-Thai counter with rice paper wraps
 cuisine: ['asian']
-neighborhood: Fox Park
+neighborhood: fox-park
 address:
   - 2199 California Ave
   - St. Louis, MO 63104

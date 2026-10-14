@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Dogtown tavern known for fried chicken and T-ravs
 cuisine: ['bar', 'american']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 6400 Oakland Ave
   - St. Louis, MO 63139

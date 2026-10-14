@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Authentic Syrian cooking
 cuisine: ['middle eastern']
-neighborhood: Creve Coeur
+neighborhood: creve-coeur
 address:
   - 10477 Old Olive Street Rd
   - St. Louis, MO 63141

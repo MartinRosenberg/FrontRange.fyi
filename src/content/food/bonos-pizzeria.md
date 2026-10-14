@@ -4,7 +4,7 @@ created: 2026-06-28
 rating: 9
 cuisine: ['pizza']
 description: Deep dish and St. Louis-style pizza
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 4500 Hampton Ave
   - St. Louis, MO 63109

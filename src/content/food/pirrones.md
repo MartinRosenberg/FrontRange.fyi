@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: North side St. Louis-style pizzeria
 cuisine: ['pizza']
-neighborhood: Florissant
+neighborhood: florissant
 address:
   - 1775 Washington St
   - Florissant, MO 63033

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: South Broadway sports bar with a back patio
 cuisine: ['bar']
-neighborhood: Carondelet
+neighborhood: carondelet
 address:
   - 7301 S Broadway
   - St. Louis, MO 63111

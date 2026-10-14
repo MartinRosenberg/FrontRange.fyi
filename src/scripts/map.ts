@@ -147,13 +147,14 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
 
     const cuisines = (item.dataset.cuisine ?? '').split('|').filter(Boolean)
     const neighborhood = item.dataset.neighborhood ?? ''
+    const neighborhoodLabel = item.dataset.neighborhoodName ?? neighborhood
     const chips: PopupChip[] = cuisines.map((cuisine) => ({
       label: cuisineLabel(cuisine),
       filterSet: 'cuisine',
       filterValue: cuisine,
     }))
     if (neighborhood) {
-      chips.push({ label: neighborhood, filterSet: 'neighborhood', filterValue: neighborhood })
+      chips.push({ label: neighborhoodLabel, filterSet: 'neighborhood', filterValue: neighborhood })
     }
 
     const verdictKey = item.dataset.verdict as Verdict | undefined

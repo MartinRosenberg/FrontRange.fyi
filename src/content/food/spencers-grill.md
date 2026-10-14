@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Downtown Kirkwood diner
 cuisine: ['breakfast']
-neighborhood: Kirkwood
+neighborhood: kirkwood
 address:
   - 223 S Kirkwood Rd
   - Kirkwood, MO 63122

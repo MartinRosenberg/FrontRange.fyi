@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Vietnamese and Pakistani cooking on Macklind
 cuisine: ['vietnamese']
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 4611 Macklind Ave
   - St. Louis, MO 63109

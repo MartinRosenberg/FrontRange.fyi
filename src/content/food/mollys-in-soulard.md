@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Restaurant and bar on Geyer Avenue
 cuisine: ['american', 'bar']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 816 Geyer Ave
   - St. Louis, MO 63104

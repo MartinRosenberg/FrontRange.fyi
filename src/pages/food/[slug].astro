@@ -20,7 +20,7 @@ import Card from '../../components/Card.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { published, excerpt, hasBody, foodStatus, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
-import { neighborhoodHref } from '../../lib/neighborhoods'
+import { neighborhoodHref, neighborhoodName } from '../../lib/neighborhoods'
 import { resolveVerdict, resolveWriterState, verdictLabels } from '../../lib/verdict'
 import { googleMapsHref } from '../../lib/maps'
 import { restaurantSchema } from '../../lib/schema'
@@ -73,7 +73,9 @@ const cuisineHref = (cuisine: string): string =>
 
 const trail = [
   { label: 'Food', href: '/food/' },
-  ...(data.neighborhood ? [{ label: data.neighborhood, href: neighborhoodLink ?? undefined }] : []),
+  ...(data.neighborhood
+    ? [{ label: neighborhoodName(data.neighborhood), href: neighborhoodLink ?? undefined }]
+    : []),
   ...(data.cuisine[0]
     ? [{ label: cuisineLabel(data.cuisine[0]), href: cuisineHref(data.cuisine[0]) }]
     : []),
@@ -146,7 +148,7 @@ const mentionedIn = backlinks.filter(
 const seoTitle = primaryCuisine
   ? `${data.title} - ${cuisineLabel(primaryCuisine)} in ${CITY}`
   : `${data.title} in ${CITY}`
-const locality = data.neighborhood ? `${data.neighborhood}, ${CITY}` : CITY
+const locality = data.neighborhood ? `${neighborhoodName(data.neighborhood)}, ${CITY}` : CITY
 const stubDescription = [
   data.description,
   primaryCuisine
@@ -243,7 +245,7 @@ const seoDescription = hasBody(entry)
             {
               !isStub && relatedNeighborhood.length > 0 && (
                 <CardList
-                  title={`More in ${data.neighborhood}`}
+                  title={`More in ${neighborhoodName(data.neighborhood)}`}
                   class="card-cells"
                   moreHref={href(`/food/?neighborhood=${encodeURIComponent(data.neighborhood)}`)}>
                   {relatedNeighborhood.map(({ place, verdict }) => (
@@ -265,7 +267,7 @@ const seoDescription = hasBody(entry)
                     <Card
                       href={href(`/food/${place.id}/`)}
                       title={place.data.title}
-                      meta={place.data.neighborhood}
+                      meta={neighborhoodName(place.data.neighborhood)}
                       description={place.data.description}
                       verdict={verdict}
                     />
@@ -283,7 +285,7 @@ const seoDescription = hasBody(entry)
                     <Card
                       href={href(`/food/${place.id}/`)}
                       title={place.data.title}
-                      meta={place.data.neighborhood}
+                      meta={neighborhoodName(place.data.neighborhood)}
                       description={place.data.description}
                       verdict={verdict}
                     />
@@ -301,7 +303,7 @@ const seoDescription = hasBody(entry)
         </div>
         <aside class="detail-aside">
           <div>
-            <Locator coords={data.coords} label={data.neighborhood} />
+            <Locator coords={data.coords} label={neighborhoodName(data.neighborhood)} />
             <a class="continue-link aside-more-link" href={href('/food/')}>
               Back to food map <IconArrowRight />
             </a>

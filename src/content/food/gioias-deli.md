@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Famous Hot salami sandwiches
 cuisine: ['sandwiches']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 1934 Macklind Ave
   - St. Louis, MO 63110

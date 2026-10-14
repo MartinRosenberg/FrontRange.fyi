@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Fiery Sichuan cooking
 cuisine: ['chinese']
-neighborhood: University City
+neighborhood: university-city
 address:
   - 7930 Olive Blvd
   - University City, MO 63130

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Vietnamese restaurant
 cuisine: ['vietnamese']
-neighborhood: Brentwood
+neighborhood: brentwood
 address:
   - 8396 Musick Memorial Dr
   - Brentwood, MO 63144

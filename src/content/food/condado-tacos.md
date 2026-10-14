@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Build-your-own tacos, tequila and margaritas
 cuisine: ['mexican']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 601 Clark Ave
   - St. Louis, MO 63102

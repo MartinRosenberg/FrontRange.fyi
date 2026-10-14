@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: British teas and scones
 cuisine: ['cafe']
-neighborhood: DeBaliviere Place
+neighborhood: debaliviere-place
 address:
   - 255 Union Blvd
   - St. Louis, MO 63108

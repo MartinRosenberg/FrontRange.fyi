@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Irish pub with a big garden
 cuisine: ['bar']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1200 Russell Blvd
   - St. Louis, MO 63104

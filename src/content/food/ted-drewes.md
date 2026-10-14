@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Route 66 frozen custard stand
 cuisine: ['dessert']
-neighborhood: St. Louis Hills
+neighborhood: st-louis-hills
 address:
   - 6726 Chippewa St
   - St. Louis, MO 63109

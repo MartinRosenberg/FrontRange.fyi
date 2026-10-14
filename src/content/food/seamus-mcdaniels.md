@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Irish pub and grill since 1985
 cuisine: ['bar']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 1208 Tamm Ave
   - St. Louis, MO 63139

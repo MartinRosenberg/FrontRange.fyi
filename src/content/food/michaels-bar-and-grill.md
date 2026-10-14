@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Greek classics and American bar fare
 cuisine: ['greek']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 7101 Manchester Ave
   - St. Louis, MO 63143

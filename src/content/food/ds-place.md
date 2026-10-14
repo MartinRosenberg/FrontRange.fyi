@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Soulard sports bar known for buffalo chicken wontons
 cuisine: ['bar']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 900 Barton St
   - St. Louis, MO 63104

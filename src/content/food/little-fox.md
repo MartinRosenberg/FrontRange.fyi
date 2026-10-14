@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Neighborhood bistro
 cuisine: ['american']
-neighborhood: Fox Park
+neighborhood: fox-park
 address:
   - 2800 Shenandoah Ave
   - St. Louis, MO 63104

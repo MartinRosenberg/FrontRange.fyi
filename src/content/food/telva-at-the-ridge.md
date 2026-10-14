@@ -4,7 +4,7 @@ description: A Balkan-inspired cafe with a cozy chai
 created: 2026-06-23
 rating: 9.5
 cuisine: ['cafe']
-neighborhood: Webster Groves
+neighborhood: webster-groves
 address:
   - 60 N Gore Ave
   - Webster Groves, MO 63119

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Rock-infused brewery with house-smoked barbecue
 cuisine: ['brewery']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 6413 Clayton Ave
   - St. Louis, MO 63139

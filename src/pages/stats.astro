@@ -23,7 +23,7 @@ const neighborhoodsWritten = new Set(
     .map((neighborhood) => neighborhood.id),
 )
 const neighborhoodsEaten = new Set(
-  tried.map((place) => place.data.neighborhood).filter((name): name is string => Boolean(name)),
+  tried.map((place) => place.data.neighborhood).filter((slug): slug is string => Boolean(slug)),
 )
 const neighborhoodTotal = neighborhoodRecords.filter((record) => !record.ignored).length
 const nameBySlug = new Map(neighborhoodRecords.map((record) => [record.slug, record.name]))
@@ -33,7 +33,7 @@ const shapeEntries = Object.entries(shapes).map(([slug, path]) => ({
   path,
   name: nameBySlug.get(slug) ?? slug,
   written: neighborhoodsWritten.has(slug),
-  eaten: neighborhoodsEaten.has(nameBySlug.get(slug) ?? ''),
+  eaten: neighborhoodsEaten.has(slug),
 }))
 
 const cuisinePages = cuisinesWithPages(allFood)

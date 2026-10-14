@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Indian and Nepali kitchen
 cuisine: ['indian']
-neighborhood: Rock Hill
+neighborhood: rock-hill
 address:
   - 9814 Manchester Rd
   - Rock Hill, MO 63119

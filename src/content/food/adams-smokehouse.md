@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Slow-smoked barbecue and burnt ends
 cuisine: ['bbq']
-neighborhood: Clifton Heights
+neighborhood: clifton-heights
 address:
   - 2819 Watson Rd
   - St. Louis, MO 63139

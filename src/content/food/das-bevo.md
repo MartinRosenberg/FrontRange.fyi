@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Biergarten in the 1917 windmill
 cuisine: ['european']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 4749 Gravois Ave
   - St. Louis, MO 63116

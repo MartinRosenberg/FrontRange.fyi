@@ -5,7 +5,7 @@ updated: 2026-07-17
 status: tried
 description: Airy coffee bar with pastries
 cuisine: ['cafe']
-neighborhood: Southwest Garden
+neighborhood: southwest-garden
 address:
   - 4474 Shaw Blvd
   - St. Louis, MO 63110

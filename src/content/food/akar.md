@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Malaysian cooking from chef Bernie Lee
 cuisine: ['asian']
-neighborhood: Clayton
+neighborhood: clayton
 address:
   - 7641 Wydown Blvd
   - Clayton, MO 63105

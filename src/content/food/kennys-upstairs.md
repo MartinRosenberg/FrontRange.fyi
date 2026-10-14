@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Second-floor bar at Hartford and South Grand
 cuisine: ['bar']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3131 S Grand Blvd
   - St. Louis, MO 63118

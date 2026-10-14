@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Soulard café of the Illinois roaster
 cuisine: ['cafe']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 910 Geyer Ave
   - St. Louis, MO 63104

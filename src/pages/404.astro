@@ -10,6 +10,7 @@ import IconMapPin from '../assets/IconMapPin.astro'
 import { href } from '../lib/url'
 import { published, hasBody, excerpt, PREVIEW_EXCERPT_CHARS } from '../lib/content'
 import { cuisineLabel } from '../lib/cuisine'
+import { neighborhoodName } from '../lib/neighborhoods'
 
 const topics = published(await getCollection('topics'))
 const pizza = topics.find((topic) => topic.id === 'st-louis-style-pizza')
@@ -83,7 +84,7 @@ const neighborhoods = published(await getCollection('neighborhoods'))
             <Card
               href={href(`/food/${place.id}/`)}
               title={place.data.title}
-              meta={[cuisineLabel(place.data.cuisine[0]), place.data.neighborhood]
+              meta={[cuisineLabel(place.data.cuisine[0]), neighborhoodName(place.data.neighborhood)]
                 .filter(Boolean)
                 .join(' / ')}
               description={place.data.description ?? excerpt(place.body, PREVIEW_EXCERPT_CHARS)}

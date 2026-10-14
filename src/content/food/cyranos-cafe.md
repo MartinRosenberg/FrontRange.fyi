@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Lunch, dinner, Sunday brunch and desserts
 cuisine: ['american', 'dessert']
-neighborhood: Webster Groves
+neighborhood: webster-groves
 address:
   - 603 E Lockwood Ave
   - Webster Groves, MO 63119

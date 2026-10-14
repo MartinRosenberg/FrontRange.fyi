@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: International grocery with a taqueria
 cuisine: ['mexican']
-neighborhood: Mehlville
+neighborhood: mehlville
 address:
   - 7459 S Lindbergh Blvd
   - St. Louis, MO 63125

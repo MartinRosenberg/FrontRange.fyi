@@ -4,7 +4,7 @@ created: 2026-08-19
 status: tried
 description: European-style bierhall and brewery
 cuisine: ['brewery']
-neighborhood: Olivette
+neighborhood: olivette
 address:
   - 9514 Olive Blvd
   - Olivette, MO 63132

@@ -3,7 +3,7 @@ title: Mac's Local Eats
 created: 2026-06-23
 rating: 6
 cuisine: ['burgers']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 5656 Oakland Ave
   - St. Louis, MO 63110

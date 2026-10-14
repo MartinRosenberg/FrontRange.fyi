@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: North Indian plates and bakery
 cuisine: ['indian']
-neighborhood: Ballwin
+neighborhood: ballwin
 address:
   - 14031 Manchester Rd
   - Ballwin, MO 63011

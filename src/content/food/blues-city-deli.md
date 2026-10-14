@@ -6,7 +6,7 @@ updated: 2026-07-22
 photo: ../images/food/blues-city-deli.jpeg
 rating: 10
 cuisine: ['sandwiches']
-neighborhood: Benton Park
+neighborhood: benton-park
 address:
   - 2438 McNair Ave
   - St. Louis, MO 63104

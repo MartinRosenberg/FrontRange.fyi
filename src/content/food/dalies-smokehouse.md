@@ -5,7 +5,7 @@ created: 2026-07-16
 rating: 9
 description: Barbecue from the Pappy's/Bogart's crew
 cuisine: ['bbq']
-neighborhood: Valley Park
+neighborhood: valley-park
 address:
   - 2951 Dougherty Ferry Rd
   - Valley Park, MO 63122

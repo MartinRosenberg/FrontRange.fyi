@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Book-lined café
 cuisine: ['cafe']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1700 S 9th St
   - St. Louis, MO 63104

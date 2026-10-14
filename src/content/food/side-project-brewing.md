@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Barrel-aged wild ales and saisons
 cuisine: ['brewery']
-neighborhood: Maplewood
+neighborhood: maplewood
 address:
   - 7458 Manchester Rd
   - Maplewood, MO 63143

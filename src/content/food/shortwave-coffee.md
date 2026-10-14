@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Specialty roaster and espresso bar
 cuisine: ['cafe']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 33 N Sarah St
   - St. Louis, MO 63108

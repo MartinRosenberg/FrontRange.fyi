@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Farm-to-table dinner, weekend brunch and a bakery
 cuisine: ['breakfast', 'american']
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 5400 Murdoch Ave
   - St. Louis, MO 63109

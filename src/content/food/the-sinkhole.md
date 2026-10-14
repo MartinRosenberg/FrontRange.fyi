@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Live-music club on South Broadway
 cuisine: ['bar']
-neighborhood: Carondelet
+neighborhood: carondelet
 address:
   - 7423 S Broadway
   - St. Louis, MO 63111

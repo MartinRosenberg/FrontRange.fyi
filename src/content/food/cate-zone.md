@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Northeastern Chinese comfort food
 cuisine: ['chinese']
-neighborhood: University City
+neighborhood: university-city
 address:
   - 8148 Olive Blvd
   - University City, MO 63130

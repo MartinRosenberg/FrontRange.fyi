@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Shawarma, kababs, and falafel
 cuisine: ['middle eastern']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 4601 Gravois Ave
   - St. Louis, MO 63116

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: tried
 description: Family-run Italian trattoria
 cuisine: ['italian']
-neighborhood: Lindenwood Park
+neighborhood: lindenwood-park
 address:
   - 3600 Watson Rd
   - St. Louis, MO 63109

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Biscuit sandwiches and Southern breakfast
 cuisine: ['breakfast']
-neighborhood: Kirkwood
+neighborhood: kirkwood
 address:
   - 200 N Kirkwood Rd
   - Kirkwood, MO 63122

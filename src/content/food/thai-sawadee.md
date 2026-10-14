@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Longtime Thai favorite
 cuisine: ['thai']
-neighborhood: Chesterfield
+neighborhood: chesterfield
 address:
   - 171 Hilltown Village Center
   - Chesterfield, MO 63017

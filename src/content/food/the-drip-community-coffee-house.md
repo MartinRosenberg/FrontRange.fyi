@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Community coffeehouse
 cuisine: ['cafe']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3615 Potomac St
   - St. Louis, MO 63116

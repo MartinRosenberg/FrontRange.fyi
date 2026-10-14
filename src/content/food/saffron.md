@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Indian and Pakistani plates
 cuisine: ['middle eastern']
-neighborhood: Town and Country
+neighborhood: town-and-country
 address:
   - 2137 Barrett Station Rd
   - St. Louis, MO 63131

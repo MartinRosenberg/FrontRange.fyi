@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Homestyle Mexican and burritos
 cuisine: ['mexican']
-neighborhood: Overland
+neighborhood: overland
 address:
   - 11084 Midland Blvd
   - St. Louis, MO 63114

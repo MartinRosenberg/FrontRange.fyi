@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Chinese-American comfort food
 cuisine: ['chinese']
-neighborhood: Benton Park
+neighborhood: benton-park
 address:
   - 3000 S Jefferson Ave
   - St. Louis, MO 63118

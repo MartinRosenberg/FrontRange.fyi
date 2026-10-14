@@ -16,6 +16,7 @@ import { cuisineLabel } from '../../lib/cuisine'
 import IconDice from '../../assets/IconDice.astro'
 import { googleMapsHref } from '../../lib/maps'
 import { href } from '../../lib/url'
+import { neighborhoodName } from '../../lib/neighborhoods'
 import { resolveVerdict, verdictLabels, type Verdict } from '../../lib/verdict'
 import IconArrowRight from '../../assets/IconArrowRight.astro'
 
@@ -55,9 +56,9 @@ const rows = (
 
 const count = rows.length
 const cuisines = [...new Set(rows.flatMap((entry) => entry.place.data.cuisine))].sort()
-const neighborhoods = [
-  ...new Set(rows.map((entry) => entry.place.data.neighborhood).filter(Boolean)),
-].sort() as string[]
+const neighborhoods = [...new Set(rows.map((entry) => entry.place.data.neighborhood).filter(Boolean))]
+  .map((slug) => ({ value: slug as string, label: neighborhoodName(slug) }))
+  .sort((left, right) => left.label.localeCompare(right.label))
 
 const verdictOptions = (['loved', 'liked', 'neutral', 'not-for-me'] as Verdict[])
   .filter((value) => rows.some((entry) => entry.verdict === value))
@@ -115,7 +116,7 @@ const description = [
               coords={place.data.coords?.join(',') ?? ''}
               search={[
                 place.data.title,
-                place.data.neighborhood,
+                neighborhoodName(place.data.neighborhood),
                 ...(place.data.address ?? []),
                 ...place.data.cuisine,
                 ...place.data.tags,
@@ -126,6 +127,7 @@ const description = [
               attrs={{
                 'data-cuisine': place.data.cuisine.join('|'),
                 'data-neighborhood': place.data.neighborhood ?? '',
+                'data-neighborhood-name': neighborhoodName(place.data.neighborhood),
                 'data-address': (place.data.address ?? []).join('\n'),
                 ...(verdict ? { 'data-verdict': verdict } : {}),
                 ...(place.data.excludeFromMapFit ? { 'data-exclude-fit': '' } : {}),
@@ -142,7 +144,7 @@ const description = [
                 <span class="eyebrow eyebrow--muted" slot="eyebrow">
                   {[
                     ...place.data.cuisine.map((cuisine) => cuisineLabel(cuisine)),
-                    place.data.neighborhood,
+                    neighborhoodName(place.data.neighborhood),
                   ]
                     .filter(Boolean)
                     .map((part, partIndex) => (

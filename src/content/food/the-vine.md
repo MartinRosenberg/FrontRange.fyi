@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Lebanese café and market
 cuisine: ['middle eastern']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3171 S Grand Blvd
   - St. Louis, MO 63118

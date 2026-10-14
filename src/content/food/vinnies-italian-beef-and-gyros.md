@@ -4,7 +4,7 @@ description: A solid gyro and an okay beef
 created: 2026-06-23
 rating: 6.5
 cuisine: ['sandwiches']
-neighborhood: Lindenwood Park
+neighborhood: lindenwood-park
 address:
   - 3208 Ivanhoe Ave
   - St. Louis, MO 63139

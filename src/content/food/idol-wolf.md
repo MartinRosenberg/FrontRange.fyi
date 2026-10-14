@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Spanish tapas inside the 21c Museum Hotel
 cuisine: ['spanish']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 1528 Locust St
   - St. Louis, MO 63103

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: New American plates
 cuisine: ['american']
-neighborhood: Webster Groves
+neighborhood: webster-groves
 address:
   - 216 W Lockwood Ave
   - Webster Groves, MO 63119

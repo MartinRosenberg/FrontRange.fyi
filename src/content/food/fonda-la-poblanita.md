@@ -5,7 +5,7 @@ rating: 8
 status: tried
 description: Pueblan-style cemitas
 cuisine: ['mexican']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 3830 Morganford Rd
   - St. Louis, MO 63116

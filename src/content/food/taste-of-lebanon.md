@@ -4,7 +4,7 @@ description: Hookah and Lebanese food
 created: 2026-06-23
 rating: 8.5
 cuisine: ['middle eastern']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 331 N Euclid Ave
   - St. Louis, MO 63108

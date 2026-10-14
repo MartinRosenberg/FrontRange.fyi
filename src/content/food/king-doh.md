@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Peking and Szechuan cooking
 cuisine: ['chinese']
-neighborhood: Kirkwood
+neighborhood: kirkwood
 address:
   - 10045 Manchester Rd
   - Kirkwood, MO 63122

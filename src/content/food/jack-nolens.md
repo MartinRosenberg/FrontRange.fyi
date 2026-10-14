@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Veteran-owned bar and grill on South 9th
 cuisine: ['bar', 'american']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 2501 S 9th St
   - St. Louis, MO 63104

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: St. Louis-style pizzeria since 1981
 cuisine: ['pizza']
-neighborhood: Affton
+neighborhood: affton
 address:
   - 7932 Mackenzie Rd
   - St. Louis, MO 63123

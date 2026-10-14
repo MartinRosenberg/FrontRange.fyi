@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Cuban coffee, colada and sandwiches
 cuisine: ['cafe']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 2022 S 12th St
   - St. Louis, MO 63104

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Counter-service barbecue smokehouse
 cuisine: ['bbq']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1627 S 9th St
   - St. Louis, MO 63104

@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Steakhouse from the Louie team
 cuisine: ['american']
-neighborhood: Clayton
+neighborhood: clayton
 address:
   - 7624 Wydown Blvd
   - Clayton, MO 63105

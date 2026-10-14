@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Scratch-made donuts every day
 cuisine: ['dessert', 'bakery']
-neighborhood: Maplewood
+neighborhood: maplewood
 address:
   - 2709 Sutton Blvd
   - Maplewood, MO 63143

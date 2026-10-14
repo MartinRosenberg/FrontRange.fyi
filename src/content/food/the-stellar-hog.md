@@ -4,7 +4,7 @@ description: Intergalactic BBQ vibes and a big patio
 created: 2026-06-23
 rating: 7.5
 cuisine: ['bbq']
-neighborhood: Holly Hills
+neighborhood: holly-hills
 address:
   - 5623 Leona St
   - St. Louis, MO 63116

@@ -5,7 +5,7 @@ status: tried
 rating: 6.5
 description: Old-school Italian
 cuisine: ['italian']
-neighborhood: Town and Country
+neighborhood: town-and-country
 address:
   - 1054 Town and Country Crossing Dr
   - Town and Country, MO 63017

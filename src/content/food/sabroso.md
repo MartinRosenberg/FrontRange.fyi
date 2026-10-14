@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Regional Mexican cooking
 cuisine: ['mexican']
-neighborhood: Maplewood
+neighborhood: maplewood
 address:
   - 2726 Sutton Blvd
   - Maplewood, MO 63143

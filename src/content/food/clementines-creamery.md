@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Ice cream parlor, the original Lafayette Square location of a local chain
 cuisine: ['dessert']
-neighborhood: Lafayette Square
+neighborhood: lafayette-square
 address:
   - 1637 S 18th St
   - St. Louis, MO 63104

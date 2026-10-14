@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Family-owned café in a former church space
 cuisine: ['cafe']
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 5351 Devonshire Ave
   - St. Louis, MO 63109

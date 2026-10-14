@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Parisian-style bistro from the Niche group
 cuisine: ['american']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 4580 Laclede Ave
   - St. Louis, MO 63108

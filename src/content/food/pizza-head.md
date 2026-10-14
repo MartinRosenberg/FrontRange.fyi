@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: All-vegetarian 20-inch New York-style pies by the slice
 cuisine: ['pizza']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3196 S Grand Blvd
   - St. Louis, MO 63118

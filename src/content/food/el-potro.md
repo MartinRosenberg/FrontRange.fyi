@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Mexican and Honduran plates with seafood
 cuisine: ['mexican']
-neighborhood: Ellendale
+neighborhood: ellendale
 address:
   - 6922 Manchester Ave
   - St. Louis, MO 63143

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Brewery with a restaurant and beer garden
 cuisine: ['brewery']
-neighborhood: Maplewood
+neighborhood: maplewood
 address:
   - 7260 Southwest Ave
   - Maplewood, MO 63143

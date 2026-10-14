@@ -4,7 +4,7 @@ description: No-frills Route 66 diner
 created: 2026-06-23
 rating: 7.5
 cuisine: ['burgers']
-neighborhood: Brentwood
+neighborhood: brentwood
 address:
   - 9033 Manchester Rd
   - Brentwood, MO 63144

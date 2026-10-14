@@ -4,7 +4,7 @@ description: A build-your-own burger in Carondelet
 created: 2026-06-23
 rating: 7.5
 cuisine: ['burgers']
-neighborhood: Carondelet
+neighborhood: carondelet
 address:
   - 7637 Ivory St
   - St. Louis, MO 63111

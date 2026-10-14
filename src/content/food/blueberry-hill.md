@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Burgers and live music in the Loop
 cuisine: ['burgers']
-neighborhood: Delmar Loop
+neighborhood: delmar-loop
 address:
   - 6504 Delmar Blvd
   - St. Louis, MO 63130

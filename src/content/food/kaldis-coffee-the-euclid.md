@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Kaldi's café at West Pine and Euclid
 cuisine: ['cafe']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 52 N Euclid Ave
   - St. Louis, MO 63108

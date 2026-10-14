@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Thai-Japanese omakase and small plates
 cuisine: ['asian']
-neighborhood: Botanical Heights
+neighborhood: botanical-heights
 address:
   - 1641 Tower Grove Ave
   - St. Louis, MO 63110

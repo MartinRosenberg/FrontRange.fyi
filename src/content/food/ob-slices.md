@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: New York-style slices across the river
 cuisine: ['pizza']
-neighborhood: Alton
+neighborhood: alton
 address:
   - 4 E Broadway
   - Alton, IL 62002

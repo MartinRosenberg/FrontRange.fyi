@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Banh mi and boba
 cuisine: ['vietnamese']
-neighborhood: Des Peres
+neighborhood: des-peres
 address:
   - 12055 Manchester Rd
   - Des Peres, MO 63131

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Family-run brewery and taproom
 cuisine: ['brewery']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 1601 Sublette Ave
   - St. Louis, MO 63110

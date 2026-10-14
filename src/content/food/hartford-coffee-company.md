@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Neighborhood café roasting its own beans since 2004
 cuisine: ['cafe']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3974 Hartford St
   - St. Louis, MO 63116

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Mexico City-style street tacos
 cuisine: ['mexican']
-neighborhood: Maplewood
+neighborhood: maplewood
 address:
   - 7374 Manchester Rd
   - Maplewood, MO 63143

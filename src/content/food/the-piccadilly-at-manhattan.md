@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Historic restaurant known for pot pie
 cuisine: ['american']
-neighborhood: Ellendale
+neighborhood: ellendale
 address:
   - 7201 Piccadilly Ave
   - St. Louis, MO 63143

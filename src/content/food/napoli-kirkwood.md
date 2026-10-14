@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Fine italian dining and cocktails
 cuisine: ['italian']
-neighborhood: Kirkwood
+neighborhood: kirkwood
 address:
   - 436 N Kirkwood Rd
   - Kirkwood, MO 63122

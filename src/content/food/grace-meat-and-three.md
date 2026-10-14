@@ -4,7 +4,7 @@ description: Comfort-food fried chicken and sides
 created: 2026-06-23
 rating: 8.5
 cuisine: ['fried chicken']
-neighborhood: The Grove
+neighborhood: the-grove
 address:
   - 4270 Manchester Ave
   - St. Louis, MO 63110

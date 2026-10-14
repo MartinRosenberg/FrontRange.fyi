@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Bosnian pita and grill
 cuisine: ['balkan']
-neighborhood: Concord
+neighborhood: concord
 address:
   - 91 Concord Plaza Shopping Center
   - St. Louis, MO 63128

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Quesabirria and street tacos
 cuisine: ['mexican']
-neighborhood: Affton
+neighborhood: affton
 address:
   - 9040 Gravois Rd
   - St. Louis, MO 63123

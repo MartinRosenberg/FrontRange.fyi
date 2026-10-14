@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Breakfast café inside a garden shop
 cuisine: ['cafe']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 4605 Olive St
   - St. Louis, MO 63108

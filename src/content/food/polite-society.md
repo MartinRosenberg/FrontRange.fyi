@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Restaurant and bar in historic Lafayette Square
 cuisine: ['american']
-neighborhood: Lafayette Square
+neighborhood: lafayette-square
 address:
   - 1923 Park Ave
   - St. Louis, MO 63104

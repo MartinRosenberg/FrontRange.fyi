@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { neighborhoodRecords as neighborhoods } from './neighborhood-data'
 import { optionalData } from './optional-data'
+import countyTownsData from '../data/county-towns.json'
 import { published } from './content'
 
 const geo = optionalData<{
@@ -30,6 +31,8 @@ const population = optionalData<Record<string, number>>(
   {},
 )
 
+const countyTowns = countyTownsData as Record<string, string>
+
 export function normalizeName(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '')
 }
@@ -38,19 +41,8 @@ export function wikipediaHref(name: string): string {
   return `https://en.wikipedia.org/wiki/${`${name}, ${CITY}`.replace(/ /g, '_')}`
 }
 
-const slugByName = new Map(
-  neighborhoods
-    .filter((neighborhood) => !('ignored' in neighborhood))
-    .map((neighborhood) => [normalizeName(neighborhood.name), neighborhood.slug]),
-)
-
-export async function neighborhoodHref(name: string | undefined): Promise<string | null> {
-  if (!name) {
-    return null
-  }
-
-  const slug = slugByName.get(normalizeName(name))
-  if (!slug) {
+export async function neighborhoodHref(slug: string | undefined): Promise<string | null> {
+  if (!slug || !infoBySlug.has(slug)) {
     return null
   }
 
@@ -347,12 +339,12 @@ const nameBySlug = new Map(
     .map((neighborhood) => [neighborhood.slug, neighborhood.name]),
 )
 
-export function neighborhoodName(slug: string | null): string | undefined {
+export function neighborhoodName(slug: string | null | undefined): string {
   if (!slug) {
-    return undefined
+    return ''
   }
 
-  return nameBySlug.get(slug)
+  return nameBySlug.get(slug) ?? countyTowns[slug] ?? slug
 }
 
 export interface ResourceLink {
@@ -438,7 +430,7 @@ export async function foodByNeighborhood(): Promise<Map<string, CollectionEntry<
     if (!place.data.neighborhood) {
       continue
     }
-    const key = normalizeName(place.data.neighborhood)
+    const key = place.data.neighborhood
     const existing = grouped.get(key) ?? []
     existing.push(place)
     grouped.set(key, existing)

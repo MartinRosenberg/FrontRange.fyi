@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Barbecue with online ordering and catering
 cuisine: ['bbq']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 6301 Clayton Ave
   - St. Louis, MO 63139

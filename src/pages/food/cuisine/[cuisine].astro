@@ -8,6 +8,7 @@ import CardList from '../../../components/CardList.astro'
 import { Image } from 'astro:assets'
 import Card from '../../../components/Card.astro'
 import { published, hasBody, excerpt, foodStatus, PREVIEW_EXCERPT_CHARS } from '../../../lib/content'
+import { neighborhoodName } from '../../../lib/neighborhoods'
 import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../../../lib/cuisine'
 import { resolveVerdict, verdictSortValue } from '../../../lib/verdict'
 import { optionalData } from '../../../lib/optional-data'
@@ -117,7 +118,7 @@ const description = `${label} in ${CITY}: ${countLabel}.`
             <Card
               href={href(`/food/${place.id}/`)}
               title={place.data.title}
-              meta={place.data.neighborhood}
+              meta={neighborhoodName(place.data.neighborhood)}
               description={place.data.description}
               verdict={resolveVerdict(place.data)}
             />
@@ -133,7 +134,7 @@ const description = `${label} in ${CITY}: ${countLabel}.`
             <Card
               class="is-unwritten"
               title={place.data.title}
-              meta={place.data.neighborhood}
+              meta={neighborhoodName(place.data.neighborhood)}
               description={place.data.description}
             />
           ))}

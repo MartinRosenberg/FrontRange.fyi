@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: American fare
 cuisine: ['american']
-neighborhood: Chesterfield
+neighborhood: chesterfield
 address:
   - 16806 Chesterfield Airport Rd
   - Chesterfield, MO 63005

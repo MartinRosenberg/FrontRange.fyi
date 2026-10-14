@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: North Indian cooking
 cuisine: ['indian']
-neighborhood: Chesterfield
+neighborhood: chesterfield
 address:
   - 92 THF Blvd
   - Chesterfield, MO 63005

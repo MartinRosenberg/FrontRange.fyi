@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Cherokee Street Mexican restaurant
 cuisine: ['mexican']
-neighborhood: Greater Dutchtown
+neighborhood: dutchtown
 address:
   - 2801 Cherokee St
   - St. Louis, MO 63118

@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: New York-style bagels
 cuisine: ['sandwiches']
-neighborhood: Soulard
+neighborhood: soulard
 address:
   - 1801 S 9th St
   - St. Louis, MO 63104

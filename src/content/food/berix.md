@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Cevapi, doner, and Turkish coffee
 cuisine: ['balkan']
-neighborhood: Lemay
+neighborhood: lemay
 address:
   - 2201 Lemay Ferry Rd
   - St. Louis, MO 63125

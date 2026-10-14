@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-09-04
 rating: 10
 cuisine: ['ramen']
-neighborhood: University City
+neighborhood: university-city
 address:
   - 6394 Delmar Blvd
   - University City, MO 63130

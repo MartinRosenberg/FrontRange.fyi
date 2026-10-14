@@ -3,7 +3,7 @@ title: Tikka Tangy
 created: 2026-06-27
 rating: 8.5
 cuisine: ['indian']
-neighborhood: Central West End
+neighborhood: central-west-end
 description: Indian and Middle Eastern fusion
 address:
   - 390 N Euclid Ave

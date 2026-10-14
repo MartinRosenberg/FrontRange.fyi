@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Filipino barbecue just off Cherokee Street
 cuisine: ['filipino']
-neighborhood: Greater Dutchtown
+neighborhood: dutchtown
 address:
   - 3405 S Jefferson Ave
   - St. Louis, MO 63118

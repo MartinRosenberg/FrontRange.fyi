@@ -6,7 +6,7 @@ created: 2026-07-05
 updated: 2026-10-03
 cuisine: ['pizza']
 rating: 9.5
-neighborhood: Ellisville
+neighborhood: ellisville
 address:
   - 15430 Manchester Rd #3029
   - Ellisville, MO 63011

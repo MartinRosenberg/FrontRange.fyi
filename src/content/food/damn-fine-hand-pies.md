@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Sweet and savory hand pies
 cuisine: ['cafe']
-neighborhood: Shaw
+neighborhood: shaw
 address:
   - 4000 Shaw Blvd
   - St. Louis, MO 63110

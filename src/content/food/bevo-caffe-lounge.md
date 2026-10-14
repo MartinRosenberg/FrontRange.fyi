@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Bosnian café with pizza and espresso
 cuisine: ['balkan']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 5822 Gravois Ave
   - St. Louis, MO 63116

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Famous St. Louis barbecue
 cuisine: ['bbq']
-neighborhood: Olivette
+neighborhood: olivette
 address:
   - 9200 Olive Blvd
   - Olivette, MO 63132

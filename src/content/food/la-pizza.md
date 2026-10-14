@@ -4,7 +4,7 @@ description: An authentic New York slice
 created: 2026-06-23
 rating: 7.5
 cuisine: ['pizza']
-neighborhood: University City
+neighborhood: university-city
 address:
   - 8137 Delmar Blvd
   - University City, MO 63130

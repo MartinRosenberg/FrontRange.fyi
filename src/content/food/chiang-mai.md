@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Northern Thai cooking
 cuisine: ['thai']
-neighborhood: Webster Groves
+neighborhood: webster-groves
 address:
   - 8158 Big Bend Blvd
   - Webster Groves, MO 63119

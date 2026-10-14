@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Bread bakery, sandwich café, and pizza
 cuisine: ['cafe']
-neighborhood: Botanical Heights
+neighborhood: botanical-heights
 address:
   - 1629 Tower Grove Ave
   - St. Louis, MO 63110

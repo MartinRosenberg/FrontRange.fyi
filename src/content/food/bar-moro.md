@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Spanish small plates from Ben Poremba
 cuisine: ['spanish']
-neighborhood: Clayton
+neighborhood: clayton
 address:
   - 7610 Wydown Blvd
   - Clayton, MO 63105

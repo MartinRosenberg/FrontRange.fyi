@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Ramen and pho from the Mai Lee family
 cuisine: ['ramen']
-neighborhood: Creve Coeur
+neighborhood: creve-coeur
 address:
   - 11423 Olive Blvd
   - St. Louis, MO 63141

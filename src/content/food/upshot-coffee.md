@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Coffee shop
 cuisine: ['cafe']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3172 Morgan Ford Rd
   - St. Louis, MO 63116

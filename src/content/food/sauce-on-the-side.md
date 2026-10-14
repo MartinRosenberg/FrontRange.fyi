@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Calzones and salads
 cuisine: ['italian']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 411 N 8th St
   - St. Louis, MO 63101

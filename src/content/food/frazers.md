@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Benton Park restaurant and lounge
 cuisine: ['american']
-neighborhood: Benton Park
+neighborhood: benton-park
 address:
   - 1811 Pestalozzi St
   - St. Louis, MO 63118

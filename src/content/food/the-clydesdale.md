@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: New American tavern at Ballpark Village
 cuisine: ['american', 'bar']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 651 Clark Ave
   - St. Louis, MO 63102

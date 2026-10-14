@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-07-22
 rating: 8.5
 cuisine: ['pizza']
-neighborhood: North Hampton
+neighborhood: north-hampton
 address:
   - 3805 S Kingshighway Blvd
   - St. Louis, MO 63109

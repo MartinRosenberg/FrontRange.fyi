@@ -23,7 +23,6 @@ import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/c
 import { getBacklinks } from '../../lib/backlinks'
 import {
   foodByNeighborhood,
-  normalizeName,
   neighborBearing,
   neighborhoodInfo,
   neighborhoodPopulation,
@@ -99,7 +98,7 @@ const walkableStLouisLive = published(await getCollection('topics')).some(
 const corridors = walkableStLouisLive ? corridorsIn(slug) : []
 
 const placesByNeighborhood = await foodByNeighborhood()
-const places = placesByNeighborhood.get(normalizeName(title)) ?? []
+const places = placesByNeighborhood.get(slug) ?? []
 
 const writtenBySlug = new Map(
   published(await getCollection('neighborhoods')).map((neighborhoodEntry) => [

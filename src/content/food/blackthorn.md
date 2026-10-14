@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Deep dish and thin crust in an old corner pub
 cuisine: ['pizza']
-neighborhood: Tower Grove South
+neighborhood: tower-grove-south
 address:
   - 3735 Wyoming St
   - St. Louis, MO 63116

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: The Hill Italian classic
 cuisine: ['italian']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 5226 Shaw Ave
   - St. Louis, MO 63110

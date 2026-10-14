@@ -5,7 +5,7 @@ updated: 2026-07-07
 description: Greek and Italian food on the Hill
 rating: 7
 cuisine: ['italian']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 2225 Macklind Ave
   - St. Louis, MO 63110

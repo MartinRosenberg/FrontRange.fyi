@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-08-31
 rating: 9.5
 cuisine: ['pizza']
-neighborhood: Rock Hill
+neighborhood: rock-hill
 address:
   - 9525 Manchester Rd
   - St. Louis, MO 63119

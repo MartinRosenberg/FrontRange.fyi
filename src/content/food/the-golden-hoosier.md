@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: South City bar with a Prohibition-era Art Deco bar and comedy shows
 cuisine: ['bar', 'burgers']
-neighborhood: Southampton
+neighborhood: southampton
 address:
   - 3707 S Kingshighway Blvd
   - St. Louis, MO 63109

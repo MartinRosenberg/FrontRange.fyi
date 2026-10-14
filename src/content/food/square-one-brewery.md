@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Brewery, distillery and restaurant
 cuisine: ['brewery']
-neighborhood: Lafayette Square
+neighborhood: lafayette-square
 address:
   - 1727 Park Ave
   - St. Louis, MO 63104

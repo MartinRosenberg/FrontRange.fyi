@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Taqueria with tacos and tortas
 cuisine: ['mexican']
-neighborhood: Overland
+neighborhood: overland
 address:
   - 10238 Page Ave
   - Overland, MO 63132

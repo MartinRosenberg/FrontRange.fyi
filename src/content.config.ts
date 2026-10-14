@@ -1,5 +1,12 @@
 import { defineCollection, z } from 'astro:content'
+import neighborhoodRows from './data/neighborhoods.json'
+import countyTowns from './data/county-towns.json'
 import { glob } from 'astro/loaders'
+
+const placeSlugs = new Set([
+  ...neighborhoodRows.filter((row) => !('ignored' in row)).map((row) => row.slug),
+  ...Object.keys(countyTowns),
+])
 
 const taggable = { tags: z.array(z.string()).default([]), draft: z.boolean().default(false) }
 const coords = { coords: z.tuple([z.number(), z.number()]).optional() }
@@ -20,7 +27,12 @@ const food = defineCollection({
       status: z.enum(['written', 'tried', 'want-to-try']).default('written'),
       excludeFromMapFit: z.boolean().default(false),
       cuisine: z.array(z.string()).default([]),
-      neighborhood: z.string().optional(),
+      neighborhood: z
+        .string()
+        .refine((slug) => placeSlugs.has(slug), {
+          message: 'neighborhood must be a roster slug or a county-towns.json slug',
+        })
+        .optional(),
       address: z
         .union([z.string(), z.array(z.string())])
         .transform((value) => (Array.isArray(value) ? value : [value]))

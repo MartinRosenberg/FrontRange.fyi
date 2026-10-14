@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Wood-fired bread and Balkan street food
 cuisine: ['balkan']
-neighborhood: Webster Groves
+neighborhood: webster-groves
 address:
   - 8103 Big Bend Blvd
   - Webster Groves, MO 63119

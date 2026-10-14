@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Afghan kabobs
 cuisine: ['middle eastern']
-neighborhood: The Grove
+neighborhood: the-grove
 address:
   - 4341 Manchester Ave
   - St. Louis, MO 63110

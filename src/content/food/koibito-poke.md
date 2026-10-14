@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Poke bowls at Ballpark Village
 cuisine: ['japanese']
-neighborhood: Downtown
+neighborhood: downtown
 address:
   - 601 Clark Ave
   - St. Louis, MO 63102

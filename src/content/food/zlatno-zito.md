@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Bosnian bakery and deli
 cuisine: ['balkan']
-neighborhood: Bevo Mill
+neighborhood: bevo-mill
 address:
   - 4573 Gravois Ave
   - St. Louis, MO 63116

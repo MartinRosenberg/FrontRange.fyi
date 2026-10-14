@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Benton Park fine dining
 cuisine: ['american']
-neighborhood: Benton Park
+neighborhood: benton-park
 address:
   - 2000 Sidney St
   - St. Louis, MO 63104

@@ -4,7 +4,7 @@ description: Texas-style brisket at a gas station
 created: 2026-06-23
 rating: 9
 cuisine: ['bbq']
-neighborhood: Chesterfield
+neighborhood: chesterfield
 address:
   - 158 Long Rd
   - Chesterfield, MO 63005

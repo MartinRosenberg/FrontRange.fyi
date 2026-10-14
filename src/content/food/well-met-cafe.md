@@ -4,7 +4,7 @@ created: 2026-10-12
 status: want-to-try
 description: Panini, espresso and cocktail café
 cuisine: ['cafe']
-neighborhood: Shaw
+neighborhood: shaw
 address:
   - 4100 Shenandoah Ave
   - St. Louis, MO 63110

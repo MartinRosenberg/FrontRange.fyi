@@ -3,7 +3,7 @@ title: Pappy's Smokehouse
 description: Top-tier ribs
 created: 2026-06-23
 cuisine: ['bbq']
-neighborhood: Midtown
+neighborhood: midtown
 address:
   - 3106 Olive St
   - St. Louis, MO 63103

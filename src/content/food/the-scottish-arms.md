@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Scottish pub with a whisky list
 cuisine: ['european']
-neighborhood: Central West End
+neighborhood: central-west-end
 address:
   - 8 S Sarah St
   - St. Louis, MO 63108

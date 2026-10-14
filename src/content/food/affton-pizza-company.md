@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: St. Louis-style pizza and wings
 cuisine: ['pizza']
-neighborhood: Affton
+neighborhood: affton
 address:
   - 9163 Reavis Barracks Rd
   - St. Louis, MO 63123

@@ -4,7 +4,7 @@ created: 2026-10-09
 status: want-to-try
 description: Fried chicken and beer
 cuisine: ['fried chicken']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 1221 Tamm Ave
   - St. Louis, MO 63139

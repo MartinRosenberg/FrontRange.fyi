@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Casual Italian-American since 1985
 cuisine: ['italian']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 5256 Wilson Ave
   - St. Louis, MO 63110

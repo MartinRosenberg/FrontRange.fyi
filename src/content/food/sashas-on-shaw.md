@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Wine bar and small plates
 cuisine: ['bar']
-neighborhood: Shaw
+neighborhood: shaw
 address:
   - 4069 Shaw Blvd
   - St. Louis, MO 63110

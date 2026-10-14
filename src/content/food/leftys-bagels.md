@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: Hand-rolled bagels and breakfast sandwiches
 cuisine: ['sandwiches']
-neighborhood: Chesterfield
+neighborhood: chesterfield
 address:
   - 13359 Olive Blvd
   - Chesterfield, MO 63017

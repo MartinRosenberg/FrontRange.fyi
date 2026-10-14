@@ -4,7 +4,7 @@ created: 2026-07-16
 status: tried
 description: North side St. Louis-style pizza
 cuisine: ['pizza']
-neighborhood: Breckenridge Hills
+neighborhood: breckenridge-hills
 address:
   - 3007 Woodson Rd
   - Breckenridge Hills, MO 63114

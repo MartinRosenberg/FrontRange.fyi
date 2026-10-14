@@ -4,7 +4,7 @@ created: 2026-08-30
 status: want-to-try
 description: Family-run Bosnian restaurant
 cuisine: ['balkan']
-neighborhood: Mehlville
+neighborhood: mehlville
 address:
   - 3970 Union Rd
   - St. Louis, MO 63125

@@ -5,7 +5,7 @@ rating: 9.5
 description: Regional Thai with a cozy patio
 cuisine: ['thai']
 photo: ../images/food/teerak2.jpg
-neighborhood: Shaw
+neighborhood: shaw
 address:
   - 2203 S 39th St
   - St. Louis, MO 63110

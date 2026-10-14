@@ -5,7 +5,7 @@ photo: ../images/food/pizzeriadagloria.jpeg
 rating: 9.5
 description: Wood-fired Neapolitan-style pizza
 cuisine: ['pizza']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 2024 Marconi Ave
   - St. Louis, MO 63110

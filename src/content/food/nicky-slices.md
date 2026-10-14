@@ -6,7 +6,7 @@ created: 2026-06-23
 updated: 2026-07-16
 rating: 10
 cuisine: ['pizza']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 2240 Edwards St
   - St. Louis, MO 63110

@@ -4,7 +4,7 @@ description: An upscale Italian restaurant
 created: 2026-06-23
 rating: 9.5
 cuisine: ['italian']
-neighborhood: Clayton
+neighborhood: clayton
 address:
   - 706 DeMun Ave
   - Clayton, MO 63105

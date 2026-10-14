@@ -4,7 +4,7 @@ description: Authentic street tacos in St. Louis
 created: 2026-06-23
 rating: 9
 cuisine: ['mexican']
-neighborhood: Twin Oaks
+neighborhood: twin-oaks
 address:
   - 25 Stonegate Center
   - Twin Oaks, MO 63088

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: Bar across from the Zoo with dog-friendly patio and local drafts
 cuisine: ['bar']
-neighborhood: Dogtown
+neighborhood: dogtown
 address:
   - 1227 Tamm Ave
   - St. Louis, MO 63139

@@ -4,7 +4,7 @@ created: 2026-07-16
 status: want-to-try
 description: Omakase and creative sushi
 cuisine: ['sushi']
-neighborhood: The Hill
+neighborhood: the-hill
 address:
   - 5201 Shaw Ave
   - St. Louis, MO 63110
