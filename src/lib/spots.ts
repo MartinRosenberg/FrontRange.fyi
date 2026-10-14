@@ -33,6 +33,7 @@ export const spotCategories = {
     icon: 'music',
     token: '--color-spot-records',
   },
+  games: { label: 'Game Stores', meta: 'Game Store', icon: 'chess', token: '--color-spot-games' },
   books: { label: 'Books', meta: 'Bookstore', icon: 'book', token: '--color-spot-books' },
   food: {
     label: 'Food & Drink',
@@ -54,7 +55,9 @@ export const SPOT_SECTION_ORDER: SpotSectionKey[] = [
   'mural',
   'thrift',
   'records',
+  'games',
   'books',
+  
 ]
 
 export interface Spot {

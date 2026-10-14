@@ -4,7 +4,7 @@ created: 2026-06-23
 updated: 2026-07-07
 description: Greek and Italian food on the Hill
 rating: 7
-cuisine: ['italian']
+cuisine: ['italian', 'greek']
 neighborhood: the-hill
 address:
   - 2225 Macklind Ave

@@ -3,7 +3,7 @@ title: The Fattened Caf.
 created: 2026-10-13
 status: want-to-try
 description: Filipino barbecue just off Cherokee Street
-cuisine: ['filipino']
+cuisine: ['asian']
 neighborhood: dutchtown
 address:
   - 3405 S Jefferson Ave

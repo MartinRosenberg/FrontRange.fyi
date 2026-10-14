@@ -1060,5 +1060,40 @@
     "description": "The Lemp brewing family's mansion, now a restaurant, inn, museum and event venue.",
     "address": "3322 DeMenil Pl",
     "coords": [-90.21581, 38.59317]
+  },
+  {
+    "name": "Pieces Board Game Bar & Cafe",
+    "category": "games",
+    "neighborhoods": ["soulard"],
+    "url": "https://www.stlpieces.com/",
+    "description": "Board game bar and café with a library of games to play, beside the Anheuser-Busch brewery.",
+    "address": "2727 S 12th St",
+    "coords": [-90.21372, 38.60058]
+  },
+  {
+    "name": "The Nerd Merchant",
+    "category": "games",
+    "neighborhoods": ["kirkwood"],
+    "url": "https://thenerdmerchant.com/",
+    "description": "Trading card and game shop with weekly in-store events for Magic, Pokémon and One Piece.",
+    "address": "124 W Jefferson Ave, Kirkwood, MO",
+    "coords": [-90.40761, 38.58204]
+  },
+  {
+    "name": "Fortuna Games",
+    "category": "games",
+    "neighborhoods": ["southwest-garden"],
+    "url": "https://www.fortunagames.net/",
+    "description": "Boutique trading card and board game store across from Tower Grove Park, with scheduled game events.",
+    "address": "2632 S Kingshighway Blvd",
+    "coords": [-90.2679, 38.60992]
+  },
+  {
+    "name": "Fantasy Shop",
+    "category": "games",
+    "neighborhoods": ["maplewood"],
+    "description": "Comic book and game store in Maplewood Square, part of a local chain founded in 1981.",
+    "address": "7329 Manchester Rd, Maplewood, MO",
+    "coords": [-90.31797, 38.61317]
   }
 ]
