@@ -223,19 +223,69 @@ export function activeLegendCategories(root: HTMLElement): Set<string> {
   return active
 }
 
+function legendItems(root: HTMLElement): HTMLButtonElement[] {
+  return [...root.querySelectorAll<HTMLButtonElement>('[data-map-legend] [data-legend-category]')]
+}
+
+function setLegendPressed(item: HTMLButtonElement, showing: boolean): void {
+  item.setAttribute('aria-pressed', String(showing))
+  const row = item.closest<HTMLElement>('.map-legend-row')
+  if (row) {
+    row.dataset.pressed = String(showing)
+  }
+}
+
 export function bindLegendToggles(
   root: HTMLElement,
   onToggle: (category: string, showing: boolean) => void,
 ): void {
-  for (const item of root.querySelectorAll<HTMLButtonElement>(
-    '[data-map-legend] [data-legend-category]',
+  const items = legendItems(root)
+  const itemFor = (category: string) =>
+    items.find((item) => item.dataset.legendCategory === category)
+
+  const toggle = (item: HTMLButtonElement) => {
+    const showing = item.getAttribute('aria-pressed') === 'false'
+    setLegendPressed(item, showing)
+    updateLegendShown(root)
+    onToggle(item.dataset.legendCategory ?? '', showing)
+  }
+
+  const only = (item: HTMLButtonElement) => {
+    const active = activeLegendCategories(root)
+    const category = item.dataset.legendCategory ?? ''
+    const alreadyAlone = active.size === 1 && active.has(category)
+    for (const other of items) {
+      const otherCategory = other.dataset.legendCategory ?? ''
+      const showing = alreadyAlone || otherCategory === category
+      if ((other.getAttribute('aria-pressed') !== 'false') !== showing) {
+        setLegendPressed(other, showing)
+        onToggle(otherCategory, showing)
+      }
+    }
+    updateLegendShown(root)
+  }
+
+  for (const item of items) {
+    item.addEventListener('click', () => toggle(item))
+  }
+  for (const check of root.querySelectorAll<HTMLButtonElement>(
+    '[data-map-legend] [data-legend-check]',
   )) {
-    item.addEventListener('click', () => {
-      const category = item.dataset.legendCategory ?? ''
-      const showing = item.getAttribute('aria-pressed') === 'false'
-      item.setAttribute('aria-pressed', String(showing))
-      updateLegendShown(root)
-      onToggle(category, showing)
+    check.addEventListener('click', () => {
+      const item = itemFor(check.dataset.legendCheck ?? '')
+      if (item) {
+        toggle(item)
+      }
+    })
+  }
+  for (const button of root.querySelectorAll<HTMLButtonElement>(
+    '[data-map-legend] [data-legend-only]',
+  )) {
+    button.addEventListener('click', () => {
+      const item = itemFor(button.dataset.legendOnly ?? '')
+      if (item) {
+        only(item)
+      }
     })
   }
 }

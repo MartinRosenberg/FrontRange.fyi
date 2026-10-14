@@ -1,7 +1,6 @@
 ---
 import MapLegend from './MapLegend.astro'
 import BadgeIcons from './BadgeIcons.astro'
-import SuggestSpot from './SuggestSpot.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -27,7 +26,6 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   role="application"
   aria-label={`Map of the neighborhood and its notable spots`}>
   <MapLegend categories={legendCategories} />
-  <SuggestSpot />
 </div>
 <BadgeIcons />
 <script

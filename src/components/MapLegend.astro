@@ -46,7 +46,7 @@ const LEGEND_DOT_LIMIT = 4
       </div>
       <ul class="map-legend-list" role="list" aria-label="Map legend">
         {categories.map((key) => (
-          <li>
+          <li class="map-legend-row" data-pressed={off.includes(key) ? 'false' : 'true'}>
             <button
               type="button"
               class="map-legend-item"
@@ -59,9 +59,20 @@ const LEGEND_DOT_LIMIT = 4
                 <Icon name={spotCategories[key].icon} />
               </span>
               <span class="map-legend-label">{spotCategories[key].label}</span>
-              <span class="map-legend-check" aria-hidden="true">
-                <IconCheck />
-              </span>
+            </button>
+            <button
+              type="button"
+              class="map-legend-only"
+              data-legend-only={key}
+              aria-label={`Show only ${spotCategories[key].label}`}>
+              only
+            </button>
+            <button
+              type="button"
+              class="map-legend-check"
+              data-legend-check={key}
+              aria-label={`Toggle ${spotCategories[key].label}`}>
+              <IconCheck />
             </button>
           </li>
         ))}
