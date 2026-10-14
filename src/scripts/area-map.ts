@@ -26,7 +26,7 @@ import Supercluster from 'supercluster'
 import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
 
 const CITY_VIEW_ZOOM_IN = 0.5
-const CITY_VIEW_SOUTH_BIAS = 0.08
+const CITY_VIEW_RIVER_MARGIN = 0.15
 
 const bySlug = new Map(neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood]))
 const byNumber = new Map(
@@ -524,14 +524,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
         map.fitBounds(selectedBounds, { padding: 40, maxZoom: 13, animate: false })
       }
     } else {
-      frameCityView(map, 40, false)
-      const visibleBounds = map.getBounds()
-      const latSpan = visibleBounds.getNorth() - visibleBounds.getSouth()
-      const center = map.getCenter()
-      map.jumpTo({
-        center: [center.lng, center.lat - latSpan * CITY_VIEW_SOUTH_BIAS],
-        zoom: map.getZoom() + CITY_VIEW_ZOOM_IN,
-      })
+      frameCityView(map, 40, true, CITY_VIEW_ZOOM_IN, CITY_VIEW_RIVER_MARGIN)
     }
   }
 

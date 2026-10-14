@@ -32,6 +32,7 @@ import {
   neighborsOf,
   festivalsIn,
   corridorsIn,
+  neighborhoodHasContent,
   neighborhoodResourceLinks,
   regionOf,
   regionTokenBySlug,
@@ -100,6 +101,7 @@ const corridors = walkableStLouisLive ? corridorsIn(slug) : []
 
 const placesByNeighborhood = await foodByNeighborhood()
 const places = placesByNeighborhood.get(slug) ?? []
+const hasContent = neighborhoodHasContent(slug, hasWriteup, places.length)
 
 const writtenBySlug = new Map(
   published(await getCollection('neighborhoods')).map((neighborhoodEntry) => [
@@ -186,6 +188,7 @@ const schema = placeSchema(
   crumb={title}
   title={seoTitle}
   description={metaDescription}
+  noindex={!hasContent}
   ogType="article"
   ogImage={sharePhoto ? rootRelative(sharePhoto.src) : undefined}
   ogImageWidth={sharePhoto ? Number(sharePhoto.attributes.width) : undefined}

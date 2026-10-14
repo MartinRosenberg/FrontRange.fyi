@@ -240,6 +240,8 @@ interface FramableMap {
     options: { padding: number; maxZoom?: number; animate: boolean },
   ): void
   setCenter(center: [number, number]): void
+  getZoom(): number
+  setZoom(zoom: number): void
 }
 
 export function fitZoomFor(map: FramableMap, bounds: BoundsLike, padding: number): number {
@@ -257,8 +259,19 @@ export function fitZoomFor(map: FramableMap, bounds: BoundsLike, padding: number
   return Math.log2(Math.min(scaleX, scaleY))
 }
 
-export function frameCityView(map: FramableMap, padding: number, anchorRiver = true): void {
+const RIVER_MARGIN = 0.06
+
+export function frameCityView(
+  map: FramableMap,
+  padding: number,
+  anchorRiver = true,
+  zoomOffset = 0,
+  riverMargin = RIVER_MARGIN,
+): void {
   map.fitBounds(CITY_BOUNDS, { padding, animate: false })
+  if (zoomOffset !== 0) {
+    map.setZoom(map.getZoom() + zoomOffset)
+  }
 
   if (!anchorRiver) {
     return
@@ -272,7 +285,7 @@ export function frameCityView(map: FramableMap, padding: number, anchorRiver = t
   const biasedLat = center.lat - visibleLatSpan * 0.1
 
   const riverEdge = CITY_BOUNDS[1][0]
-  const westBiasedLng = riverEdge + visibleLngSpan * 0.06 - visibleLngSpan / 2
+  const westBiasedLng = riverEdge + visibleLngSpan * riverMargin - visibleLngSpan / 2
   const biasedLng = Math.min(center.lng, westBiasedLng)
 
   map.setCenter([biasedLng, biasedLat])

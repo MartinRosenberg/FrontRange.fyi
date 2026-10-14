@@ -5,6 +5,7 @@ import { neighborhoodRecords as neighborhoods } from './neighborhood-data'
 import { optionalData } from './optional-data'
 import countyTownsData from '../data/county-towns.json'
 import { published } from './content'
+import { spotsIn } from './spots'
 
 const geo = optionalData<{
   viewBox?: string
@@ -441,4 +442,14 @@ export async function foodByNeighborhood(): Promise<Map<string, CollectionEntry<
   }
 
   return grouped
+}
+
+export function neighborhoodHasContent(slug: string, written: boolean, foodCount: number): boolean {
+  return (
+    written ||
+    foodCount > 0 ||
+    spotsIn(slug).length > 0 ||
+    festivalsIn(slug).length > 0 ||
+    corridorsIn(slug).length > 0
+  )
 }

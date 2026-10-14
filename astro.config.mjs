@@ -201,6 +201,20 @@ function stubFoodPaths() {
 
 const stubPaths = stubFoodPaths()
 
+function shipsNoindex(page) {
+  const file = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    'dist',
+    new URL(page).pathname,
+    'index.html',
+  )
+  if (!fs.existsSync(file)) {
+    return false
+  }
+
+  return /<meta name="robots" content="[^"]*noindex/.test(fs.readFileSync(file, 'utf8'))
+}
+
 const unpublishedSections = ['notes'].filter((collection) => !hasPublishedEntries(collection))
 
 function resolve(target) {
@@ -225,7 +239,8 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/tags/') &&
         !unpublishedSections.some((section) => page.includes(`/${section}/`)) &&
-        !stubPaths.has(new URL(page).pathname.replace(/\/$/, '')),
+        !stubPaths.has(new URL(page).pathname.replace(/\/$/, '')) &&
+        !shipsNoindex(page),
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, '') || '/'
         const lastmod = lastmodByPath.get(pathname)

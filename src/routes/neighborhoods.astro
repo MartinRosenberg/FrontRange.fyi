@@ -10,7 +10,11 @@ import PaneSearch from '../components/PaneSearch.astro'
 import AreaMap from '../components/AreaMap.astro'
 import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
-import { neighborhoodResourceLinks, foodByNeighborhood } from '../lib/neighborhoods'
+import {
+  neighborhoodResourceLinks,
+  foodByNeighborhood,
+  neighborhoodHasContent,
+} from '../lib/neighborhoods'
 import { allSpots, spotsIn, spotCategories, type SpotCategoryKey } from '../lib/spots'
 import CategoryChip from '../components/CategoryChip.astro'
 import { toMapSpots } from '../lib/map-spots'
@@ -67,6 +71,26 @@ const listed = neighborhoods
     return placeTotal(right) - placeTotal(left) || left.name.localeCompare(right.name)
   })
 const count = listed.length
+const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
+const neighborhoodList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${CITY} neighborhoods`,
+  itemListElement: listed
+    .filter((neighborhood) =>
+      neighborhoodHasContent(
+        neighborhood.slug,
+        isWritten(neighborhood.slug),
+        placesByNeighborhood.get(neighborhood.slug)?.length ?? 0,
+      ),
+    )
+    .map((neighborhood, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: neighborhood.name,
+    url: new URL(`/neighborhoods/${neighborhood.slug}/`, siteOrigin).href,
+  })),
+}
 const writtenCount = listed.filter((neighborhood) => isWritten(neighborhood.slug)).length
 const restCount = listed.length - writtenCount
 
@@ -112,11 +136,13 @@ function sectionOf(area: { group?: string; type?: string }): string {
 <BaseLayout
   crumb="Neighborhoods"
   title={`${CITY} Neighborhood Map`}
-  description={`A map and field guide to all 79 neighborhoods and 9 parks of the City of ${CITY}, including local food, events, population, borders, and discoveries.`}>
+  description={`A map and field guide to the neighborhoods and parks of ${CITY}, with landmarks, museums, parks, markets, places to eat, and neighborhood write-ups.`}
+  ogImage="/og/neighborhood-og.png"
+  jsonLd={neighborhoodList}>
   <div class="map-split" data-filter-root data-map-split data-view="map">
     <div class="results">
       <article class="content-pane map-list">
-        <ListPaneHeader title="Neighborhoods" count={count} live>
+        <ListPaneHeader title="Neighborhoods" titlePrefix={`${CITY} `} count={count} live>
           <PaneSearch label="Search neighborhoods" placeholder="search by name, area..." />
         </ListPaneHeader>
         <ul class="list">
@@ -156,7 +182,15 @@ function sectionOf(area: { group?: string; type?: string }): string {
                   <MapRow
                     id={neighborhood.slug}
                     title={neighborhood.name}
-                    detailHref={written ? `/neighborhoods/${neighborhood.slug}/` : undefined}
+                    detailHref={
+                      neighborhoodHasContent(
+                        neighborhood.slug,
+                        written,
+                        placesByNeighborhood.get(neighborhood.slug)?.length ?? 0,
+                      )
+                        ? `/neighborhoods/${neighborhood.slug}/`
+                        : undefined
+                    }
                     readMore={false}
                     search={[
                       neighborhood.name,
@@ -166,7 +200,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
                     ]
                       .filter(Boolean)
                       .join(' ')}
-                    class={written ? 'is-written' : undefined}
+                    class={written ? 'is-written' : 'is-unwritten'}
                     attrs={{
                       ...(written ? {} : { 'data-stub': '' }),
                       'data-section': neighborhood.slug,

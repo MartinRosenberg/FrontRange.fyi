@@ -1,16 +1,20 @@
 ---
 interface Props {
   title: string
+  titlePrefix?: string
   count: number | string
   live?: boolean
 }
 
-const { title, count, live = false } = Astro.props
+const { title, titlePrefix, count, live = false } = Astro.props
 ---
 
 <div class="list-pane-header">
   <span class="pane-left">
-    <h1 class="pane-title title-caps">{title}</h1>
+    <h1 class="pane-title title-caps">
+      {titlePrefix && <span class="visually-hidden">{titlePrefix}</span>}
+      {title}
+    </h1>
     <span class="count">{live ? <span data-filter-count>{count}</span> : count}</span>
   </span>
   <slot />
