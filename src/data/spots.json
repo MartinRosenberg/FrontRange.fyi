@@ -1050,5 +1050,41 @@
     "description": "Bowling lounge on Washington Avenue, hosting private events while walk-in bowling reopens under new management.",
     "address": "1117 Washington Ave",
     "coords": [-90.195557, 38.631712]
+  },
+  {
+    "name": "Ballpark Village",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://www.stlballparkvillage.com/",
+    "description": "Dining, sports and entertainment district beside Busch Stadium, with Live! Arena and a 65-foot LED screen.",
+    "address": "601 Clark Ave",
+    "coords": [-90.19231, 38.62426]
+  },
+  {
+    "name": "Jewel Box",
+    "category": "landmark",
+    "neighborhoods": ["forest-park"],
+    "url": "https://www.stlouis-mo.gov/parks/parks/Jewel-Box.cfm",
+    "description": "Art Deco display greenhouse built by the city in 1936, on the National Register since 2000.",
+    "address": "Wells Dr & McKinley Dr",
+    "coords": [-90.2897, 38.6367]
+  },
+  {
+    "name": "Laumeier Sculpture Park",
+    "category": "park",
+    "neighborhoods": [],
+    "url": "https://www.laumeiersculpturepark.org/",
+    "description": "Free outdoor sculpture park in Sunset Hills, open daily since 1976.",
+    "address": "12580 Rott Rd",
+    "coords": [-90.41502, 38.54811]
+  },
+  {
+    "name": "Lemp Mansion",
+    "category": "landmark",
+    "neighborhoods": ["benton-park"],
+    "url": "https://www.lempmansion.com/",
+    "description": "The Lemp brewing family's mansion, now a restaurant, inn, museum and event venue.",
+    "address": "3322 DeMenil Pl",
+    "coords": [-90.21581, 38.59317]
   }
 ]

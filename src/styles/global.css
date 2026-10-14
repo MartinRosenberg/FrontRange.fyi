@@ -556,16 +556,11 @@ tbody tr:last-child td {
 }
 
 .corridor-map-caption {
-  margin-block-start: var(--spacing-xs);
-  font-family: var(--font-sans-serif);
-  font-size: var(--font-size-sm);
-  text-align: center;
-  font-weight: 700;
-}
-
-.corridor-map-caption a:hover {
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-block-start: var(--spacing-sm);
 }
 
 .map-pin:hover .marker-pin {

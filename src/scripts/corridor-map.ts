@@ -4,7 +4,7 @@ import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundariesFor, type BoundaryFeature } from './boundaries'
 import { optionalData } from '../lib/optional-data'
 import { projectOntoLine } from '../lib/geo'
-import { badgeIconNode } from './popup'
+import { badgeIconNode, categorySwatchNode } from './popup'
 
 const corridorData = optionalData<{ corridors: unknown[] }>(
   import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
@@ -58,6 +58,10 @@ const spotsByCorridor = readSpotsByCorridor()
 
 const SNAP_METERS = 75
 
+function spotHref(link: string): string {
+  return import.meta.env.BASE_URL.replace(/\/$/, '') + link
+}
+
 function snapToLines(point: [number, number], group: Corridor[]): [number, number] {
   let best = point
   let bestDistance = Infinity
@@ -84,7 +88,7 @@ function addSpotMarkers(map: MapLibreMap, group: Corridor[]): void {
       element.dataset.category = spot.category
       element.setAttribute('aria-label', spot.name)
       if (spot.link && element instanceof HTMLAnchorElement) {
-        element.href = import.meta.env.BASE_URL.replace(/\/$/, '') + spot.link
+        element.href = spotHref(spot.link)
       }
 
       const body = document.createElement('span')
@@ -248,6 +252,20 @@ function applyCorridorLayers(map: MapLibreMap, group: Corridor[]): void {
   }
 }
 
+function spotChip(spot: Spot): HTMLElement {
+  const chip = document.createElement(spot.link ? 'a' : 'span')
+  chip.className = 'chip category-chip'
+  if (spot.link && chip instanceof HTMLAnchorElement) {
+    chip.href = spotHref(spot.link)
+  }
+  chip.append(categorySwatchNode(spot.category))
+  const name = document.createElement('span')
+  name.textContent = spot.name
+  chip.append(name)
+
+  return chip
+}
+
 function appendSpotCaption(element: HTMLElement, group: Corridor[]): void {
   const spots = group.flatMap((corridor) => spotsByCorridor[corridor.id] ?? [])
   const figure = element.closest('figure')
@@ -257,19 +275,7 @@ function appendSpotCaption(element: HTMLElement, group: Corridor[]): void {
 
   const caption = document.createElement('figcaption')
   caption.className = 'corridor-map-caption'
-  spots.forEach((spot, index) => {
-    if (index > 0) {
-      caption.append(' | ')
-    }
-    if (spot.link) {
-      const anchor = document.createElement('a')
-      anchor.href = import.meta.env.BASE_URL.replace(/\/$/, '') + spot.link
-      anchor.textContent = spot.name
-      caption.append(anchor)
-    } else {
-      caption.append(spot.name)
-    }
-  })
+  caption.append(...spots.map(spotChip))
   figure.append(caption)
 }
 

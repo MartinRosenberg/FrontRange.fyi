@@ -8,6 +8,7 @@ import { NEIGHBORHOODS_ENABLED } from '../lib/neighborhood-data'
 interface Preview {
   title: string
   excerpt: string
+  kind?: 'neighborhood'
   cuisine?: string[]
   neighborhood?: string
   tags?: string[]
@@ -73,7 +74,7 @@ export const GET: APIRoute = async () => {
     previews[neighborhood.id] = {
       title: neighborhood.data.title,
       excerpt: excerpt(neighborhood.body, PREVIEW_EXCERPT_CHARS),
-      tags: presentTags(neighborhood.data.tags),
+      kind: 'neighborhood',
       description: neighborhood.data.description,
       photo: await cardPhoto(neighborhood.data.photo),
     }

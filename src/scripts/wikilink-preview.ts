@@ -3,12 +3,15 @@ import { cuisineLabel } from '../lib/cuisine'
 interface Preview {
   title: string
   excerpt: string
+  kind?: 'neighborhood'
   cuisine?: string[]
   neighborhood?: string
   tags?: string[]
   description?: string
   photo?: string
 }
+
+const KIND_EYEBROW: Record<NonNullable<Preview['kind']>, string> = { neighborhood: 'Neighborhood' }
 
 const HOVER_DELAY = 500
 const HIDE_GRACE = 50
@@ -73,14 +76,17 @@ export function initWikilinkPreviews(): void {
       card.appendChild(photo)
     }
 
-    const metaParts = [
-      ...(preview.cuisine ?? []).map((cuisine) => cuisineLabel(cuisine)),
-      ...(preview.neighborhood ? [preview.neighborhood] : []),
-      ...(preview.tags ?? []),
-    ]
+    const kindEyebrow = preview.kind ? KIND_EYEBROW[preview.kind] : undefined
+    const metaParts = kindEyebrow
+      ? [kindEyebrow]
+      : [
+          ...(preview.cuisine ?? []).map((cuisine) => cuisineLabel(cuisine)),
+          ...(preview.neighborhood ? [preview.neighborhood] : []),
+          ...(preview.tags ?? []),
+        ]
     if (metaParts.length > 0) {
       const meta = document.createElement('div')
-      meta.className = 'card-meta eyebrow eyebrow--muted'
+      meta.className = kindEyebrow ? 'card-meta eyebrow' : 'card-meta eyebrow eyebrow--muted'
       metaParts.forEach((part, partIndex) => {
         if (partIndex > 0) {
           const divider = document.createElement('span')

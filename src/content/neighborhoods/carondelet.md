@@ -8,6 +8,7 @@ tags:
   - green
   - riverside
   - industrial
+  - gritty
 notes:
   - 'This page combines the Carondelet and Patch city neighborhoods.'
 ---

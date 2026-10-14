@@ -7,6 +7,7 @@ tags:
   - bosnian
   - historic
   - dining
+  - gritty
 ---
 
 In the 1990s, St. Louis was one of the cities that the government chose to place refugees of the Bosnian War. Bevo Mill in particular was one of the main areas where they settled, and there are many Balkan restaurants, delis, and butchers along the main strip on Gravois as a result.

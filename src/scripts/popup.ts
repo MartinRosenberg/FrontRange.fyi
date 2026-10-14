@@ -31,11 +31,21 @@ export function badgeIconNode(category: string): Node | undefined {
   return icon?.cloneNode(true)
 }
 
-function categorySwatchHtml(category: string): string {
+export function categorySwatchNode(category: string): HTMLSpanElement {
+  const swatch = document.createElement('span')
+  swatch.className = 'map-legend-swatch'
+  swatch.style.setProperty('--badge-color', `var(--color-spot-${category})`)
+  swatch.setAttribute('aria-hidden', 'true')
   const icon = badgeIconNode(category)
-  const iconHtml = icon instanceof Element ? icon.outerHTML : ''
+  if (icon) {
+    swatch.append(icon)
+  }
 
-  return `<span class="map-legend-swatch" style="--badge-color: var(--color-spot-${escapeHtml(category)})" aria-hidden="true">${iconHtml}</span>`
+  return swatch
+}
+
+function categorySwatchHtml(category: string): string {
+  return categorySwatchNode(category).outerHTML
 }
 
 function chipHtml(chip: PopupChip): string {
