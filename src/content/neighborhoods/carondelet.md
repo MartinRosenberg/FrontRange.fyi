@@ -19,4 +19,4 @@ I didn't really know there was anything in Carondelet aside from [[stacked-stl|S
 
 ### Impressions
 
-I have not personally explored this area outside of driving through and I don't know how much I would recommend taking a stroll around the neighborhood - there were a lot of boarded up buildings along the strip in between the bars and live music venues.
+I have not personally explored this area outside of driving through. I noticed a lot of boarded up buildings along the strip in between the bars and live music venues.
