@@ -12,6 +12,7 @@ import { published } from '../lib/content'
 import { getBacklinks } from '../lib/backlinks'
 import { articleSchema } from '../lib/schema'
 import { href } from '../lib/url'
+import { neighborhoodInfo, allCorridors } from '../lib/neighborhoods'
 
 export async function getStaticPaths() {
   const topics = published(await getCollection('topics'))
@@ -27,6 +28,9 @@ const backlinks = await getBacklinks(entry.id)
 const hasBoundaryMap = (entry.body ?? '').includes('data-boundary-map')
 const hasCorridorMap = (entry.body ?? '').includes('data-corridor-map')
 const corridorSpots = hasCorridorMap ? await corridorSpotsByCorridor() : {}
+const aboutSlugs = hasCorridorMap
+  ? [...new Set(allCorridors().flatMap((corridor) => corridor.neighborhoods))]
+  : []
 
 const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
 const permalink = new URL(`/${entry.id}/`, siteOrigin).href
@@ -39,6 +43,13 @@ const schema = articleSchema(
     published: (data.created ?? data.updated).toISOString(),
     updated: data.updated.toISOString(),
     tags: data.tags,
+    about: aboutSlugs.flatMap((slug) => {
+      const info = neighborhoodInfo(slug)
+
+      return info
+        ? [{ name: info.name, url: new URL(`/neighborhoods/${slug}/`, siteOrigin).href }]
+        : []
+    }),
   },
   siteOrigin,
 )

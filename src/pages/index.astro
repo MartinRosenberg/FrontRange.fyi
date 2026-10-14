@@ -204,7 +204,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
                 <Image
                   class="photo-frame"
                   src={leadTopic.data.photo}
-                  alt=""
+                  alt={leadTopic.data.photoCaption ?? leadTopic.data.title}
                   widths={[600, 1200]}
                   loading="eager"
                   sizes="(min-width: 1000px) 600px, 100vw"

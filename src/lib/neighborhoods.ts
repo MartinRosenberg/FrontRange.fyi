@@ -246,6 +246,10 @@ export interface Corridor {
   neighborhoods: string[]
 }
 
+export function allCorridors(): Corridor[] {
+  return corridorData.corridors as Corridor[]
+}
+
 export function corridorsIn(slug: string): Corridor[] {
   return (corridorData.corridors as Corridor[]).filter((corridor) =>
     corridor.neighborhoods.includes(slug),

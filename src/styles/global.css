@@ -1036,7 +1036,7 @@ body:has(.map-split) main > .wrap,
     gap: var(--spacing-sm);
     width: auto;
     height: auto;
-    padding: var(--spacing-shmedium) var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) var(--spacing-shmedium);
     border: 0;
     color: inherit;
     border-radius: 0;
@@ -1291,9 +1291,39 @@ body:has(.map-split) main > .wrap,
     position: absolute;
     inset-block-start: calc(100% + var(--spacing-xs));
     inset-inline-start: 0;
-    min-width: 220px;
+    min-width: 280px;
     max-height: 60dvh;
     overflow-y: auto;
+  }
+
+  .map-legend-label {
+    white-space: nowrap;
+  }
+
+  .map-legend-row {
+    gap: var(--spacing-md);
+  }
+
+  .map-legend-item {
+    min-height: 32px;
+    padding-block: var(--spacing-xxs);
+  }
+
+  .map-legend-only {
+    min-height: 32px;
+    padding-inline: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .map-legend-row .map-legend-check {
+    width: 24px;
+    height: 24px;
+    margin-inline-start: var(--spacing-sm);
+  }
+
+  .map-legend-row .map-legend-check .icon {
+    width: 16px;
+    height: 16px;
   }
 
   .map-legend[data-expanded='false'] .map-legend-panel {
@@ -1551,6 +1581,7 @@ label.category-chip {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--spacing-md);
+  padding-inline: var(--spacing-xs);
 }
 
 .map-legend-title {
@@ -1591,6 +1622,7 @@ label.category-chip {
   border-radius: var(--radius);
   background: var(--color-surface);
   cursor: pointer;
+  margin-inline-start: var(--spacing-sm);
 }
 
 .map-legend-check .icon {
@@ -2100,6 +2132,11 @@ body:has([data-filter-root]) .masthead-nav {
   background-color: var(--color-background) !important;
 }
 
+.maplibregl-ctrl-top-right {
+  top: var(--spacing-sm) !important;
+  right: var(--spacing-sm) !important;
+}
+
 .maplibregl-ctrl-attrib {
   background-color: var(--color-background) !important;
   color: var(--color-muted) !important;
@@ -2108,7 +2145,7 @@ body:has([data-filter-root]) .masthead-nav {
   font-family: var(--font-sans-serif);
   font-size: var(--font-size-xxs);
   white-space: nowrap;
-  margin: var(--spacing-sm);
+  margin: 0 !important;
 }
 
 .maplibregl-ctrl-attrib.maplibregl-compact {
@@ -3459,6 +3496,7 @@ button.title-link:hover {
 
 .hp {
   position: absolute;
+  top: 0;
   left: -9999px;
   width: 1px;
   height: 1px;

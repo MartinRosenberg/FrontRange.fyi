@@ -1,6 +1,7 @@
 ---
 title: St. Louis's Most Walkable Streets
 description: Highlighting the most interesting neighborhoods to explore
+seoDescription: "Maps of St. Louis's most walkable streets: Cherokee Street, South Grand, The Hill, the Delmar Loop, Soulard and more, with the places along each one."
 seoTitle: Most Walkable Streets in St. Louis
 icon: map
 category: Neighborhoods

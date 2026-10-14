@@ -70,10 +70,20 @@ const unwritten = places
   )
 
 const countLabel = `${places.length} ${places.length === 1 ? 'place' : 'places'}`
-const description = `${label} in ${CITY}: ${countLabel}.`
+const highlights = [...written, ...unwritten].slice(0, 3).map((place) => place.data.title)
+const highlightText =
+  highlights.length > 1
+    ? `${highlights.slice(0, -1).join(', ')} and ${highlights[highlights.length - 1]}`
+    : highlights[0]
+const description = highlightText
+  ? `${label} in ${CITY}: ${countLabel} rated and mapped, including ${highlightText}.`
+  : `${label} in ${CITY}: ${countLabel}.`
 ---
 
-<BaseLayout crumb={label} title={`${label} in ${CITY}`} description={description}>
+<BaseLayout
+  crumb={label}
+  title={`${label} in ${CITY}: ${countLabel}, rated and mapped`}
+  description={description}>
   <article>
     <PageMasthead title={`${label} in ${CITY}`} wide>
       <p slot="lede">

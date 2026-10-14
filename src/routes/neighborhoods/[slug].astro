@@ -1,5 +1,6 @@
 ---
 import { CITY, CORRIDORS_TOPIC_ID, REGION, SUPABASE_ENABLED } from '../../lib/site'
+import { placeSchema } from '../../lib/schema'
 import { getCollection, render } from 'astro:content'
 import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
@@ -153,6 +154,32 @@ const spotGroups = groupSpots(spots)
 const mapSpots = await toMapSpots(spots, places)
 
 const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-accent'
+
+const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
+const pageUrl = new URL(`/neighborhoods/${slug}/`, siteOrigin).href
+const center =
+  mapSpots.length > 0
+    ? ([
+        mapSpots.reduce((sum, spot) => sum + spot.coords[0], 0) / mapSpots.length,
+        mapSpots.reduce((sum, spot) => sum + spot.coords[1], 0) / mapSpots.length,
+      ] as [number, number])
+    : undefined
+const schema = placeSchema(
+  {
+    name: title,
+    url: pageUrl,
+    description: metaDescription,
+    image: sharePhoto ? new URL(sharePhoto.src, siteOrigin).href : undefined,
+    center,
+    contains: mapSpots.map((spot) => ({
+      name: spot.title,
+      category: spot.category,
+      url: spot.url ? new URL(spot.url, siteOrigin).href : spot.websiteHref,
+      address: spot.addressLines,
+    })),
+  },
+  siteOrigin,
+)
 ---
 
 <BaseLayout
@@ -162,7 +189,8 @@ const boundaryToken = regionTokenBySlug[region?.slug ?? ''] ?? '--color-map-acce
   ogType="article"
   ogImage={sharePhoto ? rootRelative(sharePhoto.src) : undefined}
   ogImageWidth={sharePhoto ? Number(sharePhoto.attributes.width) : undefined}
-  ogImageHeight={sharePhoto ? Number(sharePhoto.attributes.height) : undefined}>
+  ogImageHeight={sharePhoto ? Number(sharePhoto.attributes.height) : undefined}
+  jsonLd={schema}>
   <div class="map-split detail-split" data-map-split data-view="map">
     <div class="results">
       <article class="content-pane detail-pane">

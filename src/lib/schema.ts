@@ -20,12 +20,13 @@ interface ArticleInput {
   updated?: string
   tags?: string[]
   image?: string
+  about?: { name: string; url: string }[]
 }
 
 export function articleSchema(input: ArticleInput, site: URL) {
   return {
     '@context': CONTEXT,
-    '@type': 'BlogPosting',
+    '@type': input.about?.length ? 'Article' : 'BlogPosting',
     headline: input.title,
     description: input.description,
     url: input.url,
@@ -33,6 +34,9 @@ export function articleSchema(input: ArticleInput, site: URL) {
     datePublished: input.published,
     dateModified: input.updated ?? input.published,
     keywords: input.tags?.length ? input.tags.join(', ') : undefined,
+    about: input.about?.length
+      ? input.about.map((place) => ({ '@type': 'Place', name: place.name, url: place.url }))
+      : undefined,
     author: { '@type': 'Person', name: SITE_NAME, url: site.href },
     publisher: { '@type': 'Organization', name: SITE_NAME, url: site.href },
   }
@@ -87,5 +91,47 @@ export function restaurantSchema(input: RestaurantInput) {
     itemReviewed: restaurant,
     reviewRating: { '@type': 'Rating', ratingValue: input.rating, bestRating: 10, worstRating: 0 },
     author: { '@type': 'Person', name: SITE_NAME },
+  }
+}
+
+const PLACE_TYPES: Record<string, string> = {
+  landmark: 'LandmarksOrHistoricalBuildings',
+  museum: 'Museum',
+  park: 'Park',
+  market: 'GroceryStore',
+  mural: 'TouristAttraction',
+  thrift: 'Store',
+  records: 'Store',
+  books: 'BookStore',
+  food: 'Restaurant',
+}
+
+interface PlaceInput {
+  name: string
+  url: string
+  description?: string
+  image?: string
+  center?: [number, number]
+  contains: { name: string; category: string; url?: string; address?: string[] }[]
+}
+
+export function placeSchema(input: PlaceInput, site: URL) {
+  return {
+    '@context': CONTEXT,
+    '@type': 'Place',
+    name: input.name,
+    url: input.url,
+    description: input.description,
+    image: input.image,
+    geo: input.center
+      ? { '@type': 'GeoCoordinates', latitude: input.center[1], longitude: input.center[0] }
+      : undefined,
+    containedInPlace: { '@type': 'City', name: 'St. Louis', url: site.href },
+    containsPlace: input.contains.map((place) => ({
+      '@type': PLACE_TYPES[place.category] ?? 'Place',
+      name: place.name,
+      url: place.url,
+      address: place.address?.length ? postalAddress(place.address) : undefined,
+    })),
   }
 }
