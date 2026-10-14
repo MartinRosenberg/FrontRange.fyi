@@ -2,7 +2,7 @@
 title: Palacios Mexican Restaurant
 created: 2026-10-13
 status: want-to-try
-description: Cash-only Mexican restaurant on South Grand
+description: Cash-only Mexican restaurant
 cuisine: ['mexican']
 neighborhood: dutchtown
 address:

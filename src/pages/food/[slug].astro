@@ -299,6 +299,9 @@ const seoDescription = hasBody(entry)
 
           <footer>
             <Backlinks links={mentionedIn} />
+            <p class="review-disclaimer">
+              Reviews are my opinion. Hours and details change, so check before you go.
+            </p>
           </footer>
         </div>
         <aside class="detail-aside">
@@ -384,6 +387,12 @@ const seoDescription = hasBody(entry)
 </script>
 
 <style>
+  .review-disclaimer {
+    margin-block: var(--spacing-lg) 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-muted);
+  }
+
   .detail-page {
     margin-block-end: var(--spacing-xl);
   }

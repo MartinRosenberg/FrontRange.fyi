@@ -1,5 +1,6 @@
 ---
 title: Ices Plain & Fancy
+photo: ../images/food/ices.jpg
 created: 2026-10-13
 status: tried
 description: Ice cream flash-churned to order with liquid nitrogen

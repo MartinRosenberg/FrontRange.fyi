@@ -17,12 +17,12 @@ const LEGEND_DOT_LIMIT = 4
 
 {
   categories.length > 0 && (
-    <div class="map-legend" data-map-legend data-expanded="true">
+    <div class="map-legend" data-map-legend data-expanded="false">
       <button
         type="button"
         class="map-legend-toggle map-overlay"
         data-legend-toggle
-        aria-expanded="true"
+        aria-expanded="false"
         aria-controls="map-legend-panel">
         <span class="map-legend-dots" data-legend-dots aria-hidden="true">
           {active.slice(0, LEGEND_DOT_LIMIT).map((key) => (

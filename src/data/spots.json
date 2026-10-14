@@ -105,7 +105,7 @@
     "name": "Chase Park Plaza",
     "category": "landmark",
     "neighborhoods": ["central-west-end"],
-    "description": "The 1920s landmark hotel on Forest Park's edge, with its cinema and rooftop pool.",
+    "description": "The 1920s landmark hotel, with its cinema and rooftop pool.",
     "address": "212 N Kingshighway Blvd",
     "coords": [-90.26371, 38.64423]
   },
@@ -140,6 +140,7 @@
     "name": "The District",
     "category": "landmark",
     "neighborhoods": ["chesterfield"],
+    "url": "https://www.thedistrictstl.com/",
     "description": "An entertainment district with The Factory music venue, Topgolf, restaurants, and breweries.",
     "address": "17057 N Outer 40 Rd",
     "coords": [-90.594, 38.6716]
@@ -164,6 +165,7 @@
     "name": "Sophia M. Sachs Butterfly House",
     "category": "landmark",
     "neighborhoods": ["chesterfield"],
+    "url": "https://www.missouribotanicalgarden.org/plan-your-visit/family-of-attractions/butterfly-house",
     "description": "A Missouri Botanical Garden division in Faust Park with butterflies in free flight.",
     "address": "15193 Olive Blvd",
     "coords": [-90.54324, 38.66249]
@@ -196,7 +198,7 @@
     "name": "Missouri History Museum",
     "category": "museum",
     "url": "https://mohistory.org",
-    "description": "A free museum of St. Louis and regional history, at the north edge of Forest Park.",
+    "description": "A free museum of St. Louis and regional history.",
     "coords": [-90.2864, 38.6454],
     "neighborhoods": ["debaliviere-place", "forest-park"],
     "address": "5700 Lindell Blvd"
@@ -240,7 +242,7 @@
     "category": "books",
     "neighborhoods": ["delmar-loop"],
     "url": "https://store.subbooks.com/",
-    "description": "Independent new-book shop in the Loop, in business since 2000.",
+    "description": "Independent new-book shop, in business since 2000.",
     "address": "6271 Delmar Blvd",
     "coords": [-90.30242, 38.65584]
   },
@@ -293,6 +295,7 @@
     "name": "Citygarden",
     "category": "park",
     "neighborhoods": ["downtown"],
+    "url": "https://citygardenstl.org/",
     "description": "A downtown sculpture park with fountains and public art.",
     "address": "801 Market St",
     "coords": [-90.19428, 38.62694]
@@ -367,6 +370,7 @@
     "name": "Lafayette Park",
     "category": "park",
     "neighborhoods": ["lafayette-square"],
+    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=52",
     "description": "A charming park with a lake and an iron bridge.",
     "address": "2023 Lafayette Ave",
     "coords": [-90.21606, 38.61602]
@@ -399,6 +403,7 @@
     "name": "Saratoga Lanes",
     "category": "landmark",
     "neighborhoods": ["maplewood"],
+    "url": "https://www.saratoga-lanes.com/",
     "description": "A historic second-floor bowling alley, one of the oldest still running in the region.",
     "address": "2725 Sutton Blvd",
     "coords": [-90.32001, 38.61183]
@@ -408,7 +413,7 @@
     "category": "books",
     "neighborhoods": ["maplewood"],
     "url": "https://www.bookhousestl.com/",
-    "description": "Independent bookstore on Manchester Road, with used and rare titles sold online.",
+    "description": "Independent bookstore, with used and rare titles sold online.",
     "address": "7352 Manchester Rd",
     "coords": [-90.31845, 38.61287]
   },
@@ -478,7 +483,7 @@
   {
     "name": "Cortex Innovation Community",
     "category": "landmark",
-    "neighborhoods": ["midtown"],
+    "neighborhoods": ["midtown", "central-west-end"],
     "url": "https://www.cortexstl.org/",
     "description": "A 200-acre tech and startup district, the region's innovation hub.",
     "address": "4240 Duncan Ave",
@@ -488,6 +493,7 @@
     "name": "thorn Vintage",
     "category": "thrift",
     "neighborhoods": ["midtown"],
+    "url": "https://www.cityfoundrystl.com/directory/thorn-vintage",
     "description": "Vintage shop inside City Foundry.",
     "address": "3730 Foundry Way",
     "coords": [-90.23979, 38.6336]
@@ -547,6 +553,7 @@
     "name": "Soulard Farmers Market",
     "category": "market",
     "neighborhoods": ["soulard"],
+    "url": "https://www.stlouis-mo.gov/soulard-market/index.cfm",
     "description": "One of the oldest public markets in the country.",
     "address": "730 Carroll St",
     "coords": [-90.20114, 38.61065]
@@ -664,12 +671,20 @@
     "coords": [-90.29949, 38.56982]
   },
   {
-    "name": "The Grove neon sign",
+    "name": "The Grove sign (east)",
     "category": "landmark",
     "neighborhoods": ["the-grove"],
-    "description": "The neighborhood's landmark neon entry sign arching over Manchester Avenue.",
+    "description": "Neon entry sign arching over the east end of Manchester Avenue.",
     "address": "Manchester Ave east arch",
     "coords": [-90.24989, 38.62794]
+  },
+  {
+    "name": "The Grove sign (west)",
+    "category": "landmark",
+    "neighborhoods": ["the-grove"],
+    "description": "Neon entry sign arching over the west end of Manchester Avenue.",
+    "address": "Manchester Ave west arch",
+    "coords": [-90.2621, 38.62625]
   },
   {
     "name": "St. Ambrose Catholic Church",
@@ -717,7 +732,7 @@
     "category": "market",
     "neighborhoods": ["the-hill"],
     "url": "https://www.volpifoods.com",
-    "description": "Cured-meat maker on The Hill, family owned since 1902.",
+    "description": "Cured-meat maker, family owned since 1902.",
     "address": "5263 Northrup Ave",
     "coords": [-90.27393, 38.62038]
   },
@@ -725,6 +740,7 @@
     "name": "The Hill Antique Market",
     "category": "thrift",
     "neighborhoods": ["the-hill"],
+    "url": "https://hillantiques.com/",
     "description": "Warehouse market with about 50 vendors of mid-century furniture, vinyl and vintage clothing.",
     "address": "4923 Daggett Ave",
     "coords": [-90.26749, 38.61673]
@@ -733,6 +749,7 @@
     "name": "The Piper Palm House",
     "category": "landmark",
     "neighborhoods": ["tower-grove-park"],
+    "url": "https://www.towergrovepark.org/piper-palm-house-1",
     "description": "A glass conservatory with a lily pond and a bandstand.",
     "address": "4256 Magnolia Ave",
     "coords": [-90.25716, 38.60777]
@@ -740,17 +757,18 @@
   {
     "name": "Tower Grove Farmers' Market",
     "category": "market",
-    "description": "A popular Saturday farmers market held in Tower Grove Park.",
+    "description": "A popular Saturday farmers market.",
     "address": "4256 Magnolia Ave",
     "coords": [-90.2575, 38.607],
-    "neighborhoods": ["tower-grove-park", "tower-grove-south"]
+    "neighborhoods": ["tower-grove-park", "tower-grove-south"],
+    "url": "https://tgfarmersmarket.com/"
   },
   {
     "name": "Carpenter Branch Library",
     "category": "landmark",
     "neighborhoods": ["tower-grove-south"],
     "url": "https://www.slpl.org/locations/carpenter/",
-    "description": "St. Louis Public Library's branch on the South Grand strip.",
+    "description": "A St. Louis Public Library branch.",
     "address": "3309 S Grand Blvd",
     "coords": [-90.24347, 38.59662]
   },
@@ -780,10 +798,11 @@
     "coords": [-90.26103, 38.6042]
   },
   {
-    "name": "Jay's International Food Co.",
+    "name": "Jay International Foods",
     "category": "market",
     "neighborhoods": ["tower-grove-south"],
-    "description": "International grocery on South Grand stocking Asian, Latin American, African and European staples under one roof.",
+    "url": "https://www.jayfoodsmarket.com/",
+    "description": "International grocery stocking Asian, Latin American, African and European staples under one roof.",
     "address": "3172 S Grand Blvd",
     "coords": [-90.24254, 38.60013]
   },
@@ -791,7 +810,7 @@
     "name": "Circa: Now! Records",
     "category": "records",
     "neighborhoods": ["tower-grove-south"],
-    "description": "Used and new vinyl shop on South Grand.",
+    "description": "Used and new vinyl shop.",
     "address": "3238 S Grand Blvd",
     "coords": [-90.24281, 38.59834]
   },
@@ -800,7 +819,7 @@
     "category": "books",
     "neighborhoods": ["tower-grove-south"],
     "url": "https://www.dunawaybooks.com/",
-    "description": "Two-floor used bookstore on the South Grand strip.",
+    "description": "Two-floor used bookstore.",
     "address": "3111 S Grand Blvd",
     "coords": [-90.24239, 38.60246]
   },
@@ -852,7 +871,7 @@
     "category": "books",
     "neighborhoods": ["webster-groves"],
     "url": "https://www.thenovelneighbor.com/",
-    "description": "Independent bookstore in Old Orchard with a regular author-event calendar.",
+    "description": "Independent bookstore with a regular author-event calendar.",
     "address": "7905 Big Bend Blvd",
     "coords": [-90.33437, 38.59492]
   },
@@ -977,7 +996,7 @@
     "category": "records",
     "neighborhoods": ["delmar-loop", "university-city"],
     "url": "https://vintagevinyl.com/",
-    "description": "Independent record store on the Loop since 1979, with new and used vinyl, CDs and in-store shows.",
+    "description": "Independent record store since 1979, with new and used vinyl, CDs and in-store shows.",
     "address": "6610 Delmar Blvd",
     "coords": [-90.30585, 38.65597]
   },
@@ -994,7 +1013,7 @@
     "category": "records",
     "neighborhoods": ["webster-groves"],
     "url": "https://euclidrecords.com/",
-    "description": "Two floors of new and used vinyl and CDs, in business since 1981 and now in Old Webster.",
+    "description": "Two floors of new and used vinyl and CDs, in business since 1981.",
     "address": "19 N Gore Ave",
     "coords": [-90.35967, 38.59361]
   },
@@ -1092,8 +1111,59 @@
     "name": "Fantasy Shop",
     "category": "games",
     "neighborhoods": ["maplewood"],
-    "description": "Comic book and game store in Maplewood Square, part of a local chain founded in 1981.",
+    "description": "Comic book and game store, part of a local chain founded in 1981.",
     "address": "7329 Manchester Rd, Maplewood, MO",
     "coords": [-90.31797, 38.61317]
+  },
+  {
+    "name": "Apotheosis Comics & Lounge",
+    "category": "books",
+    "neighborhoods": ["tower-grove-south"],
+    "description": "Comic book shop with a bar lounge, open since 2017.",
+    "address": "3206 S Grand Blvd",
+    "coords": [-90.24267, 38.59924]
+  },
+  {
+    "name": "Apotheosis Comics (Cherokee)",
+    "category": "books",
+    "neighborhoods": ["benton-park-west"],
+    "description": "Second Apotheosis shop at Jefferson and Cherokee, with graphic novels, pop culture goods and art.",
+    "address": "3359 S Jefferson Ave",
+    "coords": [-90.22586, 38.59344]
+  },
+  {
+    "name": "Art Hill",
+    "category": "landmark",
+    "neighborhoods": ["forest-park"],
+    "description": "The sloping lawn below the Saint Louis Art Museum, down to the Grand Basin, topped by the 1906 Apotheosis of St. Louis statue.",
+    "address": "Fine Arts Dr",
+    "coords": [-90.2943, 38.6383]
+  },
+  {
+    "name": "Benton Park",
+    "category": "park",
+    "neighborhoods": ["benton-park"],
+    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=17",
+    "description": "Victorian-era city park with a pond and footbridges, the neighborhood's namesake.",
+    "address": "Jefferson Ave & Arsenal St",
+    "coords": [-90.22264, 38.5973]
+  },
+  {
+    "name": "Compton Hill Reservoir Park",
+    "category": "park",
+    "neighborhoods": ["compton-heights"],
+    "url": "https://www.stlouis-mo.gov/parks/parks/browse-parks/view-park.cfm?parkID=29",
+    "description": "Thirty-six-acre city park from 1867 around the reservoir, with a dog park.",
+    "address": "Grand Blvd & Lafayette Ave",
+    "coords": [-90.23742, 38.61459]
+  },
+  {
+    "name": "Compton Hill Water Tower",
+    "category": "landmark",
+    "neighborhoods": ["compton-heights"],
+    "url": "https://watertowerfoundation.org/",
+    "description": "179-foot standpipe tower designed by Harvey Ellis in 1898, one of a handful of 19th-century water towers still standing. Closed for preservation work.",
+    "address": "Grand Blvd & Russell Blvd",
+    "coords": [-90.23897, 38.61498]
   }
 ]
