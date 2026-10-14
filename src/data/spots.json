@@ -146,14 +146,6 @@
     "coords": [-90.594, 38.6716]
   },
   {
-    "name": "Chesterfield Valley Outlets",
-    "category": "landmark",
-    "neighborhoods": ["chesterfield"],
-    "description": "One of the region's largest outlet-shopping areas",
-    "address": "18521 Outlet Blvd",
-    "coords": [-90.66062, 38.67609]
-  },
-  {
     "name": "Faust Park",
     "category": "park",
     "neighborhoods": ["chesterfield"],
@@ -392,14 +384,6 @@
     "coords": [-90.30741, 38.59714]
   },
   {
-    "name": "Donut Drive-In",
-    "category": "landmark",
-    "neighborhoods": ["lindenwood-park"],
-    "description": "A 1950s Route 66-era donut and coffee stand on the neighborhood's Chippewa edge.",
-    "address": "6525 Chippewa St",
-    "coords": [-90.30283, 38.59219]
-  },
-  {
     "name": "Saratoga Lanes",
     "category": "landmark",
     "neighborhoods": ["maplewood"],
@@ -577,15 +561,6 @@
     "coords": [-90.2032, 38.60723]
   },
   {
-    "name": "St. Vincent de Paul Parish",
-    "category": "landmark",
-    "neighborhoods": ["soulard"],
-    "url": "https://stvstl.org",
-    "description": "One of the oldest active churches in St. Louis, founded in 1841 with construction begun in 1843.",
-    "address": "1408 S 10th St",
-    "coords": [-90.20102, 38.61342]
-  },
-  {
     "name": "Historic Trinity Lutheran Church",
     "category": "landmark",
     "neighborhoods": ["soulard"],
@@ -593,14 +568,6 @@
     "description": "Congregation founded by Saxon immigrants in 1839; the present church was rebuilt after an 1896 storm.",
     "address": "812 Soulard St",
     "coords": [-90.20292, 38.60932]
-  },
-  {
-    "name": "St. Joseph Croatian Catholic Church",
-    "category": "landmark",
-    "neighborhoods": ["soulard"],
-    "description": "Croatian national parish organized in 1902, with its church dedicated in 1904.",
-    "address": "2112 S 12th St",
-    "coords": [-90.20952, 38.6073]
   },
   {
     "name": "Soulard Art Gallery",
@@ -612,24 +579,6 @@
     "coords": [-90.20932, 38.60779]
   },
   {
-    "name": "Hesch House (Landmarks Association)",
-    "category": "landmark",
-    "neighborhoods": ["soulard"],
-    "url": "https://landmarks-stl.org",
-    "description": "One of the city's oldest buildings, rehabilitated as the home of the Landmarks Association of St. Louis.",
-    "address": "1805 S 9th St",
-    "coords": [-90.20376, 38.60985]
-  },
-  {
-    "name": "Soulard Station",
-    "category": "landmark",
-    "neighborhoods": ["soulard"],
-    "url": "https://soulard.org",
-    "description": "Community hall of the Soulard Restoration Group, the neighborhood association since 1972.",
-    "address": "1911 S 12th St",
-    "coords": [-90.20916, 38.60939]
-  },
-  {
     "name": "Vincent's 12th Street Market",
     "category": "market",
     "neighborhoods": ["soulard"],
@@ -637,22 +586,6 @@
     "description": "Neighborhood grocer with a meat counter at 12th and Barton, in business since 1912.",
     "address": "2400 S 12th St",
     "coords": [-90.21106, 38.60371]
-  },
-  {
-    "name": "Hampton Village",
-    "category": "landmark",
-    "neighborhoods": ["southampton"],
-    "description": "Opened in 1939 as a one-stop shopping center with off-street parking, in colonial-style buildings.",
-    "address": "Hampton Ave & Chippewa St",
-    "coords": [-90.29306, 38.59202]
-  },
-  {
-    "name": "Cunetto House of Pasta",
-    "category": "landmark",
-    "neighborhoods": ["southwest-garden"],
-    "description": "A longtime Magnolia Avenue Italian institution the neighborhood is known for.",
-    "address": "5453 Magnolia Ave",
-    "coords": [-90.28005, 38.61018]
   },
   {
     "name": "Francis Park",
@@ -762,31 +695,6 @@
     "coords": [-90.2575, 38.607],
     "neighborhoods": ["tower-grove-park", "tower-grove-south"],
     "url": "https://tgfarmersmarket.com/"
-  },
-  {
-    "name": "Carpenter Branch Library",
-    "category": "landmark",
-    "neighborhoods": ["tower-grove-south"],
-    "url": "https://www.slpl.org/locations/carpenter/",
-    "description": "A St. Louis Public Library branch.",
-    "address": "3309 S Grand Blvd",
-    "coords": [-90.24347, 38.59662]
-  },
-  {
-    "name": "Tower Grove Bank Building",
-    "category": "landmark",
-    "neighborhoods": ["tower-grove-south"],
-    "description": "The 1911 home of Tower Grove Bank; the name is still in the terra cotta.",
-    "address": "3151 S Grand Blvd",
-    "coords": [-90.24259, 38.60119]
-  },
-  {
-    "name": "Dickmann Building",
-    "category": "landmark",
-    "neighborhoods": ["tower-grove-south"],
-    "description": "Six-story 1926 building on the National Register, named for Mayor Bernard Dickmann.",
-    "address": "3115 S Grand Blvd",
-    "coords": [-90.2424, 38.60241]
   },
   {
     "name": "Local Harvest Grocery",
@@ -1111,7 +1019,7 @@
     "name": "Fantasy Shop",
     "category": "games",
     "neighborhoods": ["maplewood"],
-    "description": "Comic book and game store, part of a local chain founded in 1981.",
+    "description": "Comic book and game store, part of a local chain",
     "address": "7329 Manchester Rd, Maplewood, MO",
     "coords": [-90.31797, 38.61317]
   },
@@ -1119,7 +1027,7 @@
     "name": "Apotheosis Comics & Lounge",
     "category": "books",
     "neighborhoods": ["tower-grove-south"],
-    "description": "Comic book shop with a bar lounge, open since 2017.",
+    "description": "Comic book shop with a bar lounge",
     "address": "3206 S Grand Blvd",
     "coords": [-90.24267, 38.59924]
   },
