@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { format, resolveConfig } from 'prettier'
 import { CITY, REGION } from '../site.config.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
@@ -40,7 +41,11 @@ for (const spot of spots) {
   console.log(`${label} -> ${spot.coords.join(', ')}`)
 }
 
-writeFileSync(spotsPath, `${JSON.stringify(spots, null, 2)}\n`)
+const prettierOptions = await resolveConfig(spotsPath)
+writeFileSync(
+  spotsPath,
+  await format(JSON.stringify(spots), { ...prettierOptions, filepath: spotsPath }),
+)
 console.log(`Resolved ${resolved} spot${resolved === 1 ? '' : 's'}.`)
 if (unresolved.length > 0) {
   console.log(`Could not resolve:\n  ${unresolved.join('\n  ')}`)

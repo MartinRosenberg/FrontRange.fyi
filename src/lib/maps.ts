@@ -1,3 +1,7 @@
+export function googleSearchHref(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+}
+
 export function googleMapsHref(place: {
   title: string
   address?: string[]
@@ -10,5 +14,5 @@ export function googleMapsHref(place: {
     query = place.coords.join(',')
   }
 
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
+  return googleSearchHref(query)
 }

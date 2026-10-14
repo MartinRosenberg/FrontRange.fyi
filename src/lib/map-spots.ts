@@ -2,7 +2,7 @@ import type { CollectionEntry } from 'astro:content'
 import { getImage } from 'astro:assets'
 import { hasBody } from './content'
 import { cuisineLabel } from './cuisine'
-import { googleMapsHref } from './maps'
+import { googleMapsHref, googleSearchHref } from './maps'
 import { spotCategories, type MapSpot, type Spot } from './spots'
 import { href } from './url'
 import { resolveVerdict, verdictLabels } from './verdict'
@@ -22,11 +22,14 @@ export function spotDirectionsHref(spot: Spot): string | undefined {
     return undefined
   }
 
-  return googleMapsHref({
-    title: spot.name,
-    address: spot.address ? [spot.address, 'St. Louis, MO'] : undefined,
-    coords: [spot.coords[1], spot.coords[0]],
-  })
+  if (!spot.address) {
+    return googleSearchHref(`${spot.name}, St. Louis, MO`)
+  }
+
+  const location = `${spot.address}, St. Louis, MO`
+  const query = spot.category === 'mural' ? location : `${spot.name}, ${location}`
+
+  return googleSearchHref(query)
 }
 
 export function spotToMapSpot(spot: Spot): MapSpot | undefined {

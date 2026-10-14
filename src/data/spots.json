@@ -1073,5 +1073,46 @@
     "description": "179-foot standpipe tower designed by Harvey Ellis in 1898, one of a handful of 19th-century water towers still standing. Closed for preservation work.",
     "address": "Grand Blvd & Russell Blvd",
     "coords": [-90.23897, 38.61498]
+  },
+  {
+    "name": "Welcome to the Lou",
+    "category": "mural",
+    "neighborhoods": ["boulevard-heights"],
+    "description": "Mural by St. Louis Sign & Mural.",
+    "address": "4600 Loughborough Ave",
+    "coords": [-90.28305, 38.56867]
+  },
+  {
+    "name": "Nothing Impossible",
+    "category": "mural",
+    "neighborhoods": ["benton-park-west"],
+    "description": "Mural by Robert, Liza and Tyler Fishbone, painted in 2018.",
+    "address": "3159 Cherokee St",
+    "coords": [-90.23671, 38.59483]
+  },
+  {
+    "name": "Evolution of the Bike",
+    "category": "mural",
+    "neighborhoods": ["the-grove"],
+    "url": "https://racstl.org/public-art/evolution-of-the-bike/",
+    "description": "Mural by Grace McCammond, unveiled in 2012 for the Tour de Grove bike race.",
+    "address": "4301 Manchester Ave",
+    "coords": [-90.25703, 38.62704]
+  },
+  {
+    "name": "Greetings from St. Louis",
+    "category": "mural",
+    "neighborhoods": ["north-hampton"],
+    "description": "Vintage postcard-style mural of St. Louis landmarks.",
+    "address": "3537 S Kingshighway Blvd",
+    "coords": [-90.2717, 38.59467]
+  },
+  {
+    "name": "The Grove Postcard",
+    "category": "mural",
+    "neighborhoods": ["the-grove"],
+    "description": "Paint-by-numbers community mural by Grace McCammond from Grove Fest 2010.",
+    "address": "4116 Manchester Ave",
+    "coords": [-90.25083, 38.62771]
   }
 ]
