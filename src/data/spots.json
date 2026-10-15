@@ -205,15 +205,6 @@
     "coords": [-90.29791, 38.65555]
   },
   {
-    "name": "Tivoli Theatre",
-    "category": "landmark",
-    "neighborhoods": ["delmar-loop"],
-    "url": "https://visittheloop.com/",
-    "description": "A restored 1924 movie theatre showing indie films and classics.",
-    "address": "6350 Delmar Blvd",
-    "coords": [-90.30358, 38.65566]
-  },
-  {
     "name": "St. Louis Walk of Fame",
     "category": "landmark",
     "neighborhoods": ["delmar-loop"],
