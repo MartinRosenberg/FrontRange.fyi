@@ -971,6 +971,68 @@
     "coords": [-90.19231, 38.62426]
   },
   {
+    "name": "Central Library",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://www.slpl.org/locations/central/",
+    "description": "Flagship of the St. Louis Public Library, a 1912 Cass Gilbert building restored in 2012.",
+    "address": "1301 Olive St",
+    "coords": [-90.19946, 38.63076]
+  },
+  {
+    "name": "Soldiers Memorial Military Museum",
+    "category": "museum",
+    "neighborhoods": ["downtown"],
+    "url": "https://mohistory.org/memorial",
+    "description": "Free military history museum in a memorial building dedicated in 1938.",
+    "address": "1315 Chestnut St",
+    "coords": [-90.20005, 38.62902]
+  },
+  {
+    "name": "Court of Honor",
+    "category": "park",
+    "neighborhoods": ["downtown"],
+    "description": "Landscaped plaza and reflecting pool with memorial walls naming St. Louisans who died in World War II, Korea and Vietnam.",
+    "address": "Chestnut St, 13th to 14th St",
+    "coords": [-90.2005, 38.62827]
+  },
+  {
+    "name": "Campbell House Museum",
+    "category": "museum",
+    "neighborhoods": ["downtown"],
+    "url": "https://campbellhousemuseum.org/",
+    "description": "1851 townhouse preserved with the Campbell family's original furnishings.",
+    "address": "1508 Locust St",
+    "coords": [-90.20185, 38.63128]
+  },
+  {
+    "name": "Stifel Theatre",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://www.stifeltheatre.com/",
+    "description": "Concert hall opened in 1934 as the Kiel Opera House.",
+    "address": "1400 Market St",
+    "coords": [-90.20205, 38.62752]
+  },
+  {
+    "name": "Old Courthouse",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://www.nps.gov/jeff/planyourvisit/och.htm",
+    "description": "Where the Dred Scott case was first tried, reopened in 2025 after a renovation.",
+    "address": "11 N 4th St",
+    "coords": [-90.18935, 38.62573]
+  },
+  {
+    "name": "Basilica of St. Louis, King of France",
+    "category": "landmark",
+    "neighborhoods": ["downtown"],
+    "url": "https://www.oldcathedralstl.org/",
+    "description": "The Old Cathedral, completed in 1834.",
+    "address": "209 Walnut St",
+    "coords": [-90.18727, 38.62409]
+  },
+  {
     "name": "Jewel Box",
     "category": "landmark",
     "neighborhoods": ["forest-park"],

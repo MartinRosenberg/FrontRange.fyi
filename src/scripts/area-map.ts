@@ -3,6 +3,7 @@ import type { ExpressionSpecification } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { buildPopupHtml, escapeHtml, type PopupChip } from './popup'
+import { officialParts } from './boundaries'
 import {
   BADGE_POPUP_OFFSET,
   PIN_POPUP_OFFSET,
@@ -143,6 +144,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     ]
   }
 
+  const partsPromise = officialParts()
   let geojson: FeatureCollection
   try {
     const response = await fetch(`${import.meta.env.BASE_URL}${NEIGHBORHOOD_BOUNDARIES_FILE}`)
@@ -163,6 +165,8 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   const SOURCE_ID = 'neighborhoods'
   const FILL_LAYER = 'neighborhoods-fill'
   const LINE_LAYER = 'neighborhoods-line'
+  const PARTS_SOURCE_ID = 'neighborhood-parts'
+  const PARTS_LINE_LAYER = 'neighborhood-parts-line'
   const slugToFeatureIds = new Map<string, number[]>()
   const centerBySlug = new Map<string, [number, number]>()
   const boundsBySlug = new Map<string, maplibregl.LngLatBounds>()
@@ -191,6 +195,15 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
       regionKeyBySlug.set(slug, region)
     }
   })
+
+  const parts: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: (await partsPromise).map((part) => {
+      const entry = byNumber.get(Number(part.properties?.NHD_NUM))
+
+      return { ...part, properties: { region: regionKeyForArea(entry) } } as Feature
+    }),
+  }
 
   const map = createBasemapMap(element, { minZoom: 10, maxZoom: 16 })
 
@@ -294,6 +307,22 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
             0.3,
             0.1,
           ],
+        },
+      })
+    }
+    if (!map.getSource(PARTS_SOURCE_ID)) {
+      map.addSource(PARTS_SOURCE_ID, { type: 'geojson', data: parts })
+    }
+    if (!map.getLayer(PARTS_LINE_LAYER)) {
+      map.addLayer({
+        id: PARTS_LINE_LAYER,
+        type: 'line',
+        source: PARTS_SOURCE_ID,
+        paint: {
+          'line-color': regionColorExpression(),
+          'line-width': 1.25,
+          'line-opacity': 0.7,
+          'line-dasharray': [2, 2],
         },
       })
     }
@@ -568,6 +597,9 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
       }
       if (map.getLayer(LINE_LAYER)) {
         map.setPaintProperty(LINE_LAYER, 'line-color', regionColorExpression())
+      }
+      if (map.getLayer(PARTS_LINE_LAYER)) {
+        map.setPaintProperty(PARTS_LINE_LAYER, 'line-color', regionColorExpression())
       }
     })
     frameWhenSized()

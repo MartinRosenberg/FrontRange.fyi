@@ -279,7 +279,7 @@ Carondelet is an interesting part of St. Louis that was originally its own city 
 
 I didn't really know there was anything in Carondelet aside from [[stacked-stl|Stacked]] (burgers) and Sugarwitch (ice cream sandwiches) but I recently discovered there's a whole strip of bars along the riverfront. Most of St. Louis is not along the riverfront as it's mostly been historically used for industry, so that's kind of interesting.
 
-I have not personally explored this area outside of driving through and I don't know how much I would recommend taking a stroll around the neighborhood - there were a lot of boarded up buildings along the strip in between the bars and live music venues.
+I have not personally explored this area outside of driving through and I don't know how much I would recommend taking a stroll around the neighborhood if you don't know where you're going - there were a lot of boarded up buildings along the strip in between the bars and live music venues.
 
 ## DeMun
 
