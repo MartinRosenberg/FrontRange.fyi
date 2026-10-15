@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content'
 import { getChangelog } from '../lib/changelog'
-import { formatDay, formatMonthShort } from '../lib/dates'
+import { formatDay, formatMonthShort, isoDate } from '../lib/dates'
 import { href } from '../lib/url'
 import PanelHeading from './PanelHeading.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
@@ -29,7 +29,7 @@ const latestUpdates = changes
     {
       latestUpdates.map((update) => (
         <li>
-          <time class="date-stamp" datetime={update.date.toISOString()}>
+          <time class="date-stamp" datetime={isoDate(update.date)}>
             <span class="eyebrow eyebrow--muted">{formatMonthShort(update.date)}</span>
             <span class="date-stamp-day">{formatDay(update.date)}</span>
           </time>

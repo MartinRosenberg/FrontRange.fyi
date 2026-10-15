@@ -64,6 +64,8 @@ interface RestaurantInput {
   cuisine?: string[]
   rating?: number
   image?: string
+  published?: string
+  updated?: string
 }
 
 export function restaurantSchema(input: RestaurantInput) {
@@ -88,6 +90,8 @@ export function restaurantSchema(input: RestaurantInput) {
     '@type': 'Review',
     itemReviewed: restaurant,
     reviewRating: { '@type': 'Rating', ratingValue: input.rating, bestRating: 10, worstRating: 0 },
+    datePublished: input.published,
+    dateModified: input.updated ?? input.published,
     author: { '@type': 'Person', name: SITE_NAME },
   }
 }

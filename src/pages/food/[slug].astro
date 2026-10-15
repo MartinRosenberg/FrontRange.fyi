@@ -19,6 +19,7 @@ import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { published, excerpt, hasBody, foodStatus, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { isoDate } from '../../lib/dates'
 import { getBacklinks } from '../../lib/backlinks'
 import { neighborhoodHref, neighborhoodName, placeLocality } from '../../lib/neighborhoods'
 import { resolveVerdict, resolveWriterState, verdictLabels } from '../../lib/verdict'
@@ -54,6 +55,9 @@ const sharePhoto = data.photo
   : undefined
 const shareImage = sharePhoto ? rootRelative(sharePhoto.src) : data.ogImage
 
+const publishedDate = hasBody(entry) && data.created ? isoDate(data.created) : undefined
+const modifiedDate = hasBody(entry) && lastUpdated ? isoDate(lastUpdated) : undefined
+
 const schema = restaurantSchema({
   name: data.title,
   url: new URL(`/food/${entry.id}/`, Astro.site ?? Astro.url.origin).href,
@@ -62,6 +66,8 @@ const schema = restaurantSchema({
   coords: data.coords,
   cuisine: data.cuisine,
   rating: data.rating,
+  published: publishedDate,
+  updated: modifiedDate,
 })
 
 const allFood = published(await getCollection('food'))
@@ -167,6 +173,8 @@ const seoDescription = hasBody(entry)
   title={seoTitle}
   description={seoDescription}
   ogType="article"
+  publishedTime={publishedDate}
+  modifiedTime={modifiedDate}
   ogImage={shareImage}
   ogImageWidth={sharePhoto ? Number(sharePhoto.attributes.width) : undefined}
   ogImageHeight={sharePhoto ? Number(sharePhoto.attributes.height) : undefined}

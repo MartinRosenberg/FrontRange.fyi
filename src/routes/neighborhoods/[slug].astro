@@ -23,6 +23,7 @@ import { googleMapsHref } from '../../lib/maps'
 import { spotsIn, spotCategories, groupSpots } from '../../lib/spots'
 import { toMapSpots, spotPageHref, spotWebsiteHref, spotDirectionsHref } from '../../lib/map-spots'
 import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { isoDate } from '../../lib/dates'
 import { getBacklinks } from '../../lib/backlinks'
 import {
   foodByNeighborhood,
@@ -190,6 +191,8 @@ const schema = placeSchema(
   description={metaDescription}
   noindex={!hasContent}
   ogType="article"
+  publishedTime={hasWriteup && entry?.data.created ? isoDate(entry.data.created) : undefined}
+  modifiedTime={hasWriteup && lastUpdated ? isoDate(lastUpdated) : undefined}
   ogImage={sharePhoto ? rootRelative(sharePhoto.src) : undefined}
   ogImageWidth={sharePhoto ? Number(sharePhoto.attributes.width) : undefined}
   ogImageHeight={sharePhoto ? Number(sharePhoto.attributes.height) : undefined}

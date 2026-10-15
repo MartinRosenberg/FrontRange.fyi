@@ -11,3 +11,5 @@ export const formatMonthShort = (date: Date): string =>
 
 export const formatDay = (date: Date): string =>
   date.toLocaleDateString('en-US', { day: 'numeric', timeZone: 'UTC' })
+
+export const isoDate = (date: Date): string => date.toISOString().slice(0, 10)

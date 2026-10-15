@@ -48,7 +48,6 @@ Just some thoughts I'm mulling on.
 - Nearby hiking spots
 - Things to do in St. Louis
 - Like and Dislikes of STL
-- Chicago and St. Louis comparison
 - Chains of St. Louis
 - Does the arch control the weather?
 

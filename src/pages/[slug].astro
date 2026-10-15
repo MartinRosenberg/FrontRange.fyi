@@ -12,6 +12,7 @@ import { published } from '../lib/content'
 import { getBacklinks } from '../lib/backlinks'
 import { articleSchema } from '../lib/schema'
 import { href } from '../lib/url'
+import { isoDate } from '../lib/dates'
 import { neighborhoodInfo, allStreets } from '../lib/neighborhoods'
 
 export async function getStaticPaths() {
@@ -40,8 +41,8 @@ const schema = articleSchema(
     url: permalink,
     description: data.seoDescription ?? data.description,
     image: new URL(href(data.ogImage ?? '/og.png'), siteOrigin).href,
-    published: (data.created ?? data.updated).toISOString(),
-    updated: data.updated.toISOString(),
+    published: isoDate(data.created ?? data.updated),
+    updated: isoDate(data.updated),
     about: aboutSlugs.flatMap((slug) => {
       const info = neighborhoodInfo(slug)
 
@@ -61,7 +62,8 @@ const schema = articleSchema(
   description={data.seoDescription ?? data.description}
   ogImage={data.ogImage}
   ogType="article"
-  publishedTime={(data.created ?? data.updated).toISOString()}
+  publishedTime={isoDate(data.created ?? data.updated)}
+  modifiedTime={isoDate(data.updated)}
   jsonLd={schema}>
   {hasBoundaryMap && <BoundaryMap />}
   {hasStreetMap && <StreetMap spots={streetSpots} />}

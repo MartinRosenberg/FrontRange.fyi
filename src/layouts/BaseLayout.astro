@@ -30,6 +30,7 @@ interface Props {
   description?: string
   ogType?: string
   publishedTime?: string
+  modifiedTime?: string
   jsonLd?: object | object[]
   ogImage?: string
   ogImageWidth?: number
@@ -45,6 +46,7 @@ const {
   description,
   ogType = 'website',
   publishedTime,
+  modifiedTime,
   jsonLd,
   ogImage,
   ogImageWidth = 1200,
@@ -159,6 +161,11 @@ const analyticsUrl = analyticsBase
     {
       ogType === 'article' && publishedTime && (
         <meta property="article:published_time" content={publishedTime} />
+      )
+    }
+    {
+      ogType === 'article' && modifiedTime && (
+        <meta property="article:modified_time" content={modifiedTime} />
       )
     }
     <meta name="twitter:card" content="summary_large_image" />

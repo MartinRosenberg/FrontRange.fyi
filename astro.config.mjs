@@ -92,8 +92,14 @@ function frontmatterField(file, field) {
     .replace(/^['"]|['"]$/g, '')
 }
 
+function newestDate(...dates) {
+  return dates.filter(Boolean).sort().at(-1)
+}
+
 function buildLastmod() {
   const map = new Map()
+  const newestByCollection = {}
+  const newestFoodByNeighborhood = new Map()
   const add = (collection, fields, urlFor) => {
     const dir = path.join(contentRoot, collection)
     if (!fs.existsSync(dir)) {
@@ -104,12 +110,24 @@ function buildLastmod() {
       if (!file.endsWith('.md')) {
         continue
       }
-      const value = fields
-        .map((field) => frontmatterField(path.join(dir, file), field))
-        .find(Boolean)
+      const filePath = path.join(dir, file)
+      const value = fields.map((field) => frontmatterField(filePath, field)).find(Boolean)
+      if (!value) {
+        continue
+      }
 
-      if (value) {
+      if (urlFor) {
         map.set(urlFor(file.slice(0, -3)), value)
+      }
+      newestByCollection[collection] = newestDate(newestByCollection[collection], value)
+      if (collection === 'food') {
+        const neighborhood = frontmatterField(filePath, 'neighborhood')
+        if (neighborhood) {
+          newestFoodByNeighborhood.set(
+            neighborhood,
+            newestDate(newestFoodByNeighborhood.get(neighborhood), value),
+          )
+        }
       }
     }
   }
@@ -117,6 +135,19 @@ function buildLastmod() {
   add('topics', ['updated', 'created'], (id) => `/${id}`)
   add('food', ['updated', 'created'], (id) => `/food/${id}`)
   add('neighborhoods', ['updated', 'created'], (id) => `/neighborhoods/${id}`)
+  add('changelog', ['date'])
+
+  for (const [neighborhood, date] of newestFoodByNeighborhood) {
+    const neighborhoodPath = `/neighborhoods/${neighborhood}`
+    map.set(neighborhoodPath, newestDate(map.get(neighborhoodPath), date))
+  }
+
+  const { topics, food, neighborhoods, changelog } = newestByCollection
+  map.set('/food', food)
+  map.set('/neighborhoods', newestDate(food, neighborhoods))
+  map.set('/topics', topics)
+  map.set('/updates', changelog)
+  map.set('/', newestDate(topics, food, neighborhoods, changelog))
 
   return map
 }
