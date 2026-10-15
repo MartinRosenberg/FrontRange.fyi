@@ -65,12 +65,4 @@ export const sections: Section[] = [
     icon: 'info',
     description: 'Why I made this city exploration website.',
   },
-  {
-    label: 'Contact',
-    path: '/contact/',
-    group: 'site',
-    primary: true,
-    icon: 'message-circle-heart',
-    description: 'Let me know your thoughts!',
-  },
 ]

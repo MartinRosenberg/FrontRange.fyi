@@ -235,7 +235,11 @@ function resolve(target) {
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
-  redirects: { '/food/want-to-try/': '/food/', '/food/backlog/': '/food/' },
+  redirects: {
+    '/food/want-to-try/': '/food/',
+    '/food/backlog/': '/food/',
+    '/contact/': '/about/#contact',
+  },
   integrations: [
     optionalRoutes,
     sitemap({

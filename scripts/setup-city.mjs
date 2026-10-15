@@ -171,14 +171,27 @@ if (existsSync(shareImageFolder)) {
 }
 
 writeFileSync(
-  fromRoot('src/pages/about.md'),
+  fromRoot('src/pages/about.astro'),
   `---
-layout: ../layouts/MarkdownPage.astro
-title: About
-description: 'TODO: describe your site.'
+import PageMasthead from '../components/PageMasthead.astro'
+import FeedbackForm from '../components/FeedbackForm.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { SITE_NAME } from '../lib/site'
 ---
 
-TODO: write your About page.
+<BaseLayout article crumb="About" title={\`About \${SITE_NAME}\`} description="TODO: describe your site.">
+  <article>
+    <PageMasthead title="About" />
+
+    <div class="body reading-col">
+      <p>TODO: write your About page.</p>
+
+      <h2 id="contact">Contact</h2>
+
+      <FeedbackForm subject="feedback" />
+    </div>
+  </article>
+</BaseLayout>
 `,
 )
 
@@ -211,7 +224,7 @@ console.log(`
 Done. ${siteName} is set up for ${cityName}. Next:
 
   - Add food posts to src/content/food/ and run npm run dev.
-  - Write src/pages/about.md.
+  - Write src/pages/about.astro.
   - Replace public/logo.svg, the favicons, public/og.png and public/og/food.png.
   - Add any other socials to SOCIALS in site.config.mjs.
   - For neighborhood pages, see MAPS.md.

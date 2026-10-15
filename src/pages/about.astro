@@ -1,0 +1,230 @@
+---
+import PageMasthead from '../components/PageMasthead.astro'
+import FeedbackForm from '../components/FeedbackForm.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { CONTACT_EMAIL, SITE_NAME } from '../lib/site'
+import { href } from '../lib/url'
+
+const description =
+  "St. Louing is an independent guide to the food and neighborhoods of St. Louis. It's a love letter to an underrated city, built in the spirit of the early internet."
+---
+
+<BaseLayout article crumb="About" title={`About ${SITE_NAME}`} description={description}>
+  <article>
+    <PageMasthead title="About">
+      <p slot="lede">My ongoing project to document St. Louis</p>
+    </PageMasthead>
+
+    <div class="body reading-col">
+      <img class="emblem" src="/logo-outlined.svg" alt="St. Louing logo" width="120" height="156" />
+
+      <p>
+        Welcome! St. Louing is a personal project I created to document my experience living in St.
+        Louis and learning to love it.
+      </p>
+
+      <p>
+        I've been on a quest to find <a href={href('/food/')}>the best food in St. Louis</a>, and
+        after realizing I've tried more
+        <a
+          class="wikilink"
+          data-wikilink="st-louis-style-pizza"
+          href={href('/st-louis-style-pizza/')}>St. Louis-style pizza</a
+        >
+        than anyone I know (and have strong opinions about it), I thought a website would be a fun medium
+        to share everything I've discovered.
+      </p>
+
+      <p>
+        The site is not meant to be an absolutely definitive source of information about the STL
+        food scene or neighborhoods, it's mostly a field guide for me to keep track of what I've
+        found and what I like. There is a heavy focus on food as that's my primary way of exploring
+        the city and culture.
+      </p>
+
+      <p>
+        All photography on this site was taken in person, by me, in St. Louis. All content on this
+        site is written by me.
+      </p>
+
+      <h2 id="purpose">Purpose</h2>
+
+      <p>
+        As the internet enshittifies, it becomes harder and harder to find quality content.
+        Everything is about how much data a company can extract from you to show you targeted ads
+        and get you to buy stuff. I miss when much of the internet consisted of text-based personal
+        sites about obscure hobbies and interests, made with love. These sites were slow, and you'd
+        check back every now and then to see if they wrote something new.
+      </p>
+
+      <p>
+        That's the experience I'm trying to recreate here. I have nothing to sell. I don't want your
+        data. I don't want to make money showing you ads or affiliate links. I just want to document
+        my thoughts in a way that's fun for me and possibly interesting or useful to you.
+      </p>
+
+      <p>
+        I'm generally following the principles of the <a href="https://indieweb.org/">IndieWeb</a>.
+      </p>
+
+      <h2 id="contact">Contact</h2>
+
+      <p>
+        I'd love to hear from you! Email me at <a href={`mailto:${CONTACT_EMAIL}`}
+          >{CONTACT_EMAIL}</a
+        > or fill out the form.
+      </p>
+
+      <FeedbackForm subject="feedback" />
+
+      <p>
+        This site is the source of truth, and I'll automatically publish to these other platforms,
+        following the <a href="https://indieweb.org/POSSE">POSSE</a> practice (Publish on your Own Site,
+        Syndicate Elsewhere).
+      </p>
+
+      <ul>
+        <li>
+          <strong>Instagram</strong> - <a href="https://instagram.com/st.louing">st.louing</a>
+        </li>
+        <li>
+          <strong>Substack</strong> - <a href="https://stlouing.substack.com">stlouing</a>
+        </li>
+        <li>
+          <strong>Bluesky</strong> - <a href="https://bsky.app/profile/stlouing.com">stlouing</a>
+        </li>
+        <li><strong>Twitter</strong> - <a href="https://x.com/stlouing">stlouing</a></li>
+        <li><strong>GitHub</strong> - <a href="https://github.com/stlouing">stlouing</a></li>
+        <li>
+          <a href={href('/rss.xml')}><strong>RSS</strong></a>
+        </li>
+      </ul>
+
+      <h2 id="ideas">Ideas</h2>
+
+      <p>Just some thoughts I'm mulling on.</p>
+
+      <ul>
+        <li>A case for St. Louis</li>
+        <li>Nearby hiking spots</li>
+        <li>Things to do in St. Louis</li>
+        <li>Like and Dislikes of STL</li>
+        <li>Chains of St. Louis</li>
+        <li>Does the arch control the weather?</li>
+      </ul>
+
+      <h2 id="uses">Uses</h2>
+
+      <p>A few open-source projects this site relies on.</p>
+
+      <ul>
+        <li>
+          <strong>Host</strong> - <a href="https://docs.github.com/en/pages">Github Pages</a>
+        </li>
+        <li><strong>Web Framework</strong> - <a href="https://astro.build">Astro</a></li>
+        <li>
+          <strong>Maps</strong> - <a href="https://maplibre.org">MapLibre GL</a> /
+          <a href="https://protomaps.com">Protomaps</a> /
+          <a href="https://www.openstreetmap.org/">OpenStreetMap</a>
+          <ul>
+            <li>
+              Map vector files for St. Louis greater area were saved as a <code>.pmtiles</code>
+              binary and served from <a href="https://supabase.com/">Supabase</a> to prevent relying on
+              third-party CDNs.
+            </li>
+          </ul>
+        </li>
+        <li><strong>Icons</strong> - <a href="https://tabler.io/icons">Tabler Icons</a></li>
+        <li><strong>Forms</strong> - <a href="https://formspree.io">Formspree</a></li>
+        <li>
+          <strong>Analytics</strong> - <a href="https://www.goatcounter.com">GoatCounter</a>
+        </li>
+      </ul>
+
+      <h2 id="links">Links</h2>
+
+      <ul>
+        <li>
+          <a href="https://www.builtstlouis.net"><strong>Built St. Louis</strong></a>
+          <ul>
+            <li>
+              A website documenting the historic architecture of St. Louis in the "old internet"
+              style of website I love to see.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://stlurbanists.org/"><strong>STL Urbanists</strong></a>
+          <ul>
+            <li>
+              A grassroots advocacy group working to create safer and more effective infrastructure
+              for pedestrians, bicycle users, and transit riders.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.stlouiscitytalk.com/"><strong>St. Louis City Talk</strong></a>
+          <ul>
+            <li>Many thoughts and pictures about St. Louis neighborhoods.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://nextstl.com/"><strong>Next STL</strong></a>
+          <ul>
+            <li>A website covering civic engagement and development in St. Louis.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.stlmag.com/"><strong>St. Louis Magazine</strong></a>
+          <ul>
+            <li>STL-based magazine with news and events.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.stlpr.org/"><strong>St. Louis Public Radio</strong></a>
+          <ul>
+            <li>The St. Louis branch of the NPR network.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/pizzababble"><strong>pizzababble</strong></a>
+          <ul>
+            <li>
+              The St. Louis pizza guy. He's out here fighting the good fight. I've discovered some
+              new places thanks to his feed.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.reddit.com/r/STLFood"><strong>STLFood on Reddit</strong></a>
+          <ul>
+            <li>The place to discuss food in St. Louis.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://www.stlouis-mo.gov/"><strong>St. Louis-MO.gov</strong></a>
+          <ul>
+            <li>Used for determining neighborhood boundaries and facts.</li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://stlouispatina.com/"><strong>St. Louis Patina</strong></a>
+          <ul>
+            <li>A blog detailing the beauty of St. Louis architecture.</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2 id="etymology">Etymology</h2>
+
+      <p>
+        The name <em>St. Louing</em> is meant to represent the ongoing nature of my journey. I know it
+        sounds a little cheugy, but let's just roll with it.
+      </p>
+
+      <h2 id="history">History</h2>
+
+      <p>This site began on May 28, 2026. My St. Louis experience began in 2023.</p>
+    </div>
+  </article>
+</BaseLayout>

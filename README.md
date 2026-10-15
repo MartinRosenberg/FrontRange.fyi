@@ -34,7 +34,7 @@ Requires Node `>=22.12`.
 - Install the map tools with `brew install pmtiles tippecanoe`.
 - Run `npm run setup` and answer the prompts: it clears the St. Louis content and data, fills in `site.config.mjs`, and builds your city's map.
 - Check `site.config.mjs` and add any other socials or copy changes.
-- Write your About page in `src/pages/about.md` and add food posts to `src/content/food/`.
+- Write your About page in `src/pages/about.astro` and add food posts to `src/content/food/`.
 - Swap the logo, favicons, and `public/og.png` for your own.
 - Update `public/CNAME`, `public/robots.txt`, the `package.json` name, and `LICENSE`.
 - For neighborhood pages, follow [MAPS.md](MAPS.md).

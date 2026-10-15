@@ -55,7 +55,7 @@ const { shareTitle } = Astro.props
   }
 
   .share-card .avatar-ring {
-    --avatar-size: 6rem;
+    --avatar-size: 5rem;
   }
 
   .share-card-body {
@@ -91,5 +91,27 @@ const { shareTitle } = Astro.props
   .share-card-instagram:hover {
     color: var(--color-bar-text);
     filter: brightness(1.08);
+  }
+
+  @media (max-width: 700px) {
+    .share-card {
+      padding: var(--spacing-lg);
+    }
+
+    .share-card-body .title-caps {
+      font-size: var(--font-size-label);
+    }
+
+    .share-card-actions :global(.btn) {
+      flex: 1 1 auto;
+      justify-content: center;
+      padding-inline: var(--spacing-sm);
+      font-size: var(--font-size-sm);
+    }
+
+    .share-card-actions :global(.icon) {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
   }
 </style>
