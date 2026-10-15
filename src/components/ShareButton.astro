@@ -9,6 +9,7 @@ interface Props {
   variant?: 'outline' | 'quiet' | 'dark'
   compact?: boolean
   iconOnly?: boolean
+  trackAs?: string
   [key: string]: unknown
 }
 
@@ -19,6 +20,7 @@ const {
   variant = 'outline',
   compact = false,
   iconOnly = false,
+  trackAs,
   ...rest
 } = Astro.props
 ---
@@ -29,6 +31,7 @@ const {
   compact={compact}
   data-share
   data-share-title={title}
+  data-goatcounter-click={trackAs}
   aria-label="Share this page"
   {...rest}>
   <IconShare />

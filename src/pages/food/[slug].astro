@@ -6,6 +6,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import AsideHeading from '../../components/AsideHeading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
+import ShareCard from '../../components/ShareCard.astro'
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import ReadersVerdict from '../../components/ReadersVerdict.astro'
 import Byline from '../../components/Byline.astro'
@@ -292,6 +293,8 @@ const seoDescription = hasBody(entry)
           </section>
 
           {isStub && <Comments kind="food" slug={entry.id} title={data.title} />}
+
+          <ShareCard shareTitle={data.title} />
 
           <footer>
             <Backlinks links={mentionedIn} />

@@ -28,7 +28,12 @@ const instagram = SOCIALS.find((social) => social.label === 'Instagram')
         </a>
       )
     }
-    <ShareButton title={title} variant="quiet" class="btn-quiet--plain btn-muted-icon" />
+    <ShareButton
+      title={title}
+      variant="quiet"
+      class="btn-quiet--plain btn-muted-icon"
+      trackAs="share-actionbar"
+    />
   </div>
   <div class="action-bar-group">
     {
@@ -39,6 +44,7 @@ const instagram = SOCIALS.find((social) => social.label === 'Instagram')
           target="_blank"
           rel="noopener"
           aria-label="Follow on Instagram"
+          data-goatcounter-click="instagram-actionbar"
           data-tooltip="Follow on Instagram"
           data-tooltip-align="end">
           <IconInstagram />
@@ -53,6 +59,7 @@ const instagram = SOCIALS.find((social) => social.label === 'Instagram')
           target="_blank"
           rel="noopener"
           aria-label="Newsletter"
+          data-goatcounter-click="newsletter-actionbar"
           data-tooltip="Newsletter"
           data-tooltip-align="end">
           <IconMail />

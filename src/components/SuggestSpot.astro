@@ -2,7 +2,8 @@
 import IconPlus from '../assets/IconPlus.astro'
 import IconX from '../assets/IconX.astro'
 import CategoryChip from './CategoryChip.astro'
-import { FEEDBACK_ENDPOINT, SITE_NAME } from '../lib/site'
+import ShareButton from './ShareButton.astro'
+import { FEEDBACK_ENDPOINT, INSTAGRAM_HANDLE, SITE_NAME } from '../lib/site'
 import { spotCategories, SPOT_SECTION_ORDER, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -16,7 +17,12 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
 {
   FEEDBACK_ENDPOINT && (
     <>
-      <button type="button" class="suggest-spot" data-suggest-open aria-label="Suggest a spot">
+      <button
+        type="button"
+        class="suggest-spot"
+        data-suggest-open
+        data-goatcounter-click="suggest-open"
+        aria-label="Suggest a spot">
         <span class="suggest-spot-plus" aria-hidden="true">
           <IconPlus />
         </span>
@@ -33,6 +39,25 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
             <div class="popup-meta list-eyebrow">
               <span class="eyebrow eyebrow--muted">Suggest a spot</span>
             </div>
+            <div data-suggest-thanks hidden>
+              <div class="sheet-title">
+                <span class="title-serif">Thanks for the tip!</span>
+              </div>
+              <p class="suggest-lede description">Know someone who'd like this map?</p>
+              <div class="form-actions">
+                <ShareButton variant="dark" trackAs="share-suggest" />
+                {INSTAGRAM_HANDLE && (
+                  <a
+                    href={`https://www.instagram.com/${INSTAGRAM_HANDLE}/`}
+                    target="_blank"
+                    rel="noopener"
+                    data-goatcounter-click="instagram-suggest">
+                    Follow on Instagram
+                  </a>
+                )}
+              </div>
+            </div>
+            <div data-suggest-ask>
             <div class="sheet-title" id="suggest-title">
               <span class="title-serif">Know somewhere I missed?</span>
             </div>
@@ -81,6 +106,7 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
                 <span class="form-status" data-form-status role="status" aria-live="polite" />
               </div>
             </form>
+            </div>
           </div>
         </div>
       </dialog>
@@ -95,9 +121,14 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
   const opener = document.querySelector<HTMLButtonElement>('[data-suggest-open]')
   const form = dialog?.querySelector<HTMLFormElement>('.suggest-form')
   const status = dialog?.querySelector<HTMLElement>('[data-form-status]')
+  const ask = dialog?.querySelector<HTMLElement>('[data-suggest-ask]')
+  const thanks = dialog?.querySelector<HTMLElement>('[data-suggest-thanks]')
+  const analytics = window as Window & {
+    goatcounter?: { count: (variables: { path: string; event: boolean }) => void }
+  }
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)')
 
-  if (dialog && opener && form && status) {
+  if (dialog && opener && form && status && ask && thanks) {
     opener.addEventListener('click', () => {
       if (dialog.open) {
         dialog.close()
@@ -110,6 +141,11 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
       }
     })
     dialog.querySelector('[data-suggest-close]')?.addEventListener('click', () => dialog.close())
+    dialog.addEventListener('close', () => {
+      ask.hidden = false
+      thanks.hidden = true
+      status.textContent = ''
+    })
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && dialog.open) {
         dialog.close()
@@ -123,6 +159,11 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
     })
 
     bindFeedbackForm(form, status, {
+      onSuccess: () => {
+        ask.hidden = true
+        thanks.hidden = false
+        analytics.goatcounter?.count({ path: 'suggest-sent', event: true })
+      },
       buildBody: (data) => {
         const lines = [
           `Place: ${String(data.get('place') ?? '').trim()}`,

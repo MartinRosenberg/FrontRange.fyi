@@ -1,0 +1,16 @@
+---
+import Heading from './Heading.astro'
+import InstagramCard from './InstagramCard.astro'
+---
+
+<section class="keep-in-touch">
+  <Heading>Keep in touch</Heading>
+  <InstagramCard trackAs="instagram-home" />
+</section>
+
+<style>
+  .keep-in-touch {
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import ShareButton from './ShareButton.astro'
+import IconInstagram from '../assets/IconInstagram.astro'
+import { href } from '../lib/url'
+import { CITY, INSTAGRAM_HANDLE, SITE_NAME } from '../lib/site'
+
+interface Props {
+  shareTitle: string
+}
+
+const { shareTitle } = Astro.props
+---
+
+<aside class="share-card callout">
+  <span class="avatar-ring">
+    <img src={href('/avatar.svg')} alt="" width="96" height="96" />
+  </span>
+  <div class="share-card-body">
+    <h2 class="title-caps">Greetings from {CITY}</h2>
+    <p class="excerpt">
+      <strong>{SITE_NAME}</strong> is an independent guide to the food and neighborhoods of St. Louis.
+      I document the city through photography, maps, and writing.
+    </p><p class="excerpt">
+      The site has no ads, no spam, and no sponsors. Follow to keep up with new discoveries as I
+      explore!
+    </p>
+    <div class="share-card-actions">
+      <ShareButton title={shareTitle} variant="dark" label="Share" trackAs="share-end" />
+      {
+        INSTAGRAM_HANDLE && (
+          <a
+            class="btn share-card-instagram"
+            href={`https://www.instagram.com/${INSTAGRAM_HANDLE}/`}
+            target="_blank"
+            rel="noopener"
+            data-goatcounter-click="instagram-end">
+            <IconInstagram />
+            Follow @{INSTAGRAM_HANDLE}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</aside>
+
+<style>
+  .share-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--spacing-lg) var(--spacing-xl);
+    max-width: var(--measure-reading);
+    margin-block: var(--spacing-xl);
+    padding: var(--spacing-xl);
+  }
+
+  .share-card .avatar-ring {
+    --avatar-size: 6rem;
+  }
+
+  .share-card-body {
+    display: grid;
+    flex: 1 1 18rem;
+    gap: var(--spacing-md);
+  }
+
+  .share-card-body :is(.title-caps, .excerpt) {
+    margin: 0;
+  }
+
+  .share-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .share-card-actions :global(.btn) {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    text-transform: none;
+  }
+
+  .share-card-instagram {
+    border: 0;
+    background: var(--gradient-instagram-linear);
+    color: var(--color-bar-text);
+  }
+
+  .share-card-instagram:hover {
+    color: var(--color-bar-text);
+    filter: brightness(1.08);
+  }
+</style>

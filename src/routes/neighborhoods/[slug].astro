@@ -9,6 +9,7 @@ import Subheading from '../../components/Subheading.astro'
 import Heading from '../../components/Heading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
+import ShareCard from '../../components/ShareCard.astro'
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import Byline from '../../components/Byline.astro'
 import EntryDates from '../../components/EntryDates.astro'
@@ -421,6 +422,8 @@ const schema = placeSchema(
             }
             </div>
           </section>
+
+          <ShareCard shareTitle={title} />
 
           <footer>
             <Backlinks links={backlinks} />

@@ -1,5 +1,6 @@
 ---
 import Backlinks from './Backlinks.astro'
+import ShareCard from './ShareCard.astro'
 import Byline from './Byline.astro'
 import PageMasthead from './PageMasthead.astro'
 import { href } from '../lib/url'
@@ -71,6 +72,8 @@ const hasComments = SUPABASE_ENABLED && Astro.slots.has('comments')
   <div class:list={['body', { 'e-content': isArticle }]}>
     <slot />
   </div>
+
+  <ShareCard shareTitle={title} />
 
   {
     hasComments && (

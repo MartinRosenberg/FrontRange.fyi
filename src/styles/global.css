@@ -35,6 +35,7 @@
     #d6249f 60%,
     #285aeb 90%
   );
+  --gradient-instagram-linear: linear-gradient(90deg, #f09433 0%, #e1306c 50%, #833ab4 100%);
 
   --color-map-north: var(--color-accent-blue);
   --color-map-central: var(--color-accent-gold);
@@ -3301,6 +3302,7 @@ button.title-link:hover {
 
 .reading-col,
 .entry:has(.article-col) .entry-byline,
+.entry:has(.article-col) > .share-card,
 .entry:has(.article-col) > footer,
 .entry:has(.article-col) .entry-comments {
   max-width: var(--measure-reading);
@@ -3624,6 +3626,28 @@ button.title-link:hover {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }
+}
+
+.callout {
+  border-radius: var(--radius-rounded);
+  background: var(--color-surface-2);
+}
+
+.avatar-ring {
+  --avatar-size: 2.75rem;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: var(--spacing-xxs);
+  border-radius: 50%;
+  background: var(--gradient-instagram);
+}
+
+.avatar-ring img {
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border: var(--spacing-xxs) solid var(--color-background);
+  border-radius: 50%;
+  background: var(--color-surface);
 }
 
 .chip.chip-blue {

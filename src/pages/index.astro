@@ -36,9 +36,8 @@ import Card from '../components/Card.astro'
 import PromoCard from '../components/PromoCard.astro'
 import WhatsNew from '../components/WhatsNew.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
-import InstagramCard from '../components/InstagramCard.astro'
+import KeepInTouch from '../components/KeepInTouch.astro'
 import Subheading from '../components/Subheading.astro'
-
 
 const allTopics = sortTopics(published(await getCollection('topics')))
 
@@ -63,7 +62,6 @@ const exploreCounts: Record<string, number> = {
   '/food/': allFood.length,
   '/neighborhoods/': neighborhoodRecords.filter((neighborhood) => !neighborhood.ignored).length,
 }
-
 
 const featuredFood = FEATURED_FOOD_IDS.flatMap((foodId) =>
   allFood.filter((place) => place.id === foodId),
@@ -121,7 +119,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
           }
         </div>
       </section>
-      <InstagramCard />
+      <KeepInTouch />
     </aside>
 
     <header class="h-card front-intro">
@@ -247,11 +245,11 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
 
       <div class="front-whatsnew">
         <WhatsNew />
-        <aside class="ad-box">
-          <p class="ad-box-kicker eyebrow eyebrow--muted">Advertisement?</p>
+        <aside class="ad-box callout">
+          <p class="ad-box-kicker eyebrow eyebrow--muted">Advertisement</p>
           <Subheading level={3}>No ads!</Subheading>
           <p class="ad-box-copy">
-            This is a personal project with no ads, no sponsors, and no affiliate links. Enjoy your interruption-free browsing experience!
+            This is a personal project with no ads, sponsors, or spam.
           </p>
         </aside>
       </div>
@@ -339,9 +337,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
   }
 
   .ad-box {
-    border: 5px double var(--color-line-contrast);
-    border-radius: var(--radius-rounded);
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
   }
 
   .ad-box-kicker,
@@ -359,11 +355,6 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     margin: 0;
     font-size: var(--font-size-md);
     text-align: center;
-  }
-
-  .ad-box-footer {
-    padding-block-start: var(--spacing-sm);
-    border-block-start: 1px solid var(--color-line);
   }
 
   .rail-articles {
@@ -399,7 +390,6 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
   .stat {
     color: var(--color-accent-blue);
   }
-
 
   .front-lead {
     text-align: center;
@@ -549,7 +539,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
       grid-area: index;
     }
 
-    .front-index :global(.instagram-card) {
+    .front-index :global(.keep-in-touch) {
       grid-area: social;
     }
 
@@ -558,14 +548,14 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
     }
 
     .front-whatsnew :global(.whats-new),
-    .front-index :global(.instagram-card) {
+    .front-index :global(.keep-in-touch) {
       position: relative;
       padding-block-end: var(--spacing-lg);
       border-block-end: 4px solid var(--color-line-contrast);
     }
 
     .front-whatsnew :global(.whats-new)::after,
-    .front-index :global(.instagram-card)::after {
+    .front-index :global(.keep-in-touch)::after {
       content: '';
       position: absolute;
       inset-inline: 0;

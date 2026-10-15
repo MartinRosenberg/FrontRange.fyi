@@ -30,7 +30,8 @@ import IconInstagram from '../assets/IconInstagram.astro'
             class="btn btn-dark btn-large newsletter-link"
             href={`${NEWSLETTER_URL}/subscribe`}
             target="_blank"
-            rel="noopener">
+            rel="noopener"
+            data-goatcounter-click="newsletter-footer">
             Subscribe
           </a>
         </div>
@@ -44,7 +45,11 @@ import IconInstagram from '../assets/IconInstagram.astro'
     <nav class="footer-links" aria-label="Footer">
       {
         NEWSLETTER_URL && (
-          <a href={`${NEWSLETTER_URL}/subscribe`} target="_blank" rel="noopener">
+          <a
+            href={`${NEWSLETTER_URL}/subscribe`}
+            target="_blank"
+            rel="noopener"
+            data-goatcounter-click="newsletter-footer-link">
             Newsletter
           </a>
         )
@@ -56,7 +61,9 @@ import IconInstagram from '../assets/IconInstagram.astro'
           <a
             class="footer-instagram"
             href={`https://www.instagram.com/${INSTAGRAM_HANDLE}`}
-            target="_blank">
+            target="_blank"
+            rel="noopener"
+            data-goatcounter-click="instagram-footer">
             <IconInstagram />
             {INSTAGRAM_HANDLE}
           </a>
