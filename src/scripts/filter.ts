@@ -1,59 +1,90 @@
+import {
+  activeLegendKeys,
+  allLegendKeys,
+  bindLegendToggles,
+  setActiveLegendKeys,
+} from './map-legend'
+
+interface Facet {
+  key: string
+  isActive(): boolean
+  matches(item: HTMLElement): boolean
+  read(params: URLSearchParams): void
+  write(params: URLSearchParams): void
+  set(value: string): void
+  clear(): void
+  bind(onChange: () => void): void
+}
+
+function itemValues(item: HTMLElement, key: string): string[] {
+  return (item.dataset[key] ?? '').split('|')
+}
+
+function toggleFacet(legend: HTMLElement): Facet {
+  const key = legend.dataset.filterToggles ?? ''
+  const all = allLegendKeys(legend)
+  const isActive = () => activeLegendKeys(legend).size !== all.length
+
+  return {
+    key,
+    isActive,
+    matches: (item) => {
+      if (!isActive()) {
+        return true
+      }
+      const active = activeLegendKeys(legend)
+
+      return itemValues(item, key).some((value) => active.has(value))
+    },
+    read: (params) => {
+      const raw = params.get(key)
+      const known = (raw ?? '').split(',').filter((value) => all.includes(value))
+      const failOpen = raw === null || (raw !== '' && known.length === 0)
+      setActiveLegendKeys(legend, new Set(failOpen ? all : known))
+    },
+    write: (params) => {
+      if (isActive()) {
+        params.set(key, [...activeLegendKeys(legend)].join(','))
+      }
+    },
+    set: (value) => {
+      if (all.includes(value)) {
+        setActiveLegendKeys(legend, new Set([value]))
+      }
+    },
+    clear: () => {
+      setActiveLegendKeys(legend, new Set(all))
+    },
+    bind: (onChange) => {
+      bindLegendToggles(legend, onChange)
+    },
+  }
+}
+
 export function initFilter(rootSelector = '[data-filter-root]'): void {
   const root = document.querySelector<HTMLElement>(rootSelector)
-  if (!root) return
+  if (!root) {
+    return
+  }
 
   const form = root.querySelector<HTMLFormElement>('form')
   const search = root.querySelector<HTMLInputElement>('[data-filter-search]')
-  const facets = [...root.querySelectorAll<HTMLSelectElement>('[data-filter-facet]')]
+  const facets = [...root.querySelectorAll<HTMLElement>('[data-filter-toggles]')].map(toggleFacet)
   const items = [...root.querySelectorAll<HTMLElement>('[data-filter-item]')]
   const count = root.querySelector<HTMLElement>('[data-filter-count]')
   const empty = root.querySelector<HTMLElement>('[data-filter-empty]')
   const sort = root.querySelector<HTMLSelectElement>('[data-filter-sort]')
   const clears = [...root.querySelectorAll<HTMLElement>('[data-filter-clear]')]
-  const tray = root.querySelector<HTMLElement>('[data-filter-active]')
-  const chips = root.querySelector<HTMLElement>('[data-filter-chips]')
   const list = items[0]?.parentElement ?? null
 
-  const iconX =
-    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>'
-
-  function renderChips(): void {
-    if (!chips) {
+  function applySort(): void {
+    if (!sort || !list) {
       return
     }
-    chips.textContent = ''
-    for (const facet of facets) {
-      if (!facet.value) {
-        continue
-      }
-      const facetKey = facet.dataset.filterFacet ?? ''
-      const facetLabel = facet.dataset.filterLabel ?? facetKey
-      const chip = document.createElement('button')
-      chip.type = 'button'
-      chip.className = 'chip chip-filter chip-blue'
-      chip.dataset.removeFacet = facetKey
-      chip.setAttribute('aria-label', `Remove ${facetLabel} filter`)
-
-      const labelSpan = document.createElement('span')
-      labelSpan.className = 'chip-label'
-      labelSpan.textContent = `${facetLabel}:`
-      const valueSpan = document.createElement('span')
-      valueSpan.className = 'chip-value'
-      valueSpan.textContent = facet.selectedOptions[0]?.text ?? facet.value
-      const removeMark = document.createElement('span')
-      removeMark.className = 'chip-x'
-      removeMark.setAttribute('aria-hidden', 'true')
-      removeMark.innerHTML = iconX
-
-      chip.append(labelSpan, valueSpan, removeMark)
-      chips.appendChild(chip)
-    }
-  }
-
-  function applySort(): void {
-    if (!sort || !list) return
     const [field, direction] = (sort.value || '').split(':')
-    if (!field) return
+    if (!field) {
+      return
+    }
 
     const key = `sort${field.charAt(0).toUpperCase()}${field.slice(1)}`
     const factor = direction === 'desc' ? -1 : 1
@@ -61,9 +92,15 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
     const ordered = [...items].sort((left, right) => {
       const leftValue = left.dataset[key] ?? ''
       const rightValue = right.dataset[key] ?? ''
-      if (leftValue === '' && rightValue === '') return 0
-      if (leftValue === '') return 1
-      if (rightValue === '') return -1
+      if (leftValue === '' && rightValue === '') {
+        return 0
+      }
+      if (leftValue === '') {
+        return 1
+      }
+      if (rightValue === '') {
+        return -1
+      }
 
       const leftNumber = Number(leftValue)
       const rightNumber = Number(rightValue)
@@ -80,49 +117,32 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
   }
 
   function apply(): void {
-    const q = (search?.value ?? '').trim().toLowerCase()
+    const query = (search?.value ?? '').trim().toLowerCase()
     let visible = 0
 
     for (const item of items) {
-      let show = true
-
-      for (const facet of facets) {
-        const value = facet.value
-        if (!value) continue
-        const key = facet.dataset.filterFacet ?? ''
-        const itemValues = (item.dataset[key] ?? '').split('|')
-        if (!itemValues.includes(value)) {
-          show = false
-          break
-        }
-      }
-
-      if (show && q) {
-        show = (item.dataset.search ?? '').toLowerCase().includes(q)
-      }
-
+      const show =
+        facets.every((facet) => facet.matches(item)) &&
+        (!query || (item.dataset.search ?? '').toLowerCase().includes(query))
       item.hidden = !show
-      if (show) visible += 1
+      if (show) {
+        visible += 1
+      }
     }
 
-    if (count) count.textContent = String(visible)
-    if (empty) empty.hidden = visible > 0
+    if (count) {
+      count.textContent = String(visible)
+    }
+    if (empty) {
+      empty.hidden = visible > 0
+    }
 
-    for (const facet of facets) {
-      facet.classList.toggle('is-active', Boolean(facet.value))
-    }
-    renderChips()
-    const isFiltering = Boolean(q) || facets.some((facet) => facet.value)
-    if (tray) {
-      tray.hidden = !isFiltering
-    }
+    const isFiltering = Boolean(query) || facets.some((facet) => facet.isActive())
     for (const clear of clears) {
       clear.hidden = !isFiltering
     }
 
-    if (root) {
-      root.dispatchEvent(new CustomEvent('filter:changed'))
-    }
+    root?.dispatchEvent(new CustomEvent('filter:changed'))
   }
 
   function readUrl(): void {
@@ -131,7 +151,7 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
       search.value = params.get('q') ?? ''
     }
     for (const facet of facets) {
-      facet.value = params.get(facet.dataset.filterFacet ?? '') ?? ''
+      facet.read(params)
     }
     if (sort) {
       const value = params.get('sort')
@@ -148,9 +168,7 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
       params.set('q', query)
     }
     for (const facet of facets) {
-      if (facet.value) {
-        params.set(facet.dataset.filterFacet ?? '', facet.value)
-      }
+      facet.write(params)
     }
     if (sort && sort.value && sort.value !== sort.options[0]?.value) {
       params.set('sort', sort.value)
@@ -174,8 +192,7 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
   }
 
   function writeUrl(): void {
-    const params = buildParams()
-    const queryString = params.toString()
+    const queryString = buildParams().toString()
     syncRobots(queryString.length > 0)
     const url = queryString ? `${location.pathname}?${queryString}` : location.pathname
     history.replaceState(null, '', url)
@@ -188,38 +205,25 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
 
   form?.addEventListener('submit', (event) => event.preventDefault())
   search?.addEventListener('input', applyAndSync)
-  facets.forEach((facet) => facet.addEventListener('change', applyAndSync))
+  for (const facet of facets) {
+    facet.bind(applyAndSync)
+  }
   sort?.addEventListener('change', () => {
     applySort()
     root.dispatchEvent(new CustomEvent('filter:changed'))
     writeUrl()
   })
 
-  root.addEventListener('click', (event) => {
+  document.addEventListener('click', (event) => {
     const setter = (event.target as HTMLElement).closest<HTMLElement>('[data-filter-set]')
     if (!setter) {
       return
     }
-    const facetKey = setter.dataset.filterSet ?? ''
-    const value = setter.dataset.filterValue ?? ''
-    const select = facets.find((facet) => facet.dataset.filterFacet === facetKey)
-    if (!select) {
+    const facet = facets.find((candidate) => candidate.key === setter.dataset.filterSet)
+    if (!facet) {
       return
     }
-    select.value = value
-    applyAndSync()
-  })
-
-  chips?.addEventListener('click', (event) => {
-    const chip = (event.target as HTMLElement).closest<HTMLElement>('[data-remove-facet]')
-    if (!chip) {
-      return
-    }
-    const select = facets.find((facet) => facet.dataset.filterFacet === chip.dataset.removeFacet)
-    if (!select) {
-      return
-    }
-    select.value = ''
+    facet.set(setter.dataset.filterValue ?? '')
     applyAndSync()
   })
 
@@ -228,7 +232,7 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
       search.value = ''
     }
     for (const facet of facets) {
-      facet.value = ''
+      facet.clear()
     }
     if (sort) {
       sort.value = sort.options[0]?.value ?? ''

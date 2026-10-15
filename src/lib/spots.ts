@@ -1,4 +1,5 @@
 import { optionalData } from './optional-data'
+import type { LegendItem } from './legend'
 
 const spotsData = optionalData<unknown[]>(
   import.meta.glob('../data/spots.json', { eager: true, import: 'default' }),
@@ -69,7 +70,14 @@ export interface Spot {
   coords?: [number, number]
 }
 
+export interface SpotFilter {
+  facet: string
+  value: string
+  label: string
+}
+
 export interface MapSpot {
+  id: string
   title: string
   category: SpotCategoryKey
   coords: [number, number]
@@ -82,6 +90,9 @@ export interface MapSpot {
   websiteHref?: string
   photo?: string
   voteSlug?: string
+  excludeFit?: boolean
+  filters?: SpotFilter[]
+  icon?: string
 }
 
 export function allSpots(): Spot[] {
@@ -97,4 +108,13 @@ export function groupSpots(spots: Spot[]): { category: SpotSectionKey; spots: Sp
     category,
     spots: spots.filter((spot) => spot.category === category),
   })).filter((group) => group.spots.length > 0)
+}
+
+export function categoryLegendItems(keys: SpotCategoryKey[]): LegendItem[] {
+  return keys.map((key) => ({
+    key,
+    label: spotCategories[key].label,
+    token: spotCategories[key].token,
+    icon: spotCategories[key].icon,
+  }))
 }

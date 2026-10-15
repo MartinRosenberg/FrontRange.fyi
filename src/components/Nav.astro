@@ -20,7 +20,7 @@ const isActive = (path: string) => {
         {index > 0 && <FleurGlyph class="nav-fleur" />}
         <a
           href={href(section.path)}
-          class={`nav-section-${section.label.toLowerCase()} title-link`}
+          class="title-link"
           aria-current={isActive(section.path) ? 'page' : undefined}>
           {section.label}
         </a>
@@ -49,18 +49,23 @@ const isActive = (path: string) => {
   .site-nav-inline a[aria-current='page'] {
     color: var(--color-text-heading);
     font-weight: 600;
-    text-decoration-line: underline;
   }
 
-  .site-nav-inline a[aria-current='page'],
-  .site-nav-inline a[aria-current='page']:hover {
-    text-decoration-color: var(--color-flag-yellow);
-  }
+  @media (min-width: 701px) {
+    .site-nav-inline a[aria-current='page'] {
+      text-decoration-line: underline;
+    }
 
-  .site-nav-inline a:hover,
-  .site-nav-inline a[aria-current='page'] {
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
+    .site-nav-inline a[aria-current='page'],
+    .site-nav-inline a[aria-current='page']:hover {
+      text-decoration-color: var(--color-flag-yellow);
+    }
+
+    .site-nav-inline a:hover,
+    .site-nav-inline a[aria-current='page'] {
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
   }
 
   .site-nav-inline :global(.nav-fleur) {

@@ -1,21 +1,26 @@
 ---
 import { CITY } from '../lib/site'
 import { getCollection } from 'astro:content'
-import { getImage } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import ClearFilters from '../components/ClearFilters.astro'
+import FilterMapPage from '../components/FilterMapPage.astro'
 import ListPaneHeader from '../components/ListPaneHeader.astro'
 import MapRow from '../components/MapRow.astro'
 import PaneSearch from '../components/PaneSearch.astro'
-import AreaMap from '../components/AreaMap.astro'
+import CityMap from '../components/CityMap.astro'
 import neighborhoods from '../data/neighborhoods.json'
 import { published, excerpt, hasBody, PREVIEW_EXCERPT_CHARS } from '../lib/content'
 import {
-  neighborhoodResourceLinks,
   foodByNeighborhood,
   neighborhoodHasContent,
+  neighborhoodPopups,
 } from '../lib/neighborhoods'
-import { allSpots, spotsIn, spotCategories, type SpotCategoryKey } from '../lib/spots'
+import {
+  allSpots,
+  categoryLegendItems,
+  spotsIn,
+  spotCategories,
+  type SpotCategoryKey,
+} from '../lib/spots'
 import CategoryChip from '../components/CategoryChip.astro'
 import { toMapSpots } from '../lib/map-spots'
 import { href } from '../lib/url'
@@ -24,17 +29,12 @@ import IconArrowRight from '../assets/IconArrowRight.astro'
 const entries = published(await getCollection('neighborhoods'))
 const entryBySlug = new Map(entries.map((entry) => [entry.id, entry]))
 
-const thumbBySlug = new Map<string, string>()
-for (const [slug, entry] of entryBySlug) {
-  if (entry.data.photo) {
-    const thumb = await getImage({ src: entry.data.photo, width: 480, format: 'webp' })
-    thumbBySlug.set(slug, thumb.src)
-  }
-}
+const areas = await neighborhoodPopups()
 const isWritten = (slug: string) => hasBody(entryBySlug.get(slug) ?? {})
 const mapSpots = await toMapSpots(allSpots(), published(await getCollection('food')))
 const placesByNeighborhood = await foodByNeighborhood()
 const categoryKeys = Object.keys(spotCategories) as SpotCategoryKey[]
+const legendKeys = categoryKeys.filter((key) => mapSpots.some((spot) => spot.category === key))
 
 function countPills(slug: string, name: string): { key: SpotCategoryKey; count: number }[] {
   const spots = spotsIn(slug)
@@ -94,43 +94,6 @@ const neighborhoodList = {
 const writtenCount = listed.filter((neighborhood) => isWritten(neighborhood.slug)).length
 const restCount = listed.length - writtenCount
 
-const NOT_EXPLORED_EXCERPT = "I haven't written about this neighborhood yet."
-
-function popupData(slug: string, name: string, group: string) {
-  const entry = entryBySlug.get(slug)
-  const links = neighborhoodResourceLinks(slug, name, entry?.data.url, entry?.data.wikipedia)
-  const hrefFor = (label: string) => links.find((link) => link.label === label)?.href
-
-  return {
-    area: group,
-    official: hrefFor('Website'),
-    wikipedia: hrefFor('Wikipedia'),
-    city: hrefFor('St. Louis City'),
-    mytownview: hrefFor('MyTownView'),
-    tagline: entry?.data.description,
-    excerpt:
-      entry?.body !== undefined && entry.body.length > 0
-        ? excerpt(entry.body, PREVIEW_EXCERPT_CHARS)
-        : NOT_EXPLORED_EXCERPT,
-  }
-}
-
-function sectionOf(area: { group?: string; type?: string }): string {
-  if (area.type === 'park') {
-    return 'park'
-  }
-  if (area.group === 'St. Louis County') {
-    return 'county'
-  }
-  if (area.group === 'North City') {
-    return 'north'
-  }
-  if (area.group === 'South City') {
-    return 'south'
-  }
-
-  return 'central'
-}
 ---
 
 <BaseLayout
@@ -139,8 +102,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
   description={`A map and field guide to the neighborhoods and parks of ${CITY}, with landmarks, museums, parks, markets, places to eat, and neighborhood write-ups.`}
   ogImage="/og/neighborhood-og.png"
   jsonLd={neighborhoodList}>
-  <div class="map-split" data-filter-root data-map-split data-view="map">
-    <div class="results">
+  <FilterMapPage emptyText="No neighborhoods match.">
       <article class="content-pane map-list">
         <ListPaneHeader title="Neighborhoods" titlePrefix={`${CITY} `} count={count} live>
           <PaneSearch label="Search neighborhoods" placeholder="search by name, area..." />
@@ -152,21 +114,10 @@ function sectionOf(area: { group?: string; type?: string }): string {
               const numberLabel = neighborhood?.numberLabel
                 ? neighborhood.numberLabel
                 : neighborhood.number
-              const popup = popupData(neighborhood.slug, neighborhood.name, neighborhood.group)
-              const section = sectionOf(neighborhood)
-              const regionKey = sectionOf({ group: neighborhood.group })
+              const area = areas[neighborhood.slug]
+              const isPark = area?.park ?? false
               const entry = entryBySlug.get(neighborhood.slug)
               const pills = countPills(neighborhood.slug, neighborhood.name)
-              const resourceLinks = written
-                ? neighborhoodResourceLinks(
-                    neighborhood.slug,
-                    neighborhood.name,
-                    entry?.data.url,
-                    entry?.data.wikipedia,
-                  )
-                    .filter((link) => link.label !== 'St. Louis City')
-                    .slice(0, 3)
-                : []
 
               const previous = listed[index - 1]
               const showHeader = index === 0 || written !== isWritten(previous.slug)
@@ -186,37 +137,28 @@ function sectionOf(area: { group?: string; type?: string }): string {
                     readMore={false}
                     search={[
                       neighborhood.name,
-                      section === 'park' ? 'Park' : '',
+                      isPark ? 'Park' : '',
                       neighborhood.group ?? '',
-                      popup.tagline ?? '',
+                      area?.tagline ?? '',
                     ]
                       .filter(Boolean)
                       .join(' ')}
-                    class={written ? 'is-written' : 'is-unwritten'}
-                    attrs={{
-                      'data-section': neighborhood.slug,
-                      'data-area': popup.area ?? '',
-                      'data-region': regionKey,
-                      'data-type': section === 'park' ? 'park' : '',
-                      'data-tagline': popup.tagline ?? '',
-                      'data-photo': thumbBySlug.get(neighborhood.slug) ?? '',
-                      'data-excerpt': popup.excerpt ?? '',
-                    }}>
+                    class={written ? undefined : 'is-unwritten'}>
                     {neighborhood.group && (
                       <span class="eyebrow eyebrow--muted" slot="eyebrow">
-                        {section === 'park' ? 'Park' : neighborhood.group}
+                        {isPark ? 'Park' : neighborhood.group}
                       </span>
                     )}
-                    {popup.tagline && (
+                    {area?.tagline && (
                       <span class="description" slot="sub">
-                        {popup.tagline}
+                        {area.tagline}
                       </span>
                     )}
-                    {thumbBySlug.has(neighborhood.slug) && (
+                    {area?.photo && (
                       <div
                         class="list-photo"
                         slot="photo"
-                        style={`background-image: url(${thumbBySlug.get(neighborhood.slug)})`}
+                        style={`background-image: url(${area.photo})`}
                         aria-hidden="true"
                       />
                     )}
@@ -250,17 +192,13 @@ function sectionOf(area: { group?: string; type?: string }): string {
           }
         </ul>
       </article>
-      <AreaMap spots={mapSpots} />
-      <p class="empty" data-filter-empty hidden>
-        No neighborhoods match.
-        <ClearFilters />
-      </p>
-    </div>
-  </div>
+      <CityMap
+        spots={mapSpots}
+        areas={areas}
+        legend={categoryLegendItems(legendKeys)}
+        legendOff={['food']}
+        rowTarget="area"
+        label={`Map of ${CITY} neighborhoods`}
+      />
+  </FilterMapPage>
 </BaseLayout>
-
-<script>
-  import { initFilter } from '../scripts/filter'
-
-  initFilter()
-</script>

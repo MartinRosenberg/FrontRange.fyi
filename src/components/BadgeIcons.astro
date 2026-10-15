@@ -2,6 +2,11 @@
 import Icon from './Icon.astro'
 import { spotCategories, type SpotCategoryKey } from '../lib/spots'
 
+interface Props {
+  icons?: string[]
+}
+
+const { icons = [] } = Astro.props
 const categories = Object.keys(spotCategories) as SpotCategoryKey[]
 ---
 
@@ -10,6 +15,13 @@ const categories = Object.keys(spotCategories) as SpotCategoryKey[]
     categories.map((key) => (
       <span data-category={key}>
         <Icon name={spotCategories[key].icon} />
+      </span>
+    ))
+  }
+  {
+    icons.map((icon) => (
+      <span data-icon={icon}>
+        <Icon name={icon} />
       </span>
     ))
   }

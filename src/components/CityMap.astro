@@ -1,0 +1,43 @@
+---
+import MapLegend from './MapLegend.astro'
+import BadgeIcons from './BadgeIcons.astro'
+import ReadersVerdictTemplate from './ReadersVerdictTemplate.astro'
+import MapActions from './MapActions.astro'
+import type { AreaPopup } from '../lib/neighborhoods'
+import type { LegendItem } from '../lib/legend'
+import type { MapSpot } from '../lib/spots'
+
+interface Props {
+  spots: MapSpot[]
+  areas: Record<string, AreaPopup>
+  legend: LegendItem[]
+  legendOff?: string[]
+  legendFacet?: string
+  rowTarget: 'area' | 'spot'
+  label: string
+}
+
+const { spots, areas, legend, legendOff, legendFacet, rowTarget, label } = Astro.props
+const spotIcons = [...new Set(spots.flatMap((spot) => (spot.icon ? [spot.icon] : [])))]
+---
+
+<div
+  class="city-map"
+  data-city-map
+  data-row-target={rowTarget}
+  role="application"
+  aria-label={label}>
+  <MapLegend items={legend} off={legendOff} facet={legendFacet}>
+    <slot name="actions" slot="actions" />
+  </MapLegend>
+</div>
+<MapActions label="View list" />
+<BadgeIcons icons={spotIcons} />
+<ReadersVerdictTemplate />
+<script is:inline type="application/json" data-city-map-spots set:html={JSON.stringify(spots)} />
+<script is:inline type="application/json" data-city-map-areas set:html={JSON.stringify(areas)} />
+
+<script>
+  import { initCityMap } from '../scripts/city-map'
+  initCityMap()
+</script>

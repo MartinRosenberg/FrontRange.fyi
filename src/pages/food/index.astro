@@ -5,21 +5,20 @@ import { getImage } from 'astro:assets'
 
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import FilterMapPage from '../../components/FilterMapPage.astro'
+import CityMap from '../../components/CityMap.astro'
+import ClearFilters from '../../components/ClearFilters.astro'
 import ListPaneHeader from '../../components/ListPaneHeader.astro'
 import MapRow from '../../components/MapRow.astro'
 import PaneSearch from '../../components/PaneSearch.astro'
+import PaneSort from '../../components/PaneSort.astro'
 import Rating from '../../components/Rating.astro'
-import BadgeIcons from '../../components/BadgeIcons.astro'
-import ReadersVerdictTemplate from '../../components/ReadersVerdictTemplate.astro'
-import SourceLink from '../../components/SourceLink.astro'
 import { published, hasBody, excerpt, foodStatus, PREVIEW_EXCERPT_CHARS } from '../../lib/content'
-import { cuisineLabel } from '../../lib/cuisine'
+import { cuisineLabel, cuisineLegendItems } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
+import { toMapSpots } from '../../lib/map-spots'
 import { itemListSchema } from '../../lib/schema'
-import { href } from '../../lib/url'
-import { neighborhoodName } from '../../lib/neighborhoods'
-import { resolveVerdict, verdictLabels, type Verdict } from '../../lib/verdict'
-import IconArrowRight from '../../assets/IconArrowRight.astro'
+import { neighborhoodName, neighborhoodPopups } from '../../lib/neighborhoods'
+import { resolveVerdict, type Verdict } from '../../lib/verdict'
 
 const verdictRankLetter: Record<Verdict, string> = {
   loved: 'a',
@@ -56,14 +55,17 @@ const rows = (
 )
 
 const count = rows.length
-const cuisines = [...new Set(rows.flatMap((entry) => entry.place.data.cuisine))].sort()
-const neighborhoods = [...new Set(rows.map((entry) => entry.place.data.neighborhood).filter(Boolean))]
-  .map((slug) => ({ value: slug as string, label: neighborhoodName(slug) }))
-  .sort((left, right) => left.label.localeCompare(right.label))
+const cuisines = [...new Set(rows.flatMap((entry) => entry.place.data.cuisine))].sort((left, right) =>
+  cuisineLabel(left).localeCompare(cuisineLabel(right)),
+)
 
-const verdictOptions = (['loved', 'liked', 'neutral', 'not-for-me'] as Verdict[])
-  .filter((value) => rows.some((entry) => entry.verdict === value))
-  .map((value) => ({ value, label: verdictLabels[value] }))
+const mapSpots = await toMapSpots(
+  [],
+  rows.map((entry) => entry.place),
+  { filterChips: true, cuisineIcons: true },
+)
+const areas = await neighborhoodPopups()
+
 const description = [
   `An interactive map of ${CITY} restaurants and cafes, filterable by cuisine and neighborhood.`,
   SUPABASE_ENABLED ? 'Each place is rated by me and reviewed by the community.' : 'Each place is rated by me.',
@@ -84,26 +86,16 @@ const schema = itemListSchema(
   description={description}
   ogImage="/og/food-og.png"
   jsonLd={schema}>
-  <FilterMapPage
-    class="food"
-    cluster
-    label="places"
-    count={count}
-    search={false}
-    facets={[
-      { label: 'Cuisine', facet: 'cuisine', options: cuisines },
-      { label: 'Neighborhood', facet: 'neighborhood', options: neighborhoods },
-      { label: 'Rating', facet: 'verdict', options: verdictOptions },
-    ]}
-    sorts={[
-      { label: 'Rating', value: 'verdict:asc' },
-      { label: 'Alphabetical', value: 'name:asc' },
-    ]}
-    mapLabel="Map of food spots"
-    emptyText="No places match those filters.">
+  <FilterMapPage emptyText="No places match those filters.">
     <article class="content-pane map-list grouped-list">
       <ListPaneHeader title="Food" count={count} live>
         <PaneSearch label="Search places" placeholder="search by name, cuisine..." />
+        <PaneSort
+          options={[
+            { label: 'Rating', value: 'verdict:asc' },
+            { label: 'A–Z', value: 'name:asc' },
+          ]}
+        />
       </ListPaneHeader>
       <ul class="list" data-grouped-rows>
         {
@@ -116,7 +108,6 @@ const schema = itemListSchema(
               readMore={false}
               websiteHref={place.data.url}
               directionsHref={googleMapsHref(place.data)}
-              coords={place.data.coords?.join(',') ?? ''}
               search={[
                 place.data.title,
                 neighborhoodName(place.data.neighborhood),
@@ -128,18 +119,9 @@ const schema = itemListSchema(
                 .join(' ')}
               attrs={{
                 'data-cuisine': place.data.cuisine.join('|'),
-                'data-neighborhood': place.data.neighborhood ?? '',
-                'data-neighborhood-name': neighborhoodName(place.data.neighborhood),
-                'data-address': (place.data.address ?? []).join('\n'),
-                ...(verdict ? { 'data-verdict': verdict } : {}),
-                ...(place.data.excludeFromMapFit ? { 'data-exclude-fit': '' } : {}),
                 'data-group': groupKey,
                 'data-sort-name': place.data.title.toLowerCase(),
                 'data-sort-verdict': `${rankLetter}|${place.data.title.toLowerCase()}`,
-                'data-google': googleMapsHref(place.data),
-                ...(place.data.url ? { 'data-website': place.data.url } : {}),
-                'data-photo': thumb?.src ?? '',
-                'data-tagline': place.data.description ?? '',
               }}>
               {(place.data.cuisine.length > 0 || place.data.neighborhood) && (
                 <span class="eyebrow eyebrow--muted" slot="eyebrow">
@@ -181,8 +163,6 @@ const schema = itemListSchema(
           ))
         }
       </ul>
-      <BadgeIcons />
-      <ReadersVerdictTemplate />
       <div class="fleur-templates" hidden>
         <span data-fleur="loved"><Rating verdict="loved" /></span>
         <span data-fleur="liked"><Rating verdict="liked" /></span>
@@ -190,6 +170,15 @@ const schema = itemListSchema(
         <span data-fleur="not-for-me"><Rating verdict="not-for-me" /></span>
       </div>
     </article>
+    <CityMap
+      spots={mapSpots}
+      areas={areas}
+      legend={cuisineLegendItems(cuisines)}
+      legendFacet="cuisine"
+      rowTarget="spot"
+      label="Map of food spots">
+      <ClearFilters slot="actions" variant="outline" />
+    </CityMap>
   </FilterMapPage>
 </BaseLayout>
 

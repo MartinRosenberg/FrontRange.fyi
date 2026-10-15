@@ -1,12 +1,21 @@
 import type { CollectionEntry } from 'astro:content'
 import { getImage } from 'astro:assets'
-import { cuisineLabel } from './cuisine'
+import { cuisineIcon, cuisineLabel } from './cuisine'
 import { googleMapsHref, googleSearchHref } from './maps'
-import { spotCategories, type MapSpot, type Spot } from './spots'
+import { spotCategories, type MapSpot, type Spot, type SpotFilter } from './spots'
 import { href } from './url'
 import { resolveVerdict, verdictLabels } from './verdict'
 
 const isExternalUrl = (url: string) => /^https?:\/\//.test(url)
+
+function spotId(spot: Spot): string {
+  const name = spot.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  return `${spot.category}-${name}`
+}
 
 export function spotPageHref(spot: Spot): string | undefined {
   return spot.url && !isExternalUrl(spot.url) ? href(spot.url) : undefined
@@ -37,6 +46,7 @@ export function spotToMapSpot(spot: Spot): MapSpot | undefined {
   }
 
   return {
+    id: spotId(spot),
     title: spot.name,
     category: spot.category,
     coords: spot.coords,
@@ -49,7 +59,23 @@ export function spotToMapSpot(spot: Spot): MapSpot | undefined {
   }
 }
 
-export async function foodToMapSpot(place: CollectionEntry<'food'>): Promise<MapSpot | undefined> {
+export interface FoodSpotOptions {
+  filterChips?: boolean
+  cuisineIcons?: boolean
+}
+
+function foodFilters(place: CollectionEntry<'food'>): SpotFilter[] {
+  return place.data.cuisine.map((cuisine) => ({
+    facet: 'cuisine',
+    value: cuisine,
+    label: cuisineLabel(cuisine),
+  }))
+}
+
+export async function foodToMapSpot(
+  place: CollectionEntry<'food'>,
+  options: FoodSpotOptions = {},
+): Promise<MapSpot | undefined> {
   const [lat, lng] = place.data.coords ?? []
   if (lat === undefined || lng === undefined) {
     return undefined
@@ -60,6 +86,7 @@ export async function foodToMapSpot(place: CollectionEntry<'food'>): Promise<Map
     : undefined
 
   return {
+    id: place.id,
     title: place.data.title,
     category: 'food',
     url: href(`/food/${place.id}/`),
@@ -72,21 +99,25 @@ export async function foodToMapSpot(place: CollectionEntry<'food'>): Promise<Map
     websiteHref: place.data.url,
     photo: thumb?.src,
     voteSlug: place.id,
+    excludeFit: place.data.excludeFromMapFit || undefined,
+    filters: options.filterChips ? foodFilters(place) : undefined,
+    icon: options.cuisineIcons ? cuisineIcon(place.data.cuisine[0]) : undefined,
   }
 }
 
 export async function toMapSpots(
   spots: Spot[],
   places: CollectionEntry<'food'>[],
+  options: FoodSpotOptions = {},
 ): Promise<MapSpot[]> {
   const spotMapSpots = spots.flatMap((spot) => {
     const mapSpot = spotToMapSpot(spot)
 
     return mapSpot ? [mapSpot] : []
   })
-  const foodMapSpots = (await Promise.all(places.map(foodToMapSpot))).flatMap((mapSpot) =>
-    mapSpot ? [mapSpot] : [],
-  )
+  const foodMapSpots = (
+    await Promise.all(places.map((place) => foodToMapSpot(place, options)))
+  ).flatMap((mapSpot) => (mapSpot ? [mapSpot] : []))
 
   return [...spotMapSpots, ...foodMapSpots]
 }

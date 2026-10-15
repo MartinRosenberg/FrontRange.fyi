@@ -3,7 +3,12 @@ import MapLegend from './MapLegend.astro'
 import BadgeIcons from './BadgeIcons.astro'
 import ReadersVerdictTemplate from './ReadersVerdictTemplate.astro'
 import SuggestSpot from './SuggestSpot.astro'
-import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
+import {
+  categoryLegendItems,
+  spotCategories,
+  type MapSpot,
+  type SpotCategoryKey,
+} from '../lib/spots'
 
 interface Props {
   slug: string
@@ -28,7 +33,7 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   data-coords={coords?.join(',')}
   role="application"
   aria-label={`Map of the neighborhood and its notable spots`}>
-  <MapLegend categories={legendCategories} />
+  <MapLegend items={categoryLegendItems(legendCategories)} />
   <SuggestSpot where={name} />
 </div>
 <BadgeIcons />

@@ -98,6 +98,10 @@ export async function boundariesFor(slugs: Iterable<string>): Promise<BoundaryFe
   return features.filter((feature) => numbers.has(Number(feature.properties?.NHD_NUM)))
 }
 
+export function neighborhoodFeatures(): Promise<BoundaryFeature[]> {
+  return loadFeatures()
+}
+
 export function officialParts(): Promise<BoundaryFeature[]> {
   return loadFeatures(NEIGHBORHOOD_PARTS_FILE)
 }

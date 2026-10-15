@@ -22,22 +22,30 @@ export interface PopupConfig {
   tagline?: string
   excerpt?: string
   category?: string
+  icon?: string
   voteSlug?: string
 }
 
-export function badgeIconNode(category: string): Node | undefined {
+function templateIconNode(selector: string): Node | undefined {
   const template = document.querySelector<HTMLTemplateElement>('template[data-badge-icons]')
-  const icon = template?.content.querySelector(`[data-category="${category}"] .icon`)
+  const icon = template?.content.querySelector(`${selector} .icon`)
 
   return icon?.cloneNode(true)
 }
 
-export function categorySwatchNode(category: string): HTMLSpanElement {
+export function badgeIconNode(category: string, icon?: string): Node | undefined {
+  return (
+    (icon ? templateIconNode(`[data-icon="${icon}"]`) : undefined) ??
+    templateIconNode(`[data-category="${category}"]`)
+  )
+}
+
+export function categorySwatchNode(category: string, iconName?: string): HTMLSpanElement {
   const swatch = document.createElement('span')
   swatch.className = 'map-legend-swatch'
   swatch.style.setProperty('--badge-color', `var(--color-spot-${category})`)
   swatch.setAttribute('aria-hidden', 'true')
-  const icon = badgeIconNode(category)
+  const icon = badgeIconNode(category, iconName)
   if (icon) {
     swatch.append(icon)
   }
@@ -45,8 +53,8 @@ export function categorySwatchNode(category: string): HTMLSpanElement {
   return swatch
 }
 
-function categorySwatchHtml(category: string): string {
-  return categorySwatchNode(category).outerHTML
+function categorySwatchHtml(category: string, iconName?: string): string {
+  return categorySwatchNode(category, iconName).outerHTML
 }
 
 function readersVerdictHtml(slug: string, title: string): string {
@@ -101,6 +109,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     tagline = '',
     excerpt = '',
     category = '',
+    icon,
     voteSlug = '',
   } = config
 
@@ -129,7 +138,7 @@ export function buildPopupHtml(config: PopupConfig): string {
   const metaInner = chips
     .map(chipHtml)
     .join('<span class="eyebrow-divider" aria-hidden="true"></span>')
-  const swatchHtml = category ? categorySwatchHtml(category) : ''
+  const swatchHtml = category ? categorySwatchHtml(category, icon) : ''
   const metaHtml =
     metaInner || swatchHtml
       ? `<div class="popup-meta list-eyebrow">${swatchHtml}${metaInner}</div>`

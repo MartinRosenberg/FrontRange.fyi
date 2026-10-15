@@ -285,6 +285,7 @@ const { variant = 'compact' } = Astro.props
     .masthead-nav-inner :global(.site-nav-inline) {
       grid-area: nav;
       justify-content: space-between;
+      column-gap: 0;
       padding-block: 0;
     }
 
@@ -327,18 +328,21 @@ const { variant = 'compact' } = Astro.props
 
     .masthead-nav:where(:not(.is-home), .is-home.is-stuck) :global(.site-nav-inline) {
       margin-inline: calc(-1 * var(--spacing-md));
-      padding: 0 var(--spacing-md);
+      padding: 0;
       background: var(--color-bar-background-sub);
     }
 
     .masthead-nav-inner :global(.site-nav-inline a) {
+      display: flex;
+      flex: 1 1 auto;
+      justify-content: center;
       padding-block: var(--spacing-sm) calc(var(--spacing-sm) - 3px);
       border-block-end: 3px solid transparent;
+      text-decoration: none;
     }
 
     .masthead-nav-inner :global(.site-nav-inline a:hover),
     .masthead-nav-inner :global(.site-nav-inline a[aria-current='page']) {
-      text-decoration: none;
       border-block-end-color: var(--color-flag-yellow);
     }
 

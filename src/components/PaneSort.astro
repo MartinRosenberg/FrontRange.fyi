@@ -1,0 +1,22 @@
+---
+interface SortOption {
+  label: string
+  value: string
+}
+
+interface Props {
+  options: SortOption[]
+}
+
+const { options } = Astro.props
+---
+
+<select class="pane-sort" data-filter-sort aria-label="Sort">
+  {options.map((option) => <option value={option.value}>{option.label}</option>)}
+</select>
+
+<style>
+  .pane-sort {
+    flex-shrink: 0;
+  }
+</style>

@@ -9,7 +9,6 @@ interface Props {
   detailHref?: string
   readMore?: boolean
   filterable?: boolean
-  coords?: string
   search?: string
   attrs?: Record<string, string>
   websiteHref?: string
@@ -23,7 +22,6 @@ const {
   detailHref,
   readMore = true,
   filterable = true,
-  coords = '',
   search = '',
   attrs = {},
   websiteHref,
@@ -34,8 +32,6 @@ const {
 const filterAttrs = filterable
   ? {
       'data-filter-item': '',
-      'data-coords': coords,
-      'data-title': title,
       'data-search': search,
     }
   : {}

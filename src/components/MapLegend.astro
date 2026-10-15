@@ -2,81 +2,84 @@
 import Icon from './Icon.astro'
 import IconCheck from '../assets/IconCheck.astro'
 import IconChevronDown from '../assets/IconChevronDown.astro'
-import { spotCategories, type SpotCategoryKey } from '../lib/spots'
+import type { LegendItem } from '../lib/legend'
 
 interface Props {
-  categories: SpotCategoryKey[]
-  off?: SpotCategoryKey[]
+  items: LegendItem[]
+  off?: string[]
+  facet?: string
 }
 
-const { categories, off = [] } = Astro.props
-const active = categories.filter((key) => !off.includes(key))
+const { items, off = [], facet } = Astro.props
+const active = items.filter((item) => !off.includes(item.key))
 const shown = active.length
 const LEGEND_DOT_LIMIT = 4
 ---
 
 {
-  categories.length > 0 && (
-    <div class="map-legend" data-map-legend data-expanded="false">
-      <button
-        type="button"
-        class="map-legend-toggle map-overlay"
-        data-legend-toggle
-        aria-expanded="false"
-        aria-controls="map-legend-panel">
-        <span class="map-legend-dots" data-legend-dots aria-hidden="true">
-          {active.slice(0, LEGEND_DOT_LIMIT).map((key) => (
-            <span
-              class="map-legend-dot"
-              style={`--badge-color: var(${spotCategories[key].token})`}
-            />
-          ))}
-        </span>
-        <span class="map-legend-toggle-label">
-          Filter · <span data-legend-shown="short">{shown} of {categories.length}</span>
-        </span>
-        <IconChevronDown />
-      </button>
-      <div class="map-legend-panel map-overlay" id="map-legend-panel" data-legend-panel>
-      <div class="map-legend-header">
-        <span class="map-legend-title">Filter</span>
-        <span class="map-legend-shown" data-legend-shown="long">
-          {shown} of {categories.length} shown
-        </span>
-      </div>
-      <ul class="map-legend-list" role="list" aria-label="Map legend">
-        {categories.map((key) => (
-          <li class="map-legend-row" data-pressed={off.includes(key) ? 'false' : 'true'}>
-            <button
-              type="button"
-              class="map-legend-item"
-              data-legend-category={key}
-              aria-pressed={off.includes(key) ? 'false' : 'true'}>
-              <span
-                class="map-legend-swatch"
-                style={`--badge-color: var(${spotCategories[key].token})`}
-                aria-hidden="true">
-                <Icon name={spotCategories[key].icon} />
+  items.length > 0 && (
+    <div class="map-legend" data-map-legend data-filter-toggles={facet}>
+      <div class="map-legend-panel map-overlay">
+        <div class="map-legend-header">
+          <button
+            type="button"
+            class="map-legend-collapse"
+            data-legend-collapse
+            aria-expanded="true"
+            aria-controls="map-legend-body">
+            <span class="map-legend-heading">
+              <IconChevronDown />
+              <span class="map-legend-title">Filter</span>
+              <span class="map-legend-dots" data-legend-dots aria-hidden="true">
+                {active.slice(0, LEGEND_DOT_LIMIT).map((item) => (
+                  <span class="map-legend-dot" style={`--badge-color: var(${item.token})`} />
+                ))}
               </span>
-              <span class="map-legend-label">{spotCategories[key].label}</span>
-            </button>
-            <button
-              type="button"
-              class="map-legend-only"
-              data-legend-only={key}
-              aria-label={`Show only ${spotCategories[key].label}`}>
-              only
-            </button>
-            <button
-              type="button"
-              class="map-legend-check"
-              data-legend-check={key}
-              aria-label={`Toggle ${spotCategories[key].label}`}>
-              <IconCheck />
-            </button>
-          </li>
-        ))}
-      </ul>
+            </span>
+            <span class="map-legend-shown" data-legend-shown>
+              {shown} of {items.length} shown
+            </span>
+          </button>
+        </div>
+        <div class="map-legend-body" id="map-legend-body" data-legend-body>
+        <ul class="map-legend-list" role="list" aria-label="Map legend">
+          {items.map((item) => (
+            <li class="map-legend-row" data-pressed={off.includes(item.key) ? 'false' : 'true'}>
+              <button
+                type="button"
+                class="map-legend-item"
+                data-legend-key={item.key}
+                aria-pressed={off.includes(item.key) ? 'false' : 'true'}>
+                <span
+                  class="map-legend-swatch"
+                  style={`--badge-color: var(${item.token})`}
+                  aria-hidden="true">
+                  <Icon name={item.icon} />
+                </span>
+                <span class="map-legend-label">{item.label}</span>
+              </button>
+              <button
+                type="button"
+                class="map-legend-only"
+                data-legend-only={item.key}
+                aria-label={`Show only ${item.label}`}>
+                only
+              </button>
+              <button
+                type="button"
+                class="map-legend-check"
+                data-legend-check={item.key}
+                aria-label={`Toggle ${item.label}`}>
+                <IconCheck />
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div class="map-legend-actions action-buttons">
+          <slot name="actions" />
+          <button type="button" class="btn btn-outline" data-legend-close>Close</button>
+        </div>
+        </div>
       </div>
     </div>
   )

@@ -1,68 +1,16 @@
 ---
-import FilterBar from './FilterBar.astro'
-import MapActions from './MapActions.astro'
 import ClearFilters from './ClearFilters.astro'
 
-interface Facet {
-  label: string
-  facet: string
-  options: (string | { value: string; label: string })[]
-}
-
-interface SortOption {
-  label: string
-  value: string
-}
-
 interface Props {
-  label: string
-  count: number
-  searchPlaceholder?: string
-  facets: Facet[]
-  sorts?: SortOption[]
-  mapLabel: string
   emptyText: string
-  class?: string
-  cluster?: boolean
-  search?: boolean
 }
 
-const {
-  label,
-  count,
-  searchPlaceholder,
-  search,
-  facets,
-  sorts,
-  mapLabel,
-  emptyText,
-  class: className,
-  cluster = false,
-} = Astro.props
+const { emptyText } = Astro.props
 ---
 
-<div class:list={[className, 'map-split']} data-filter-root data-map-split data-view="map">
-  <header class="secondary-header">
-    <div class="wrap">
-      <FilterBar
-        label={label}
-        count={count}
-        searchPlaceholder={searchPlaceholder}
-        facets={facets}
-        sorts={sorts}
-        search={search}
-      />
-    </div>
-    <div class="wrap active-filters" data-filter-active hidden>
-      <div class="filter-chips" data-filter-chips></div>
-      <ClearFilters />
-    </div>
-  </header>
-
+<div class="map-split" data-filter-root data-map-split data-view="map">
   <div class="results">
     <slot />
-    <div class="map" data-map data-map-cluster={cluster ? '' : undefined} aria-label={mapLabel} />
-    <MapActions label="View list" />
     <p class="empty" data-filter-empty hidden>
       {emptyText}
       <ClearFilters />
@@ -71,6 +19,6 @@ const {
 </div>
 
 <script>
-  import { initFilterableMapPage } from '../scripts/views'
-  initFilterableMapPage()
+  import { initMapPage } from '../scripts/views'
+  initMapPage()
 </script>

@@ -1,3 +1,19 @@
-<button type="button" class="btn btn-dark btn-compact filter-clear" data-filter-clear hidden
-  >Clear filters</button
->
+---
+interface Props {
+  variant?: 'button' | 'outline'
+}
+
+const { variant = 'button' } = Astro.props
+---
+
+{
+  variant === 'outline' ? (
+    <button type="button" class="btn btn-outline" data-filter-clear hidden>
+      Clear filters
+    </button>
+  ) : (
+    <button type="button" class="btn btn-dark btn-compact filter-clear" data-filter-clear hidden>
+      Clear filters
+    </button>
+  )
+}

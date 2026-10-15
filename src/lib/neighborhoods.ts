@@ -1,10 +1,11 @@
 import { CITY } from './site'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
+import { getImage } from 'astro:assets'
 import { neighborhoodRecords as neighborhoods } from './neighborhood-data'
 import { optionalData } from './optional-data'
 import countyTownsData from '../data/county-towns.json'
-import { published } from './content'
+import { excerpt, hasBody, published, PREVIEW_EXCERPT_CHARS } from './content'
 import { spotsIn } from './spots'
 
 const geo = optionalData<{
@@ -30,6 +31,8 @@ const population = optionalData<Record<string, number>>(
 )
 
 const countyTowns = countyTownsData as Record<string, string>
+
+const NOT_EXPLORED_EXCERPT = "I haven't written about this neighborhood yet."
 
 export function normalizeName(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '')
@@ -387,4 +390,37 @@ export function placeLocality(slug: string | undefined, address: string[] = []):
     .find((match): match is string => Boolean(match))
 
   return state ? `${name}, ${state}` : name
+}
+
+export interface AreaPopup {
+  name: string
+  area: string
+  park: boolean
+  tagline: string
+  excerpt: string
+  photo: string
+}
+
+export async function neighborhoodPopups(): Promise<Record<string, AreaPopup>> {
+  const entries = new Map(
+    published(await getCollection('neighborhoods')).map((entry) => [entry.id, entry]),
+  )
+  const popups: Record<string, AreaPopup> = {}
+  for (const info of infoBySlug.values()) {
+    const entry = entries.get(info.slug)
+    const thumb = entry?.data.photo
+      ? await getImage({ src: entry.data.photo, width: 480, format: 'webp' })
+      : undefined
+    popups[info.slug] = {
+      name: info.name,
+      area: info.group,
+      park: info.type === 'park',
+      tagline: entry?.data.description ?? '',
+      excerpt:
+        entry && hasBody(entry) ? excerpt(entry.body, PREVIEW_EXCERPT_CHARS) : NOT_EXPLORED_EXCERPT,
+      photo: thumb?.src ?? '',
+    }
+  }
+
+  return popups
 }

@@ -202,5 +202,6 @@ The basemap and street geometry are OpenStreetMap data under the
 [ODbL](https://opendatacommons.org/licenses/odbl/). The "© OpenStreetMap"
 credit shown on every map is what the licence requires, so keep it visible.
 
-- Under 700px every map popup (food pins, neighborhood badges and polygons) opens as a bottom sheet fixed to the viewport instead of an anchored popup, and the category legend collapses to a "Filter · n of m" pill; both live in `src/scripts/map-shared.ts` / `map-pane.ts`.
+- The food map and neighborhood map share one engine, `src/scripts/city-map.ts` (rendered by `src/components/CityMap.astro`): region-colored neighborhood polygons plus category badges. `/food/` shows only food badges and its Filter panel holds a neighborhood select and cuisine toggles; `/neighborhoods/` shows every category with food off by default. Badges live in `src/scripts/map-badges.ts`, the legend in `src/scripts/map-legend.ts`.
+- Under 700px every map popup (badges and polygons) opens as a bottom sheet fixed to the viewport instead of an anchored popup, and the Filter panel collapses to a "Filter · n of m" pill; the sheet lives in `src/scripts/map-shared.ts`.
 - `npm run geocode:spots` fills in `coords` for any `src/data/spots.json` entry that has an `address` but no coordinates (Nominatim, one request per second; results are `[lng, lat]`).

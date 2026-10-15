@@ -252,7 +252,7 @@ const seoDescription = hasBody(entry)
                 <CardList
                   title={`More in ${neighborhoodName(data.neighborhood)}`}
                   class="card-cells"
-                  moreHref={href(`/food/?neighborhood=${encodeURIComponent(data.neighborhood)}`)}>
+                  moreHref={href(neighborhoodLink ?? '/food/')}>
                   {relatedNeighborhood.map(({ place, verdict }) => (
                     <Card
                       href={href(`/food/${place.id}/`)}

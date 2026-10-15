@@ -43,7 +43,7 @@ export const SHEET_QUERY = '(max-width: 700px)'
 
 type PopupEvent = 'open' | 'close'
 
-export interface MapPopup {
+interface MapPopup {
   setLngLat(lngLat: [number, number]): MapPopup
   setHTML(html: string): MapPopup
   addTo(map: maplibregl.Map): MapPopup
@@ -374,21 +374,6 @@ interface FramableMap {
   setZoom(zoom: number): void
 }
 
-export function fitZoomFor(map: FramableMap, bounds: BoundsLike, padding: number): number {
-  const mercatorY = (lat: number): number => {
-    const sine = Math.sin((lat * Math.PI) / 180)
-
-    return 0.5 - Math.log((1 + sine) / (1 - sine)) / (4 * Math.PI)
-  }
-  const spanX = (bounds.getEast() - bounds.getWest()) / 360
-  const spanY = mercatorY(bounds.getSouth()) - mercatorY(bounds.getNorth())
-  const container = map.getContainer()
-  const scaleX = (container.clientWidth - padding * 2) / 512 / spanX
-  const scaleY = (container.clientHeight - padding * 2) / 512 / spanY
-
-  return Math.log2(Math.min(scaleX, scaleY))
-}
-
 const RIVER_MARGIN = 0.06
 
 export function frameCityView(
@@ -422,12 +407,7 @@ export function frameCityView(
 }
 
 export function topChromeBottom(): number {
-  return ['.masthead-nav', '.secondary-header']
-    .map((selector) => document.querySelector<HTMLElement>(selector))
-    .reduce(
-      (bottom, node) => (node ? Math.max(bottom, node.getBoundingClientRect().bottom) : bottom),
-      0,
-    )
+  return document.querySelector<HTMLElement>('.masthead-nav')?.getBoundingClientRect().bottom ?? 0
 }
 
 export function keepPopupInView(map: PannableMap, getPopupEl: () => HTMLElement | undefined): void {
