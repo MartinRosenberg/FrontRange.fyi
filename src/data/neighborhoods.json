@@ -16,7 +16,7 @@
   },
   { "number": 3, "name": "Holly Hills", "slug": "holly-hills", "group": "South City" },
   { "number": 4, "name": "Boulevard Heights", "slug": "boulevard-heights", "group": "South City" },
-  { "number": 5, "name": "Bevo Mill", "slug": "bevo-mill", "group": "South City" },
+  { "number": 5, "name": "Bevo", "slug": "bevo-mill", "group": "South City" },
   { "number": 6, "name": "Princeton Heights", "slug": "princeton-heights", "group": "South City" },
   { "number": 7, "name": "Southampton", "slug": "southampton", "group": "South City" },
   { "number": 8, "name": "St. Louis Hills", "slug": "st-louis-hills", "group": "South City" },

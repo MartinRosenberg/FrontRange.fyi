@@ -1,5 +1,5 @@
 ---
-title: Bevo Mill
+title: Bevo
 created: 2026-06-28
 description: A landmark windmill anchoring Little Bosnia
 wikipedia: https://en.wikipedia.org/wiki/Bevo_Mill,_St._Louis

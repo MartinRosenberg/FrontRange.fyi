@@ -135,5 +135,17 @@ const readersEnabled = SUPABASE_ENABLED
       border-start-end-radius: var(--radius-pill);
       border-end-end-radius: var(--radius-pill);
     }
+
+    @media (max-width: 700px) {
+      .rv-choice {
+        padding-block: var(--spacing-sm);
+        padding-inline: var(--spacing-base);
+      }
+
+      .rv-choice :global(.icon) {
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+    }
   }
 </style>

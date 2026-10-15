@@ -1,6 +1,6 @@
 ---
 import IconExternalLink from '../assets/IconExternalLink.astro'
-import IconArrowUpRight from '../assets/IconArrowUpRight.astro'
+import IconMap from '../assets/IconMap.astro'
 
 interface Props {
   href?: string
@@ -31,7 +31,7 @@ const { href, websiteHref, directionsHref } = Astro.props
     directionsHref && (
       <a class="btn btn-outline" href={directionsHref} target="_blank" rel="noopener">
         Directions
-        <IconArrowUpRight />
+        <IconMap />
       </a>
     )
   }

@@ -1344,7 +1344,7 @@ body:has(.map-split) main > .wrap,
   inset-inline: 0;
   inset-block-end: 0;
   z-index: 1200;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md) var(--spacing-lg);
   max-height: 70dvh;
   display: flex;
   flex-direction: column;
@@ -1364,6 +1364,25 @@ body:has(.map-split) main > .wrap,
 
 .map-sheet[hidden] {
   display: none;
+}
+
+.map-sheet:is(.is-dragging, .is-settling) {
+  transform: translateY(var(--sheet-offset, 0));
+}
+
+.map-sheet.is-settling {
+  transition: transform var(--duration-fast) ease;
+}
+
+.map-sheet-handle {
+  position: absolute;
+  inset-block-start: var(--spacing-sm);
+  inset-inline-start: 50%;
+  width: var(--spacing-xxl);
+  height: var(--spacing-xs);
+  border-radius: var(--radius-pill);
+  background: var(--color-line);
+  translate: -50% 0;
 }
 
 .map-sheet-close {
