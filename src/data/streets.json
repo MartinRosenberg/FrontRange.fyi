@@ -1,10 +1,10 @@
 {
   "source": "Street geometry extracted from OpenStreetMap via the Overpass API (ODbL)",
-  "corridors": [
+  "streets": [
     {
       "id": "the-grove",
       "name": "The Grove",
-      "street": "Manchester Avenue",
+      "road": "Manchester Avenue",
       "from": "west arch",
       "to": "east arch",
       "anchor": "the-grove",
@@ -41,7 +41,7 @@
     {
       "id": "cherokee",
       "name": "Cherokee Street",
-      "street": "Cherokee Street",
+      "road": "Cherokee Street",
       "from": "Jefferson",
       "to": "Nebraska",
       "anchor": "cherokee-street",
@@ -65,7 +65,7 @@
       "id": "cherokee-antique-row",
       "name": "Cherokee Antique Row",
       "label": "Antique Row",
-      "street": "Cherokee Street",
+      "road": "Cherokee Street",
       "from": "Lemp",
       "to": "Jefferson",
       "anchor": "cherokee-street",
@@ -88,7 +88,7 @@
     {
       "id": "euclid",
       "name": "Euclid Avenue",
-      "street": "Euclid Avenue",
+      "road": "Euclid Avenue",
       "from": "Laclede",
       "to": "Delmar",
       "anchor": "central-west-end",
@@ -130,7 +130,7 @@
     {
       "id": "south-grand",
       "name": "South Grand",
-      "street": "Grand Boulevard",
+      "road": "Grand Boulevard",
       "from": "Arsenal",
       "to": "Utah",
       "anchor": "tower-grove-south",
@@ -160,7 +160,7 @@
     {
       "id": "morganford",
       "name": "Morganford",
-      "street": "Morganford Road",
+      "road": "Morganford Road",
       "from": "Arsenal",
       "to": "Utah",
       "anchor": "tower-grove-south",
@@ -188,7 +188,7 @@
     {
       "id": "hampton",
       "name": "Hampton Avenue",
-      "street": "Hampton Avenue",
+      "road": "Hampton Avenue",
       "from": "Chippewa",
       "to": "Gravois",
       "anchor": "hampton--macklind",
@@ -265,7 +265,7 @@
     {
       "id": "macklind",
       "name": "Macklind",
-      "street": "Macklind Avenue",
+      "road": "Macklind Avenue",
       "from": "Lansdowne",
       "to": "Nottingham",
       "anchor": "hampton--macklind",
@@ -284,7 +284,7 @@
     {
       "id": "the-hill",
       "name": "The Hill",
-      "street": "Marconi Avenue",
+      "road": "Marconi Avenue",
       "from": "Shaw",
       "to": "Elizabeth",
       "anchor": "the-hill",
@@ -307,7 +307,7 @@
     {
       "id": "bevo",
       "name": "Bevo",
-      "street": "Gravois Avenue",
+      "road": "Gravois Avenue",
       "from": "Taft",
       "to": "Christy",
       "anchor": "bevo",
@@ -365,7 +365,7 @@
     {
       "id": "delmar-loop",
       "name": "The Delmar Loop",
-      "street": "Delmar Boulevard",
+      "road": "Delmar Boulevard",
       "from": "Leland",
       "to": "the Pageant",
       "anchor": "the-delmar-loop",
@@ -401,7 +401,7 @@
     {
       "id": "demun",
       "name": "DeMun",
-      "street": "DeMun Avenue",
+      "road": "DeMun Avenue",
       "from": "Northwood",
       "to": "Southwood",
       "anchor": "demun",
@@ -420,7 +420,7 @@
     {
       "id": "carondelet",
       "name": "Carondelet",
-      "street": "South Broadway",
+      "road": "South Broadway",
       "from": "Blow",
       "to": "Steins",
       "anchor": "carondelet",
@@ -445,7 +445,7 @@
     {
       "id": "south-town",
       "name": "Southtown",
-      "street": "South Kingshighway",
+      "road": "South Kingshighway",
       "from": "Fyler",
       "to": "Devonshire",
       "anchor": "southtown",
@@ -508,7 +508,7 @@
     {
       "id": "maplewood",
       "name": "Maplewood",
-      "street": "Manchester Road",
+      "road": "Manchester Road",
       "from": "Big Bend",
       "to": "Bellevue",
       "anchor": "maplewood",
@@ -547,7 +547,7 @@
     {
       "id": "old-webster",
       "name": "Old Webster",
-      "street": "Lockwood Avenue",
+      "road": "Lockwood Avenue",
       "from": "Jefferson",
       "to": "Maple",
       "anchor": "webster-groves",
@@ -579,7 +579,7 @@
     {
       "id": "kirkwood",
       "name": "Kirkwood",
-      "street": "Kirkwood Road",
+      "road": "Kirkwood Road",
       "from": "Bodley",
       "to": "Monroe",
       "anchor": "kirkwood",
@@ -619,7 +619,7 @@
     {
       "id": "lafayette-square",
       "name": "Lafayette Square",
-      "street": "Park Avenue",
+      "road": "Park Avenue",
       "from": "Mississippi",
       "to": "18th",
       "anchor": "lafayette-square",
@@ -641,7 +641,7 @@
       "id": "gore",
       "name": "Gore Avenue",
       "label": "Gore",
-      "street": "North Gore Avenue",
+      "road": "North Gore Avenue",
       "from": "Lockwood",
       "to": "Kirkham",
       "anchor": "webster-groves",
@@ -662,7 +662,7 @@
     {
       "id": "soulard",
       "name": "Soulard",
-      "street": "South 12th Street",
+      "road": "South 12th Street",
       "from": "Shenandoah",
       "to": "Gravois",
       "anchor": "soulard",
@@ -695,7 +695,7 @@
     {
       "id": "dogtown",
       "name": "Dogtown",
-      "street": "Tamm Avenue",
+      "road": "Tamm Avenue",
       "from": "Oakland",
       "to": "Mitchell",
       "anchor": "dogtown",
@@ -711,7 +711,7 @@
       "id": "dogtown-clayton",
       "name": "Dogtown",
       "label": "Clayton Ave",
-      "street": "Clayton Avenue",
+      "road": "Clayton Avenue",
       "from": "Childress",
       "to": "Graham",
       "anchor": "dogtown",
@@ -725,7 +725,7 @@
     {
       "id": "shaw",
       "name": "Shaw",
-      "street": "South 39th Street",
+      "road": "South 39th Street",
       "from": "Shaw",
       "to": "Magnolia",
       "anchor": "shaw",
@@ -739,7 +739,7 @@
     {
       "id": "washington-avenue",
       "name": "Washington Avenue",
-      "street": "Washington Avenue",
+      "road": "Washington Avenue",
       "from": "6th",
       "to": "18th",
       "anchor": "washington-avenue",
@@ -781,7 +781,7 @@
     {
       "id": "ballpark-village",
       "name": "Ballpark Village",
-      "street": "Clark Avenue",
+      "road": "Clark Avenue",
       "from": "8th",
       "to": "Broadway",
       "anchor": "ballpark-village",
@@ -804,7 +804,7 @@
     {
       "id": "big-bend",
       "name": "Old Orchard",
-      "street": "Big Bend Boulevard",
+      "road": "Big Bend Boulevard",
       "from": "Lockwood",
       "to": "Oakwood",
       "anchor": "webster-groves",

@@ -18,7 +18,6 @@ interface ArticleInput {
   description?: string
   published?: string
   updated?: string
-  tags?: string[]
   image?: string
   about?: { name: string; url: string }[]
 }
@@ -33,7 +32,6 @@ export function articleSchema(input: ArticleInput, site: URL) {
     image: input.image,
     datePublished: input.published,
     dateModified: input.updated ?? input.published,
-    keywords: input.tags?.length ? input.tags.join(', ') : undefined,
     about: input.about?.length
       ? input.about.map((place) => ({ '@type': 'Place', name: place.name, url: place.url }))
       : undefined,
@@ -132,6 +130,26 @@ export function placeSchema(input: PlaceInput, site: URL) {
       name: place.name,
       url: place.url,
       address: place.address?.length ? postalAddress(place.address) : undefined,
+    })),
+  }
+}
+
+interface ListedItem {
+  name: string
+  url?: string
+}
+
+export function itemListSchema(name: string, items: ListedItem[]) {
+  return {
+    '@context': CONTEXT,
+    '@type': 'ItemList',
+    name,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url,
     })),
   }
 }

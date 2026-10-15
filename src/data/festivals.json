@@ -54,9 +54,9 @@
   },
   {
     "name": "St. Louis Greek Festival",
-    "neighborhood": null,
+    "neighborhood": "town-and-country",
     "when": "Memorial Day weekend",
-    "blurb": "Greek food, music, and dancing over Memorial Day weekend, held in Des Peres.",
+    "blurb": "Greek food, music, and dancing over Memorial Day weekend.",
     "url": "https://www.stlgreekfest.com/"
   },
   {
@@ -82,7 +82,7 @@
   },
   {
     "name": "Cherokee Street Jazz Crawl",
-    "neighborhood": null,
+    "neighborhood": "benton-park-west",
     "when": "Early November",
     "blurb": "Live jazz across venues up and down Cherokee Street.",
     "url": "https://cherokeestreet.com/"

@@ -8,7 +8,7 @@ const placeSlugs = new Set([
   ...Object.keys(countyTowns),
 ])
 
-const taggable = { tags: z.array(z.string()).default([]), draft: z.boolean().default(false) }
+const draftable = { draft: z.boolean().default(false) }
 const coords = { coords: z.tuple([z.number(), z.number()]).optional() }
 
 const md = (folder: string) => glob({ pattern: '**/*.md', base: `./src/content/${folder}` })
@@ -42,19 +42,8 @@ const food = defineCollection({
       pick: z.object({ name: z.string(), note: z.string().optional() }).optional(),
       ogImage: z.string().optional(),
       ...coords,
-      ...taggable,
+      ...draftable,
     }),
-})
-
-const notes = defineCollection({
-  loader: md('notes'),
-  schema: z.object({
-    title: z.string(),
-    created: z.coerce.date(),
-    updated: z.coerce.date().optional(),
-    description: z.string().optional(),
-    ...taggable,
-  }),
 })
 
 const neighborhoods = defineCollection({
@@ -71,7 +60,7 @@ const neighborhoods = defineCollection({
       neighbors: z.array(z.string()).default([]),
       notes: z.array(z.string()).default([]),
       featured: z.number().optional(),
-      ...taggable,
+      ...draftable,
     }),
 })
 
@@ -92,7 +81,7 @@ const topics = defineCollection({
       updated: z.coerce.date(),
       created: z.coerce.date().optional(),
       display: z.enum(['article', 'list']).default('article'),
-      ...taggable,
+      ...draftable,
     }),
 })
 
@@ -101,4 +90,4 @@ const changelog = defineCollection({
   schema: z.object({ date: z.coerce.date() }),
 })
 
-export const collections = { food, notes, neighborhoods, topics, changelog }
+export const collections = { food, neighborhoods, topics, changelog }

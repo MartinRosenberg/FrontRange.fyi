@@ -7,7 +7,7 @@ import { CITY, CONTACT_EMAIL, FEEDBACK_EMAIL, INSTAGRAM_HANDLE, SITE_NAME } from
 const description = `Send a note, a correction, or a recommendation to ${SITE_NAME}, an independent guide to ${CITY} food, neighborhoods, and culture.`
 ---
 
-<BaseLayout article crumb="Contact" title={`Contact - ${SITE_NAME}`} description={description}>
+<BaseLayout article crumb="Contact" title={`Contact ${SITE_NAME}`} description={description}>
   <article>
     <PageMasthead title="Contact">
       <p slot="lede">
@@ -40,5 +40,9 @@ const description = `Send a note, a correction, or a recommendation to ${SITE_NA
 <style>
   .feedback-alt {
     margin-block-start: var(--spacing-lg);
+  }
+
+  .feedback-alt a:hover {
+    text-decoration-line: underline;
   }
 </style>

@@ -1,11 +1,12 @@
 ---
-import { CITY, CORRIDORS_TOPIC_ID, REGION, SUPABASE_ENABLED } from '../../lib/site'
+import { CITY, STREETS_TOPIC_ID, REGION_CODE, SUPABASE_ENABLED } from '../../lib/site'
 import { placeSchema } from '../../lib/schema'
 import { getCollection, render } from 'astro:content'
 import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import AsideHeading from '../../components/AsideHeading.astro'
 import Subheading from '../../components/Subheading.astro'
+import Heading from '../../components/Heading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
@@ -20,7 +21,7 @@ import { cuisineLabel } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
 import { spotsIn, spotCategories, groupSpots } from '../../lib/spots'
 import { toMapSpots, spotPageHref, spotWebsiteHref, spotDirectionsHref } from '../../lib/map-spots'
-import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
 import {
   foodByNeighborhood,
@@ -31,7 +32,7 @@ import {
   neighborhoodMetaDescription,
   neighborsOf,
   festivalsIn,
-  corridorsIn,
+  streetsIn,
   neighborhoodHasContent,
   neighborhoodResourceLinks,
   regionOf,
@@ -40,7 +41,6 @@ import {
 import neighborhoods from '../../data/neighborhoods.json'
 import Button from '../../components/Button.astro'
 import SourceLink from '../../components/SourceLink.astro'
-import FactCards from '../../components/FactCards.astro'
 import IconArrowRight from '../../assets/IconArrowRight.astro'
 import IconExternalLink from '../../assets/IconExternalLink.astro'
 import IconChart from '../../assets/IconChart.astro'
@@ -79,7 +79,6 @@ const sharePhoto = entry?.data.photo
   : undefined
 const hasWriteup = Boolean(entry?.body && entry.body.trim())
 const backlinks = entry ? await getBacklinks(entry.id) : []
-const tags = entry?.data.tags ?? []
 const notes = entry?.data.notes ?? []
 
 const spots = spotsIn(slug)
@@ -95,9 +94,9 @@ const neighbors =
 const festivals = festivalsIn(slug)
 
 const walkableStLouisLive = published(await getCollection('topics')).some(
-  (topic) => topic.id === CORRIDORS_TOPIC_ID,
+  (topic) => topic.id === STREETS_TOPIC_ID,
 )
-const corridors = walkableStLouisLive ? corridorsIn(slug) : []
+const streets = walkableStLouisLive ? streetsIn(slug) : []
 
 const placesByNeighborhood = await foodByNeighborhood()
 const places = placesByNeighborhood.get(slug) ?? []
@@ -130,23 +129,23 @@ const metaDescription = hasWriteup
       .filter(Boolean)
       .join('. ')
 
-let seoTitle: string | undefined
-if (info) {
-  if (info.type === 'park') {
-    seoTitle = `${title} - Park in ${CITY}`
-  } else if (info.type) {
-    const kind = `${info.type.charAt(0).toUpperCase()}${info.type.slice(1)} in ${info.group}`
-    seoTitle = `${title}, ${REGION} - ${kind}`
-  } else {
-    seoTitle = `${title} - Neighborhood in ${CITY}`
-  }
-}
+const isTown = info?.type === 'city' || info?.type === 'community'
+const isPark = info?.type === 'park'
+const placeName = isTown
+  ? `${title}, ${REGION_CODE}`
+  : isPark
+    ? `${title}, ${CITY}`
+    : `${title}, ${CITY} Neighborhood`
+const guideParts = [
+  ...(places.length > 0 ? ['Restaurants'] : []),
+  ...(spots.length > 0 || streets.length > 0 || festivals.length > 0 ? ['Things to Do'] : []),
+]
+const guideLabel =
+  guideParts.length > 0 ? `${guideParts.join(', ')} and Map` : 'Guide and Map'
+const seoTitle = info ? `${placeName}: ${guideLabel}` : undefined
 
 const region = info ? regionOf(info) : undefined
-const trail = [
-  { label: 'Neighborhoods', href: '/neighborhoods/' },
-  ...(region ? [{ label: region.label, href: `/neighborhoods/${region.slug}/` }] : []),
-]
+const trail = [{ label: 'Neighborhoods', href: '/neighborhoods/' }]
 
 const isCafe = (place: (typeof places)[number]) => place.data.cuisine.includes('cafe')
 const cafes = places.filter(isCafe)
@@ -282,7 +281,7 @@ const schema = placeSchema(
               <CardList title="Food & Drink">
                 {eateries.map((place) => (
                   <Card
-                    href={hasBody(place) ? href(`/food/${place.id}/`) : undefined}
+                    href={href(`/food/${place.id}/`)}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}
@@ -301,7 +300,7 @@ const schema = placeSchema(
               <CardList title="Coffee">
                 {cafes.map((place) => (
                   <Card
-                    href={hasBody(place) ? href(`/food/${place.id}/`) : undefined}
+                    href={href(`/food/${place.id}/`)}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}
@@ -334,14 +333,14 @@ const schema = placeSchema(
           }
 
           {
-            corridors.length > 0 && (
+            streets.length > 0 && (
               <CardList title="Walkable streets">
-                {corridors.map((corridor) => (
+                {streets.map((street) => (
                   <Card
-                    href={href(`/walkable-st-louis/#${corridor.anchor}`)}
-                    title={corridor.name}
-                    meta={corridor.street}
-                    description={`${corridor.from} to ${corridor.to}`}
+                    href={href(`/${STREETS_TOPIC_ID}/#${street.anchor}`)}
+                    title={street.name}
+                    meta={street.road}
+                    description={`${street.from} to ${street.to}`}
                   />
                 ))}
               </CardList>
@@ -363,7 +362,7 @@ const schema = placeSchema(
           }
 
           <section class="pane-more">
-            <Subheading>More</Subheading>
+            <Heading>More</Heading>
             <div class="pane-aside">
             {
               nearbyNeighbors.length > 0 && (
@@ -420,7 +419,6 @@ const schema = placeSchema(
                 </div>
               )
             }
-            <FactCards tags={tags} />
             </div>
           </section>
 
@@ -457,8 +455,8 @@ const schema = placeSchema(
     padding-inline: var(--spacing-lg);
   }
 
-  .pane-more :global(.subheading) {
-    margin-block: var(--spacing-xl) var(--spacing-lg);
+  .pane-more :global(.heading) {
+    margin-block: var(--spacing-xxl) var(--spacing-xl);
   }
 
   .pane-aside {
@@ -474,10 +472,6 @@ const schema = placeSchema(
       grid-template-columns: 1fr 1fr;
       gap: var(--spacing-xl) var(--spacing-lg);
       align-items: start;
-    }
-
-    .pane-aside > :global(.side-card) {
-      grid-column: 1 / -1;
     }
   }
 

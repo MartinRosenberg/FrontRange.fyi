@@ -16,16 +16,13 @@ const geo = optionalData<{
   adjacency: {},
 })
 
-export function neighborhoodShapes(): { viewBox: string; shapes: Record<string, string> } {
-  return { viewBox: geo.viewBox ?? '0 0 1000 1000', shapes: geo.shapes }
-}
 const festivals = optionalData<unknown[]>(
   import.meta.glob('../data/festivals.json', { eager: true, import: 'default' }),
   [],
 )
-const corridorData = optionalData<{ corridors: unknown[] }>(
-  import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
-  { corridors: [] },
+const streetData = optionalData<{ streets: unknown[] }>(
+  import.meta.glob('../data/streets.json', { eager: true, import: 'default' }),
+  { streets: [] },
 )
 const population = optionalData<Record<string, number>>(
   import.meta.glob('../data/neighborhood-population.json', { eager: true, import: 'default' }),
@@ -82,14 +79,6 @@ const REGION_SLUG_BY_GROUP: Record<string, string> = {
   'St. Louis County': 'st-louis-county',
 }
 
-export const regions: Region[] = [
-  { slug: 'central-corridor', label: 'Central Corridor' },
-  { slug: 'south-city', label: 'South City' },
-  { slug: 'north-city', label: 'North City' },
-  { slug: 'st-louis-county', label: 'St. Louis County' },
-  { slug: 'parks', label: 'Parks' },
-]
-
 export const regionTokenBySlug: Record<string, string> = {
   'north-city': '--color-map-north',
   'central-corridor': '--color-map-central',
@@ -104,10 +93,6 @@ export function regionOf(info: NeighborhoodInfo): Region {
   }
 
   return { slug: REGION_SLUG_BY_GROUP[info.group] ?? '', label: info.group }
-}
-
-export function neighborhoodsInRegion(regionSlug: string): NeighborhoodInfo[] {
-  return [...infoBySlug.values()].filter((info) => regionOf(info).slug === regionSlug)
 }
 
 export function hasNeighborhoodShape(slug: string): boolean {
@@ -237,24 +222,22 @@ export function neighborsOf(slug: string): NeighborhoodInfo[] {
     .sort((left, right) => left.name.localeCompare(right.name))
 }
 
-export interface Corridor {
+export interface Street {
   id: string
   name: string
-  street: string
+  road: string
   from: string
   to: string
   anchor: string
   neighborhoods: string[]
 }
 
-export function allCorridors(): Corridor[] {
-  return corridorData.corridors as Corridor[]
+export function allStreets(): Street[] {
+  return streetData.streets as Street[]
 }
 
-export function corridorsIn(slug: string): Corridor[] {
-  return (corridorData.corridors as Corridor[]).filter((corridor) =>
-    corridor.neighborhoods.includes(slug),
-  )
+export function streetsIn(slug: string): Street[] {
+  return (streetData.streets as Street[]).filter((street) => street.neighborhoods.includes(slug))
 }
 
 export interface Festival {
@@ -267,75 +250,6 @@ export interface Festival {
 
 export function festivalsIn(slug: string): Festival[] {
   return (festivals as Festival[]).filter((festival) => festival.neighborhood === slug)
-}
-
-export function allFestivals(): Festival[] {
-  return festivals as Festival[]
-}
-
-export const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-] as const
-
-const monthAnchors: Record<string, number> = {
-  'new year': 0,
-  'mardi gras': 1,
-  'st. patrick': 2,
-  'st patrick': 2,
-  'memorial day': 4,
-  juneteenth: 5,
-  'independence day': 6,
-  'fourth of july': 6,
-  'labor day': 8,
-  halloween: 9,
-  thanksgiving: 10,
-  christmas: 11,
-}
-
-export function festivalMonthIndex(when: string): number {
-  const lower = when.toLowerCase()
-  const named = MONTHS.findIndex((month) => lower.includes(month.toLowerCase()))
-  if (named !== -1) {
-    return named
-  }
-
-  for (const [anchor, index] of Object.entries(monthAnchors)) {
-    if (lower.includes(anchor)) {
-      return index
-    }
-  }
-
-  return 12
-}
-
-export function festivalDayRank(when: string): number {
-  const lower = when.toLowerCase()
-  const day = lower.match(/\b(\d{1,2})\b/)
-  if (day) {
-    return Number(day[1])
-  }
-  if (lower.includes('early')) {
-    return 5
-  }
-  if (lower.includes('mid')) {
-    return 15
-  }
-  if (lower.includes('late')) {
-    return 25
-  }
-
-  return 15
 }
 
 const nameBySlug = new Map(
@@ -450,6 +364,27 @@ export function neighborhoodHasContent(slug: string, written: boolean, foodCount
     foodCount > 0 ||
     spotsIn(slug).length > 0 ||
     festivalsIn(slug).length > 0 ||
-    corridorsIn(slug).length > 0
+    streetsIn(slug).length > 0
   )
+}
+
+export function placeLocality(slug: string | undefined, address: string[] = []): string {
+  if (!slug) {
+    return CITY
+  }
+  const name = neighborhoodName(slug)
+  const info = neighborhoodInfo(slug)
+  const inCity =
+    info !== undefined &&
+    info.group !== 'St. Louis County' &&
+    info.type !== 'city' &&
+    info.type !== 'community'
+  if (inCity) {
+    return `${name}, ${CITY}`
+  }
+  const state = address
+    .map((line) => line.match(/,\s*([A-Z]{2})\s+\d{5}/)?.[1])
+    .find((match): match is string => Boolean(match))
+
+  return state ? `${name}, ${state}` : name
 }

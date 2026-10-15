@@ -169,7 +169,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   const PARTS_LINE_LAYER = 'neighborhood-parts-line'
   const slugToFeatureIds = new Map<string, number[]>()
   const centerBySlug = new Map<string, [number, number]>()
-  const boundsBySlug = new Map<string, maplibregl.LngLatBounds>()
   const nameBySlug = new Map<string, string>()
   const regionKeyBySlug = new Map<string, RegionKey>()
 
@@ -190,7 +189,6 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
     if (slug) {
       slugToFeatureIds.set(slug, [...(slugToFeatureIds.get(slug) ?? []), index])
       centerBySlug.set(slug, featureBounds.getCenter().toArray() as [number, number])
-      boundsBySlug.set(slug, featureBounds)
       nameBySlug.set(slug, name)
       regionKeyBySlug.set(slug, region)
     }
@@ -545,16 +543,7 @@ export async function initAreaMap(selector = '[data-area-map]'): Promise<void> {
   const split = document.querySelector('[data-map-split]')
 
   function frameInitialView(): void {
-    const initialSlug = location.hash.slice(1)
-    if (initialSlug && slugToFeatureIds.has(initialSlug)) {
-      activate(initialSlug)
-      const selectedBounds = boundsBySlug.get(initialSlug)
-      if (selectedBounds) {
-        map.fitBounds(selectedBounds, { padding: 40, maxZoom: 13, animate: false })
-      }
-    } else {
-      frameCityView(map, 40, true, CITY_VIEW_ZOOM_IN, CITY_VIEW_RIVER_MARGIN)
-    }
+    frameCityView(map, 40, true, CITY_VIEW_ZOOM_IN, CITY_VIEW_RIVER_MARGIN)
   }
 
   let framed = false

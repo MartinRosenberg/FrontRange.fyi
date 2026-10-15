@@ -5,10 +5,6 @@ description: St. Louis’s most populous and densest neighborhood
 url: https://dutchtownstl.org/
 notes:
   - 'This page combines the Dutchtown, Mount Pleasant, Marine Villa, and Gravois Park city neighborhoods.'
-tags:
-  - residential
-  - historic
-  - gritty
 ---
 
 Greater Dutchtown is one of the most densely populated areas of St. Louis city. This page covers the combined city neighborhoods of Dutchtown, Mount Pleasant, Marine Villa, and Gravois Park, based on this research:

@@ -3,11 +3,6 @@ title: Downtown
 created: 2026-06-28
 url: https://www.downtownstl.org
 description: The central business and sports district
-tags:
-  - historic
-  - sports
-  - urban
-  - walkable
 notes:
   - "This page combines the Downtown and Downtown West city neighborhoods."
 ---

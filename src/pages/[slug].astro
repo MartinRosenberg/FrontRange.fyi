@@ -4,15 +4,15 @@ import { Image } from 'astro:assets'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import BoundaryMap from '../components/BoundaryMap.astro'
 import Comments from '../components/Comments.astro'
-import CorridorMap from '../components/CorridorMap.astro'
-import { corridorSpotsByCorridor } from '../lib/corridor-spots'
+import StreetMap from '../components/StreetMap.astro'
+import { streetSpotsByStreet } from '../lib/street-spots'
 import Entry from '../components/Entry.astro'
 import EntryDates from '../components/EntryDates.astro'
 import { published } from '../lib/content'
 import { getBacklinks } from '../lib/backlinks'
 import { articleSchema } from '../lib/schema'
 import { href } from '../lib/url'
-import { neighborhoodInfo, allCorridors } from '../lib/neighborhoods'
+import { neighborhoodInfo, allStreets } from '../lib/neighborhoods'
 
 export async function getStaticPaths() {
   const topics = published(await getCollection('topics'))
@@ -26,10 +26,10 @@ const { Content } = await render(entry)
 const backlinks = await getBacklinks(entry.id)
 
 const hasBoundaryMap = (entry.body ?? '').includes('data-boundary-map')
-const hasCorridorMap = (entry.body ?? '').includes('data-corridor-map')
-const corridorSpots = hasCorridorMap ? await corridorSpotsByCorridor() : {}
-const aboutSlugs = hasCorridorMap
-  ? [...new Set(allCorridors().flatMap((corridor) => corridor.neighborhoods))]
+const hasStreetMap = (entry.body ?? '').includes('data-street-map')
+const streetSpots = hasStreetMap ? await streetSpotsByStreet() : {}
+const aboutSlugs = hasStreetMap
+  ? [...new Set(allStreets().flatMap((street) => street.neighborhoods))]
   : []
 
 const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
@@ -42,7 +42,6 @@ const schema = articleSchema(
     image: new URL(href(data.ogImage ?? '/og.png'), siteOrigin).href,
     published: (data.created ?? data.updated).toISOString(),
     updated: data.updated.toISOString(),
-    tags: data.tags,
     about: aboutSlugs.flatMap((slug) => {
       const info = neighborhoodInfo(slug)
 
@@ -63,13 +62,11 @@ const schema = articleSchema(
   ogImage={data.ogImage}
   ogType="article"
   publishedTime={(data.created ?? data.updated).toISOString()}
-  tags={data.tags}
   jsonLd={schema}>
   {hasBoundaryMap && <BoundaryMap />}
-  {hasCorridorMap && <CorridorMap spots={corridorSpots} />}
+  {hasStreetMap && <StreetMap spots={streetSpots} />}
   <Entry
     title={data.title}
-    tags={data.tags}
     backlinks={backlinks}
     permalink={permalink}
     eyebrow={data.category}>

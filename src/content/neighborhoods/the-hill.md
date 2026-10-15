@@ -3,12 +3,6 @@ title: The Hill
 created: 2026-06-28
 url: https://www.hillstl.org
 description: Little Italy in the heart of St. Louis
-tags:
-  - historic
-  - dining
-  - italian
-  - walkable
-  - residential
 featured: 3
 ---
 

@@ -11,13 +11,8 @@ interface Preview {
   kind?: 'neighborhood'
   cuisine?: string[]
   neighborhood?: string
-  tags?: string[]
   description?: string
   photo?: string
-}
-
-function presentTags(tags: string[] | undefined): string[] | undefined {
-  return tags && tags.length > 0 ? tags : undefined
 }
 
 async function cardPhoto(photo: ImageMetadata | undefined): Promise<string | undefined> {
@@ -32,29 +27,12 @@ async function cardPhoto(photo: ImageMetadata | undefined): Promise<string | und
 export const GET: APIRoute = async () => {
   const previews: Record<string, Preview> = {}
 
-  function add<
-    T extends {
-      id: string
-      body?: string
-      data: { title: string; draft?: boolean; tags?: string[] }
-    },
-  >(entries: T[]): void {
-    for (const entry of published(entries)) {
-      previews[entry.id] = {
-        title: entry.data.title,
-        excerpt: excerpt(entry.body, PREVIEW_EXCERPT_CHARS),
-        tags: presentTags(entry.data.tags),
-      }
-    }
-  }
-
   for (const place of published(await getCollection('food'))) {
     previews[place.id] = {
       title: place.data?.title,
       excerpt: excerpt(place.body, PREVIEW_EXCERPT_CHARS),
       cuisine: place.data?.cuisine,
       neighborhood: place.data?.neighborhood,
-      tags: presentTags(place.data?.tags),
       description: place.data?.description,
       photo: await cardPhoto(place.data?.photo),
     }
@@ -63,12 +41,10 @@ export const GET: APIRoute = async () => {
     previews[topic.id] = {
       title: topic.data?.title,
       excerpt: excerpt(topic.body, PREVIEW_EXCERPT_CHARS),
-      tags: presentTags(topic.data?.tags),
       description: topic.data?.description,
       photo: await cardPhoto(topic.data?.photo),
     }
   }
-  add(await getCollection('notes'))
   const neighborhoods = NEIGHBORHOODS_ENABLED ? published(await getCollection('neighborhoods')) : []
   for (const neighborhood of neighborhoods) {
     previews[neighborhood.id] = {

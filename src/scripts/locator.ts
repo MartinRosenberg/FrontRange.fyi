@@ -19,6 +19,7 @@ export function initLocator(el: HTMLElement): void {
     maxZoom: 15,
     cooperativeGestures: true,
     attributionControl: { compact: true },
+    attributionCollapsed: true,
   })
   watchThemeChanges(map)
 

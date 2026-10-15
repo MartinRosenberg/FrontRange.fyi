@@ -1,6 +1,6 @@
-import { CITY, SUPABASE_ENABLED } from './site'
+import { CITY } from './site'
 import { NEIGHBORHOODS_ENABLED } from './neighborhood-data'
-export type Group = 'explore' | 'lists' | 'notes' | 'topics' | 'site'
+export type Group = 'explore' | 'lists' | 'topics' | 'site'
 
 export interface Section {
   label: string
@@ -48,26 +48,7 @@ export const sections: Section[] = [
     description: "Field notes and deep dives on what I've learned.",
   },
 
-  {
-    label: `The Best Food in ${CITY}`,
-    path: '/best/',
-    group: 'lists',
-    icon: 'award',
-  },
-  {
-    label: `Annual Events in ${CITY}`,
-    path: '/events/',
-    group: 'lists',
-    icon: 'calendar',
-    description: 'A calendar of festivals and events across the city.',
-  },
-  {
-    label: 'Backlog',
-    path: '/food/backlog/',
-    group: 'lists',
-    icon: 'list-checks',
-    description: "Places I haven't tried or rated yet.",
-  },
+  { label: `The Best Food in ${CITY}`, path: '/best/', group: 'lists', icon: 'award' },
   {
     label: 'Sitemap',
     path: '/sitemap/',
@@ -75,7 +56,6 @@ export const sections: Section[] = [
     icon: 'folder-tree',
     description: 'An index of every page on the site.',
   },
-  { label: 'Notes', path: '/notes/', group: 'notes' },
 
   {
     label: 'About',
@@ -85,31 +65,6 @@ export const sections: Section[] = [
     icon: 'info',
     description: 'Why I made this city exploration website.',
   },
-  {
-    label: 'Tags',
-    path: '/tags/',
-    group: 'site',
-    icon: 'tags',
-    description: 'Browse everything by topic.',
-  },
-  {
-    label: 'Stats',
-    path: '/stats/',
-    group: 'site',
-    icon: 'chart',
-    description: 'How much of the city the site has covered so far.',
-  },
-  ...(SUPABASE_ENABLED
-    ? [
-        {
-          label: 'Guestbook',
-          path: '/guestbook/',
-          group: 'site' as const,
-          icon: 'notebook',
-          description: 'Sign your name and leave a note.',
-        },
-      ]
-    : []),
   {
     label: 'Contact',
     path: '/contact/',

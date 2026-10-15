@@ -49,11 +49,14 @@ type AttributionPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-ri
 
 export function createBasemapMap(
   container: HTMLElement,
-  options: Partial<MapOptions> & { attributionPosition?: AttributionPosition } = {},
+  options: Partial<MapOptions> & {
+    attributionPosition?: AttributionPosition
+    attributionCollapsed?: boolean
+  } = {},
 ): maplibregl.Map {
   registerPmtilesProtocol()
 
-  const { attributionPosition = 'top-right', ...mapOptions } = options
+  const { attributionPosition = 'top-right', attributionCollapsed = false, ...mapOptions } = options
   const attribution = mapOptions.attributionControl ?? { compact: false }
   const map = new maplibregl.Map({
     container,
@@ -68,6 +71,14 @@ export function createBasemapMap(
 
   if (attribution !== false) {
     map.addControl(new maplibregl.AttributionControl(attribution), attributionPosition)
+  }
+
+  if (attributionCollapsed) {
+    map.once('idle', () => {
+      container
+        .querySelector('.maplibregl-ctrl-attrib')
+        ?.classList.remove('maplibregl-compact-show')
+    })
   }
 
   map.touchZoomRotate.disableRotation()

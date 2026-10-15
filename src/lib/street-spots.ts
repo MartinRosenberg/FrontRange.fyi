@@ -1,55 +1,55 @@
 import { getCollection } from 'astro:content'
 import { optionalData } from './optional-data'
-import { published, hasBody } from './content'
+import { published } from './content'
 import { normalizeName } from './neighborhoods'
 import { href } from './url'
 import { projectOntoLine, type LngLat } from './geo'
 import { allSpots, type SpotCategoryKey } from './spots'
 
-export interface CorridorSpot {
+export interface StreetSpot {
   name: string
   category: SpotCategoryKey
   coords: LngLat
   link?: string
 }
 
-interface CorridorLine {
+interface StreetLine {
   id: string
   line: number[][]
   include?: string[]
   exclude?: string[]
 }
 
-const corridorData = optionalData<{ corridors: CorridorLine[] }>(
-  import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
-  { corridors: [] },
+const streetData = optionalData<{ streets: StreetLine[] }>(
+  import.meta.glob('../data/streets.json', { eager: true, import: 'default' }),
+  { streets: [] },
 )
 
-export const CORRIDOR_SPOT_RANGE_METERS = 200
+export const STREET_SPOT_RANGE_METERS = 200
 
-interface Candidate extends CorridorSpot {
+interface Candidate extends StreetSpot {
   along: number
 }
 
-function nearestCorridor(
+function nearestStreet(
   coords: LngLat,
-  corridors: CorridorLine[],
+  streets: StreetLine[],
 ): { id: string; along: number } | undefined {
   let best: { id: string; along: number; distance: number } | undefined
-  for (const corridor of corridors) {
-    const projection = projectOntoLine(coords, corridor.line)
+  for (const street of streets) {
+    const projection = projectOntoLine(coords, street.line)
     if (
-      projection.distance <= CORRIDOR_SPOT_RANGE_METERS &&
+      projection.distance <= STREET_SPOT_RANGE_METERS &&
       projection.distance < (best?.distance ?? Infinity)
     ) {
-      best = { id: corridor.id, along: projection.along, distance: projection.distance }
+      best = { id: street.id, along: projection.along, distance: projection.distance }
     }
   }
 
   return best
 }
 
-interface Place extends CorridorSpot {
+interface Place extends StreetSpot {
   key: string
 }
 
@@ -65,7 +65,7 @@ async function allPlaces(): Promise<Place[]> {
       name: place.data.title,
       category: 'food',
       coords: [lng, lat],
-      link: hasBody(place) ? href(`/food/${place.id}/`) : undefined,
+      link: href(`/food/${place.id}/`),
     })
   }
   for (const spot of allSpots()) {
@@ -82,8 +82,8 @@ async function allPlaces(): Promise<Place[]> {
   return places
 }
 
-export async function corridorSpotsByCorridor(): Promise<Record<string, CorridorSpot[]>> {
-  const corridors = corridorData.corridors
+export async function streetSpotsByStreet(): Promise<Record<string, StreetSpot[]>> {
+  const streets = streetData.streets
   const places = await allPlaces()
   const candidates = new Map<string, Candidate[]>()
   const push = (id: string, candidate: Candidate) => {
@@ -93,26 +93,26 @@ export async function corridorSpotsByCorridor(): Promise<Record<string, Corridor
   }
 
   for (const place of places) {
-    const nearest = nearestCorridor(place.coords, corridors)
+    const nearest = nearestStreet(place.coords, streets)
     if (nearest) {
       push(nearest.id, { ...place, along: nearest.along })
     }
   }
 
-  for (const corridor of corridors) {
-    for (const name of corridor.include ?? []) {
+  for (const street of streets) {
+    for (const name of street.include ?? []) {
       const place = places.find((candidate) => candidate.key === normalizeName(name))
       if (place) {
-        push(corridor.id, { ...place, along: projectOntoLine(place.coords, corridor.line).along })
+        push(street.id, { ...place, along: projectOntoLine(place.coords, street.line).along })
       }
     }
   }
 
-  const result: Record<string, CorridorSpot[]> = {}
-  for (const corridor of corridors) {
-    const excluded = new Set((corridor.exclude ?? []).map(normalizeName))
+  const result: Record<string, StreetSpot[]> = {}
+  for (const street of streets) {
+    const excluded = new Set((street.exclude ?? []).map(normalizeName))
     const seen = new Set<string>()
-    result[corridor.id] = (candidates.get(corridor.id) ?? [])
+    result[street.id] = (candidates.get(street.id) ?? [])
       .sort((left, right) => left.along - right.along)
       .filter((candidate) => {
         const key = normalizeName(candidate.name)

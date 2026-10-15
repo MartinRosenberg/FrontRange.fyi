@@ -8,12 +8,13 @@ export const FOUNDED_YEAR = '2026'
 export const CITY = 'St. Louis'
 export const CITY_SHORT = 'STL'
 export const REGION = 'Missouri'
+export const REGION_CODE = 'MO'
 
 export const TAGLINE = `An independent guide to the food, neighborhoods, and culture of ${CITY}`
 export const SITE_DESCRIPTION = `${TAGLINE}.`
 export const DEFAULT_TITLE = `${SITE_NAME}: Food, Neighborhoods, and Culture of ${CITY}`
 export const HOME_INTRO = `Welcome to ${SITE_NAME}, my ongoing project to document living in ${CITY} and learning to love it!`
-export const NEWSLETTER_BLURB = `I'm always wandering ${CITY}! Sign up if you want infrequent updates from the site. No ads, no spam.`
+export const NEWSLETTER_BLURB = `I'm always wandering ${CITY}! Sign up if you want infrequent email updates from the site. No ads, no spam.`
 export const DEFAULT_SOCIAL_IMAGE_ALT = `${SITE_NAME} - the ${CITY} flag`
 
 export const CONTACT_EMAIL = `hello@${SITE_DOMAIN}`
@@ -34,7 +35,7 @@ export const PROMOTED_TOPIC_ID = 'st-louis-style-pizza'
 export const BEST_PROMO_PHOTO_ID = 'kishimoto-mendo'
 export const BEST_PROMO_TEASER =
   'My favorite ramen, tacos, pizza (Chicago, St. Louis, Detroit, etc), sandwiches, and more! Also a list of the top-voted spots by readers.'
-export const CORRIDORS_TOPIC_ID = 'walkable-st-louis'
+export const STREETS_TOPIC_ID = 'walkable-st-louis'
 export const FEATURED_FOOD_IDS = [
   'teerak-thai',
   'grand-pied',

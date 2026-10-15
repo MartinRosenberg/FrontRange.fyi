@@ -43,7 +43,7 @@ Requires Node `>=22.12`.
 
 Set these in `.env` (see `.env.example`). Anything left unset is hidden from the site.
 
-- `PUBLIC_SUPABASE_URL` + `PUBLIC_SUPABASE_ANON_KEY` turn on comments, the guestbook, and reader ratings.
+- `PUBLIC_SUPABASE_URL` + `PUBLIC_SUPABASE_ANON_KEY` turn on comments and reader ratings.
 - `PUBLIC_FORMSPREE_URL` turns on the contact form.
 - `PUBLIC_NEWSLETTER_URL` turns on newsletter signup.
 - `PUBLIC_ANALYTICS_URL` turns on GoatCounter analytics.

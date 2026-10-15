@@ -49,7 +49,6 @@ async function buildMap(): Promise<Map<string, Backlink[]>> {
   }
 
   add('food', published(await getCollection('food')))
-  add('notes', published(await getCollection('notes')))
   add('neighborhoods', published(await getCollection('neighborhoods')))
   add('topics', published(await getCollection('topics')))
 

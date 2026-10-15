@@ -1,0 +1,19 @@
+---
+import BadgeIcons from './BadgeIcons.astro'
+import type { StreetSpot } from '../lib/street-spots'
+
+interface Props {
+  spots: Record<string, StreetSpot[]>
+}
+
+const { spots } = Astro.props
+---
+
+<BadgeIcons />
+
+<script type="application/json" data-street-spots set:html={JSON.stringify(spots)} />
+
+<script>
+  import { initStreetMaps } from '../scripts/street-map'
+  initStreetMaps()
+</script>

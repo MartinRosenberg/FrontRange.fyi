@@ -6,23 +6,23 @@ import { optionalData } from '../lib/optional-data'
 import { projectOntoLine } from '../lib/geo'
 import { badgeIconNode, categorySwatchNode } from './popup'
 
-const corridorData = optionalData<{ corridors: unknown[] }>(
-  import.meta.glob('../data/corridors.json', { eager: true, import: 'default' }),
-  { corridors: [] },
+const streetData = optionalData<{ streets: unknown[] }>(
+  import.meta.glob('../data/streets.json', { eager: true, import: 'default' }),
+  { streets: [] },
 )
 
-const SOURCE_ID = 'corridor'
-const LINE_LAYER_ID = 'corridor-line'
-const ENDPOINTS_SOURCE_ID = 'corridor-endpoints'
-const ENDPOINTS_LAYER_ID = 'corridor-endpoint-dots'
-const LABELS_SOURCE_ID = 'corridor-labels'
-const LABELS_LAYER_ID = 'corridor-label-text'
+const SOURCE_ID = 'street'
+const LINE_LAYER_ID = 'street-line'
+const ENDPOINTS_SOURCE_ID = 'street-endpoints'
+const ENDPOINTS_LAYER_ID = 'street-endpoint-dots'
+const LABELS_SOURCE_ID = 'street-labels'
+const LABELS_LAYER_ID = 'street-label-text'
 
-interface Corridor {
+interface Street {
   id: string
   name: string
   label?: string
-  street: string
+  road: string
   from: string
   to: string
   anchor: string
@@ -30,8 +30,8 @@ interface Corridor {
   line: number[][]
 }
 
-const corridors = new Map<string, Corridor>(
-  (corridorData.corridors as Corridor[]).map((corridor) => [corridor.id, corridor]),
+const streets = new Map<string, Street>(
+  (streetData.streets as Street[]).map((street) => [street.id, street]),
 )
 
 interface Spot {
@@ -41,8 +41,8 @@ interface Spot {
   link?: string
 }
 
-function readSpotsByCorridor(): Record<string, Spot[]> {
-  const holder = document.querySelector('script[data-corridor-spots]')
+function readSpotsByStreet(): Record<string, Spot[]> {
+  const holder = document.querySelector('script[data-street-spots]')
   if (!holder?.textContent) {
     return {}
   }
@@ -54,7 +54,7 @@ function readSpotsByCorridor(): Record<string, Spot[]> {
   }
 }
 
-const spotsByCorridor = readSpotsByCorridor()
+const spotsByStreet = readSpotsByStreet()
 
 const SNAP_METERS = 75
 
@@ -62,11 +62,11 @@ function spotHref(link: string): string {
   return import.meta.env.BASE_URL.replace(/\/$/, '') + link
 }
 
-function snapToLines(point: [number, number], group: Corridor[]): [number, number] {
+function snapToLines(point: [number, number], group: Street[]): [number, number] {
   let best = point
   let bestDistance = Infinity
-  for (const corridor of group) {
-    const projection = projectOntoLine(point, corridor.line)
+  for (const street of group) {
+    const projection = projectOntoLine(point, street.line)
     if (projection.distance < bestDistance) {
       bestDistance = projection.distance
       best = projection.point
@@ -76,15 +76,15 @@ function snapToLines(point: [number, number], group: Corridor[]): [number, numbe
   return bestDistance <= SNAP_METERS ? best : point
 }
 
-function addSpotMarkers(map: MapLibreMap, group: Corridor[]): void {
-  for (const corridor of group) {
-    const spots = spotsByCorridor[corridor.id] ?? []
+function addSpotMarkers(map: MapLibreMap, group: Street[]): void {
+  for (const street of group) {
+    const spots = spotsByStreet[street.id] ?? []
     if (spots.length === 0) {
       continue
     }
     for (const spot of spots) {
       const element = document.createElement(spot.link ? 'a' : 'span')
-      element.className = 'corridor-spot map-badge'
+      element.className = 'street-spot map-badge'
       element.dataset.category = spot.category
       element.setAttribute('aria-label', spot.name)
       if (spot.link && element instanceof HTMLAnchorElement) {
@@ -100,35 +100,35 @@ function addSpotMarkers(map: MapLibreMap, group: Corridor[]): void {
       element.append(body)
 
       const name = document.createElement('span')
-      name.className = 'corridor-spot-name'
+      name.className = 'street-spot-name'
       name.textContent = spot.name
       element.append(name)
 
       new maplibregl.Marker({ element, anchor: 'center' })
-        .setLngLat(snapToLines(spot.coords as [number, number], [corridor]))
+        .setLngLat(snapToLines(spot.coords as [number, number], [street]))
         .addTo(map)
     }
   }
 }
 
-function corridorsFor(element: HTMLElement): Corridor[] {
-  const ids = (element.dataset.corridorMap ?? '').split(/\s+/).filter(Boolean)
+function streetsFor(element: HTMLElement): Street[] {
+  const ids = (element.dataset.streetMap ?? '').split(/\s+/).filter(Boolean)
 
   return ids.flatMap((id) => {
-    const corridor = corridors.get(id)
+    const street = streets.get(id)
 
-    return corridor ? [corridor] : []
+    return street ? [street] : []
   })
 }
 
-function boundsOf(group: Corridor[]): LngLatBoundsLike {
+function boundsOf(group: Street[]): LngLatBoundsLike {
   let west = Infinity
   let south = Infinity
   let east = -Infinity
   let north = -Infinity
 
-  for (const corridor of group) {
-    for (const [lng, lat] of corridor.line) {
+  for (const street of group) {
+    for (const [lng, lat] of street.line) {
       west = Math.min(west, lng)
       south = Math.min(south, lat)
       east = Math.max(east, lng)
@@ -142,20 +142,20 @@ function boundsOf(group: Corridor[]): LngLatBoundsLike {
   ]
 }
 
-function readCorridorColors(): { line: string; halo: string } {
+function readStreetColors(): { line: string; halo: string } {
   const styles = getComputedStyle(document.documentElement)
   const readColor = (token: string, fallback: string) =>
     styles.getPropertyValue(token).trim() || fallback
 
   return {
-    line: readColor('--color-map-corridor', '#c0392b'),
+    line: readColor('--color-map-street', '#c0392b'),
     halo: readColor('--color-background', '#f3efe7'),
     label: readColor('--color-text', '#1b1a17'),
   }
 }
 
-function applyCorridorLayers(map: MapLibreMap, group: Corridor[]): void {
-  const colors = readCorridorColors()
+function applyStreetLayers(map: MapLibreMap, group: Street[]): void {
+  const colors = readStreetColors()
   const labeled = group.length > 1
 
   if (!map.getSource(SOURCE_ID)) {
@@ -163,10 +163,10 @@ function applyCorridorLayers(map: MapLibreMap, group: Corridor[]): void {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: group.map((corridor) => ({
+        features: group.map((street) => ({
           type: 'Feature',
           properties: {},
-          geometry: { type: 'LineString', coordinates: corridor.line },
+          geometry: { type: 'LineString', coordinates: street.line },
         })),
       },
     })
@@ -175,8 +175,8 @@ function applyCorridorLayers(map: MapLibreMap, group: Corridor[]): void {
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: group.flatMap((corridor) =>
-          [corridor.line[0], corridor.line[corridor.line.length - 1]].map((point) => ({
+        features: group.flatMap((street) =>
+          [street.line[0], street.line[street.line.length - 1]].map((point) => ({
             type: 'Feature' as const,
             properties: {},
             geometry: { type: 'Point' as const, coordinates: point },
@@ -190,12 +190,12 @@ function applyCorridorLayers(map: MapLibreMap, group: Corridor[]): void {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: group.map((corridor) => ({
+          features: group.map((street) => ({
             type: 'Feature',
-            properties: { label: corridor.label ?? corridor.name },
+            properties: { label: street.label ?? street.name },
             geometry: {
               type: 'Point',
-              coordinates: corridor.line[Math.floor(corridor.line.length / 2)],
+              coordinates: street.line[Math.floor(street.line.length / 2)],
             },
           })),
         },
@@ -266,15 +266,15 @@ function spotChip(spot: Spot): HTMLElement {
   return chip
 }
 
-function appendSpotCaption(element: HTMLElement, group: Corridor[]): void {
-  const spots = group.flatMap((corridor) => spotsByCorridor[corridor.id] ?? [])
+function appendSpotCaption(element: HTMLElement, group: Street[]): void {
+  const spots = group.flatMap((street) => spotsByStreet[street.id] ?? [])
   const figure = element.closest('figure')
-  if (spots.length === 0 || !figure || figure.querySelector('.corridor-map-caption')) {
+  if (spots.length === 0 || !figure || figure.querySelector('.street-map-caption')) {
     return
   }
 
   const caption = document.createElement('figcaption')
-  caption.className = 'corridor-map-caption'
+  caption.className = 'street-map-caption'
   caption.append(...spots.map(spotChip))
   figure.append(caption)
 }
@@ -284,7 +284,7 @@ interface MountedMap {
   disposeTheme: () => void
 }
 
-function figureBounds(group: Corridor[]): LngLatBoundsLike {
+function figureBounds(group: Street[]): LngLatBoundsLike {
   let west = Infinity
   let south = Infinity
   let east = -Infinity
@@ -297,9 +297,9 @@ function figureBounds(group: Corridor[]): LngLatBoundsLike {
     north = Math.max(north, lat)
   }
 
-  for (const corridor of group) {
-    corridor.line.forEach(extend)
-    for (const spot of spotsByCorridor[corridor.id] ?? []) {
+  for (const street of group) {
+    street.line.forEach(extend)
+    for (const spot of spotsByStreet[street.id] ?? []) {
       extend(spot.coords)
     }
   }
@@ -310,14 +310,14 @@ function figureBounds(group: Corridor[]): LngLatBoundsLike {
   ]
 }
 
-function mountCorridorMap(element: HTMLElement, group: Corridor[]): MountedMap {
+function mountStreetMap(element: HTMLElement, group: Street[]): MountedMap {
   const map = createBasemapMap(element, {
     interactive: false,
     attributionControl: { compact: true },
   })
 
   map.on('load', () => {
-    applyCorridorLayers(map, group)
+    applyStreetLayers(map, group)
     const camera = map.cameraForBounds(figureBounds(group), { padding: 36 })
     if (camera) {
       map.jumpTo({ center: camera.center, zoom: (camera.zoom ?? 14) - 0.25 })
@@ -328,26 +328,26 @@ function mountCorridorMap(element: HTMLElement, group: Corridor[]): MountedMap {
   appendSpotCaption(element, group)
 
   const disposeTheme = watchThemeChanges(map, () => {
-    applyCorridorLayers(map, group)
+    applyStreetLayers(map, group)
   })
 
   return { map, disposeTheme }
 }
 
-const OVERVIEW_BOUNDARIES_SOURCE_ID = 'corridor-overview-boundaries'
-const OVERVIEW_FILL_LAYER_ID = 'corridor-overview-fill'
-const OVERVIEW_OUTLINE_LAYER_ID = 'corridor-overview-outline'
-const OVERVIEW_HIT_LAYER_ID = 'corridor-overview-hit'
+const OVERVIEW_BOUNDARIES_SOURCE_ID = 'street-overview-boundaries'
+const OVERVIEW_FILL_LAYER_ID = 'street-overview-fill'
+const OVERVIEW_OUTLINE_LAYER_ID = 'street-overview-outline'
+const OVERVIEW_HIT_LAYER_ID = 'street-overview-hit'
 
 function applyOverviewLayers(
   map: MapLibreMap,
-  group: Corridor[],
+  group: Street[],
   boundaries: BoundaryFeature[],
 ): void {
   const styles = getComputedStyle(document.documentElement)
   const readColor = (token: string, fallback: string) =>
     styles.getPropertyValue(token).trim() || fallback
-  const lineColor = readColor('--color-map-corridor', '#c0392b')
+  const lineColor = readColor('--color-map-street', '#c0392b')
   const polygonColor = readColor('--color-map-accent', '#6a47a6')
   const haloColor = readColor('--color-background', '#f3efe7')
   const labelColor = readColor('--color-text', '#1b1a17')
@@ -361,10 +361,10 @@ function applyOverviewLayers(
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: group.map((corridor) => ({
+        features: group.map((street) => ({
           type: 'Feature',
-          properties: { anchor: corridor.anchor },
-          geometry: { type: 'LineString', coordinates: corridor.line },
+          properties: { anchor: street.anchor },
+          geometry: { type: 'LineString', coordinates: street.line },
         })),
       },
     })
@@ -374,19 +374,19 @@ function applyOverviewLayers(
       type: 'geojson',
       data: {
         type: 'FeatureCollection',
-        features: group.flatMap((corridor) => {
-          if (labeledAnchors.has(corridor.anchor)) {
+        features: group.flatMap((street) => {
+          if (labeledAnchors.has(street.anchor)) {
             return []
           }
-          labeledAnchors.add(corridor.anchor)
+          labeledAnchors.add(street.anchor)
 
           return [
             {
               type: 'Feature' as const,
-              properties: { label: corridor.name },
+              properties: { label: street.name },
               geometry: {
                 type: 'Point' as const,
-                coordinates: corridor.line[Math.floor(corridor.line.length / 2)],
+                coordinates: street.line[Math.floor(street.line.length / 2)],
               },
             },
           ]
@@ -450,16 +450,14 @@ function applyOverviewLayers(
 }
 
 function mountOverviewMap(element: HTMLElement): MountedMap {
-  const group = [...corridors.values()]
+  const group = [...streets.values()]
   const map = createBasemapMap(element, {
     cooperativeGestures: true,
     attributionControl: { compact: true },
   })
 
   map.on('load', async () => {
-    const boundaries = await boundariesFor(
-      group.flatMap((corridor) => corridor.neighborhoods ?? []),
-    )
+    const boundaries = await boundariesFor(group.flatMap((street) => street.neighborhoods ?? []))
     applyOverviewLayers(map, group, boundaries)
     map.fitBounds(boundsOf(group), { padding: 28, duration: 0 })
   })
@@ -482,7 +480,7 @@ function mountOverviewMap(element: HTMLElement): MountedMap {
   return { map, disposeTheme }
 }
 
-export function initCorridorMaps(selector = '[data-corridor-map], [data-corridor-overview]'): void {
+export function initStreetMaps(selector = '[data-street-map], [data-street-overview]'): void {
   const elements = document.querySelectorAll<HTMLElement>(selector)
   if (elements.length === 0) {
     return
@@ -491,14 +489,14 @@ export function initCorridorMaps(selector = '[data-corridor-map], [data-corridor
   const mounted = new Map<Element, MountedMap>()
 
   const mount = (element: HTMLElement) => {
-    if (element.hasAttribute('data-corridor-overview')) {
+    if (element.hasAttribute('data-street-overview')) {
       mounted.set(element, mountOverviewMap(element))
 
       return
     }
-    const group = corridorsFor(element)
+    const group = streetsFor(element)
     if (group.length > 0) {
-      mounted.set(element, mountCorridorMap(element, group))
+      mounted.set(element, mountStreetMap(element, group))
     }
   }
 

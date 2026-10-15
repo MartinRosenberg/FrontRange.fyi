@@ -1,6 +1,5 @@
 import type { CollectionEntry } from 'astro:content'
 import { getImage } from 'astro:assets'
-import { hasBody } from './content'
 import { cuisineLabel } from './cuisine'
 import { googleMapsHref, googleSearchHref } from './maps'
 import { spotCategories, type MapSpot, type Spot } from './spots'
@@ -63,7 +62,7 @@ export async function foodToMapSpot(place: CollectionEntry<'food'>): Promise<Map
   return {
     title: place.data.title,
     category: 'food',
-    url: hasBody(place) ? href(`/food/${place.id}/`) : undefined,
+    url: href(`/food/${place.id}/`),
     coords: [lng, lat],
     meta: cuisineLabel(place.data.cuisine[0]),
     verdict: verdict ? { key: verdict, label: verdictLabels[verdict] } : undefined,

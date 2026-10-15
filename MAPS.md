@@ -153,25 +153,25 @@ Unmatched names are listed at the end of the run.
 - **Notable spots** — `src/data/spots.json`, a flat list where each entry names
   its `neighborhoods` (a park can belong to several), with
   `coords: [lng, lat]`.
-- **Walkable corridors** — street polylines in `src/data/corridors.json`,
-  generated from OpenStreetMap by `node scripts/fetch-corridors.mjs`. Edit the
-  `corridors` list at the top of that script (street name, the two cross-street
-  endpoints, and a rough `center`), then run it. Passing corridor ids re-fetches
+- **Walkable streets** — street polylines in `src/data/streets.json`,
+  generated from OpenStreetMap by `node scripts/fetch-streets.mjs`. Edit the
+  `streets` list at the top of that script (street name, the two cross-street
+  endpoints, and a rough `center`), then run it. Passing street ids re-fetches
   just those. Set `OVERPASS_URL` to a mirror if the default rate-limits you.
-- **Corridor spots** — derived at build time (`src/lib/corridor-spots.ts`) from
-  every food post and `spots.json` entry within 200 m of a corridor line, ordered
-  along the street. A corridor's `include` list (names) pulls in places that sit
+- **Street spots** — derived at build time (`src/lib/street-spots.ts`) from
+  every food post and `spots.json` entry within 200 m of a street line, ordered
+  along the street. A street's `include` list (names) pulls in places that sit
   further out, and `exclude` drops ones that fall inside the range; both are set
-  in the `corridors` config at the top of `scripts/fetch-corridors.mjs` and
-  carried into `corridors.json`. There is no hand-placed pin list any more: a
-  place that should be on a corridor map must be a food post or a spot.
+  in the `streets` config at the top of `scripts/fetch-streets.mjs` and
+  carried into `streets.json`. There is no hand-placed pin list any more: a
+  place that should be on a street map must be a food post or a spot.
 
 **Watch the coordinate order.** It isn't uniform:
 
 | Where                                                                            | Order        |
 | -------------------------------------------------------------------------------- | ------------ |
-| `corridors.json`, `corridor-spots.json`, `spots.json`, `site.config.mjs`         | `[lng, lat]` |
-| `neighborhoods.json` `coords`, food frontmatter `coords`, corridor script points | `[lat, lng]` |
+| `streets.json`, `street-spots.json`, `spots.json`, `site.config.mjs`         | `[lng, lat]` |
+| `neighborhoods.json` `coords`, food frontmatter `coords`, street script points | `[lat, lng]` |
 
 ## Which data files are required
 
@@ -187,7 +187,7 @@ neighborhood pages.
 | File                                          | Feature                                          |
 | --------------------------------------------- | ------------------------------------------------ |
 | `neighborhoods.json`, `neighborhood-geo.json` | neighborhood pages (see steps 2–4)               |
-| `corridors.json`, `corridor-spots.json`       | walkable corridor maps                           |
+| `streets.json`, `street-spots.json`       | walkable street maps                           |
 | `spots.json`                                  | notable spots on neighborhood pages              |
 | `festivals.json`                              | events page and neighborhood festivals           |
 | `best-food.json`                              | the Best Food picks (category → restaurant slug) |
@@ -198,7 +198,7 @@ neighborhood pages.
 
 ## Attribution
 
-The basemap and corridor geometry are OpenStreetMap data under the
+The basemap and street geometry are OpenStreetMap data under the
 [ODbL](https://opendatacommons.org/licenses/odbl/). The "© OpenStreetMap"
 credit shown on every map is what the licence requires, so keep it visible.
 

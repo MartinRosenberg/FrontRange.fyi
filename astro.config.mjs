@@ -3,7 +3,6 @@ import sitemap from '@astrojs/sitemap'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import fs from 'node:fs'
-import { loadEnv } from 'vite'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { remarkWikiLink } from './src/lib/remark-wikilink.mjs'
@@ -18,31 +17,31 @@ const contentRoot = fileURLToPath(new URL('./src/content', import.meta.url))
 const dataRoot = fileURLToPath(new URL('./src/data', import.meta.url))
 
 function buildTocGroups() {
-  const corridorsPath = path.join(dataRoot, 'corridors.json')
+  const streetsPath = path.join(dataRoot, 'streets.json')
   const neighborhoodsPath = path.join(dataRoot, 'neighborhoods.json')
-  if (!fs.existsSync(corridorsPath) || !fs.existsSync(neighborhoodsPath)) {
+  if (!fs.existsSync(streetsPath) || !fs.existsSync(neighborhoodsPath)) {
     return {}
   }
 
-  const { corridors } = JSON.parse(fs.readFileSync(corridorsPath, 'utf8'))
+  const { streets } = JSON.parse(fs.readFileSync(streetsPath, 'utf8'))
   const neighborhoods = JSON.parse(fs.readFileSync(neighborhoodsPath, 'utf8'))
   const groupBySlug = new Map(
     neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood.group]),
   )
 
   const groupsByAnchor = {}
-  for (const corridor of corridors) {
-    if (!corridor.anchor || groupsByAnchor[corridor.anchor]) {
+  for (const street of streets) {
+    if (!street.anchor || groupsByAnchor[street.anchor]) {
       continue
     }
 
-    const corridorGroups = (corridor.neighborhoods ?? [])
+    const streetGroups = (street.neighborhoods ?? [])
       .map((slug) => groupBySlug.get(slug))
       .filter(Boolean)
-    const group = corridorGroups.find((label) => label !== 'St. Louis County') ?? corridorGroups[0]
+    const group = streetGroups.find((label) => label !== 'St. Louis County') ?? streetGroups[0]
 
     if (group) {
-      groupsByAnchor[corridor.anchor] = group
+      groupsByAnchor[street.anchor] = group
     }
   }
 
@@ -53,8 +52,8 @@ function buildWikiMap() {
   const map = new Map()
 
   const collections = fs.existsSync(path.join(dataRoot, 'neighborhoods.json'))
-    ? ['food', 'neighborhoods', 'notes', 'topics']
-    : ['food', 'notes', 'topics']
+    ? ['food', 'neighborhoods', 'topics']
+    : ['food', 'topics']
 
   for (const collection of collections) {
     const dir = path.join(contentRoot, collection)
@@ -115,7 +114,6 @@ function buildLastmod() {
     }
   }
 
-  add('notes', ['created'], (id) => `/notes/${id}`)
   add('topics', ['updated', 'created'], (id) => `/${id}`)
   add('food', ['updated', 'created'], (id) => `/food/${id}`)
   add('neighborhoods', ['updated', 'created'], (id) => `/neighborhoods/${id}`)
@@ -124,26 +122,6 @@ function buildLastmod() {
 }
 
 const lastmodByPath = buildLastmod()
-
-function hasPublishedEntries(collection) {
-  const dir = path.join(contentRoot, collection)
-  if (!fs.existsSync(dir)) {
-    return false
-  }
-
-  return fs
-    .readdirSync(dir)
-    .some(
-      (file) => file.endsWith('.md') && frontmatterField(path.join(dir, file), 'draft') !== 'true',
-    )
-}
-
-function supabaseConfigured(command) {
-  const mode = command === 'dev' ? 'development' : 'production'
-  const env = loadEnv(mode, process.cwd(), 'PUBLIC_')
-
-  return Boolean(env.PUBLIC_SUPABASE_URL && env.PUBLIC_SUPABASE_ANON_KEY)
-}
 
 const neighborhoodsConfigured = fs.existsSync(path.join(dataRoot, 'neighborhoods.json'))
 
@@ -163,11 +141,7 @@ function injectNeighborhoodRoutes(injectRoute) {
 const optionalRoutes = {
   name: 'optional-routes',
   hooks: {
-    'astro:config:setup': ({ command, injectRoute }) => {
-      if (supabaseConfigured(command)) {
-        injectRoute({ pattern: '/guestbook', entrypoint: './src/routes/guestbook.astro' })
-      }
-
+    'astro:config:setup': ({ injectRoute }) => {
       if (neighborhoodsConfigured) {
         injectNeighborhoodRoutes(injectRoute)
       }
@@ -215,8 +189,6 @@ function shipsNoindex(page) {
   return /<meta name="robots" content="[^"]*noindex/.test(fs.readFileSync(file, 'utf8'))
 }
 
-const unpublishedSections = ['notes'].filter((collection) => !hasPublishedEntries(collection))
-
 function resolve(target) {
   const url = wikiMap.get(target)
 
@@ -232,15 +204,12 @@ function resolve(target) {
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: 'always',
-  redirects: { '/food/want-to-try/': '/food/backlog/' },
+  redirects: { '/food/want-to-try/': '/food/', '/food/backlog/': '/food/' },
   integrations: [
     optionalRoutes,
     sitemap({
       filter: (page) =>
-        !page.includes('/tags/') &&
-        !unpublishedSections.some((section) => page.includes(`/${section}/`)) &&
-        !stubPaths.has(new URL(page).pathname.replace(/\/$/, '')) &&
-        !shipsNoindex(page),
+        !stubPaths.has(new URL(page).pathname.replace(/\/$/, '')) && !shipsNoindex(page),
       serialize(item) {
         const pathname = new URL(item.url).pathname.replace(/\/$/, '') || '/'
         const lastmod = lastmodByPath.get(pathname)

@@ -135,7 +135,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
 
 <BaseLayout
   crumb="Neighborhoods"
-  title={`${CITY} Neighborhood Map`}
+  title={`${CITY} Neighborhood Map: Restaurants, Bars, Museums, Landmarks, Parks, and Markets`}
   description={`A map and field guide to the neighborhoods and parks of ${CITY}, with landmarks, museums, parks, markets, places to eat, and neighborhood write-ups.`}
   ogImage="/og/neighborhood-og.png"
   jsonLd={neighborhoodList}>
@@ -182,15 +182,7 @@ function sectionOf(area: { group?: string; type?: string }): string {
                   <MapRow
                     id={neighborhood.slug}
                     title={neighborhood.name}
-                    detailHref={
-                      neighborhoodHasContent(
-                        neighborhood.slug,
-                        written,
-                        placesByNeighborhood.get(neighborhood.slug)?.length ?? 0,
-                      )
-                        ? `/neighborhoods/${neighborhood.slug}/`
-                        : undefined
-                    }
+                    detailHref={`/neighborhoods/${neighborhood.slug}/`}
                     readMore={false}
                     search={[
                       neighborhood.name,
@@ -202,7 +194,6 @@ function sectionOf(area: { group?: string; type?: string }): string {
                       .join(' ')}
                     class={written ? 'is-written' : 'is-unwritten'}
                     attrs={{
-                      ...(written ? {} : { 'data-stub': '' }),
                       'data-section': neighborhood.slug,
                       'data-area': popup.area ?? '',
                       'data-region': regionKey,

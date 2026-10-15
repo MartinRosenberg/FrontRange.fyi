@@ -113,6 +113,8 @@ const cityName = city.split(',')[0].trim()
 const address = place.address ?? {}
 const suggestedRegion = (address.state ?? address.country ?? '').split(' / ').pop()
 const region = await ask('Region (state, province or country)', suggestedRegion)
+const suggestedRegionCode = (address['ISO3166-2-lvl4'] ?? '').split('-').pop() || region
+const regionCode = await ask('Short region code for page titles (e.g. MO)', suggestedRegionCode)
 const cityShort = await ask('Short city name, for "Made with ♥ in …"', cityName)
 const siteName = await ask('Site name', `${cityName}ing`)
 const domain = await ask('Domain', `${slugify(siteName)}.com`)
@@ -189,13 +191,14 @@ replaceConfigValues(configPath, {
   CITY: quote(cityName),
   CITY_SHORT: quote(cityShort),
   REGION: quote(region),
+  REGION_CODE: quote(regionCode),
   INSTAGRAM_HANDLE: quote(instagramHandle),
   SOCIALS: socialsSource,
   PINNED_TOPIC_ID: quote(''),
   PROMOTED_TOPIC_ID: quote(''),
   BEST_PROMO_PHOTO_ID: quote(''),
   BEST_PROMO_TEASER: quote(''),
-  CORRIDORS_TOPIC_ID: quote(''),
+  STREETS_TOPIC_ID: quote(''),
   FEATURED_FOOD_IDS: '[]',
   NEIGHBORHOOD_BOUNDARIES_FILE: quote(`${slugify(cityName)}-neighborhoods.geojson`),
   NEIGHBORHOOD_PARTS_FILE: quote(`${slugify(cityName)}-neighborhood-parts.geojson`),

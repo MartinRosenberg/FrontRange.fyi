@@ -2,13 +2,13 @@ import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 const OVERPASS_URL = process.env.OVERPASS_URL ?? 'https://overpass-api.de/api/interpreter'
-const OUTPUT_PATH = fileURLToPath(new URL('../src/data/corridors.json', import.meta.url))
+const OUTPUT_PATH = fileURLToPath(new URL('../src/data/streets.json', import.meta.url))
 
-const corridors = [
+const streets = [
   {
     id: 'the-grove',
     name: 'The Grove',
-    street: 'Manchester Avenue',
+    road: 'Manchester Avenue',
     streetNames: ['Manchester Avenue'],
     from: { label: 'west arch', coord: [38.62625, -90.2621] },
     to: { label: 'east arch', coord: [38.627942, -90.24989] },
@@ -20,7 +20,7 @@ const corridors = [
   {
     id: 'cherokee',
     name: 'Cherokee Street',
-    street: 'Cherokee Street',
+    road: 'Cherokee Street',
     streetNames: ['Cherokee Street'],
     from: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
     to: { label: 'Nebraska', names: ['Nebraska Avenue'] },
@@ -33,7 +33,7 @@ const corridors = [
     id: 'cherokee-antique-row',
     name: 'Cherokee Antique Row',
     label: 'Antique Row',
-    street: 'Cherokee Street',
+    road: 'Cherokee Street',
     streetNames: ['Cherokee Street'],
     from: { label: 'Lemp', names: ['Lemp Avenue', 'South Lemp Avenue'] },
     to: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
@@ -44,7 +44,7 @@ const corridors = [
   {
     id: 'euclid',
     name: 'Euclid Avenue',
-    street: 'Euclid Avenue',
+    road: 'Euclid Avenue',
     streetNames: ['North Euclid Avenue', 'South Euclid Avenue', 'Euclid Avenue'],
     from: { label: 'Laclede', names: ['Laclede Avenue'] },
     to: { label: 'Delmar', names: ['Delmar Boulevard'] },
@@ -56,7 +56,7 @@ const corridors = [
   {
     id: 'south-grand',
     name: 'South Grand',
-    street: 'Grand Boulevard',
+    road: 'Grand Boulevard',
     streetNames: ['South Grand Boulevard', 'South Grand Avenue'],
     from: { label: 'Arsenal', names: ['Arsenal Street'] },
     to: { label: 'Utah', names: ['Utah Street', 'Utah Place'] },
@@ -67,7 +67,7 @@ const corridors = [
   {
     id: 'morganford',
     name: 'Morganford',
-    street: 'Morganford Road',
+    road: 'Morganford Road',
     streetNames: ['Morganford Road', 'Morgan Ford Road'],
     from: { label: 'Arsenal', names: ['Arsenal Street'] },
     to: { label: 'Utah', names: ['Utah Street', 'Utah Place'] },
@@ -78,7 +78,7 @@ const corridors = [
   {
     id: 'hampton',
     name: 'Hampton Avenue',
-    street: 'Hampton Avenue',
+    road: 'Hampton Avenue',
     streetNames: ['Hampton Avenue', 'South Hampton Avenue'],
     from: { label: 'Chippewa', names: ['Chippewa Street', 'Chippewa Avenue'] },
     to: {
@@ -92,7 +92,7 @@ const corridors = [
   {
     id: 'macklind',
     name: 'Macklind',
-    street: 'Macklind Avenue',
+    road: 'Macklind Avenue',
     streetNames: ['Macklind Avenue', 'South Macklind Avenue'],
     from: { label: 'Lansdowne', names: ['Lansdowne Avenue'] },
     to: { label: 'Nottingham', names: ['Nottingham Avenue'] },
@@ -104,7 +104,7 @@ const corridors = [
     id: 'the-hill',
     include: ["Gioia's Deli"],
     name: 'The Hill',
-    street: 'Marconi Avenue',
+    road: 'Marconi Avenue',
     streetNames: ['Marconi Avenue'],
     from: { label: 'Shaw', names: ['Shaw Avenue'] },
     to: { label: 'Elizabeth', names: ['Elizabeth Avenue'] },
@@ -116,7 +116,7 @@ const corridors = [
   {
     id: 'bevo',
     name: 'Bevo',
-    street: 'Gravois Avenue',
+    road: 'Gravois Avenue',
     streetNames: ['Gravois Avenue', 'Gravois Road'],
     from: { label: 'Taft', names: ['Taft Avenue'] },
     to: { label: 'Christy', names: ['Christy Boulevard', 'Christy Avenue'] },
@@ -127,7 +127,7 @@ const corridors = [
   {
     id: 'delmar-loop',
     name: 'The Delmar Loop',
-    street: 'Delmar Boulevard',
+    road: 'Delmar Boulevard',
     streetNames: ['Delmar Boulevard'],
     from: { label: 'Leland', names: ['Leland Avenue'] },
     to: { label: 'the Pageant', coord: [38.65513, -90.2965] },
@@ -139,7 +139,7 @@ const corridors = [
   {
     id: 'demun',
     name: 'DeMun',
-    street: 'DeMun Avenue',
+    road: 'DeMun Avenue',
     streetNames: [
       'De Mun Avenue',
       'DeMun Avenue',
@@ -156,7 +156,7 @@ const corridors = [
   {
     id: 'carondelet',
     name: 'Carondelet',
-    street: 'South Broadway',
+    road: 'South Broadway',
     streetNames: ['South Broadway'],
     from: { label: 'Blow', names: ['Blow Street'] },
     to: { label: 'Steins', names: ['West Steins Street', 'East Steins Street', 'Steins Street'] },
@@ -167,7 +167,7 @@ const corridors = [
   {
     id: 'south-town',
     name: 'Southtown',
-    street: 'South Kingshighway',
+    road: 'South Kingshighway',
     streetNames: ['South Kingshighway Boulevard', 'Kingshighway Boulevard'],
     from: { label: 'Fyler', names: ['Fyler Avenue', 'Arsenal Street'] },
     to: { label: 'Devonshire', names: ['Devonshire Avenue'] },
@@ -178,7 +178,7 @@ const corridors = [
   {
     id: 'maplewood',
     name: 'Maplewood',
-    street: 'Manchester Road',
+    road: 'Manchester Road',
     streetNames: ['Manchester Road', 'Manchester Avenue'],
     from: { label: 'Big Bend', names: ['South Big Bend Boulevard', 'Big Bend Boulevard'] },
     to: { label: 'Bellevue', names: ['Bellevue Avenue', 'South Bellevue Avenue'] },
@@ -191,7 +191,7 @@ const corridors = [
     id: 'old-webster',
     include: ['Telva at the Ridge'],
     name: 'Old Webster',
-    street: 'Lockwood Avenue',
+    road: 'Lockwood Avenue',
     streetNames: ['West Lockwood Avenue', 'East Lockwood Avenue', 'Lockwood Avenue'],
     from: { label: 'Jefferson', names: ['Jefferson Road'] },
     to: { label: 'Maple', names: ['North Maple Avenue', 'South Maple Avenue'] },
@@ -203,7 +203,7 @@ const corridors = [
   {
     id: 'kirkwood',
     name: 'Kirkwood',
-    street: 'Kirkwood Road',
+    road: 'Kirkwood Road',
     streetNames: ['North Kirkwood Road', 'South Kirkwood Road', 'Kirkwood Road'],
     from: { label: 'Bodley', names: ['East Bodley Avenue', 'West Bodley Avenue'] },
     to: { label: 'Monroe', names: ['West Monroe Avenue', 'East Monroe Avenue'] },
@@ -216,7 +216,7 @@ const corridors = [
     id: 'lafayette-square',
     include: ["Clementine's Creamery"],
     name: 'Lafayette Square',
-    street: 'Park Avenue',
+    road: 'Park Avenue',
     streetNames: ['Park Avenue'],
     from: { label: 'Mississippi', names: ['Mississippi Avenue'] },
     to: { label: '18th', names: ['South 18th Street', '18th Street'] },
@@ -229,7 +229,7 @@ const corridors = [
     id: 'gore',
     name: 'Gore Avenue',
     label: 'Gore',
-    street: 'North Gore Avenue',
+    road: 'North Gore Avenue',
     streetNames: ['North Gore Avenue', 'Gore Avenue'],
     from: {
       label: 'Lockwood',
@@ -255,7 +255,7 @@ const corridors = [
       "Jack Nolen's",
     ],
     name: 'Soulard',
-    street: 'South 12th Street',
+    road: 'South 12th Street',
     streetNames: ['South 12th Street'],
     from: { label: 'Shenandoah', names: ['Shenandoah Avenue'] },
     to: { label: 'Gravois', coord: [38.61013, -90.20861] },
@@ -267,7 +267,7 @@ const corridors = [
   {
     id: 'dogtown',
     name: 'Dogtown',
-    street: 'Tamm Avenue',
+    road: 'Tamm Avenue',
     streetNames: ['Tamm Avenue'],
     from: { label: 'Oakland', names: ['Oakland Avenue'] },
     to: { label: 'Mitchell', names: ['Mitchell Place', 'Mitchell Avenue'] },
@@ -279,7 +279,7 @@ const corridors = [
     id: 'dogtown-clayton',
     name: 'Dogtown',
     label: 'Clayton Ave',
-    street: 'Clayton Avenue',
+    road: 'Clayton Avenue',
     streetNames: ['Clayton Avenue'],
     from: { label: 'Childress', names: ['Childress Avenue'] },
     to: { label: 'Graham', names: ['Graham Street', 'Graham Avenue'] },
@@ -291,7 +291,7 @@ const corridors = [
     id: 'shaw',
     include: ["Sasha's on Shaw", 'Fiddlehead Fern Cafe'],
     name: 'Shaw',
-    street: 'South 39th Street',
+    road: 'South 39th Street',
     streetNames: ['South 39th Street', '39th Street'],
     from: { label: 'Shaw', names: ['Shaw Boulevard'] },
     to: { label: 'Magnolia', names: ['Magnolia Avenue'] },
@@ -302,7 +302,7 @@ const corridors = [
   {
     id: 'washington-avenue',
     name: 'Washington Avenue',
-    street: 'Washington Avenue',
+    road: 'Washington Avenue',
     streetNames: ['Washington Avenue'],
     from: { label: '6th', names: ['North 6th Street', '6th Street'] },
     to: { label: '18th', names: ['North 18th Street', '18th Street'] },
@@ -314,7 +314,7 @@ const corridors = [
   {
     id: 'ballpark-village',
     name: 'Ballpark Village',
-    street: 'Clark Avenue',
+    road: 'Clark Avenue',
     streetNames: ['Clark Avenue', 'Clark Street'],
     from: { label: '8th', names: ['South 8th Street', '8th Street'] },
     to: { label: 'Broadway', names: ['South Broadway', 'Broadway'] },
@@ -326,7 +326,7 @@ const corridors = [
   {
     id: 'big-bend',
     name: 'Old Orchard',
-    street: 'Big Bend Boulevard',
+    road: 'Big Bend Boulevard',
     streetNames: ['Big Bend Boulevard', 'South Big Bend Boulevard'],
     from: { label: 'Lockwood', names: ['East Lockwood Avenue', 'Lockwood Avenue'] },
     to: { label: 'Oakwood', names: ['Oakwood Avenue', 'Laclede Station Road'] },
@@ -347,7 +347,7 @@ async function overpass(query) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': 'corridor-street-extract/1.0',
+          'User-Agent': 'street-extract/1.0',
         },
         body: `data=${encodeURIComponent(query)}`,
       })
@@ -379,16 +379,16 @@ const nameRegex = (names) => `^(${names.join('|')})$`
 const bboxAround = ([lat, lng], margin) =>
   `${lat - margin},${lng - margin * 1.25},${lat + margin},${lng + margin * 1.25}`
 
-async function resolveEndpoint(corridor, endpoint) {
+async function resolveEndpoint(street, endpoint) {
   if (!endpoint.names && endpoint.coord) {
     const [lat, lng] = endpoint.coord
 
     return { lat, lng, nodeCount: 0 }
   }
 
-  const bbox = bboxAround(corridor.center, 0.04)
+  const bbox = bboxAround(street.center, 0.04)
   const query = `[out:json][timeout:30];
-way["highway"]["highway"!~"_link"]["name"~"${nameRegex(corridor.streetNames)}"](${bbox});
+way["highway"]["highway"!~"_link"]["name"~"${nameRegex(street.roadNames)}"](${bbox});
 node(w)->.street_nodes;
 way["highway"]["highway"!~"_link"]["name"~"${nameRegex(endpoint.names)}"](${bbox});
 node(w)->.cross_nodes;
@@ -414,13 +414,13 @@ out;`
   return { lat, lng, nodeCount: nodes.length }
 }
 
-async function fetchStreetPoints(corridor, start, end) {
+async function fetchStreetPoints(street, start, end) {
   const south = Math.min(start.lat, end.lat) - 0.004
   const north = Math.max(start.lat, end.lat) + 0.004
   const west = Math.min(start.lng, end.lng) - 0.005
   const east = Math.max(start.lng, end.lng) + 0.005
   const query = `[out:json][timeout:30];
-way["highway"]["highway"!~"_link"]["name"~"${nameRegex(corridor.streetNames)}"](${south},${west},${north},${east});
+way["highway"]["highway"!~"_link"]["name"~"${nameRegex(street.roadNames)}"](${south},${west},${north},${east});
 out geom;`
 
   const result = await overpass(query)
@@ -487,12 +487,12 @@ function buildLine(points, start, end) {
 
 const onlyIds = process.argv.slice(2)
 const targets =
-  onlyIds.length > 0 ? corridors.filter((corridor) => onlyIds.includes(corridor.id)) : corridors
+  onlyIds.length > 0 ? streets.filter((street) => onlyIds.includes(street.id)) : streets
 
 const existing = new Map()
 if (onlyIds.length > 0) {
   try {
-    for (const entry of JSON.parse(readFileSync(OUTPUT_PATH, 'utf8')).corridors) {
+    for (const entry of JSON.parse(readFileSync(OUTPUT_PATH, 'utf8')).streets) {
       existing.set(entry.id, entry)
     }
   } catch {}
@@ -500,18 +500,16 @@ if (onlyIds.length > 0) {
 
 const problems = []
 
-for (const corridor of targets) {
-  console.log(
-    `\n${corridor.name} (${corridor.street}, ${corridor.from.label} -> ${corridor.to.label})`,
-  )
+for (const street of targets) {
+  console.log(`\n${street.name} (${street.road}, ${street.from.label} -> ${street.to.label})`)
 
-  const start = await resolveEndpoint(corridor, corridor.from)
+  const start = await resolveEndpoint(street, street.from)
   await sleep(2500)
-  const end = await resolveEndpoint(corridor, corridor.to)
+  const end = await resolveEndpoint(street, street.to)
   await sleep(2500)
 
   if (!start || !end) {
-    problems.push(`${corridor.id}: unresolved endpoint (start=${!!start}, end=${!!end})`)
+    problems.push(`${street.id}: unresolved endpoint (start=${!!start}, end=${!!end})`)
     console.log('  FAILED to resolve endpoints')
     continue
   }
@@ -521,12 +519,12 @@ for (const corridor of targets) {
       ` | end ${end.lat.toFixed(5)},${end.lng.toFixed(5)} (${end.nodeCount} nodes)`,
   )
 
-  const points = await fetchStreetPoints(corridor, start, end)
+  const points = await fetchStreetPoints(street, start, end)
   await sleep(2500)
   const built = buildLine(points, start, end)
 
   if (!built) {
-    problems.push(`${corridor.id}: too few points (${points.length} raw)`)
+    problems.push(`${street.id}: too few points (${points.length} raw)`)
     console.log(`  FAILED to build line from ${points.length} raw points`)
     continue
   }
@@ -536,37 +534,37 @@ for (const corridor of targets) {
     `  ${points.length} raw points -> ${built.line.length} line points, ~${miles} mi end to end`,
   )
 
-  existing.set(corridor.id, {
-    id: corridor.id,
-    name: corridor.name,
-    label: corridor.label,
-    street: corridor.street,
-    from: corridor.from.label,
-    to: corridor.to.label,
-    anchor: corridor.anchor,
-    neighborhoods: corridor.neighborhoods,
-    website: corridor.website,
-    include: corridor.include,
-    exclude: corridor.exclude,
+  existing.set(street.id, {
+    id: street.id,
+    name: street.name,
+    label: street.label,
+    road: street.road,
+    from: street.from.label,
+    to: street.to.label,
+    anchor: street.anchor,
+    neighborhoods: street.neighborhoods,
+    website: street.website,
+    include: street.include,
+    exclude: street.exclude,
     line: built.line,
   })
 }
 
-const output = corridors.map((corridor) => existing.get(corridor.id)).filter(Boolean)
+const output = streets.map((street) => existing.get(street.id)).filter(Boolean)
 
 writeFileSync(
   OUTPUT_PATH,
   `${JSON.stringify(
     {
       source: 'Street geometry extracted from OpenStreetMap via the Overpass API (ODbL)',
-      corridors: output,
+      streets: output,
     },
     null,
     2,
   )}\n`,
 )
 
-console.log(`\nWrote ${output.length}/${corridors.length} corridors to ${OUTPUT_PATH}`)
+console.log(`\nWrote ${output.length}/${streets.length} streets to ${OUTPUT_PATH}`)
 if (problems.length > 0) {
   console.log('Problems:')
   for (const problem of problems) {

@@ -4,13 +4,6 @@ created: 2026-06-28
 url: https://visittheloop.com/
 wikipedia: https://en.wikipedia.org/wiki/Delmar_Loop
 description: A walkable strip of music venues and restaurants
-tags:
-  - walkable
-  - nightlife
-  - music
-  - dining
-  - shopping
-  - college
 notes:
   - "The city officially names this neighborhood Skinker DeBaliviere, but it's listed as the Delmar Loop because that's I think most people refer to this area as. The Loop street itself is split across the city line from Skinker DeBaliviere to University City."
 ---

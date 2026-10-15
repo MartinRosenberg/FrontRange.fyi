@@ -3,10 +3,6 @@ title: Maplewood
 created: 2026-07-05
 url: https://www.maplewoodmo.gov/
 description: A main street of shops, bars, and local breweries
-tags:
-  - walkable
-  - dining
-  - historic
 neighbors:
   - webster-groves
   - the-hill

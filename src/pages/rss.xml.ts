@@ -16,23 +16,7 @@ export async function GET(context: APIContext) {
 
   const container = await AstroContainer.create()
 
-  const notes = published(await getCollection('notes'))
   const topics = published(await getCollection('topics'))
-
-  const noteItems = await Promise.all(
-    notes.map(async (note) => {
-      const { Content } = await render(note)
-      const link = `/notes/${note.id}/`
-
-      return {
-        title: note.data.title,
-        pubDate: note.data.created,
-        description: note.data.description ?? excerpt(note.body),
-        content: absolutize(await container.renderToString(Content), link),
-        link,
-      }
-    }),
-  )
 
   const topicItems = await Promise.all(
     topics.map(async (topic) => {
@@ -87,7 +71,7 @@ export async function GET(context: APIContext) {
     }),
   )
 
-  const items = [...noteItems, ...topicItems, ...foodItems, ...neighborhoodItems].sort(
+  const items = [...topicItems, ...foodItems, ...neighborhoodItems].sort(
     (left, right) => right.pubDate.valueOf() - left.pubDate.valueOf(),
   )
 

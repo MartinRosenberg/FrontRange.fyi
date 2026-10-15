@@ -27,6 +27,14 @@
 
   --color-accent-gold: #b8860b;
   --color-map-accent: #6a47a6;
+  --gradient-instagram: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
 
   --color-map-north: var(--color-accent-blue);
   --color-map-central: var(--color-accent-gold);
@@ -34,7 +42,7 @@
   --color-map-county: var(--color-map-accent);
   --color-map-park: #2e7d4a;
 
-  --color-map-corridor: #c70f2e;
+  --color-map-street: #c70f2e;
 
   --color-spot-landmark: var(--color-map-county);
   --color-spot-museum: #1f8a8a;
@@ -82,6 +90,7 @@
   --radius: 6px;
   --radius-input: 6px;
   --radius-rounded: 20px;
+  --radius-pill: 999px;
 
   --card-photo-height: 9rem;
   --list-photo-width: 8rem;
@@ -129,7 +138,7 @@
   --color-map-accent: #b59ae0;
   --color-map-south: #e6877a;
   --color-map-park: #7ec98a;
-  --color-map-corridor: #f88c9e;
+  --color-map-street: #f88c9e;
   --color-spot-records: #f0a052;
   --color-spot-museum: #5fc3c3;
   --color-spot-mural: #e08ad0;
@@ -517,12 +526,12 @@ tbody tr:last-child td {
 }
 
 .boundary-map-figure,
-.corridor-map-figure {
+.street-map-figure {
   margin: var(--spacing-lg) 0;
 }
 
 .boundary-map,
-.corridor-map {
+.street-map {
   height: var(--inline-map-height);
   overflow: hidden;
   border: 1px solid var(--color-line-contrast);
@@ -534,11 +543,11 @@ tbody tr:last-child td {
   --inline-map-height: 420px;
 }
 
-.corridor-map {
+.street-map {
   --inline-map-height: 300px;
 }
 
-.corridor-map.corridor-overview {
+.street-map.street-overview {
   --inline-map-height: 460px;
   --overview-width: min(var(--measure-article), calc(100vw - 2 * var(--spacing-md)));
   width: var(--overview-width);
@@ -550,16 +559,16 @@ tbody tr:last-child td {
     --inline-map-height: 320px;
   }
 
-  .corridor-map {
+  .street-map {
     --inline-map-height: 240px;
   }
 
-  .corridor-map.corridor-overview {
+  .street-map.street-overview {
     --inline-map-height: 340px;
   }
 }
 
-.corridor-map-caption {
+.street-map-caption {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -571,7 +580,7 @@ tbody tr:last-child td {
   transform: scale(1.12);
 }
 
-.corridor-spot-name {
+.street-spot-name {
   position: absolute;
   bottom: calc(100% + var(--spacing-xs));
   left: 50%;
@@ -592,8 +601,8 @@ tbody tr:last-child td {
   pointer-events: none;
 }
 
-.corridor-spot:hover .corridor-spot-name,
-.corridor-spot:focus-visible .corridor-spot-name {
+.street-spot:hover .street-spot-name,
+.street-spot:focus-visible .street-spot-name {
   visibility: visible;
   opacity: 1;
   z-index: 99999;
@@ -2658,6 +2667,10 @@ body:has([data-filter-root]) .masthead-nav {
   font-size: var(--font-size-xs);
 }
 
+.btn-dark:not(.map-split-toggle) {
+  border-radius: var(--radius-pill);
+}
+
 .btn-dark:hover {
   color: var(--color-surface);
   background: color-mix(in srgb, var(--color-text-heading) 85%, var(--color-surface));
@@ -3514,6 +3527,10 @@ button.title-link:hover {
   gap: var(--spacing-md);
 }
 
+.btn[type='submit'] {
+  padding-inline: var(--spacing-md);
+}
+
 .form-status {
   margin: 0;
   font-family: var(--font-sans-serif);
@@ -3607,28 +3624,6 @@ button.title-link:hover {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
   }
-}
-
-.tag-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-xs);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.tag-chips > li {
-  margin: 0;
-}
-
-.tag-chips .chip {
-  border-radius: var(--radius);
-}
-
-.tag-chips .icon {
-  width: 14px;
-  height: 14px;
 }
 
 .chip.chip-blue {

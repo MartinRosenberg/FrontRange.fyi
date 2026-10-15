@@ -9,6 +9,7 @@ import { published, excerpt, META_DESCRIPTION_CHARS } from '../lib/content'
 import { href } from '../lib/url'
 import { CITY, SUPABASE_ENABLED } from '../lib/site'
 import { optionalData } from '../lib/optional-data'
+import { itemListSchema } from '../lib/schema'
 
 interface Award {
   label: string
@@ -49,9 +50,22 @@ for (const award of resolvedAwards) {
   fittingLabels.push(award.label)
 }
 const description = `${descriptionLead}${fittingLabels.join(', ')}${descriptionSuffix}`
+
+const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
+const schema = itemListSchema(
+  `The Best Food in ${CITY}`,
+  awards.map(({ label, place }) => ({
+    name: `${label}: ${place.data.title}`,
+    url: new URL(`/food/${place.id}/`, siteOrigin).href,
+  })),
+)
 ---
 
-<BaseLayout crumb="Best of" title={`The Best Food in ${CITY}`} description={description}>
+<BaseLayout
+  crumb="Best of"
+  title={`Best Restaurants in ${CITY}: My Top Picks`}
+  description={description}
+  jsonLd={schema}>
   <article>
     <PageMasthead title={`The Best Food in ${CITY}`} wide>
       <p slot="lede">

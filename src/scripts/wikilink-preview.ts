@@ -6,7 +6,6 @@ interface Preview {
   kind?: 'neighborhood'
   cuisine?: string[]
   neighborhood?: string
-  tags?: string[]
   description?: string
   photo?: string
 }
@@ -82,7 +81,6 @@ export function initWikilinkPreviews(): void {
       : [
           ...(preview.cuisine ?? []).map((cuisine) => cuisineLabel(cuisine)),
           ...(preview.neighborhood ? [preview.neighborhood] : []),
-          ...(preview.tags ?? []),
         ]
     if (metaParts.length > 0) {
       const meta = document.createElement('div')

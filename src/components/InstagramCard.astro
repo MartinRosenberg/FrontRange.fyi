@@ -1,0 +1,86 @@
+---
+import Heading from './Heading.astro'
+import { href } from '../lib/url'
+import { INSTAGRAM_HANDLE } from '../lib/site'
+
+const profileHref = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`
+---
+
+{
+  INSTAGRAM_HANDLE && (
+    <section class="instagram-card">
+      <Heading>Keep in touch</Heading>
+      <a class="instagram-profile" href={profileHref} target="_blank" rel="noopener">
+        <span class="instagram-avatar">
+          <img src={href('/avatar.svg')} alt="" width="48" height="48" />
+        </span>
+        <span class="instagram-profile-text">
+          <span class="instagram-handle">@{INSTAGRAM_HANDLE}</span>
+          <span class="instagram-cta">on Instagram</span>
+        </span>
+        <span class="btn btn-dark instagram-follow">Follow</span>
+      </a>
+    </section>
+  )
+}
+
+<style>
+  .instagram-card {
+    --instagram-avatar-size: 2.75rem;
+    display: grid;
+    gap: var(--spacing-sm);
+  }
+
+  .instagram-profile {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .instagram-avatar {
+    display: inline-flex;
+    flex-shrink: 0;
+    padding: var(--spacing-xxs);
+    border-radius: 50%;
+    background: var(--gradient-instagram);
+  }
+
+  .instagram-avatar img {
+    width: var(--instagram-avatar-size);
+    height: var(--instagram-avatar-size);
+    border: var(--spacing-xxs) solid var(--color-background);
+    border-radius: 50%;
+    background: var(--color-surface);
+  }
+
+  .instagram-profile-text {
+    display: grid;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .instagram-handle {
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-md);
+    font-weight: 700;
+  }
+
+  .instagram-cta {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-sm);
+    color: var(--color-muted);
+  }
+
+  .instagram-profile:hover .instagram-handle {
+    text-decoration: underline;
+  }
+
+  .instagram-follow {
+    padding: var(--spacing-xs) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    text-transform: none;
+  }
+</style>

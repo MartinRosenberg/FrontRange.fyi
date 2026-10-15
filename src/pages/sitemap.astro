@@ -4,7 +4,7 @@ import PageMasthead from '../components/PageMasthead.astro'
 import { getCollection } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import { href } from '../lib/url'
-import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../lib/cuisine'
+import { cuisineLabel } from '../lib/cuisine'
 import { published, hasBody } from '../lib/content'
 import { NEIGHBORHOODS_ENABLED, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import Chip from '../components/Chip.astro'
@@ -45,10 +45,6 @@ const groups: SitemapGroup[] = [
       { title: 'About', path: '/about/' },
       { title: 'Updates', path: '/updates/' },
       { title: `Best Food in ${CITY}`, path: '/best/' },
-      { title: 'Backlog', path: '/food/backlog/' },
-      { title: 'Annual Events', path: '/events/' },
-      { title: 'Tags', path: '/tags/' },
-      { title: 'Stats', path: '/stats/' },
       { title: 'Contact', path: '/contact/' },
     ],
   },
@@ -60,9 +56,9 @@ const groups: SitemapGroup[] = [
   {
     label: 'Cuisines',
     path: '/food/',
-    items: [...cuisinesWithPages(food).keys()].sort().map((cuisine) => ({
+    items: [...new Set(food.flatMap((place) => place.data.cuisine))].sort().map((cuisine) => ({
       title: cuisineLabel(cuisine),
-      path: `/food/cuisine/${cuisineSlug(cuisine)}/`,
+      path: `/food/?cuisine=${encodeURIComponent(cuisine)}`,
     })),
   },
   {

@@ -425,6 +425,7 @@ export function initMapPane(): void {
     minZoom: 10,
     maxZoom: 16,
     attributionControl: { compact: true },
+    attributionCollapsed: true,
   })
 
   const popup = createMapPopup(BADGE_POPUP_OFFSET)

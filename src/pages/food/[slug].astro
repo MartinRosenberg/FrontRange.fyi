@@ -1,5 +1,5 @@
 ---
-import { CITY, SUPABASE_ENABLED } from '../../lib/site'
+import { SUPABASE_ENABLED } from '../../lib/site'
 import { getCollection, render } from 'astro:content'
 import { Image, getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
@@ -7,7 +7,6 @@ import AsideHeading from '../../components/AsideHeading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
-import TagList from '../../components/TagList.astro'
 import ReadersVerdict from '../../components/ReadersVerdict.astro'
 import Byline from '../../components/Byline.astro'
 import EntryDates from '../../components/EntryDates.astro'
@@ -20,11 +19,11 @@ import Card from '../../components/Card.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { published, excerpt, hasBody, foodStatus, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { getBacklinks } from '../../lib/backlinks'
-import { neighborhoodHref, neighborhoodName } from '../../lib/neighborhoods'
+import { neighborhoodHref, neighborhoodName, placeLocality } from '../../lib/neighborhoods'
 import { resolveVerdict, resolveWriterState, verdictLabels } from '../../lib/verdict'
 import { googleMapsHref } from '../../lib/maps'
 import { restaurantSchema } from '../../lib/schema'
-import { cuisineLabel, cuisineSlug, cuisinesWithPages } from '../../lib/cuisine'
+import { cuisineLabel } from '../../lib/cuisine'
 import IconArrowRight from '../../assets/IconArrowRight.astro'
 import IconMapPin from '../../assets/IconMapPin.astro'
 import IconExternalLink from '../../assets/IconExternalLink.astro'
@@ -65,11 +64,8 @@ const schema = restaurantSchema({
 })
 
 const allFood = published(await getCollection('food'))
-const cuisinePages = cuisinesWithPages(allFood)
 const cuisineHref = (cuisine: string): string =>
-  cuisinePages.has(cuisine.trim().toLowerCase())
-    ? href(`/food/cuisine/${cuisineSlug(cuisine)}/`)
-    : href(`/food/?cuisine=${cuisine}`)
+  href(`/food/?cuisine=${encodeURIComponent(cuisine)}`)
 
 const trail = [
   { label: 'Food', href: '/food/' },
@@ -145,10 +141,11 @@ const mentionedIn = backlinks.filter(
   (backlink) => !(backlink.collection === 'food' && relatedIds.has(backlink.id)),
 )
 
+const locality = placeLocality(data.neighborhood, data.address)
+const titleLead = hasBody(entry) ? `${data.title} Review` : data.title
 const seoTitle = primaryCuisine
-  ? `${data.title} - ${cuisineLabel(primaryCuisine)} in ${CITY}`
-  : `${data.title} in ${CITY}`
-const locality = data.neighborhood ? `${neighborhoodName(data.neighborhood)}, ${CITY}` : CITY
+  ? `${titleLead}: ${cuisineLabel(primaryCuisine)} in ${locality}`
+  : `${titleLead} in ${locality}`
 const stubDescription = [
   data.description,
   primaryCuisine
@@ -180,7 +177,6 @@ const seoDescription = hasBody(entry)
     <header class="detail-pane-header">
       <h1 class="detail-pane-title title-page">{data.title}</h1>
       {data.description && <p class="description description--lg detail-pane-tagline">{data.description}</p>}
-      <TagList tags={data.tags} />
       <div class="pane-stats">
         <div class="pane-stat">
           <span class="pane-stat-label eyebrow eyebrow--muted">My rating</span>

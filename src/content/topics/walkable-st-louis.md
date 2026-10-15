@@ -1,8 +1,8 @@
 ---
 title: St. Louis's Most Walkable Streets
-description: Highlighting the most interesting neighborhoods to explore
-seoDescription: "Maps of St. Louis's most walkable streets: Cherokee Street, South Grand, The Hill, the Delmar Loop, Soulard and more, with the places along each one."
-seoTitle: Most Walkable Streets in St. Louis
+description: Highlighting the most interesting and walkable neighborhoods to explore
+seoDescription: "How walkable is St. Louis? I'm mapping St. Louis's most walkable streets: Cherokee Street, South Grand, The Hill, the Delmar Loop, Soulard and more."
+seoTitle: Most Walkable Neighborhoods in St. Louis
 icon: map
 category: Neighborhoods
 ogImage: /og/walkable-st-louis.png
@@ -24,8 +24,8 @@ In this article, I'm using _walkable_ to mean an area that is interesting to wal
 
 This is a map of all the walkable St. Louis streets you'll see throughout the article. Click on a title to scroll to the relevant section.
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map corridor-overview" data-corridor-overview></div>
+<figure class="street-map-figure">
+  <div class="street-map street-overview" data-street-overview></div>
 </figure>
 
 <small>The shaded areas denote the official neighborhoods, the lines are the highlighted streets.</small>
@@ -38,8 +38,8 @@ This is a map of all the walkable St. Louis streets you'll see throughout the ar
 - Neighborhood: [[central-west-end|Central West End]]
 - Website: [cwescene.com](https://cwescene.com/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="euclid"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="euclid"></div>
 </figure>
 
 Central West End is one of the most dense and urban neighborhoods outside of Downtown. Euclid is the main retail strip that runs through the neighborhood. The street is lined with large, opulent lanterns, giving the area a nice glow at night.
@@ -55,8 +55,8 @@ Euclid is just a few short blocks from Forest Park, the proximity of which is a 
 - Street: **Tamm Avenue**, from Oakland to Mitchell
 - Neighborhood: [[dogtown|Dogtown]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="dogtown dogtown-clayton"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="dogtown dogtown-clayton"></div>
 </figure>
 
 Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tamm neighborhood) is St. Louis's historical Irish neighborhood, where a St. Patrick's Day parade takes place each year. There are several Irish bars in this spot, like Seamus McDaniel's and The Pat Connolly Tavern.
@@ -68,8 +68,8 @@ Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tam
 - Street: **Morganford Road**, from Arsenal to Utah
 - Neighborhoods: [[tower-grove-south|Tower Grove South]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="south-grand morganford"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="south-grand morganford"></div>
 </figure>
 
 South Grand is the international restaurant row of St. Louis. Along this strip, you'll find a concentration of Vietnamese, Thai, Ethiopian, Persian, Lebanese, Indian, BBQ, and other varieties of food. Jay International Foods is also the spot to go for ingredients of the world. [MoKaBe's Coffeehouse](https://www.mokabescoffeehouse.com/) is a popular spot for coffee.
@@ -85,8 +85,8 @@ There's also a smaller strip along Morganford with a few places of interest, suc
 - Street: **South 39th Street**, from Shaw to Magnolia
 - Neighborhood: [[shaw|Shaw]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="shaw"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="shaw"></div>
 </figure>
 
 Tucked between Tower Grove Park, the Missouri Botanical Garden, and Compton Hill Park is Shaw, a quiet tree-lined neighborhood full of historical Victorian homes. This is a great area to walk due to how quiet it is, and how much green space surrounds it.
@@ -102,8 +102,8 @@ Flora Place is a particularly pretty boulevard to walk along, showcasing many be
 - Street: **Macklind Avenue**, from Lansdowne to Nottingham
 - Neighborhoods: [[southampton|Southampton]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="hampton macklind"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="hampton macklind"></div>
 </figure>
 
 Hampton Avenue around St. Louis Hills and Southampton has a very local neighborhood vibe. This is mostly a quiet area of the city with some shops, but I noticed a cluster of restaurants along the strip. There's [[jj-twigs-pizza-and-pub|J.J. Twigs]], a Chicago tavern-style pizza spot with the braided crust pizza, and the newly relocated [[moms-deli|Mom's Deli]], and [[salvage-yard|Salvage Yard]]. There's also [[bonos-pizzeria|Bono's Pizzeria]], the best Chicago deep dish I've had aside from Lou Malnati's, and more restaurants I have yet to try.
@@ -118,8 +118,8 @@ There's also another small strip nearby on Macklind with a Clementine's ice crea
 - Neighborhood: [[the-hill|The Hill]]
 - Website: [hillstl.org](https://www.hillstl.org/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="the-hill"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="the-hill"></div>
 </figure>
 
 The Hill is one of the most well-known neighborhoods of St. Louis. It was documented in [America's Last Little Italy: The Hill](https://www.youtube.com/watch?v=jvWa4euR-AA&t=1s) as one of the last Little Italys still around in America, and is the birthplace of the toasted ravioli, one of St. Louis's most sacred [[regional-foods|regional foods]].
@@ -133,8 +133,8 @@ My two favorites are [[nicky-slices|Nicky Slices]] for Detroit-style pizza, and 
 - Street: **Gravois Avenue**, from Taft to Christy
 - Neighborhood: [[bevo-mill|Bevo Mill]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="bevo"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="bevo"></div>
 </figure>
 
 In the '90s, St. Louis took in many refugees from the Bosnian War, and they settled in the neighborhood of Bevo Mill. This area became known as Little Bosnia, and Gravois became the main street. For many years, Bevo had the largest Bosnian population outside of Bosnia.
@@ -149,8 +149,8 @@ Although it has been thirty years since the Bosnian refugees settled in Bevo, th
 - Neighborhood: [[the-grove|Forest Park Southeast]]
 - Website: [thegrovestl.com](https://www.thegrovestl.com/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="the-grove"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="the-grove"></div>
 </figure>
 
 One of the most distinctive and well-known streets in St. Louis is The Grove in Forest Park Southeast. It's the only neighborhood that welcomes you with a lit-up neon sign from both ends so there's no confusion about exactly where you are.
@@ -163,8 +163,8 @@ The Grove is most famous for being the city's LGBTQ+ nightlife district. On one 
 - Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
 - Website: [visittheloop.com](https://visittheloop.com/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="delmar-loop"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="delmar-loop"></div>
 </figure>
 
 In 2007, the Delmar Loop was named one of the ["10 Great Streets in America"](https://www.planning.org/greatplaces/streets/2007/delmarloop.htm) by the APA, due to the "sustained efforts of local business, government, and the community to achieve successful physical and economic revitalization".
@@ -179,8 +179,8 @@ Notably, there is a concentration of very good Asian cuisine along Delmar, inclu
 - Neighborhoods: [[downtown|Downtown]]
 - Website: [washaveretail.com](https://www.washaveretail.com/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="washington-avenue"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="washington-avenue"></div>
 </figure>
 
 Washington Avenue, often referred to as Wash Ave by locals, is one of the main streets of interest in Downtown. There are a number of restaurants close to the street that serve the business district during lunch hours, such as Sugarfire BBQ and Sauce on the Side, and even the Washington Ave Food Hall.
@@ -195,8 +195,8 @@ Being downtown, it's as walkable as it gets, and one of the areas most likely to
 - Neighborhoods: [[downtown|Downtown]]
 - Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="ballpark-village"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="ballpark-village"></div>
 </figure>
 
 Right next to Busch Stadium is Ballpark Village, a string of bars and restaurants surrounding a central entertainment district. It's a hub for people to hang out before a ball game or concert.
@@ -207,8 +207,8 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 - Neighborhoods: [Greater Dutchtown](/neighborhoods/dutchtown/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
 - Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="cherokee cherokee-antique-row"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="cherokee cherokee-antique-row"></div>
 </figure>
 
 Cherokee St. is the Mexican neighborhood strip in St. Louis. There are several restaurants, panaderias, and Mexican groceries along Cherokee. Although St. Louis does not have the most significant Hispanic neighborhood compared to other American cities, I'm glad there's a main area to go to get good Mexican food, bakery items, and groceries. The Cinco de Mayo festival in St. Louis also happens along Cherokee.
@@ -220,8 +220,8 @@ The eastern wing of Cherokee St. is the [antique row](https://cherokeeantiquerow
 - Street: **South Kingshighway**, from Fyler to Devonshire
 - Neighborhoods: [North Hampton](/neighborhoods/north-hampton/), [[southampton|Southampton]], [[tower-grove-south|Tower Grove South]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="south-town"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="south-town"></div>
 </figure>
 
 [[buds-pizza-and-beer|Bud's Pizza and Beer]] is one of my favorite spots for a classic slice in St. Louis, and every time I visited I noticed a couple of obelisks and signs denoting "Southtown". Due to my research on this site, I knew "Southtown" was not an official St. Louis neighborhood, so I was curious.
@@ -236,8 +236,8 @@ Now, there are new restaurants and bars filling up the space, such as the Golden
 - Neighborhood: [[soulard|Soulard]]
 - Website: [soulard.org](https://www.soulard.org/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="soulard"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="soulard"></div>
 </figure>
 
 I was hesitant to include Soulard in the list, because it breaks the mold by being a whole grid of bars as opposed to one main street. Nonetheless, the density of bars in the area makes it worth being included on the list of most walkable neighborhoods. The majority of businesses around the area are late night and bar focused, so you won't see much here along the lines of bookstores and cafes.
@@ -256,8 +256,8 @@ The north and south ends of Soulard have a different feel, with the north side b
 - Neighborhood: [[lafayette-square|Lafayette Square]]
 - Website: [lafayettesquare.org](https://lafayettesquare.org/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="lafayette-square"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="lafayette-square"></div>
 </figure>
 
 Lafayette Park is a beautiful park in St. Louis with a pavilion, grotto, lake, and bridge. Every one of the neighborhoods on this list that borders a park gets an edge, because you can also take a stroll around the park.
@@ -271,8 +271,8 @@ In addition to the park, there are also beautiful, historic mansions painted in 
 - Street: **South Broadway**, from Blow to Steins
 - Neighborhoods: [[carondelet|Carondelet]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="carondelet"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="carondelet"></div>
 </figure>
 
 Carondelet is an interesting part of St. Louis that was originally its own city that was annexed by St. Louis in 1870 (one of the last that ever would be!). It's a very old, very French village from back in the day.
@@ -286,8 +286,8 @@ I have not personally explored this area outside of driving through and I don't 
 - Street: **DeMun Avenue**, from Northwood to Southwood
 - Neighborhood: [[clayton|Clayton]]
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="demun"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="demun"></div>
 </figure>
 
 There's a small, chic strip in Clayton right to the west of Forest Park. Concordia Park runs right along Demun, giving you a beautiful green park to amble along after dinner and/or ice cream along the strip.
@@ -302,8 +302,8 @@ Demun is a small spot overall, but worth mentioning for how pleasant it is.
 - Neighborhood: [[maplewood|Maplewood]]
 - Website: [maplewoodmo.gov](https://www.maplewoodmo.gov/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="maplewood"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="maplewood"></div>
 </figure>
 
 In the 2010s, Maplewood was named one of [the top "hipster" neighborhoods in the U.S](https://www.stlmag.com/news/maplewood-named-one-of-top-hipster-cities-in-the-u-s/). There's a bit of a "Keep Maplewood Weird" vibe about the area, like a much smaller Portland or Austin.
@@ -321,8 +321,8 @@ Maplewood is a streetcar suburb with Metrolink access to the city, making it one
 - Neighborhood: [[webster-groves|Webster Groves]]
 - Website: [webstergrovesmo.gov](https://www.webstergrovesmo.gov/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="big-bend old-webster gore"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="big-bend old-webster gore"></div>
 </figure>
 
 There are two main strips in Webster Groves. The Old Orchard district includes the famous James Beard award winning restaurant Balkan Treat Box and bookstore the Novel Neighbor.
@@ -335,8 +335,8 @@ On the east end of Webster, there's another main retail area with Telva at the R
 - Neighborhood: [[kirkwood|Kirkwood]]
 - Website: [downtownkirkwood.com](https://www.downtownkirkwood.com/), [kirkwoodmo.org](https://www.kirkwoodmo.org/)
 
-<figure class="corridor-map-figure">
-  <div class="corridor-map" data-corridor-map="kirkwood"></div>
+<figure class="street-map-figure">
+  <div class="street-map" data-street-map="kirkwood"></div>
 </figure>
 
 Downtown Kirkwood is a walkable area in Kirkwood, a wealthy suburb in the county of St. Louis. There's an Amtrak station in Kirkwood, making it more connected than most suburbs.

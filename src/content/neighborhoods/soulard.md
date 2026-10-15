@@ -3,12 +3,6 @@ title: Soulard
 created: 2026-07-05
 updated: 2026-10-12
 description: Bars, nightlife, and music in a historic neighborhood
-tags:
-  - historic
-  - nightlife
-  - walkable
-  - music
-  - brewery
 featured: 4
 ---
 

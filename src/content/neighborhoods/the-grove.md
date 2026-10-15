@@ -3,12 +3,6 @@ title: The Grove
 created: 2026-06-28
 url: https://www.thegrovestl.com
 description: St. Louis's LGBTQ nightlife strip
-tags:
-  - nightlife
-  - lgbtq
-  - music
-  - brewery
-  - dining
 notes:
   - "The city officially names this neighborhood Forest Park Southeast, but it's listed as The Grove because that's how I think people more commonly refer to the neighborhood."
 ---
