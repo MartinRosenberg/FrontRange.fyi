@@ -26,9 +26,10 @@ export function initReadersVerdict(): void {
 
 function setupWidget(root: HTMLElement): void {
   const slug = root.dataset.slug
-  if (!slug) {
+  if (!slug || root.dataset.votesReady !== undefined) {
     return
   }
+  root.dataset.votesReady = ''
 
   const likeButton = root.querySelector<HTMLButtonElement>('[data-vote="like"]')
   const dislikeButton = root.querySelector<HTMLButtonElement>('[data-vote="dislike"]')

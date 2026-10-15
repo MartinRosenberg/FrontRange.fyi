@@ -2,6 +2,7 @@
 import { CITY } from '../lib/site'
 import MapLegend from './MapLegend.astro'
 import BadgeIcons from './BadgeIcons.astro'
+import ReadersVerdictTemplate from './ReadersVerdictTemplate.astro'
 import MapActions from './MapActions.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
@@ -24,6 +25,7 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
 </div>
 <MapActions label="View map" />
 <BadgeIcons />
+<ReadersVerdictTemplate />
 <script is:inline type="application/json" data-area-map-spots set:html={JSON.stringify(spots)} />
 
 <script>

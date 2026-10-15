@@ -57,7 +57,6 @@ export const SPOT_SECTION_ORDER: SpotSectionKey[] = [
   'records',
   'games',
   'books',
-  
 ]
 
 export interface Spot {
@@ -82,6 +81,7 @@ export interface MapSpot {
   directionsHref?: string
   websiteHref?: string
   photo?: string
+  voteSlug?: string
 }
 
 export function allSpots(): Spot[] {

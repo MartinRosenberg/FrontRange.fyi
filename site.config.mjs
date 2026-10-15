@@ -54,3 +54,4 @@ export const CITY_BOUNDS = [
 export const BASEMAP_BOUNDS = [-90.95, 38.18, -89.85, 38.95]
 export const BASEMAP_FILE = 'stl.pmtiles'
 export const NEIGHBORHOOD_BOUNDARIES_FILE = 'stl-neighborhoods.geojson'
+export const NEIGHBORHOOD_PARTS_FILE = 'stl-neighborhood-parts.geojson'

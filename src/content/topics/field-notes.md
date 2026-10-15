@@ -76,6 +76,7 @@ There is a specific regional dialect of French known as [Missouri French](https:
 - **Meramec** - MER-uh-mack
 - **Soulard** - SOO-lard
 - **Debaliviere** - duh-BAHL-a-ver
+- **Bellefontaine** - bell-fountain
 
 ### Regional dialect
 

@@ -2277,6 +2277,10 @@ body:has([data-filter-root]) .masthead-nav {
   margin-block-start: var(--spacing-md);
 }
 
+:is(.maplibregl-popup.map-popup, .map-sheet) .verdict-row {
+  margin-block-start: var(--spacing-md);
+}
+
 :is(.maplibregl-popup.map-popup, .map-sheet) .action-buttons .btn {
   gap: var(--spacing-xs);
   padding: var(--spacing-xs) var(--spacing-sm);

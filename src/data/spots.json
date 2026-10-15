@@ -1123,5 +1123,31 @@
     "description": "Paint-by-numbers community mural by Grace McCammond from Grove Fest 2010.",
     "address": "4116 Manchester Ave",
     "coords": [-90.25083, 38.62771]
+  },
+  {
+    "name": "Bodach's Games",
+    "category": "games",
+    "neighborhoods": ["carondelet"],
+    "description": "Vintage video games and consoles, with tabletop gaming.",
+    "address": "7201 S Broadway",
+    "coords": [-90.25501, 38.55025]
+  },
+  {
+    "name": "Carondelet Food Patch",
+    "category": "park",
+    "neighborhoods": ["carondelet"],
+    "description": "Volunteer-run community garden and food forest, with free produce for neighbors.",
+    "address": "555 Hurck St",
+    "coords": [-90.26793, 38.54543],
+    "url": "https://www.foodpatch.org/"
+  },
+  {
+    "name": "The Griot Museum of Black History",
+    "category": "museum",
+    "neighborhoods": ["st-louis-place"],
+    "url": "https://www.thegriotmuseum.com",
+    "description": "Black history museum that began as a wax museum in 1997.",
+    "address": "2505 St Louis Ave",
+    "coords": [-90.20924, 38.65296]
   }
 ]

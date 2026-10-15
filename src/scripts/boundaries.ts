@@ -2,7 +2,7 @@ import {
   NEIGHBORHOODS_ENABLED,
   neighborhoodRecords as neighborhoods,
 } from '../lib/neighborhood-data'
-import { NEIGHBORHOOD_BOUNDARIES_FILE } from '../../site.config.mjs'
+import { NEIGHBORHOOD_BOUNDARIES_FILE, NEIGHBORHOOD_PARTS_FILE } from '../../site.config.mjs'
 
 export interface BoundaryFeature {
   type: 'Feature'
@@ -44,21 +44,23 @@ function combineFeatures(features: BoundaryFeature[]): BoundaryFeature | undefin
   }
 }
 
-let featuresPromise: Promise<BoundaryFeature[]> | null = null
+const featurePromises = new Map<string, Promise<BoundaryFeature[]>>()
 
-function loadFeatures(): Promise<BoundaryFeature[]> {
+function loadFeatures(file = NEIGHBORHOOD_BOUNDARIES_FILE): Promise<BoundaryFeature[]> {
   if (!NEIGHBORHOODS_ENABLED) {
     return Promise.resolve([])
   }
 
-  if (!featuresPromise) {
-    featuresPromise = fetch(`${import.meta.env.BASE_URL}${NEIGHBORHOOD_BOUNDARIES_FILE}`)
+  let promise = featurePromises.get(file)
+  if (!promise) {
+    promise = fetch(`${import.meta.env.BASE_URL}${file}`)
       .then((response) => response.json() as Promise<{ features: BoundaryFeature[] }>)
       .then((collection) => collection.features)
       .catch(() => [])
+    featurePromises.set(file, promise)
   }
 
-  return featuresPromise
+  return promise
 }
 
 function numbersFor(slugs: Iterable<string>): Set<number> {
@@ -92,6 +94,17 @@ export async function boundariesFor(slugs: Iterable<string>): Promise<BoundaryFe
   }
 
   const features = await loadFeatures()
+
+  return features.filter((feature) => numbers.has(Number(feature.properties?.NHD_NUM)))
+}
+
+export async function officialPartsFor(slug: string): Promise<BoundaryFeature[]> {
+  const numbers = numbersFor([slug])
+  if (numbers.size < 2) {
+    return []
+  }
+
+  const features = await loadFeatures(NEIGHBORHOOD_PARTS_FILE)
 
   return features.filter((feature) => numbers.has(Number(feature.properties?.NHD_NUM)))
 }

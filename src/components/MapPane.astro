@@ -1,6 +1,7 @@
 ---
 import MapLegend from './MapLegend.astro'
 import BadgeIcons from './BadgeIcons.astro'
+import ReadersVerdictTemplate from './ReadersVerdictTemplate.astro'
 import { spotCategories, type MapSpot, type SpotCategoryKey } from '../lib/spots'
 
 interface Props {
@@ -28,6 +29,7 @@ const legendCategories = (Object.keys(spotCategories) as SpotCategoryKey[]).filt
   <MapLegend categories={legendCategories} />
 </div>
 <BadgeIcons />
+<ReadersVerdictTemplate />
 <script
   is:inline
   type="application/json"

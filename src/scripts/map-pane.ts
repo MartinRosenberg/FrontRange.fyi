@@ -1,7 +1,7 @@
 import maplibregl from 'maplibre-gl'
 import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
-import { boundaryFor, type BoundaryFeature } from './boundaries'
+import { boundaryFor, officialPartsFor, type BoundaryFeature } from './boundaries'
 import { buildPopupHtml } from './popup'
 import { BADGE_POPUP_OFFSET, bindRowHover, createMapPopup, settlePopup } from './map-shared'
 import type { MapSpot } from '../lib/spots'
@@ -10,6 +10,9 @@ import { metersBetween } from '../lib/geo'
 const BOUNDARY_SOURCE_ID = 'neighborhood-boundary'
 const BOUNDARY_FILL_LAYER_ID = 'neighborhood-boundary-fill'
 const BOUNDARY_OUTLINE_LAYER_ID = 'neighborhood-boundary-outline'
+const PARTS_SOURCE_ID = 'neighborhood-parts'
+const PARTS_LINE_LAYER_ID = 'neighborhood-parts-line'
+const PARTS_LABEL_LAYER_ID = 'neighborhood-parts-label'
 const STACKED_BADGE_RADIUS = 22
 const STACKED_BADGE_DISTANCE_METERS = 45
 
@@ -99,31 +102,82 @@ function readBoundaryColor(token: string): string {
   return styles.getPropertyValue(token).trim() || '#c70f2e'
 }
 
-function applyBoundaryLayers(map: MapLibreMap, boundary: BoundaryFeature, token: string): void {
+function applyPartsLayers(map: MapLibreMap, parts: BoundaryFeature[], color: string): void {
+  const halo = readBoundaryColor('--color-background')
+
+  if (map.getLayer(PARTS_LINE_LAYER_ID)) {
+    map.setPaintProperty(PARTS_LINE_LAYER_ID, 'line-color', color)
+    map.setPaintProperty(PARTS_LABEL_LAYER_ID, 'text-color', color)
+    map.setPaintProperty(PARTS_LABEL_LAYER_ID, 'text-halo-color', halo)
+
+    return
+  }
+
+  map.addSource(PARTS_SOURCE_ID, {
+    type: 'geojson',
+    data: { type: 'FeatureCollection', features: parts } as never,
+  })
+
+  map.addLayer({
+    id: PARTS_LINE_LAYER_ID,
+    type: 'line',
+    source: PARTS_SOURCE_ID,
+    paint: {
+      'line-color': color,
+      'line-width': 1.25,
+      'line-opacity': 0.7,
+      'line-dasharray': [2, 2],
+    },
+  })
+
+  map.addLayer({
+    id: PARTS_LABEL_LAYER_ID,
+    type: 'symbol',
+    source: PARTS_SOURCE_ID,
+    layout: {
+      'text-field': ['get', 'NHD_NAME'],
+      'text-font': ['Noto Sans Medium'],
+      'text-size': 11,
+      'text-transform': 'uppercase',
+      'text-letter-spacing': 0.08,
+      'text-max-width': 8,
+    },
+    paint: { 'text-color': color, 'text-halo-color': halo, 'text-halo-width': 1.5 },
+  })
+}
+
+function applyBoundaryLayers(
+  map: MapLibreMap,
+  boundary: BoundaryFeature,
+  parts: BoundaryFeature[],
+  token: string,
+): void {
   const color = readBoundaryColor(token)
 
   if (map.getLayer(BOUNDARY_FILL_LAYER_ID)) {
     map.setPaintProperty(BOUNDARY_FILL_LAYER_ID, 'fill-color', color)
     map.setPaintProperty(BOUNDARY_OUTLINE_LAYER_ID, 'line-color', color)
+  } else {
+    map.addSource(BOUNDARY_SOURCE_ID, { type: 'geojson', data: boundary as never })
 
-    return
+    map.addLayer({
+      id: BOUNDARY_FILL_LAYER_ID,
+      type: 'fill',
+      source: BOUNDARY_SOURCE_ID,
+      paint: { 'fill-color': color, 'fill-opacity': 0.08 },
+    })
+
+    map.addLayer({
+      id: BOUNDARY_OUTLINE_LAYER_ID,
+      type: 'line',
+      source: BOUNDARY_SOURCE_ID,
+      paint: { 'line-color': color, 'line-width': 2.5, 'line-opacity': 0.85 },
+    })
   }
 
-  map.addSource(BOUNDARY_SOURCE_ID, { type: 'geojson', data: boundary as never })
-
-  map.addLayer({
-    id: BOUNDARY_FILL_LAYER_ID,
-    type: 'fill',
-    source: BOUNDARY_SOURCE_ID,
-    paint: { 'fill-color': color, 'fill-opacity': 0.08 },
-  })
-
-  map.addLayer({
-    id: BOUNDARY_OUTLINE_LAYER_ID,
-    type: 'line',
-    source: BOUNDARY_SOURCE_ID,
-    paint: { 'line-color': color, 'line-width': 2.5, 'line-opacity': 0.85 },
-  })
+  if (parts.length > 0) {
+    applyPartsLayers(map, parts, color)
+  }
 }
 
 export function legendIconFor(root: HTMLElement, category: string): Node | undefined {
@@ -178,6 +232,7 @@ export function spotPopupHtml(spot: MapSpot): string {
     websiteHref: spot.websiteHref,
     photo: spot.photo ?? '',
     category: spot.category,
+    voteSlug: spot.voteSlug,
   })
 }
 
@@ -418,15 +473,17 @@ export function initMapPane(): void {
     frameView(heroBounds(boundary, spots))
   })
 
+  const partsPromise = officialPartsFor(slug)
+
   map.on('load', async () => {
-    const boundary = await boundaryPromise
+    const [boundary, parts] = await Promise.all([boundaryPromise, partsPromise])
     if (boundary) {
-      applyBoundaryLayers(map, boundary, boundaryToken)
+      applyBoundaryLayers(map, boundary, parts, boundaryToken)
     }
 
     watchThemeChanges(map, () => {
       if (boundary) {
-        applyBoundaryLayers(map, boundary, boundaryToken)
+        applyBoundaryLayers(map, boundary, parts, boundaryToken)
       }
     })
   })

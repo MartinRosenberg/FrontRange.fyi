@@ -6,9 +6,10 @@ import IconThumbsDown from '../assets/IconThumbsDown.astro'
 interface Props {
   slug: string
   title: string
+  compact?: boolean
 }
 
-const { slug, title } = Astro.props
+const { slug, title, compact = false } = Astro.props
 
 const readersEnabled = SUPABASE_ENABLED
 ---
@@ -16,12 +17,12 @@ const readersEnabled = SUPABASE_ENABLED
 {
   readersEnabled && (
     <section
-      class="verdict-bar pane-stat"
+      class:list={[compact ? 'verdict-row' : 'verdict-bar pane-stat']}
       data-readers-verdict
       data-slug={slug}
       aria-label={`Rate ${title}`}>
-      <span class="pane-stat-label eyebrow eyebrow--muted">Your rating</span>
-      <div class="rv-pill">
+      <span class:list={[{ 'pane-stat-label': !compact }, 'eyebrow eyebrow--muted']}>Your rating</span>
+      <div class:list={['rv-pill', { 'rv-pill--split': compact }]}>
         <button
           type="button"
           class="rv-choice btn btn-outline btn-compact btn-muted-icon"
@@ -30,7 +31,7 @@ const readersEnabled = SUPABASE_ENABLED
           aria-label="I liked it"
           disabled>
           <IconThumbsUp />
-          Liked
+          {!compact && 'Liked'}
           <span class="rv-count" data-count-like />
         </button>
         <button
@@ -41,7 +42,7 @@ const readersEnabled = SUPABASE_ENABLED
           aria-label="Not for me"
           disabled>
           <IconThumbsDown />
-          Not for me
+          {!compact && 'Not for me'}
           <span class="rv-count" data-count-dislike />
         </button>
       </div>
@@ -94,5 +95,45 @@ const readersEnabled = SUPABASE_ENABLED
 
   .rv-vote-status {
     margin-block-start: var(--spacing-xs);
+  }
+
+  .verdict-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    padding-block-start: var(--spacing-md);
+    border-block-start: 1px dotted var(--color-line-input);
+
+    .rv-vote-status {
+      flex-basis: 100%;
+      margin: 0;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  .rv-pill--split {
+    gap: 0;
+    margin: 0;
+
+    .rv-choice {
+      border-radius: 0;
+      padding-inline: var(--spacing-md);
+    }
+
+    .rv-choice:first-child {
+      border-start-start-radius: var(--radius-pill);
+      border-end-start-radius: var(--radius-pill);
+    }
+
+    .rv-choice:last-child {
+      border-inline-start-width: 0;
+      border-start-end-radius: var(--radius-pill);
+      border-end-end-radius: var(--radius-pill);
+    }
   }
 </style>

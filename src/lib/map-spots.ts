@@ -72,6 +72,7 @@ export async function foodToMapSpot(place: CollectionEntry<'food'>): Promise<Map
     directionsHref: googleMapsHref(place.data),
     websiteHref: place.data.url,
     photo: thumb?.src,
+    voteSlug: place.id,
   }
 }
 

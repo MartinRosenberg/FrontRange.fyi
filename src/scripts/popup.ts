@@ -22,6 +22,7 @@ export interface PopupConfig {
   tagline?: string
   excerpt?: string
   category?: string
+  voteSlug?: string
 }
 
 export function badgeIconNode(category: string): Node | undefined {
@@ -46,6 +47,22 @@ export function categorySwatchNode(category: string): HTMLSpanElement {
 
 function categorySwatchHtml(category: string): string {
   return categorySwatchNode(category).outerHTML
+}
+
+function readersVerdictHtml(slug: string, title: string): string {
+  const template = document.querySelector<HTMLTemplateElement>(
+    'template[data-readers-verdict-template]',
+  )
+  const widget = template?.content.querySelector<HTMLElement>('[data-readers-verdict]')
+  if (!widget) {
+    return ''
+  }
+
+  const copy = widget.cloneNode(true) as HTMLElement
+  copy.dataset.slug = slug
+  copy.setAttribute('aria-label', `Rate ${title}`)
+
+  return copy.outerHTML
 }
 
 function chipHtml(chip: PopupChip): string {
@@ -84,6 +101,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     tagline = '',
     excerpt = '',
     category = '',
+    voteSlug = '',
   } = config
 
   const photoHtml = photo
@@ -127,6 +145,8 @@ export function buildPopupHtml(config: PopupConfig): string {
 
   const excerptHtml = excerpt ? `<p class="popup-excerpt excerpt">${escapeHtml(excerpt)}</p>` : ''
 
+  const votesHtml = voteSlug ? readersVerdictHtml(voteSlug, title) : ''
+
   const moreHtml = link ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>` : ''
 
   const websiteHtml = websiteHref
@@ -142,5 +162,5 @@ export function buildPopupHtml(config: PopupConfig): string {
       ? `<div class="action-buttons">${moreHtml}${websiteHtml}${directionsHtml}</div>`
       : ''
 
-  return `<div class="popup-scroll">${photoHtml}${ratingHtml}${metaHtml}${titleHtml}${taglineHtml}${addressHtml}${excerptHtml}${footerHtml}</div>`
+  return `<div class="popup-scroll">${photoHtml}${ratingHtml}${metaHtml}${titleHtml}${taglineHtml}${addressHtml}${excerptHtml}${footerHtml}${votesHtml}</div>`
 }

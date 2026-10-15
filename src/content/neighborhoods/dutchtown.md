@@ -11,7 +11,13 @@ tags:
   - gritty
 ---
 
-Greater Dutchtown is a name given to the combined city neighborhoods of Dutchtown, Mount Pleasant, Marine Villa, and Gravois Park. It consists of the area south of Cherokee St., all the way along the river and bordered by the neighborhoods of Tower Grove South/East, Bevo, Holly Hills, Carondelet, and Benton Park/West. It is one of the most densely populated areas of St. Louis city.
+Greater Dutchtown is one of the most densely populated areas of St. Louis city. This page covers the combined city neighborhoods of Dutchtown, Mount Pleasant, Marine Villa, and Gravois Park, based on this research:
+
+> The boundaries of what’s generally referred to as “Dutchtown” are quite fuzzy. The City of St. Louis defines some very specific boundaries. But signs around the neighborhood will tell you that “You Are In Dutchtown” when you are, in fact, in Gravois Park, Mount Pleasant, or Marine Villa. 
+>
+>Here at DutchtownSTL, we approximate Dutchtown to be everything in between Cherokee Street or Chippewa Street to the north, Bates Street to the south, the Mississippi River to the east, and the Missouri Pacific railroad tracks to the west.
+
+<cite>- [DutchtownSTL](https://dutchtownstl.org/about/)</cite>
 
 The area was originally populated by German immigrants in late nineteenth century, which is where the name Dutchtown (Deutschtown) originated. Currently, it is one of the more diverse neighborhoods in South City, with a significant black and Hispanic population.
 

@@ -150,7 +150,11 @@ if (existsSync(dataFolder)) {
   }
 }
 
-for (const name of [config.NEIGHBORHOOD_BOUNDARIES_FILE, config.BASEMAP_FILE]) {
+for (const name of [
+  config.NEIGHBORHOOD_BOUNDARIES_FILE,
+  config.NEIGHBORHOOD_PARTS_FILE,
+  config.BASEMAP_FILE,
+]) {
   const filePath = fromRoot('public', name)
   if (isPlainFileName(name) && existsSync(filePath) && lstatSync(filePath).isFile()) {
     rmSync(filePath)
@@ -194,6 +198,7 @@ replaceConfigValues(configPath, {
   CORRIDORS_TOPIC_ID: quote(''),
   FEATURED_FOOD_IDS: '[]',
   NEIGHBORHOOD_BOUNDARIES_FILE: quote(`${slugify(cityName)}-neighborhoods.geojson`),
+  NEIGHBORHOOD_PARTS_FILE: quote(`${slugify(cityName)}-neighborhood-parts.geojson`),
 })
 writeCityBounds(configPath, cityBoundsFrom(place, city))
 

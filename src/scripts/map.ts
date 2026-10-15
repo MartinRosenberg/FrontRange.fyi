@@ -174,6 +174,7 @@ export function initMap(mapSelector = '[data-map]'): MapApi | undefined {
       directionsHref: item.dataset.google ?? '',
       websiteHref: item.dataset.website ?? '',
       category: 'food',
+      voteSlug: item.id,
     })
 
     const popup = createMapPopup(PIN_POPUP_OFFSET).setHTML(popupHtml).setLngLat(lngLat)
