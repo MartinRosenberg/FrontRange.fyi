@@ -5,6 +5,11 @@ import CategoryChip from './CategoryChip.astro'
 import { FEEDBACK_ENDPOINT, SITE_NAME } from '../lib/site'
 import { spotCategories, SPOT_SECTION_ORDER, type SpotCategoryKey } from '../lib/spots'
 
+interface Props {
+  where?: string
+}
+
+const { where } = Astro.props
 const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
 ---
 
@@ -32,7 +37,8 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
               <span class="title-serif">Know somewhere I missed?</span>
             </div>
             <p class="suggest-lede description">
-              Please let me know if there's a good spot I missed, or I made a mistake anywhere.
+              This map gets better with every tip! Add a place you love and help someone else find
+              it.
             </p>
             <form class="suggest-form form-stack" method="POST" action={FEEDBACK_ENDPOINT}>
               <label class="field">
@@ -41,7 +47,7 @@ const categories: SpotCategoryKey[] = [...SPOT_SECTION_ORDER, 'food']
               </label>
               <label class="field">
                 <span>Address or neighborhood</span>
-                <input type="text" name="where" placeholder="Downtown" />
+                <input type="text" name="where" placeholder="Downtown" value={where} />
               </label>
               <fieldset class="field suggest-categories">
                 <legend class="field-legend">Type of place</legend>
