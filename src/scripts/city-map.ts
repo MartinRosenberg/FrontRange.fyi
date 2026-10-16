@@ -143,12 +143,8 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
     regionColors.district,
     regionColors.central,
   ]
-  const districtOnTop: ExpressionSpecification = [
-    'case',
-    ['==', ['get', 'region'], 'district'],
-    1,
-    0,
-  ]
+  const isDistrict: ExpressionSpecification = ['==', ['get', 'region'], 'district']
+  const districtOnTop: ExpressionSpecification = ['case', isDistrict, 1, 0]
 
   const [features, partFeatures] = await Promise.all([neighborhoodFeatures(), officialParts()])
 
@@ -481,6 +477,8 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
             0.4,
             ['boolean', ['feature-state', 'hover'], false],
             0.3,
+            isDistrict,
+            0.2,
             0.1,
           ],
         },
