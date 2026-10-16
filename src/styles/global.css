@@ -43,6 +43,7 @@
   --color-map-south: #c70f2e;
   --color-map-county: var(--color-map-accent);
   --color-map-park: #2e7d4a;
+  --color-map-district: var(--color-text-heading);
 
   --color-map-street: #c70f2e;
 
@@ -1244,6 +1245,10 @@ body:has(.map-split) main > .wrap,
     min-width: 280px;
   }
 
+  .map-legend:not([data-filter-toggles]) .map-legend-panel {
+    max-height: none;
+  }
+
   .map-legend:not([data-legend-ready]) .map-legend-body {
     display: none;
   }
@@ -1261,7 +1266,7 @@ body:has(.map-split) main > .wrap,
   }
 
   .map-legend-row {
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
 
   .map-legend-item {
@@ -1278,7 +1283,27 @@ body:has(.map-split) main > .wrap,
   .map-legend-row .map-legend-check {
     width: 24px;
     height: 24px;
-    margin-inline-start: var(--spacing-sm);
+  }
+
+  .map-legend-more {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin: 0;
+    font-size: var(--font-size-xs);
+    color: var(--color-muted);
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .map-legend-more[data-at-end] {
+    opacity: 0;
+  }
+
+  .map-legend-more .icon {
+    width: 1rem;
+    height: 1rem;
   }
 
   .map-legend-row .map-legend-check .icon {
@@ -1635,7 +1660,8 @@ label.category-chip {
     break-inside: avoid;
   }
 
-  .map-legend:not([data-filter-toggles]) .map-legend-actions {
+  .map-legend:not([data-filter-toggles]) .map-legend-actions,
+  .map-legend-more {
     display: none;
   }
 }

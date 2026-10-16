@@ -45,7 +45,7 @@
       "from": "Jefferson",
       "to": "Nebraska",
       "anchor": "cherokee-street",
-      "neighborhoods": ["dutchtown", "benton-park-west"],
+      "neighborhoods": ["gravois-park", "benton-park-west"],
       "website": "https://cherokeestreet.com/",
       "line": [
         [-90.225467, 38.59328],
@@ -69,7 +69,7 @@
       "from": "Lemp",
       "to": "Jefferson",
       "anchor": "cherokee-street",
-      "neighborhoods": ["benton-park", "dutchtown"],
+      "neighborhoods": ["benton-park", "marine-villa"],
       "line": [
         [-90.218662, 38.592421],
         [-90.219232, 38.592493],
@@ -369,7 +369,7 @@
       "from": "Leland",
       "to": "the Pageant",
       "anchor": "the-delmar-loop",
-      "neighborhoods": ["university-city", "delmar-loop"],
+      "neighborhoods": ["university-city", "skinker-debaliviere", "west-end"],
       "website": "https://visittheloop.com/",
       "line": [
         [-90.3072, 38.656186],

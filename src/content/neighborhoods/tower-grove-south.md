@@ -4,8 +4,6 @@ created: 2026-07-05
 updated: 2026-07-06
 url: https://www.tgsna.org
 description: International dining alongside parks and walkable streets
-notes:
-  - "Some places on the east side of South Grand are officially in Tower Grove East, but they're listed here because the South Grand strip reads as one neighborhood."
 featured: 1
 ---
 

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: want-to-try
 description: South Kingshighway pancake house, a St. Louis original since 1961
 cuisine: ['breakfast']
-neighborhood: southampton
+neighborhood: north-hampton
 address:
   - 3427 S Kingshighway Blvd
   - St. Louis, MO 63139

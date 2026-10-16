@@ -1,8 +1,7 @@
 ---
-title: Bevo
+title: Bevo Mill
 created: 2026-06-28
 description: A landmark windmill anchoring Little Bosnia
-wikipedia: https://en.wikipedia.org/wiki/Bevo_Mill,_St._Louis
 ---
 
 In the 1990s, St. Louis was one of the cities that the government chose to place refugees of the Bosnian War. Bevo Mill in particular was one of the main areas where they settled, and there are many Balkan restaurants, delis, and butchers along the main strip on Gravois as a result.

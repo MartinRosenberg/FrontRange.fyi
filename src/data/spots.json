@@ -198,7 +198,8 @@
   {
     "name": "The Pageant",
     "category": "landmark",
-    "neighborhoods": ["delmar-loop"],
+    "neighborhoods": ["west-end"],
+    "district": "delmar-loop",
     "url": "https://www.thepageant.com",
     "description": "A 2,300-capacity concert hall hosting national touring acts.",
     "address": "6161 Delmar Blvd",
@@ -207,7 +208,8 @@
   {
     "name": "St. Louis Walk of Fame",
     "category": "landmark",
-    "neighborhoods": ["delmar-loop"],
+    "neighborhoods": ["university-city"],
+    "district": "delmar-loop",
     "description": "Brass sidewalk stars along Delmar honoring famous St. Louisans.",
     "address": "6504 Delmar Blvd",
     "coords": [-90.30499, 38.65576]
@@ -215,7 +217,8 @@
   {
     "name": "Moonrise Hotel",
     "category": "landmark",
-    "neighborhoods": ["delmar-loop"],
+    "neighborhoods": ["west-end"],
+    "district": "delmar-loop",
     "description": "A space-themed hotel with a rooftop bar and a giant rotating moon.",
     "address": "6177 Delmar Blvd",
     "coords": [-90.29876, 38.6557]
@@ -223,7 +226,8 @@
   {
     "name": "Subterranean Books",
     "category": "books",
-    "neighborhoods": ["delmar-loop"],
+    "neighborhoods": ["university-city"],
+    "district": "delmar-loop",
     "url": "https://store.subbooks.com/",
     "description": "Independent new-book shop, in business since 2000.",
     "address": "6271 Delmar Blvd",
@@ -328,7 +332,7 @@
   {
     "name": "Saint Louis Science Center",
     "category": "museum",
-    "neighborhoods": ["forest-park"],
+    "neighborhoods": ["kings-oak", "forest-park"],
     "url": "https://www.slsc.org",
     "description": "A free hands-on science museum and planetarium.",
     "coords": [-90.2704, 38.6289]
@@ -735,6 +739,7 @@
     "name": "City Hall & the Lion Gates",
     "category": "landmark",
     "neighborhoods": ["university-city"],
+    "district": "delmar-loop",
     "description": "U. City's city hall and the ornamental lion gates marking the Loop's west end.",
     "address": "6801 Delmar Blvd",
     "coords": [-90.31036, 38.6569]
@@ -852,7 +857,7 @@
   {
     "name": "Hammond's Antiques & Books",
     "category": "thrift",
-    "neighborhoods": ["benton-park", "dutchtown"],
+    "neighborhoods": ["benton-park"],
     "description": "Books, antiques, vintage jewelry, paper and prints on Antique Row.",
     "address": "1939 Cherokee St",
     "url": "https://www.hammondsbooks.net/",
@@ -861,7 +866,7 @@
   {
     "name": "Riverside Antiques",
     "category": "thrift",
-    "neighborhoods": ["benton-park", "dutchtown"],
+    "neighborhoods": ["benton-park"],
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "1947 Cherokee St",
     "coords": [-90.22043, 38.59281]
@@ -869,7 +874,7 @@
   {
     "name": "Elder's Antiques",
     "category": "thrift",
-    "neighborhoods": ["benton-park", "dutchtown"],
+    "neighborhoods": ["marine-villa"],
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "2124 Cherokee St",
     "coords": [-90.22308, 38.59282]
@@ -877,7 +882,7 @@
   {
     "name": "Lady Jane's Antiques",
     "category": "thrift",
-    "neighborhoods": ["benton-park", "dutchtown"],
+    "neighborhoods": ["marine-villa"],
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "2110 Cherokee St",
     "coords": [-90.22252, 38.59278]
@@ -885,7 +890,7 @@
   {
     "name": "Retro 101 / Cherry Bomb Vintage",
     "category": "thrift",
-    "neighborhoods": ["benton-park", "dutchtown"],
+    "neighborhoods": ["marine-villa"],
     "description": "Retro and vintage shop on Cherokee Antique Row.",
     "address": "2214 Cherokee St",
     "coords": [-90.22384, 38.59294]
@@ -902,7 +907,8 @@
   {
     "name": "Vintage Vinyl",
     "category": "records",
-    "neighborhoods": ["delmar-loop", "university-city"],
+    "neighborhoods": ["university-city"],
+    "district": "delmar-loop",
     "url": "https://vintagevinyl.com/",
     "description": "Independent record store since 1979, with new and used vinyl, CDs and in-store shows.",
     "address": "6610 Delmar Blvd",
@@ -928,7 +934,8 @@
   {
     "name": "Delmar Hall",
     "category": "landmark",
-    "neighborhoods": ["delmar-loop"],
+    "neighborhoods": ["west-end"],
+    "district": "delmar-loop",
     "url": "https://www.thepageant.com/venue-info/delmar-hall/",
     "description": "Concert venue opened in 2016 beside The Pageant, holding 350 to 750 people.",
     "address": "6133 Delmar Blvd",

@@ -4,7 +4,7 @@ created: 2026-10-13
 status: tried
 description: Cherokee Street Mexican restaurant
 cuisine: ['mexican']
-neighborhood: dutchtown
+neighborhood: benton-park-west
 address:
   - 2801 Cherokee St
   - St. Louis, MO 63118

@@ -75,6 +75,10 @@ const LEGEND_DOT_LIMIT = 4
             </li>
           ))}
         </ul>
+        <p class="map-legend-more" data-legend-more hidden aria-hidden="true">
+          scroll for more…
+          <IconChevronDown />
+        </p>
         <div class="map-legend-actions action-buttons">
           <slot name="actions" />
           <button type="button" class="btn btn-outline" data-legend-close>Close</button>

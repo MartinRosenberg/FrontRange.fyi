@@ -4,7 +4,7 @@ created: 2026-07-16
 rating: 5
 description: Longtime St. Louis classic deli
 cuisine: ['sandwiches']
-neighborhood: southampton
+neighborhood: st-louis-hills
 address:
   - 5425 Hampton Ave
   - St. Louis, MO 63109

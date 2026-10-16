@@ -64,6 +64,7 @@ export interface Spot {
   name: string
   category: SpotSectionKey
   neighborhoods: string[]
+  district?: string
   url?: string
   description?: string
   address?: string

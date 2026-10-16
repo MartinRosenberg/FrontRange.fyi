@@ -110,6 +110,7 @@ const PLACE_TYPES: Record<string, string> = {
 
 interface PlaceInput {
   name: string
+  alternateNames?: string[]
   url: string
   description?: string
   image?: string
@@ -122,6 +123,7 @@ export function placeSchema(input: PlaceInput, site: URL) {
     '@context': CONTEXT,
     '@type': 'Place',
     name: input.name,
+    alternateName: input.alternateNames?.length ? input.alternateNames : undefined,
     url: input.url,
     description: input.description,
     image: input.image,

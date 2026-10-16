@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { CITY } from '../site.config.mjs'
+import { officialNamesBySlug } from '../src/lib/official-names.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dataPath = (file) => resolve(root, 'src/data', file)
@@ -79,6 +80,7 @@ function populationFromCsv(path) {
 const neighborhoods = JSON.parse(readFileSync(dataPath('neighborhoods.json'), 'utf8'))
 const aliasesPath = dataPath('neighborhood-population-aliases.json')
 const aliases = existsSync(aliasesPath) ? JSON.parse(readFileSync(aliasesPath, 'utf8')) : {}
+const officialNames = officialNamesBySlug(neighborhoods)
 
 const populationByName = options.csv
   ? populationFromCsv(options.csv)
@@ -107,8 +109,9 @@ for (const neighborhood of neighborhoods) {
     continue
   }
 
-  const alias = aliases[neighborhood.slug]
-  const names = Array.isArray(alias) ? alias : [alias ?? neighborhood.name]
+  const names = (officialNames.get(neighborhood.slug) ?? [neighborhood.name]).map(
+    (name) => aliases[name] ?? name,
+  )
   const parts = names.map((name) => populationByName.get(normalize(name)))
 
   if (parts.every((part) => part != null)) {

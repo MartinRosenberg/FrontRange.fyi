@@ -3,8 +3,6 @@ title: Dogtown
 created: 2026-06-28
 url: https://www.dogtownunited.org
 description: The historic Irish neighborhood in St. Louis
-notes:
-  - "This page combines the Cheltenham, Clayton-Tamm, Franz Park, and Hi-Pointe city neighborhoods, which together are known as Dogtown."
 featured: 6
 ---
 

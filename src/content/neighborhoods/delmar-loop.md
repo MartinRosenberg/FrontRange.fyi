@@ -4,8 +4,6 @@ created: 2026-06-28
 url: https://visittheloop.com/
 wikipedia: https://en.wikipedia.org/wiki/Delmar_Loop
 description: A walkable strip of music venues and restaurants
-notes:
-  - "The city officially names this neighborhood Skinker DeBaliviere, but it's listed as the Delmar Loop because that's I think most people refer to this area as. The Loop street itself is split across the city line from Skinker DeBaliviere to University City."
 ---
 
 The Delmar Loop, often referred to as just The Loop, is a commercial strip that straddles the western edge of St. Louis city and the east end of University City. It was named "One of the 10 Great Streets in America" by [The American Planning Association](https://www.planning.org/greatplaces/streets/2007/delmarloop.htm) in 2007 due the "sustained efforts of local business, government, and the community to achieve successful physical and economic revitalization."

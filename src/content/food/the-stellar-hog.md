@@ -4,7 +4,7 @@ description: Intergalactic BBQ vibes and a big patio
 created: 2026-06-23
 rating: 7.5
 cuisine: ['bbq']
-neighborhood: holly-hills
+neighborhood: bevo-mill
 address:
   - 5623 Leona St
   - St. Louis, MO 63116

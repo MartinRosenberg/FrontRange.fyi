@@ -26,7 +26,7 @@ const streets = [
     to: { label: 'Nebraska', names: ['Nebraska Avenue'] },
     center: [38.594, -90.229],
     anchor: 'cherokee-street',
-    neighborhoods: ['dutchtown', 'benton-park-west'],
+    neighborhoods: ['gravois-park', 'benton-park-west'],
     website: 'https://cherokeestreet.com/',
   },
   {
@@ -39,7 +39,7 @@ const streets = [
     to: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
     center: [38.594, -90.221],
     anchor: 'cherokee-street',
-    neighborhoods: ['benton-park', 'dutchtown'],
+    neighborhoods: ['benton-park', 'marine-villa'],
   },
   {
     id: 'euclid',
@@ -133,7 +133,7 @@ const streets = [
     to: { label: 'the Pageant', coord: [38.65513, -90.2965] },
     center: [38.656, -90.304],
     anchor: 'the-delmar-loop',
-    neighborhoods: ['university-city', 'delmar-loop'],
+    neighborhoods: ['university-city', 'skinker-debaliviere', 'west-end'],
     website: 'https://visittheloop.com/',
   },
   {

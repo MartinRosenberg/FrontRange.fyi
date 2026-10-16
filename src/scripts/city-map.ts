@@ -1,5 +1,5 @@
 import maplibregl from 'maplibre-gl'
-import type { ExpressionSpecification } from 'maplibre-gl'
+import type { ExpressionSpecification, MapGeoJSONFeature } from 'maplibre-gl'
 import type { Feature, FeatureCollection, Geometry, Position } from 'geojson'
 import Supercluster from 'supercluster'
 import { createBasemapMap, watchThemeChanges } from './basemap'
@@ -25,7 +25,7 @@ const CITY_VIEW_RIVER_MARGIN = 0.15
 const FILTER_FIT_PADDING = 40
 const FILTER_FIT_MAX_ZOOM = 12
 
-type RegionKey = 'north' | 'central' | 'south' | 'county' | 'park'
+type RegionKey = 'north' | 'central' | 'south' | 'county' | 'park' | 'district'
 type LeafProperties = { spotIndex: number }
 
 const bySlug = new Map(neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood]))
@@ -99,7 +99,12 @@ function readRegionColors(): Record<RegionKey, string> {
     south: readColor('--color-map-south'),
     county: readColor('--color-map-county'),
     park: readColor('--color-map-park'),
+    district: readColor('--color-map-district'),
   }
+}
+
+function topArea(hits: MapGeoJSONFeature[]): MapGeoJSONFeature | undefined {
+  return hits.find((hit) => hit.properties?.region === 'district') ?? hits[0]
 }
 
 export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
@@ -110,6 +115,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
 
   const spots = readPayload<MapSpot[]>('script[data-city-map-spots]', [])
   const areas = readPayload<Record<string, AreaPopup>>('script[data-city-map-areas]', {})
+  const districtShapes = readPayload<Feature[]>('script[data-city-map-districts]', [])
   const rowTarget = element.dataset.rowTarget === 'spot' ? 'spot' : 'area'
   const filterRoot = element.closest<HTMLElement>('[data-filter-root]')
   const rows = [...(filterRoot ?? document).querySelectorAll<HTMLElement>('[data-filter-item]')]
@@ -131,7 +137,15 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
     regionColors.county,
     'park',
     regionColors.park,
+    'district',
+    regionColors.district,
     regionColors.central,
+  ]
+  const districtOnTop: ExpressionSpecification = [
+    'case',
+    ['==', ['get', 'region'], 'district'],
+    1,
+    0,
   ]
 
   const [features, partFeatures] = await Promise.all([neighborhoodFeatures(), officialParts()])
@@ -144,16 +158,20 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
   const slugToFeatureIds = new Map<string, number[]>()
   const boundsBySlug = new Map<string, maplibregl.LngLatBounds>()
 
+  const trackArea = (slug: string, geometry: Geometry, id: number): void => {
+    const slugBounds = boundsBySlug.get(slug) ?? new maplibregl.LngLatBounds()
+    forEachPosition(geometry, (position) => {
+      slugBounds.extend([position[0], position[1]])
+    })
+    boundsBySlug.set(slug, slugBounds)
+    slugToFeatureIds.set(slug, [...(slugToFeatureIds.get(slug) ?? []), id])
+  }
+
   const areaFeatures: Feature[] = features.map((source, index) => {
     const entry = byNumber.get(Number(source.properties?.NHD_NUM))
     const slug = entry?.slug ?? ''
     if (slug) {
-      const slugBounds = boundsBySlug.get(slug) ?? new maplibregl.LngLatBounds()
-      forEachPosition(source.geometry as Geometry, (position) => {
-        slugBounds.extend([position[0], position[1]])
-      })
-      boundsBySlug.set(slug, slugBounds)
-      slugToFeatureIds.set(slug, [...(slugToFeatureIds.get(slug) ?? []), index])
+      trackArea(slug, source.geometry as Geometry, index)
     }
 
     return {
@@ -168,7 +186,22 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
       },
     }
   })
-  const areaCollection: FeatureCollection = { type: 'FeatureCollection', features: areaFeatures }
+  const districtFeatures: Feature[] = districtShapes.map((source, index) => {
+    const id = areaFeatures.length + index
+    const slug = String(source.properties?.slug ?? '')
+    trackArea(slug, source.geometry, id)
+
+    return {
+      type: 'Feature',
+      id,
+      geometry: source.geometry,
+      properties: { region: 'district', slug, name: areas[slug]?.name ?? slug },
+    }
+  })
+  const areaCollection: FeatureCollection = {
+    type: 'FeatureCollection',
+    features: [...areaFeatures, ...districtFeatures],
+  }
   const parts: FeatureCollection = {
     type: 'FeatureCollection',
     features: partFeatures.map((part) => ({
@@ -435,6 +468,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
         id: FILL_LAYER,
         type: 'fill',
         source: SOURCE_ID,
+        layout: { 'fill-sort-key': districtOnTop },
         paint: {
           'fill-color': regionColorExpression(),
           'fill-opacity': [
@@ -469,6 +503,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
         id: LINE_LAYER,
         type: 'line',
         source: SOURCE_ID,
+        layout: { 'line-sort-key': districtOnTop },
         paint: {
           'line-color': regionColorExpression(),
           'line-width': [
@@ -492,7 +527,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
       if (!canHover) {
         return
       }
-      const feature = event.features?.[0]
+      const feature = topArea(event.features ?? [])
       if (feature?.id === undefined) {
         return
       }
@@ -514,8 +549,8 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
       map.getCanvas().style.cursor = ''
     })
     map.on('click', (event) => {
-      const hits = map.queryRenderedFeatures(event.point, { layers: [FILL_LAYER] })
-      const slug = hits.length > 0 ? String(hits[0].properties?.slug ?? '') : ''
+      const hit = topArea(map.queryRenderedFeatures(event.point, { layers: [FILL_LAYER] }))
+      const slug = String(hit?.properties?.slug ?? '')
       badgePopup.remove()
       if (slug) {
         openAreaPopup(slug)

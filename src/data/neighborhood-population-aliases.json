@@ -1,11 +1,5 @@
 {
-  "the-grove": "Forest Park Southeast",
-  "dogtown": ["Cheltenham", "Clayton-Tamm", "Franz Park", "Hi-Pointe"],
-  "fairground-neighborhood": "Fairground",
-  "north-pointe": "North Point",
-  "delmar-loop": "Skinker DeBaliviere",
-  "midtown": ["Midtown", "Grand Center"],
-  "downtown": ["Downtown", "Downtown West"],
-  "carondelet": ["Carondelet", "Patch"],
-  "dutchtown": ["Dutchtown", "Mount Pleasant", "Marine Villa", "Gravois Park"]
+  "Covenant Blu-Grand Center": "Grand Center",
+  "Fairground Neighborhood": "Fairground",
+  "North Pointe": "North Point"
 }

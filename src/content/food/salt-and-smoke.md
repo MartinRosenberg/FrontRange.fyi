@@ -4,7 +4,8 @@ created: 2026-07-16
 status: tried
 description: Barbecue and bourbon
 cuisine: ['bbq']
-neighborhood: delmar-loop
+neighborhood: university-city
+district: delmar-loop
 address:
   - 6525 Delmar Blvd
   - University City, MO 63130

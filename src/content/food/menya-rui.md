@@ -4,7 +4,7 @@ description: Shoyu ramen worth waiting in line for
 created: 2026-06-23
 rating: 9
 cuisine: ['ramen']
-neighborhood: north-hampton
+neighborhood: lindenwood-park
 address:
   - 3453 Hampton Ave
   - St. Louis, MO 63139

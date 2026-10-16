@@ -2,11 +2,16 @@ import { defineCollection, z } from 'astro:content'
 import neighborhoodRows from './data/neighborhoods.json'
 import countyTowns from './data/county-towns.json'
 import { glob } from 'astro/loaders'
+import type { NeighborhoodRecord } from './lib/neighborhood-data'
 
+const roster = neighborhoodRows as NeighborhoodRecord[]
 const placeSlugs = new Set([
-  ...neighborhoodRows.filter((row) => !('ignored' in row)).map((row) => row.slug),
+  ...roster.filter((row) => !row.ignored && row.type !== 'district').map((row) => row.slug),
   ...Object.keys(countyTowns),
 ])
+const districtSlugs = new Set(
+  roster.filter((row) => row.type === 'district').map((row) => row.slug),
+)
 
 const draftable = { draft: z.boolean().default(false) }
 const coords = { coords: z.tuple([z.number(), z.number()]).optional() }
@@ -30,7 +35,14 @@ const food = defineCollection({
       neighborhood: z
         .string()
         .refine((slug) => placeSlugs.has(slug), {
-          message: 'neighborhood must be a roster slug or a county-towns.json slug',
+          message:
+            'neighborhood must be a roster slug (not a district) or a county-towns.json slug',
+        })
+        .optional(),
+      district: z
+        .string()
+        .refine((slug) => districtSlugs.has(slug), {
+          message: 'district must be a neighborhoods.json row with type "district"',
         })
         .optional(),
       address: z
@@ -58,7 +70,6 @@ const neighborhoods = defineCollection({
       url: z.string().url().optional(),
       wikipedia: z.string().url().optional(),
       neighbors: z.array(z.string()).default([]),
-      notes: z.array(z.string()).default([]),
       featured: z.number().optional(),
       ...draftable,
     }),

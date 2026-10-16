@@ -1,7 +1,7 @@
 import maplibregl from 'maplibre-gl'
 import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
-import { boundaryFor, officialPartsFor, type BoundaryFeature } from './boundaries'
+import { boundariesFor, boundaryFor, officialPartsFor, type BoundaryFeature } from './boundaries'
 import { BADGE_POPUP_OFFSET, bindRowHover, createMapPopup, settlePopup } from './map-shared'
 import { createBadge, spotPopupHtml, stackBadges } from './map-badges'
 import { bindLegendCollapse, bindLegendToggles } from './map-legend'
@@ -173,19 +173,27 @@ function bindCardHover(badgeByTitle: Map<string, HTMLElement>): void {
   })
 }
 
-function readSpots(root: HTMLElement): MapSpot[] {
-  const holder = root.parentElement?.querySelector('script[data-map-pane-spots]')
+function readPayload(root: HTMLElement, selector: string): unknown {
+  const holder = root.parentElement?.querySelector(selector)
   if (!holder?.textContent) {
-    return []
+    return undefined
   }
 
   try {
-    const parsed = JSON.parse(holder.textContent) as MapSpot[]
-
-    return Array.isArray(parsed) ? parsed : []
+    return JSON.parse(holder.textContent)
   } catch {
-    return []
+    return undefined
   }
+}
+
+function readSpots(root: HTMLElement): MapSpot[] {
+  const parsed = readPayload(root, 'script[data-map-pane-spots]')
+
+  return Array.isArray(parsed) ? (parsed as MapSpot[]) : []
+}
+
+function readBoundary(root: HTMLElement): BoundaryFeature | undefined {
+  return readPayload(root, 'script[data-map-pane-boundary]') as BoundaryFeature | undefined
 }
 
 export function initMapPane(): void {
@@ -252,12 +260,14 @@ export function initMapPane(): void {
     }
   }
 
-  const boundaryPromise = boundaryFor(slug)
+  const drawnBoundary = readBoundary(root)
+  const boundaryPromise = drawnBoundary ? Promise.resolve(drawnBoundary) : boundaryFor(slug)
   void boundaryPromise.then((boundary) => {
     frameView(heroBounds(boundary, spots))
   })
 
-  const partsPromise = officialPartsFor(slug)
+  const partSlugs = (root.dataset.partSlugs ?? '').split(' ').filter(Boolean)
+  const partsPromise = partSlugs.length > 0 ? boundariesFor(partSlugs) : officialPartsFor(slug)
 
   map.on('load', async () => {
     const [boundary, parts] = await Promise.all([boundaryPromise, partsPromise])

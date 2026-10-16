@@ -6,6 +6,7 @@ import MapActions from './MapActions.astro'
 import type { AreaPopup } from '../lib/neighborhoods'
 import type { LegendItem } from '../lib/legend'
 import type { MapSpot } from '../lib/spots'
+import { districtBoundaries } from '../lib/districts'
 
 interface Props {
   spots: MapSpot[]
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const { spots, areas, legend, legendOff, legendFacet, rowTarget, label } = Astro.props
+const districtShapes = await districtBoundaries()
 const spotIcons = [...new Set(spots.flatMap((spot) => (spot.icon ? [spot.icon] : [])))]
 ---
 
@@ -36,6 +38,12 @@ const spotIcons = [...new Set(spots.flatMap((spot) => (spot.icon ? [spot.icon] :
 <ReadersVerdictTemplate />
 <script is:inline type="application/json" data-city-map-spots set:html={JSON.stringify(spots)} />
 <script is:inline type="application/json" data-city-map-areas set:html={JSON.stringify(areas)} />
+<script
+  is:inline
+  type="application/json"
+  data-city-map-districts
+  set:html={JSON.stringify(districtShapes)}
+/>
 
 <script>
   import { initCityMap } from '../scripts/city-map'

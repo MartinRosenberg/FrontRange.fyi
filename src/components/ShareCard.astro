@@ -1,8 +1,7 @@
 ---
-import ShareButton from './ShareButton.astro'
-import IconInstagram from '../assets/IconInstagram.astro'
+import ShareActions from './ShareActions.astro'
 import { href } from '../lib/url'
-import { CITY, INSTAGRAM_HANDLE, SITE_NAME } from '../lib/site'
+import { SITE_NAME } from '../lib/site'
 
 interface Props {
   shareTitle: string
@@ -24,22 +23,7 @@ const { shareTitle } = Astro.props
       The site has no ads, no spam, and no sponsors. Follow to keep up with new discoveries as I
       explore!
     </p>
-    <div class="share-card-actions">
-      <ShareButton title={shareTitle} variant="dark" label="Share" trackAs="share-end" />
-      {
-        INSTAGRAM_HANDLE && (
-          <a
-            class="btn share-card-instagram"
-            href={`https://www.instagram.com/${INSTAGRAM_HANDLE}/`}
-            target="_blank"
-            rel="noopener"
-            data-goatcounter-click="instagram-end">
-            <IconInstagram />
-            Follow @{INSTAGRAM_HANDLE}
-          </a>
-        )
-      }
-    </div>
+    <ShareActions shareTitle={shareTitle} placement="end" />
   </div>
 </aside>
 
@@ -68,31 +52,6 @@ const { shareTitle } = Astro.props
     margin: 0;
   }
 
-  .share-card-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-  }
-
-  .share-card-actions :global(.btn) {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border-radius: var(--radius-pill);
-    font-size: var(--font-size-md);
-    font-weight: 700;
-    text-transform: none;
-  }
-
-  .share-card-instagram {
-    border: 0;
-    background: var(--gradient-instagram-linear);
-    color: var(--color-bar-text);
-  }
-
-  .share-card-instagram:hover {
-    color: var(--color-bar-text);
-    filter: brightness(1.08);
-  }
-
   @media (max-width: 700px) {
     .share-card {
       padding: var(--spacing-lg);
@@ -100,18 +59,6 @@ const { shareTitle } = Astro.props
 
     .share-card-body .title-caps {
       font-size: var(--font-size-label);
-    }
-
-    .share-card-actions :global(.btn) {
-      flex: 1 1 auto;
-      justify-content: center;
-      padding-inline: var(--spacing-sm);
-      font-size: var(--font-size-sm);
-    }
-
-    .share-card-actions :global(.icon) {
-      width: 1.125rem;
-      height: 1.125rem;
     }
   }
 </style>

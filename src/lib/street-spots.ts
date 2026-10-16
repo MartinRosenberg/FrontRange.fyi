@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content'
 import { optionalData } from './optional-data'
 import { published } from './content'
-import { normalizeName } from './neighborhoods'
+import { districtForStreet, districtStreet, normalizeName } from './neighborhoods'
 import { href } from './url'
 import { projectOntoLine, type LngLat } from './geo'
 import { allSpots, type SpotCategoryKey } from './spots'
@@ -51,6 +51,7 @@ function nearestStreet(
 
 interface Place extends StreetSpot {
   key: string
+  district?: string
 }
 
 async function allPlaces(): Promise<Place[]> {
@@ -66,6 +67,7 @@ async function allPlaces(): Promise<Place[]> {
       category: 'food',
       coords: [lng, lat],
       link: href(`/food/${place.id}/`),
+      district: place.data.district,
     })
   }
   for (const spot of allSpots()) {
@@ -75,6 +77,7 @@ async function allPlaces(): Promise<Place[]> {
         name: spot.name,
         category: spot.category,
         coords: spot.coords,
+        district: spot.district,
       })
     }
   }
@@ -92,8 +95,17 @@ export async function streetSpotsByStreet(): Promise<Record<string, StreetSpot[]
     candidates.set(id, list)
   }
 
+  const derivedStreets = streets.filter((street) => !districtForStreet(street.id))
   for (const place of places) {
-    const nearest = nearestStreet(place.coords, streets)
+    const taggedStreet = place.district ? districtStreet(place.district) : undefined
+    if (taggedStreet) {
+      push(taggedStreet.id, {
+        ...place,
+        along: projectOntoLine(place.coords, taggedStreet.line).along,
+      })
+      continue
+    }
+    const nearest = nearestStreet(place.coords, derivedStreets)
     if (nearest) {
       push(nearest.id, { ...place, along: nearest.along })
     }
@@ -123,7 +135,7 @@ export async function streetSpotsByStreet(): Promise<Record<string, StreetSpot[]
 
         return true
       })
-      .map(({ along: _along, key: _key, ...spot }) => spot)
+      .map(({ along: _along, key: _key, district: _district, ...spot }) => spot)
   }
 
   return result

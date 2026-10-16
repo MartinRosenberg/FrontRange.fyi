@@ -4,7 +4,8 @@ created: 2026-08-30
 status: want-to-try
 description: Northern Thai kitchen
 cuisine: ['thai']
-neighborhood: delmar-loop
+neighborhood: skinker-debaliviere
+district: delmar-loop
 address:
   - 549 Rosedale Ave
   - St. Louis, MO 63112

@@ -4,7 +4,7 @@ description: A Chicago thin-crust pizza spot
 created: 2026-06-23
 rating: 8
 cuisine: ['pizza']
-neighborhood: southampton
+neighborhood: princeton-heights
 address:
   - 5600 Hampton Ave
   - St. Louis, MO 63109

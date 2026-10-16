@@ -7,6 +7,7 @@ import { optionalData } from './optional-data'
 import countyTownsData from '../data/county-towns.json'
 import { excerpt, hasBody, published, PREVIEW_EXCERPT_CHARS } from './content'
 import { spotsIn } from './spots'
+import { LAST_CITY_NEIGHBORHOOD_NUMBER, officialNamesBySlug } from './official-names.mjs'
 
 const geo = optionalData<{
   viewBox?: string
@@ -58,6 +59,8 @@ export interface NeighborhoodInfo {
   group: string
   type?: string
   coords?: [number, number]
+  officialName?: string
+  street?: string
 }
 
 const infoBySlug = new Map<string, NeighborhoodInfo>(
@@ -88,11 +91,15 @@ export const regionTokenBySlug: Record<string, string> = {
   'south-city': '--color-map-south',
   'st-louis-county': '--color-map-county',
   parks: '--color-map-park',
+  districts: '--color-map-district',
 }
 
 export function regionOf(info: NeighborhoodInfo): Region {
   if (info.type === 'park') {
     return { slug: 'parks', label: 'Parks' }
+  }
+  if (info.type === 'district') {
+    return { slug: 'districts', label: 'District' }
   }
 
   return { slug: REGION_SLUG_BY_GROUP[info.group] ?? '', label: info.group }
@@ -169,6 +176,10 @@ export function neighborhoodGeneratedSummary(slug: string): string | undefined {
   if (!info) {
     return undefined
   }
+  const street = districtStreet(slug)
+  if (street) {
+    return `${info.name}, a district along ${street.road}`
+  }
   if (info.type) {
     return `${info.name}, a ${info.type} in ${info.group}`
   }
@@ -198,9 +209,15 @@ export function neighborhoodMetaDescription(
     return undefined
   }
 
-  const opening = info.type
-    ? `${info.name} is a ${info.type} in ${info.group}`
-    : `${info.name} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
+  const street = districtStreet(slug)
+  const official = officialNames(slug)
+  const namedAs =
+    official.length > 0 ? `${info.name} (officially ${joinNames(official)})` : info.name
+  const opening = street
+    ? `${info.name} is a district along ${street.road} in ${joinNames(districtNeighborhoodNames(street))}`
+    : info.type
+      ? `${info.name} is a ${info.type} in ${info.group}`
+      : `${namedAs} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
   const borderNames = neighbors.slice(0, 3).map((neighbor) => neighbor.name)
   const borderClause = borderNames.length > 0 ? `, bordering ${joinNames(borderNames)}` : ''
   const foodClause =
@@ -233,6 +250,7 @@ export interface Street {
   to: string
   anchor: string
   neighborhoods: string[]
+  line: number[][]
 }
 
 export function allStreets(): Street[] {
@@ -241,6 +259,49 @@ export function allStreets(): Street[] {
 
 export function streetsIn(slug: string): Street[] {
   return (streetData.streets as Street[]).filter((street) => street.neighborhoods.includes(slug))
+}
+
+export function districtStreet(slug: string): Street | undefined {
+  const streetId = infoBySlug.get(slug)?.street
+
+  return streetId ? allStreets().find((street) => street.id === streetId) : undefined
+}
+
+export function districtForStreet(streetId: string): NeighborhoodInfo | undefined {
+  return [...infoBySlug.values()].find((info) => info.street === streetId)
+}
+
+function districtNeighborhoodNames(street: Street): string[] {
+  return street.neighborhoods.map((slug) => neighborhoodName(slug))
+}
+
+const officialNamesOf = officialNamesBySlug(neighborhoods)
+
+export function officialNames(slug: string): string[] {
+  const info = infoBySlug.get(slug)
+  const names: string[] = officialNamesOf.get(slug) ?? []
+  if (!info || (names.length === 1 && names[0] === info.name)) {
+    return []
+  }
+
+  return names
+}
+
+export interface OfficialNamesLine {
+  label: string
+  names: string
+}
+
+export function officialNamesLine(slug: string): OfficialNamesLine | undefined {
+  const info = infoBySlug.get(slug)
+  const names = officialNames(slug)
+  if (!info || names.length === 0) {
+    return undefined
+  }
+  const noun = names.length > 1 ? 'City neighborhoods' : 'City neighborhood'
+  const numbers = String(info.numberLabel ?? info.number).replace('-', '–')
+
+  return { label: `${noun} ${numbers}:`, names: joinNames(names) }
 }
 
 export interface Festival {
@@ -274,45 +335,34 @@ export interface ResourceLink {
   href: string
 }
 
-const cityNeighborhoodSlug: Record<string, string | null> = {
+const cityNeighborhoodSlug: Record<string, string> = {
   'the-grove': 'forest-park-southeast',
-  'delmar-loop': 'skinker-debaliviere',
   'greater-ville': 'the-greater-ville',
   'jeff-vanderlou': 'jeffvanderlou',
   'fairground-neighborhood': 'fairground',
   ofallon: 'o-fallon',
-  dogtown: null,
 }
 
-const mytownviewSlug: Record<string, string | null> = {
-  'the-grove': 'forest-park-south-east',
-  'delmar-loop': 'skinker-debaliviere',
-  dogtown: null,
-}
+const mytownviewSlug: Record<string, string> = { 'the-grove': 'forest-park-south-east' }
 
 export function neighborhoodResources(info: NeighborhoodInfo): ResourceLink[] {
-  const links: ResourceLink[] = []
-  if (info.number >= 80) {
-    return links
+  if (info.number > LAST_CITY_NEIGHBORHOOD_NUMBER) {
+    return []
   }
 
-  const citySlug = info.slug in cityNeighborhoodSlug ? cityNeighborhoodSlug[info.slug] : info.slug
-  if (citySlug) {
-    links.push({
+  const citySlug = cityNeighborhoodSlug[info.slug] ?? info.slug
+  const mytownview = mytownviewSlug[info.slug] ?? info.slug
+
+  return [
+    {
       label: 'St. Louis City',
       href: `https://www.stlouis-mo.gov/live-work/community/neighborhoods/${citySlug}/`,
-    })
-  }
-
-  const mtvSlug = info.slug in mytownviewSlug ? mytownviewSlug[info.slug] : info.slug
-  if (mtvSlug) {
-    links.push({
+    },
+    {
       label: 'MyTownView',
-      href: `https://mytownview.com/missouri/st-louis-city/st-louis/${mtvSlug}`,
-    })
-  }
-
-  return links
+      href: `https://mytownview.com/missouri/st-louis-city/st-louis/${mytownview}`,
+    },
+  ]
 }
 
 export function neighborhoodResourceLinks(
@@ -413,7 +463,7 @@ export async function neighborhoodPopups(): Promise<Record<string, AreaPopup>> {
       : undefined
     popups[info.slug] = {
       name: info.name,
-      area: info.group,
+      area: info.type === 'district' ? regionOf(info).label : info.group,
       park: info.type === 'park',
       tagline: entry?.data.description ?? '',
       excerpt:

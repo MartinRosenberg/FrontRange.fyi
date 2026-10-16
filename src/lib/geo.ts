@@ -14,6 +14,53 @@ export function metersBetween(left: LngLat, right: LngLat): number {
   return Math.hypot(east, north)
 }
 
+const HULL_CIRCLE_STEPS = 32
+
+function cross(origin: LngLat, first: LngLat, second: LngLat): number {
+  return (
+    (first[0] - origin[0]) * (second[1] - origin[1]) -
+    (first[1] - origin[1]) * (second[0] - origin[0])
+  )
+}
+
+function convexHull(points: LngLat[]): LngLat[] {
+  const sorted = [...points].sort((left, right) => left[0] - right[0] || left[1] - right[1])
+  const halfHull = (ordered: LngLat[]) => {
+    const chain: LngLat[] = []
+    for (const point of ordered) {
+      while (
+        chain.length >= 2 &&
+        cross(chain[chain.length - 2], chain[chain.length - 1], point) <= 0
+      ) {
+        chain.pop()
+      }
+      chain.push(point)
+    }
+    chain.pop()
+
+    return chain
+  }
+  const hull = [...halfHull(sorted), ...halfHull([...sorted].reverse())]
+
+  return [...hull, hull[0]]
+}
+
+export function hullAroundPoints(centers: number[][], meters: number): LngLat[] {
+  const points: LngLat[] = []
+  for (const [lng, lat] of centers) {
+    const lngScale = metersPerDegreeLng(lat)
+    for (let step = 0; step < HULL_CIRCLE_STEPS; step += 1) {
+      const angle = (step / HULL_CIRCLE_STEPS) * 2 * Math.PI
+      points.push([
+        lng + (Math.cos(angle) * meters) / lngScale,
+        lat + (Math.sin(angle) * meters) / METERS_PER_DEGREE_LAT,
+      ])
+    }
+  }
+
+  return convexHull(points)
+}
+
 export interface LineProjection {
   point: LngLat
   distance: number

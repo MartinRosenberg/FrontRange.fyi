@@ -3,8 +3,6 @@ title: Midtown
 created: 2026-07-05
 description: The arts and innovation core of the city
 url: https://www.grandcenter.org/
-notes:
-  - "This page combines the Midtown and Covenant Blu-Grand Center city neighborhoods, since Grand Center is known as part of Midtown."
 ---
 
 Midtown is an area wedged between [[downtown|Downtown]] and [[forest-park|Forest Park]] that is seeing a lot of revival right now. One of the biggest draws of the area is the City Foundry, a food hall and market built into a restored vacant foundry building.

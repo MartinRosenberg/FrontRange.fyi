@@ -4,7 +4,8 @@ created: 2026-10-13
 status: want-to-try
 description: Craft-soda microbrewery and restaurant
 cuisine: ['american', 'burgers']
-neighborhood: delmar-loop
+neighborhood: university-city
+district: delmar-loop
 address:
   - 6605 Delmar Blvd
   - University City, MO 63130

@@ -160,7 +160,7 @@ The Grove is most famous for being the city's LGBTQ+ nightlife district. On one 
 ## The Delmar Loop
 
 - Street: **Delmar Boulevard**, from Leland to the Pageant
-- Neighborhoods: [[university-city|University City]], [[delmar-loop|Skinker DeBaliviere]]
+- Neighborhoods: [[university-city|University City]], [Skinker DeBaliviere](/neighborhoods/skinker-debaliviere/), [West End](/neighborhoods/west-end/)
 - Website: [visittheloop.com](https://visittheloop.com/)
 
 <figure class="street-map-figure">
@@ -204,7 +204,7 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 ## Cherokee Street
 
 - Street: **Cherokee Street**, from Nebraska to Lemp
-- Neighborhoods: [Greater Dutchtown](/neighborhoods/dutchtown/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
+- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Marine Villa](/neighborhoods/marine-villa/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
 - Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
 <figure class="street-map-figure">

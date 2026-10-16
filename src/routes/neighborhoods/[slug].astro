@@ -5,7 +5,6 @@ import { getCollection, render } from 'astro:content'
 import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import AsideHeading from '../../components/AsideHeading.astro'
-import Subheading from '../../components/Subheading.astro'
 import Heading from '../../components/Heading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
@@ -26,6 +25,8 @@ import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { isoDate } from '../../lib/dates'
 import { getBacklinks } from '../../lib/backlinks'
 import {
+  districtForStreet,
+  districtStreet,
   foodByNeighborhood,
   neighborBearing,
   neighborhoodInfo,
@@ -37,9 +38,13 @@ import {
   streetsIn,
   neighborhoodHasContent,
   neighborhoodResourceLinks,
+  officialNames,
+  officialNamesLine,
   regionOf,
   regionTokenBySlug,
+  type Street,
 } from '../../lib/neighborhoods'
+import { districtBoundary, districtPlaces } from '../../lib/districts'
 import neighborhoods from '../../data/neighborhoods.json'
 import Button from '../../components/Button.astro'
 import SourceLink from '../../components/SourceLink.astro'
@@ -81,14 +86,18 @@ const sharePhoto = entry?.data.photo
   : undefined
 const hasWriteup = Boolean(entry?.body && entry.body.trim())
 const backlinks = entry ? await getBacklinks(entry.id) : []
-const notes = entry?.data.notes ?? []
 
-const spots = spotsIn(slug)
+const district = districtStreet(slug)
+const districtMembers = district ? await districtPlaces(slug) : undefined
+const districtShape = await districtBoundary(slug)
+
+const spots = districtMembers?.spots ?? spotsIn(slug)
 
 const population = neighborhoodPopulation(slug)
+const listedNeighbors = district?.neighborhoods ?? entry?.data.neighbors ?? []
 const neighbors =
-  entry?.data.neighbors && entry.data.neighbors.length > 0
-    ? entry.data.neighbors.flatMap((neighborSlug) => {
+  listedNeighbors.length > 0
+    ? listedNeighbors.flatMap((neighborSlug) => {
         const neighbor = neighborhoodInfo(neighborSlug)
         return neighbor ? [neighbor] : []
       })
@@ -98,10 +107,17 @@ const festivals = festivalsIn(slug)
 const walkableStLouisLive = published(await getCollection('topics')).some(
   (topic) => topic.id === STREETS_TOPIC_ID,
 )
-const streets = walkableStLouisLive ? streetsIn(slug) : []
+const streets = walkableStLouisLive ? (district ? [district] : streetsIn(slug)) : []
+const streetHref = (street: Street) => {
+  const streetDistrict = districtForStreet(street.id)
+
+  return streetDistrict && streetDistrict.slug !== slug
+    ? href(`/neighborhoods/${streetDistrict.slug}/`)
+    : href(`/${STREETS_TOPIC_ID}/#${street.anchor}`)
+}
 
 const placesByNeighborhood = await foodByNeighborhood()
-const places = placesByNeighborhood.get(slug) ?? []
+const places = districtMembers?.places ?? placesByNeighborhood.get(slug) ?? []
 const hasContent = neighborhoodHasContent(slug, hasWriteup, places.length)
 
 const writtenBySlug = new Map(
@@ -118,6 +134,14 @@ const nearbyNeighbors = [...exploredNeighbors, ...notYetVisitedNeighbors].slice(
 const resourceLinks = neighborhoodResourceLinks(slug, title, entry?.data.url, entry?.data.wikipedia)
 
 const generated = neighborhoodGeneratedSummary(slug)
+const officialLine = officialNamesLine(slug)
+const listSeparator = (index: number, count: number) => {
+  if (index === 0) {
+    return ''
+  }
+
+  return index < count - 1 ? ', ' : count > 2 ? ', and ' : ' and '
+}
 
 const tagline = entry?.data.description
 const summary = tagline ?? generated
@@ -135,7 +159,7 @@ const isTown = info?.type === 'city' || info?.type === 'community'
 const isPark = info?.type === 'park'
 const placeName = isTown
   ? `${title}, ${REGION_CODE}`
-  : isPark
+  : isPark || district
     ? `${title}, ${CITY}`
     : `${title}, ${CITY} Neighborhood`
 const guideParts = [
@@ -170,6 +194,7 @@ const center =
 const schema = placeSchema(
   {
     name: title,
+    alternateNames: officialNames(slug),
     url: pageUrl,
     description: metaDescription,
     image: sharePhoto ? new URL(sharePhoto.src, siteOrigin).href : undefined,
@@ -206,6 +231,26 @@ const schema = placeSchema(
           <header class="detail-pane-header">
             <h1 class="detail-pane-title title-page">{title}</h1>
             {summary && <p class="description description--lg detail-pane-tagline">{summary}</p>}
+            {
+              district && (
+                <p class="detail-pane-kicker">
+                  <span class="eyebrow">District in:</span>
+                  <span class="detail-pane-kicker-value">
+                    {neighbors.map((neighbor, index) => (
+                      <Fragment>{listSeparator(index, neighbors.length)}<a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a></Fragment>
+                    ))}
+                  </span>
+                </p>
+              )
+            }
+            {
+              officialLine && (
+                <p class="detail-pane-kicker">
+                  <span class="eyebrow">{officialLine.label}</span>
+                  <span class="detail-pane-kicker-value">{officialLine.names}</span>
+                </p>
+              )
+            }
             {
               (population != null || places.length > 0 || spots.length > 0) && (
                 <div class="pane-stats">
@@ -256,16 +301,6 @@ const schema = placeSchema(
                 </div>
               )
             }
-            {notes.length > 0 && (
-              <section class="notes">
-                <Subheading level={4}>Notes</Subheading>
-                <ul>
-                  {notes.map((note) => (
-                    <li>{note}</li>
-                  ))}
-                </ul>
-              </section>
-            )}
           </div>
 
           <Comments kind="neighborhood" slug={slug} title={title} />
@@ -341,7 +376,7 @@ const schema = placeSchema(
               <CardList title="Walkable streets">
                 {streets.map((street) => (
                   <Card
-                    href={href(`/${STREETS_TOPIC_ID}/#${street.anchor}`)}
+                    href={streetHref(street)}
                     title={street.name}
                     meta={street.road}
                     description={`${street.from} to ${street.to}`}
@@ -440,20 +475,38 @@ const schema = placeSchema(
         boundaryToken={boundaryToken}
         coords={info?.coords}
         spots={mapSpots}
+        boundary={districtShape}
+        partSlugs={district?.neighborhoods}
       />
     </div>
   </div>
 </BaseLayout>
 
 <style>
-  .notes {
-    font-size: var(--font-size-sm);
-    color: var(--color-muted);
+  .detail-pane-tagline:has(+ .detail-pane-kicker) {
+    margin-block-end: var(--spacing-sm);
   }
 
-  .notes ul {
-    margin: 0;
-    padding-inline-start: var(--spacing-md);
+  .detail-pane-kicker {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--spacing-md);
+    row-gap: var(--spacing-xxs);
+    margin-block: 0 var(--spacing-lg);
+  }
+
+  .detail-pane-kicker-value {
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-size-md);
+    color: var(--color-text-heading);
+  }
+
+  .detail-pane-kicker-value a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: currentColor;
   }
 
   .detail-pane-inner {

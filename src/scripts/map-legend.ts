@@ -114,6 +114,22 @@ export function bindLegendToggles(
   }
 }
 
+function bindLegendScrollHint(legend: HTMLElement): void {
+  const list = legend.querySelector<HTMLElement>('.map-legend-list')
+  const hint = legend.querySelector<HTMLElement>('[data-legend-more]')
+  if (!list || !hint) {
+    return
+  }
+  const update = () => {
+    hint.hidden = list.scrollHeight <= list.clientHeight
+    const remaining = list.scrollHeight - list.clientHeight - list.scrollTop
+    hint.toggleAttribute('data-at-end', remaining <= 1)
+  }
+
+  list.addEventListener('scroll', update, { passive: true })
+  new ResizeObserver(() => requestAnimationFrame(update)).observe(list)
+}
+
 const COLLAPSED_ON_LOAD_QUERY = '(max-width: 700px)'
 
 export function bindLegendCollapse(legend: HTMLElement): void {
@@ -134,5 +150,6 @@ export function bindLegendCollapse(legend: HTMLElement): void {
   legend
     .querySelector<HTMLButtonElement>('[data-legend-close]')
     ?.addEventListener('click', () => setExpanded(false))
+  bindLegendScrollHint(legend)
   updateLegendShown(legend)
 }
