@@ -5,11 +5,17 @@
       "id": "the-grove",
       "name": "The Grove",
       "road": "Manchester Avenue",
-      "from": "west arch",
-      "to": "east arch",
+      "from": "the west arch",
+      "to": "the east arch",
       "anchor": "the-grove",
       "neighborhoods": ["the-grove"],
-      "website": "https://www.thegrovestl.com/",
+      "websites": ["https://www.thegrovestl.com/"],
+      "query": {
+        "roadNames": ["Manchester Avenue"],
+        "from": { "coord": [38.62625, -90.2621] },
+        "to": { "coord": [38.627942, -90.24989] },
+        "center": [38.627, -90.2565]
+      },
       "line": [
         [-90.2621, 38.62625],
         [-90.261731, 38.626317],
@@ -46,7 +52,13 @@
       "to": "Nebraska",
       "anchor": "cherokee-street",
       "neighborhoods": ["gravois-park", "benton-park-west"],
-      "website": "https://cherokeestreet.com/",
+      "websites": ["https://cherokeestreet.com/"],
+      "query": {
+        "roadNames": ["Cherokee Street"],
+        "from": { "names": ["South Jefferson Avenue", "Jefferson Avenue"] },
+        "to": { "names": ["Nebraska Avenue"] },
+        "center": [38.594, -90.229]
+      },
       "line": [
         [-90.225467, 38.59328],
         [-90.225616, 38.593298],
@@ -70,6 +82,13 @@
       "to": "Jefferson",
       "anchor": "cherokee-street",
       "neighborhoods": ["benton-park", "marine-villa"],
+      "websites": ["https://cherokeeantiquerow.net/"],
+      "query": {
+        "roadNames": ["Cherokee Street"],
+        "from": { "names": ["Lemp Avenue", "South Lemp Avenue"] },
+        "to": { "names": ["South Jefferson Avenue", "Jefferson Avenue"] },
+        "center": [38.594, -90.221]
+      },
       "line": [
         [-90.218662, 38.592421],
         [-90.219232, 38.592493],
@@ -93,7 +112,13 @@
       "to": "Delmar",
       "anchor": "central-west-end",
       "neighborhoods": ["central-west-end"],
-      "website": "https://cwescene.com/",
+      "websites": ["https://cwescene.com/"],
+      "query": {
+        "roadNames": ["North Euclid Avenue", "South Euclid Avenue", "Euclid Avenue"],
+        "from": { "names": ["Laclede Avenue"] },
+        "to": { "names": ["Delmar Boulevard"] },
+        "center": [38.64, -90.261]
+      },
       "line": [
         [-90.262179, 38.640345],
         [-90.262068, 38.641073],
@@ -135,6 +160,12 @@
       "to": "Utah",
       "anchor": "tower-grove-south",
       "neighborhoods": ["tower-grove-south", "tower-grove-east"],
+      "query": {
+        "roadNames": ["South Grand Boulevard", "South Grand Avenue"],
+        "from": { "names": ["Arsenal Street"] },
+        "to": { "names": ["Utah Street", "Utah Place"] },
+        "center": [38.5965, -90.2438]
+      },
       "line": [
         [-90.242263, 38.602724],
         [-90.242322, 38.602334],
@@ -165,6 +196,12 @@
       "to": "Utah",
       "anchor": "tower-grove-south",
       "neighborhoods": ["tower-grove-south"],
+      "query": {
+        "roadNames": ["Morganford Road", "Morgan Ford Road"],
+        "from": { "names": ["Arsenal Street"] },
+        "to": { "names": ["Utah Street", "Utah Place"] },
+        "center": [38.5965, -90.2565]
+      },
       "line": [
         [-90.261154, 38.604612],
         [-90.261188, 38.60437],
@@ -193,6 +230,12 @@
       "to": "Gravois",
       "anchor": "hampton--macklind",
       "neighborhoods": ["st-louis-hills", "southampton", "princeton-heights"],
+      "query": {
+        "roadNames": ["Hampton Avenue", "South Hampton Avenue"],
+        "from": { "names": ["Chippewa Street", "Chippewa Avenue"] },
+        "to": { "names": ["Gravois Avenue", "Eichelberger Street", "Eichelberger Avenue"] },
+        "center": [38.583, -90.2935]
+      },
       "line": [
         [-90.294281, 38.593414],
         [-90.294398, 38.592966],
@@ -270,6 +313,12 @@
       "to": "Nottingham",
       "anchor": "hampton--macklind",
       "neighborhoods": ["southampton"],
+      "query": {
+        "roadNames": ["Macklind Avenue", "South Macklind Avenue"],
+        "from": { "names": ["Lansdowne Avenue"] },
+        "to": { "names": ["Nottingham Avenue"] },
+        "center": [38.589, -90.2846]
+      },
       "line": [
         [-90.283967, 38.588673],
         [-90.284045, 38.588237],
@@ -289,7 +338,14 @@
       "to": "Elizabeth",
       "anchor": "the-hill",
       "neighborhoods": ["the-hill"],
-      "website": "https://www.hillstl.org/",
+      "websites": ["https://www.hillstl.org/"],
+      "include": ["Gioia's Deli"],
+      "query": {
+        "roadNames": ["Marconi Avenue"],
+        "from": { "names": ["Shaw Avenue"] },
+        "to": { "names": ["Elizabeth Avenue"] },
+        "center": [38.614, -90.276]
+      },
       "line": [
         [-90.272414, 38.617932],
         [-90.272476, 38.617607],
@@ -301,8 +357,7 @@
         [-90.273062, 38.61465],
         [-90.273208, 38.61398],
         [-90.273356, 38.613302]
-      ],
-      "include": ["Gioia's Deli"]
+      ]
     },
     {
       "id": "bevo",
@@ -312,6 +367,12 @@
       "to": "Christy",
       "anchor": "bevo",
       "neighborhoods": ["bevo-mill"],
+      "query": {
+        "roadNames": ["Gravois Avenue", "Gravois Road"],
+        "from": { "names": ["Taft Avenue"] },
+        "to": { "names": ["Christy Boulevard", "Christy Avenue"] },
+        "center": [38.581, -90.269]
+      },
       "line": [
         [-90.262239, 38.585121],
         [-90.262531, 38.584911],
@@ -370,7 +431,13 @@
       "to": "the Pageant",
       "anchor": "the-delmar-loop",
       "neighborhoods": ["university-city", "skinker-debaliviere", "west-end"],
-      "website": "https://visittheloop.com/",
+      "websites": ["https://visittheloop.com/"],
+      "query": {
+        "roadNames": ["Delmar Boulevard"],
+        "from": { "names": ["Leland Avenue"] },
+        "to": { "coord": [38.65513, -90.2965] },
+        "center": [38.656, -90.304]
+      },
       "line": [
         [-90.3072, 38.656186],
         [-90.306932, 38.65616],
@@ -406,6 +473,18 @@
       "to": "Southwood",
       "anchor": "demun",
       "neighborhoods": ["clayton"],
+      "query": {
+        "roadNames": [
+          "De Mun Avenue",
+          "DeMun Avenue",
+          "Demun Avenue",
+          "South De Mun Avenue",
+          "North De Mun Avenue"
+        ],
+        "from": { "names": ["Northwood Avenue"] },
+        "to": { "names": ["Southwood Avenue"] },
+        "center": [38.642, -90.3167]
+      },
       "line": [
         [-90.307849, 38.638825],
         [-90.307901, 38.638274],
@@ -425,6 +504,12 @@
       "to": "Steins",
       "anchor": "carondelet",
       "neighborhoods": ["carondelet"],
+      "query": {
+        "roadNames": ["South Broadway"],
+        "from": { "names": ["Blow Street"] },
+        "to": { "names": ["West Steins Street", "East Steins Street", "Steins Street"] },
+        "center": [38.55, -90.247]
+      },
       "line": [
         [-90.253836, 38.551051],
         [-90.254258, 38.550678],
@@ -450,6 +535,12 @@
       "to": "Devonshire",
       "anchor": "southtown",
       "neighborhoods": ["north-hampton", "southampton", "tower-grove-south"],
+      "query": {
+        "roadNames": ["South Kingshighway Boulevard", "Kingshighway Boulevard"],
+        "from": { "names": ["Fyler Avenue", "Arsenal Street"] },
+        "to": { "names": ["Devonshire Avenue"] },
+        "center": [38.594, -90.2646]
+      },
       "line": [
         [-90.269921, 38.601418],
         [-90.270086, 38.600493],
@@ -513,7 +604,13 @@
       "to": "Bellevue",
       "anchor": "maplewood",
       "neighborhoods": ["maplewood"],
-      "website": "https://www.maplewoodmo.gov/",
+      "websites": ["https://www.maplewoodmo.gov/"],
+      "query": {
+        "roadNames": ["Manchester Road", "Manchester Avenue"],
+        "from": { "names": ["South Big Bend Boulevard", "Big Bend Boulevard"] },
+        "to": { "names": ["Bellevue Avenue", "South Bellevue Avenue"] },
+        "center": [38.612, -90.32]
+      },
       "line": [
         [-90.323056, 38.612418],
         [-90.322768, 38.612375],
@@ -552,7 +649,14 @@
       "to": "Maple",
       "anchor": "webster-groves",
       "neighborhoods": ["webster-groves"],
-      "website": "https://www.webstergrovesmo.gov/",
+      "websites": ["https://www.webstergrovesmo.gov/"],
+      "include": ["Telva at the Ridge"],
+      "query": {
+        "roadNames": ["West Lockwood Avenue", "East Lockwood Avenue", "Lockwood Avenue"],
+        "from": { "names": ["Jefferson Road"] },
+        "to": { "names": ["North Maple Avenue", "South Maple Avenue"] },
+        "center": [38.592, -90.357]
+      },
       "line": [
         [-90.363113, 38.593424],
         [-90.362563, 38.593363],
@@ -573,8 +677,7 @@
         [-90.355482, 38.592595],
         [-90.355053, 38.592548],
         [-90.354883, 38.592529]
-      ],
-      "include": ["Telva at the Ridge"]
+      ]
     },
     {
       "id": "kirkwood",
@@ -584,7 +687,13 @@
       "to": "Monroe",
       "anchor": "kirkwood",
       "neighborhoods": ["kirkwood"],
-      "website": "https://www.downtownkirkwood.com/",
+      "websites": ["https://www.downtownkirkwood.com/", "https://www.kirkwoodmo.org/"],
+      "query": {
+        "roadNames": ["North Kirkwood Road", "South Kirkwood Road", "Kirkwood Road"],
+        "from": { "names": ["East Bodley Avenue", "West Bodley Avenue"] },
+        "to": { "names": ["West Monroe Avenue", "East Monroe Avenue"] },
+        "center": [38.583, -90.4068]
+      },
       "line": [
         [-90.406278, 38.587369],
         [-90.406279, 38.58672],
@@ -624,7 +733,14 @@
       "to": "18th",
       "anchor": "lafayette-square",
       "neighborhoods": ["lafayette-square"],
-      "website": "https://lafayettesquare.org/",
+      "websites": ["https://lafayettesquare.org/"],
+      "include": ["Clementine's Creamery"],
+      "query": {
+        "roadNames": ["Park Avenue"],
+        "from": { "names": ["Mississippi Avenue"] },
+        "to": { "names": ["South 18th Street", "18th Street"] },
+        "center": [38.6155, -90.2125]
+      },
       "line": [
         [-90.213461, 38.617432],
         [-90.213258, 38.617398],
@@ -634,8 +750,7 @@
         [-90.21147, 38.61688],
         [-90.21125, 38.616812],
         [-90.211209, 38.616799]
-      ],
-      "include": ["Clementine's Creamery"]
+      ]
     },
     {
       "id": "gore",
@@ -646,6 +761,12 @@
       "to": "Kirkham",
       "anchor": "webster-groves",
       "neighborhoods": [],
+      "query": {
+        "roadNames": ["North Gore Avenue", "Gore Avenue"],
+        "from": { "names": ["West Lockwood Avenue", "East Lockwood Avenue", "Lockwood Avenue"] },
+        "to": { "names": ["West Kirkham Avenue", "East Kirkham Avenue", "Kirkham Avenue"] },
+        "center": [38.5945, -90.3596]
+      },
       "line": [
         [-90.3595, 38.593041],
         [-90.359553, 38.593487],
@@ -667,7 +788,22 @@
       "to": "Gravois",
       "anchor": "soulard",
       "neighborhoods": ["soulard"],
-      "website": "https://www.soulard.org/",
+      "websites": ["https://www.soulard.org/"],
+      "include": [
+        "Soulard Farmers Market",
+        "Bogart's Smokehouse",
+        "Molly's in Soulard",
+        "D's Place",
+        "Cat's Meow",
+        "Big Daddy's Soulard",
+        "Jack Nolen's"
+      ],
+      "query": {
+        "roadNames": ["South 12th Street"],
+        "from": { "names": ["Shenandoah Avenue"] },
+        "to": { "coord": [38.61013, -90.20861] },
+        "center": [38.6075, -90.2103]
+      },
       "line": [
         [-90.210535, 38.605841],
         [-90.210301, 38.606357],
@@ -681,15 +817,6 @@
         [-90.209215, 38.608755],
         [-90.208868, 38.609542],
         [-90.20861, 38.61013]
-      ],
-      "include": [
-        "Soulard Farmers Market",
-        "Bogart's Smokehouse",
-        "Molly's in Soulard",
-        "D's Place",
-        "Cat's Meow",
-        "Big Daddy's Soulard",
-        "Jack Nolen's"
       ]
     },
     {
@@ -700,12 +827,18 @@
       "to": "Mitchell",
       "anchor": "dogtown",
       "neighborhoods": ["dogtown"],
+      "label": "Tamm Ave",
+      "query": {
+        "roadNames": ["Tamm Avenue"],
+        "from": { "names": ["Oakland Avenue"] },
+        "to": { "names": ["Mitchell Place", "Mitchell Avenue"] },
+        "center": [38.629, -90.2927]
+      },
       "line": [
         [-90.29309, 38.63154],
         [-90.2929, 38.62859],
         [-90.29305, 38.6273]
-      ],
-      "label": "Tamm Ave"
+      ]
     },
     {
       "id": "dogtown-clayton",
@@ -716,6 +849,12 @@
       "to": "Graham",
       "anchor": "dogtown",
       "neighborhoods": [],
+      "query": {
+        "roadNames": ["Clayton Avenue"],
+        "from": { "names": ["Childress Avenue"] },
+        "to": { "names": ["Graham Street", "Graham Avenue"] },
+        "center": [38.6286, -90.2922]
+      },
       "line": [
         [-90.2945, 38.6291],
         [-90.2929, 38.62859],
@@ -730,11 +869,17 @@
       "to": "Magnolia",
       "anchor": "shaw",
       "neighborhoods": ["shaw"],
+      "include": ["Sasha's on Shaw", "Fiddlehead Fern Cafe"],
+      "query": {
+        "roadNames": ["South 39th Street", "39th Street"],
+        "from": { "names": ["Shaw Boulevard"] },
+        "to": { "names": ["Magnolia Avenue"] },
+        "center": [38.61, -90.2459]
+      },
       "line": [
         [-90.24614, 38.6155],
         [-90.24592, 38.6098]
-      ],
-      "include": ["Sasha's on Shaw", "Fiddlehead Fern Cafe"]
+      ]
     },
     {
       "id": "washington-avenue",
@@ -744,7 +889,13 @@
       "to": "18th",
       "anchor": "washington-avenue",
       "neighborhoods": ["downtown"],
-      "website": "https://www.washaveretail.com/",
+      "websites": ["https://www.washaveretail.com/"],
+      "query": {
+        "roadNames": ["Washington Avenue"],
+        "from": { "names": ["North 6th Street", "6th Street"] },
+        "to": { "names": ["North 18th Street", "18th Street"] },
+        "center": [38.631, -90.197]
+      },
       "line": [
         [-90.189351, 38.630211],
         [-90.190464, 38.630442],
@@ -786,7 +937,13 @@
       "to": "Broadway",
       "anchor": "ballpark-village",
       "neighborhoods": ["downtown"],
-      "website": "https://www.stlballparkvillage.com/",
+      "websites": ["https://www.stlballparkvillage.com/"],
+      "query": {
+        "roadNames": ["Clark Avenue", "Clark Street"],
+        "from": { "names": ["South 8th Street", "8th Street"] },
+        "to": { "names": ["South Broadway", "Broadway"] },
+        "center": [38.6237, -90.1905]
+      },
       "line": [
         [-90.194205, 38.624023],
         [-90.19405, 38.623988],
@@ -809,7 +966,13 @@
       "to": "Oakwood",
       "anchor": "webster-groves",
       "neighborhoods": ["webster-groves"],
-      "website": "https://www.oldorchardwebstergroves.com/",
+      "websites": ["https://www.oldorchardwebstergroves.com/"],
+      "query": {
+        "roadNames": ["Big Bend Boulevard", "South Big Bend Boulevard"],
+        "from": { "names": ["East Lockwood Avenue", "Lockwood Avenue"] },
+        "to": { "names": ["Oakwood Avenue", "Laclede Station Road"] },
+        "center": [38.603, -90.348]
+      },
       "line": [
         [-90.340365, 38.590976],
         [-90.340089, 38.591028],

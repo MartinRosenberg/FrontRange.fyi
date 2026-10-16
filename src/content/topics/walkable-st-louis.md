@@ -34,10 +34,6 @@ This is a map of all the walkable St. Louis streets you'll see throughout the ar
 
 ## Central West End
 
-- Street: **Euclid Avenue**, from Laclede to Delmar
-- Neighborhood: [[central-west-end|Central West End]]
-- Website: [cwescene.com](https://cwescene.com/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="euclid"></div>
 </figure>
@@ -52,9 +48,6 @@ Euclid is just a few short blocks from Forest Park, the proximity of which is a 
 
 ## Dogtown
 
-- Street: **Tamm Avenue**, from Oakland to Mitchell
-- Neighborhood: [[dogtown|Dogtown]]
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="dogtown dogtown-clayton"></div>
 </figure>
@@ -62,11 +55,6 @@ Euclid is just a few short blocks from Forest Park, the proximity of which is a 
 Around the Clayton and Tamm intersection in Dogtown (technically the Clayton-Tamm neighborhood) is St. Louis's historical Irish neighborhood, where a St. Patrick's Day parade takes place each year. There are several Irish bars in this spot, like Seamus McDaniel's and The Pat Connolly Tavern.
 
 ## Tower Grove South
-
-- Street: **Grand Boulevard**, from Arsenal to Utah
-- Neighborhoods: [[tower-grove-south|Tower Grove South]], [Tower Grove East](/neighborhoods/tower-grove-east/)
-- Street: **Morganford Road**, from Arsenal to Utah
-- Neighborhoods: [[tower-grove-south|Tower Grove South]]
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="south-grand morganford"></div>
@@ -82,9 +70,6 @@ There's also a smaller strip along Morganford with a few places of interest, suc
 
 ## Shaw
 
-- Street: **South 39th Street**, from Shaw to Magnolia
-- Neighborhood: [[shaw|Shaw]]
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="shaw"></div>
 </figure>
@@ -96,11 +81,6 @@ There is not exactly one main street to walk along, but several businesses dotte
 Flora Place is a particularly pretty boulevard to walk along, showcasing many beautiful Victorian-era homes.
 
 ## Hampton & Macklind
-
-- Street: **Hampton Avenue**, from Chippewa to Gravois
-- Neighborhoods: [[st-louis-hills|St. Louis Hills]], [[southampton|Southampton]], [Princeton Heights](/neighborhoods/princeton-heights/)
-- Street: **Macklind Avenue**, from Lansdowne to Nottingham
-- Neighborhoods: [[southampton|Southampton]]
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="hampton macklind"></div>
@@ -114,10 +94,6 @@ There's also another small strip nearby on Macklind with a Clementine's ice crea
 
 ## The Hill
 
-- Street: **Marconi Avenue**, from Shaw to Elizabeth
-- Neighborhood: [[the-hill|The Hill]]
-- Website: [hillstl.org](https://www.hillstl.org/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="the-hill"></div>
 </figure>
@@ -129,9 +105,6 @@ St. Ambrose Church on Marconi is the heart of the neighborhood. All throughout t
 My two favorites are [[nicky-slices|Nicky Slices]] for Detroit-style pizza, and [[pizzeria-da-gloria|Pizzeria da Gloria]] for immaculate vibes and pizza.
 
 ## Bevo
-
-- Street: **Gravois Avenue**, from Taft to Christy
-- Neighborhood: [[bevo-mill|Bevo Mill]]
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="bevo"></div>
@@ -145,10 +118,6 @@ Although it has been thirty years since the Bosnian refugees settled in Bevo, th
 
 ## The Grove
 
-- Street: **Manchester Avenue**, from the west arch to the east arch
-- Neighborhood: [[the-grove|Forest Park Southeast]]
-- Website: [thegrovestl.com](https://www.thegrovestl.com/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="the-grove"></div>
 </figure>
@@ -158,10 +127,6 @@ One of the most distinctive and well-known streets in St. Louis is The Grove in 
 The Grove is most famous for being the city's LGBTQ+ nightlife district. On one end, you have Platypus bar and Urban Chestnut brewery, and on the other you have Handlebar, Atomic, and Rehab. In between are a few of my favorite restaurants in the city - Sultan, Grace Meat & Three, and The Gramophone.
 
 ## The Delmar Loop
-
-- Street: **Delmar Boulevard**, from Leland to the Pageant
-- Neighborhoods: [[university-city|University City]], [Skinker DeBaliviere](/neighborhoods/skinker-debaliviere/), [West End](/neighborhoods/west-end/)
-- Website: [visittheloop.com](https://visittheloop.com/)
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="delmar-loop"></div>
@@ -175,10 +140,6 @@ Notably, there is a concentration of very good Asian cuisine along Delmar, inclu
 
 ## Washington Avenue
 
-- Street: **Washington Avenue**, from 6th to 18th
-- Neighborhoods: [[downtown|Downtown]]
-- Website: [washaveretail.com](https://www.washaveretail.com/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="washington-avenue"></div>
 </figure>
@@ -191,10 +152,6 @@ Being downtown, it's as walkable as it gets, and one of the areas most likely to
 
 ## Ballpark Village
 
-- Street: **Clark Avenue**, from 8th to Broadway
-- Neighborhoods: [[downtown|Downtown]]
-- Website: [stlballparkvillage.com](https://www.stlballparkvillage.com/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="ballpark-village"></div>
 </figure>
@@ -202,10 +159,6 @@ Being downtown, it's as walkable as it gets, and one of the areas most likely to
 Right next to Busch Stadium is Ballpark Village, a string of bars and restaurants surrounding a central entertainment district. It's a hub for people to hang out before a ball game or concert.
 
 ## Cherokee Street
-
-- Street: **Cherokee Street**, from Nebraska to Lemp
-- Neighborhoods: [Gravois Park](/neighborhoods/gravois-park/), [Marine Villa](/neighborhoods/marine-villa/), [Benton Park West](/neighborhoods/benton-park-west/), [Benton Park](/neighborhoods/benton-park/)
-- Website: [cherokeestreet.com](https://cherokeestreet.com/), [cherokeeantiquerow.net](https://cherokeeantiquerow.net/)
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="cherokee cherokee-antique-row"></div>
@@ -218,9 +171,6 @@ The eastern wing of Cherokee St. is a vintage shopping district known as the [an
 
 ## Southtown
 
-- Street: **South Kingshighway**, from Fyler to Devonshire
-- Neighborhoods: [North Hampton](/neighborhoods/north-hampton/), [[southampton|Southampton]], [[tower-grove-south|Tower Grove South]]
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="south-town"></div>
 </figure>
@@ -232,10 +182,6 @@ It seems there used to be a Southtown Famous-Barr department store at Kingshighw
 Now, there are new restaurants and bars filling up the space, such as the Golden Hoosier and Himalayan Yeti. It's honestly not the most walkable area of the city due to Kingshighway being such a busy street, but I can see the area getting more and more built up [as Garcia Properties is working on revializing it](https://www.stlmag.com/business/garcia-properties-south-kingshighway/).
 
 ## Soulard
-
-- Street: **South 12th Street**, from Shenandoah to Gravois
-- Neighborhood: [[soulard|Soulard]]
-- Website: [soulard.org](https://www.soulard.org/)
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="soulard"></div>
@@ -253,10 +199,6 @@ The north and south ends of Soulard have a different feel, with the north side b
 
 ## Lafayette Square
 
-- Street: **Park Avenue**, from Mississippi to 18th
-- Neighborhood: [[lafayette-square|Lafayette Square]]
-- Website: [lafayettesquare.org](https://lafayettesquare.org/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="lafayette-square"></div>
 </figure>
@@ -268,9 +210,6 @@ Many of the businesses around Lafayette Square are not necessarily bars and rest
 In addition to the park, there are also beautiful, historic mansions painted in vibrant colors that give this area an interesting, historic charm.
 
 ## Carondelet
-
-- Street: **South Broadway**, from Blow to Steins
-- Neighborhoods: [[carondelet|Carondelet]]
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="carondelet"></div>
@@ -284,9 +223,6 @@ I have not personally explored this area outside of driving through and I don't 
 
 ## DeMun
 
-- Street: **DeMun Avenue**, from Northwood to Southwood
-- Neighborhood: [[clayton|Clayton]]
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="demun"></div>
 </figure>
@@ -298,10 +234,6 @@ In this area, you'll find Louie, an amazing spot to celebrate a birthday or anni
 Demun is a small spot overall, but worth mentioning for how pleasant it is.
 
 ## Maplewood
-
-- Street: **Manchester Road**, from Big Bend to Bellevue
-- Neighborhood: [[maplewood|Maplewood]]
-- Website: [maplewoodmo.gov](https://www.maplewoodmo.gov/)
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="maplewood"></div>
@@ -315,13 +247,6 @@ Maplewood is a streetcar suburb with Metrolink access to the city, making it one
 
 ## Webster Groves
 
-- Street: **Big Bend Boulevard**, from Lockwood to Oakwood
-- Neighborhood: [[webster-groves|Webster Groves]]
-- Website: [oldorchardwebstergroves.com](https://www.oldorchardwebstergroves.com/)
-- Street: **Lockwood Avenue**, from Jefferson to Maple
-- Neighborhood: [[webster-groves|Webster Groves]]
-- Website: [webstergrovesmo.gov](https://www.webstergrovesmo.gov/)
-
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="big-bend old-webster gore"></div>
 </figure>
@@ -331,10 +256,6 @@ There are two main strips in Webster Groves. The Old Orchard district includes t
 On the east end of Webster, there's another main retail area with Telva at the Ridge (a cafe by the owners of Balkan Treat Box), Olive + Oak, and the Webster Groves Bookshop.
 
 ## Kirkwood
-
-- Street: **Kirkwood Road**, from Bodley to Monroe
-- Neighborhood: [[kirkwood|Kirkwood]]
-- Website: [downtownkirkwood.com](https://www.downtownkirkwood.com/), [kirkwoodmo.org](https://www.kirkwoodmo.org/)
 
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="kirkwood"></div>

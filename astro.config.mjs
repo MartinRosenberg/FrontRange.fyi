@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 import { remarkWikiLink } from './src/lib/remark-wikilink.mjs'
 import { rehypeTableScroll } from './src/lib/rehype-table-scroll.mjs'
 import { rehypeArticleToc } from './src/lib/rehype-article-toc.mjs'
+import { rehypeStreetFacts } from './src/lib/rehype-street-facts.mjs'
 import { entryUrl } from './src/lib/entry-url.mjs'
 import { SITE_URL } from './site.config.mjs'
 
@@ -16,21 +17,22 @@ const BASE = '/'
 const contentRoot = fileURLToPath(new URL('./src/content', import.meta.url))
 const dataRoot = fileURLToPath(new URL('./src/data', import.meta.url))
 
-function buildTocGroups() {
-  const streetsPath = path.join(dataRoot, 'streets.json')
-  const neighborhoodsPath = path.join(dataRoot, 'neighborhoods.json')
-  if (!fs.existsSync(streetsPath) || !fs.existsSync(neighborhoodsPath)) {
-    return {}
-  }
+function readData(file, fallback) {
+  const filePath = path.join(dataRoot, file)
 
-  const { streets } = JSON.parse(fs.readFileSync(streetsPath, 'utf8'))
-  const neighborhoods = JSON.parse(fs.readFileSync(neighborhoodsPath, 'utf8'))
+  return fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath, 'utf8')) : fallback
+}
+
+const streetRows = readData('streets.json', { streets: [] }).streets
+const neighborhoodRows = readData('neighborhoods.json', [])
+
+function buildTocGroups() {
   const groupBySlug = new Map(
-    neighborhoods.map((neighborhood) => [neighborhood.slug, neighborhood.group]),
+    neighborhoodRows.map((neighborhood) => [neighborhood.slug, neighborhood.group]),
   )
 
   const groupsByAnchor = {}
-  for (const street of streets) {
+  for (const street of streetRows) {
     if (!street.anchor || groupsByAnchor[street.anchor]) {
       continue
     }
@@ -260,6 +262,15 @@ export default defineConfig({
     remarkPlugins: [[remarkWikiLink, { resolve }]],
     rehypePlugins: [
       rehypeSlug,
+      [
+        rehypeStreetFacts,
+        {
+          streets: streetRows,
+          neighborhoods: neighborhoodRows,
+          hasEntry: (slug) => wikiMap.get(slug) === entryUrl('neighborhoods', slug),
+          base: BASE,
+        },
+      ],
       [rehypeArticleToc, { groups: buildTocGroups() }],
       [
         rehypeAutolinkHeadings,

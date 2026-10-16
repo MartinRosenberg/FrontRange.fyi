@@ -27,14 +27,14 @@ const { kind, slug, title } = Astro.props
       </Subheading>
 
       <div>
+        <button type="button" class="btn btn-outline btn-compact feed-older" data-older hidden>
+          Show older comments
+        </button>
+        <p class="form-status" data-load-status role="status" aria-live="polite" />
         <ul class="feed" data-entries />
         <p class="feed-empty description" data-empty hidden>
           No comments yet.
         </p>
-        <p class="form-status" data-load-status role="status" aria-live="polite" />
-        <button type="button" class="btn btn-outline btn-compact feed-older" data-older hidden>
-          Show older comments
-        </button>
       </div>
 
       <section>

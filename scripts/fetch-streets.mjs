@@ -1,341 +1,10 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import { format, resolveConfig } from 'prettier'
 
 const OVERPASS_URL = process.env.OVERPASS_URL ?? 'https://overpass-api.de/api/interpreter'
-const OUTPUT_PATH = fileURLToPath(new URL('../src/data/streets.json', import.meta.url))
-
-const streets = [
-  {
-    id: 'the-grove',
-    name: 'The Grove',
-    road: 'Manchester Avenue',
-    streetNames: ['Manchester Avenue'],
-    from: { label: 'west arch', coord: [38.62625, -90.2621] },
-    to: { label: 'east arch', coord: [38.627942, -90.24989] },
-    center: [38.627, -90.2565],
-    anchor: 'the-grove',
-    neighborhoods: ['the-grove'],
-    website: 'https://www.thegrovestl.com/',
-  },
-  {
-    id: 'cherokee',
-    name: 'Cherokee Street',
-    road: 'Cherokee Street',
-    streetNames: ['Cherokee Street'],
-    from: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
-    to: { label: 'Nebraska', names: ['Nebraska Avenue'] },
-    center: [38.594, -90.229],
-    anchor: 'cherokee-street',
-    neighborhoods: ['gravois-park', 'benton-park-west'],
-    website: 'https://cherokeestreet.com/',
-  },
-  {
-    id: 'cherokee-antique-row',
-    name: 'Cherokee Antique Row',
-    label: 'Antique Row',
-    road: 'Cherokee Street',
-    streetNames: ['Cherokee Street'],
-    from: { label: 'Lemp', names: ['Lemp Avenue', 'South Lemp Avenue'] },
-    to: { label: 'Jefferson', names: ['South Jefferson Avenue', 'Jefferson Avenue'] },
-    center: [38.594, -90.221],
-    anchor: 'cherokee-street',
-    neighborhoods: ['benton-park', 'marine-villa'],
-  },
-  {
-    id: 'euclid',
-    name: 'Euclid Avenue',
-    road: 'Euclid Avenue',
-    streetNames: ['North Euclid Avenue', 'South Euclid Avenue', 'Euclid Avenue'],
-    from: { label: 'Laclede', names: ['Laclede Avenue'] },
-    to: { label: 'Delmar', names: ['Delmar Boulevard'] },
-    center: [38.64, -90.261],
-    anchor: 'central-west-end',
-    neighborhoods: ['central-west-end'],
-    website: 'https://cwescene.com/',
-  },
-  {
-    id: 'south-grand',
-    name: 'South Grand',
-    road: 'Grand Boulevard',
-    streetNames: ['South Grand Boulevard', 'South Grand Avenue'],
-    from: { label: 'Arsenal', names: ['Arsenal Street'] },
-    to: { label: 'Utah', names: ['Utah Street', 'Utah Place'] },
-    center: [38.5965, -90.2438],
-    anchor: 'tower-grove-south',
-    neighborhoods: ['tower-grove-south', 'tower-grove-east'],
-  },
-  {
-    id: 'morganford',
-    name: 'Morganford',
-    road: 'Morganford Road',
-    streetNames: ['Morganford Road', 'Morgan Ford Road'],
-    from: { label: 'Arsenal', names: ['Arsenal Street'] },
-    to: { label: 'Utah', names: ['Utah Street', 'Utah Place'] },
-    center: [38.5965, -90.2565],
-    anchor: 'tower-grove-south',
-    neighborhoods: ['tower-grove-south'],
-  },
-  {
-    id: 'hampton',
-    name: 'Hampton Avenue',
-    road: 'Hampton Avenue',
-    streetNames: ['Hampton Avenue', 'South Hampton Avenue'],
-    from: { label: 'Chippewa', names: ['Chippewa Street', 'Chippewa Avenue'] },
-    to: {
-      label: 'Gravois',
-      names: ['Gravois Avenue', 'Eichelberger Street', 'Eichelberger Avenue'],
-    },
-    center: [38.583, -90.2935],
-    anchor: 'hampton-avenue',
-    neighborhoods: ['st-louis-hills', 'southampton', 'princeton-heights'],
-  },
-  {
-    id: 'macklind',
-    name: 'Macklind',
-    road: 'Macklind Avenue',
-    streetNames: ['Macklind Avenue', 'South Macklind Avenue'],
-    from: { label: 'Lansdowne', names: ['Lansdowne Avenue'] },
-    to: { label: 'Nottingham', names: ['Nottingham Avenue'] },
-    center: [38.589, -90.2846],
-    anchor: 'hampton-avenue',
-    neighborhoods: ['southampton'],
-  },
-  {
-    id: 'the-hill',
-    include: ["Gioia's Deli"],
-    name: 'The Hill',
-    road: 'Marconi Avenue',
-    streetNames: ['Marconi Avenue'],
-    from: { label: 'Shaw', names: ['Shaw Avenue'] },
-    to: { label: 'Elizabeth', names: ['Elizabeth Avenue'] },
-    center: [38.614, -90.276],
-    anchor: 'the-hill',
-    neighborhoods: ['the-hill'],
-    website: 'https://www.hillstl.org/',
-  },
-  {
-    id: 'bevo',
-    name: 'Bevo',
-    road: 'Gravois Avenue',
-    streetNames: ['Gravois Avenue', 'Gravois Road'],
-    from: { label: 'Taft', names: ['Taft Avenue'] },
-    to: { label: 'Christy', names: ['Christy Boulevard', 'Christy Avenue'] },
-    center: [38.581, -90.269],
-    anchor: 'bevo',
-    neighborhoods: ['bevo-mill'],
-  },
-  {
-    id: 'delmar-loop',
-    name: 'The Delmar Loop',
-    road: 'Delmar Boulevard',
-    streetNames: ['Delmar Boulevard'],
-    from: { label: 'Leland', names: ['Leland Avenue'] },
-    to: { label: 'the Pageant', coord: [38.65513, -90.2965] },
-    center: [38.656, -90.304],
-    anchor: 'the-delmar-loop',
-    neighborhoods: ['university-city', 'skinker-debaliviere', 'west-end'],
-    website: 'https://visittheloop.com/',
-  },
-  {
-    id: 'demun',
-    name: 'DeMun',
-    road: 'DeMun Avenue',
-    streetNames: [
-      'De Mun Avenue',
-      'DeMun Avenue',
-      'Demun Avenue',
-      'South De Mun Avenue',
-      'North De Mun Avenue',
-    ],
-    from: { label: 'Northwood', names: ['Northwood Avenue'] },
-    to: { label: 'Southwood', names: ['Southwood Avenue'] },
-    center: [38.642, -90.3167],
-    anchor: 'demun',
-    neighborhoods: ['clayton'],
-  },
-  {
-    id: 'carondelet',
-    name: 'Carondelet',
-    road: 'South Broadway',
-    streetNames: ['South Broadway'],
-    from: { label: 'Blow', names: ['Blow Street'] },
-    to: { label: 'Steins', names: ['West Steins Street', 'East Steins Street', 'Steins Street'] },
-    center: [38.55, -90.247],
-    anchor: 'carondelet',
-    neighborhoods: ['carondelet'],
-  },
-  {
-    id: 'south-town',
-    name: 'Southtown',
-    road: 'South Kingshighway',
-    streetNames: ['South Kingshighway Boulevard', 'Kingshighway Boulevard'],
-    from: { label: 'Fyler', names: ['Fyler Avenue', 'Arsenal Street'] },
-    to: { label: 'Devonshire', names: ['Devonshire Avenue'] },
-    center: [38.594, -90.2646],
-    anchor: 'southtown',
-    neighborhoods: ['north-hampton', 'southampton', 'tower-grove-south'],
-  },
-  {
-    id: 'maplewood',
-    name: 'Maplewood',
-    road: 'Manchester Road',
-    streetNames: ['Manchester Road', 'Manchester Avenue'],
-    from: { label: 'Big Bend', names: ['South Big Bend Boulevard', 'Big Bend Boulevard'] },
-    to: { label: 'Bellevue', names: ['Bellevue Avenue', 'South Bellevue Avenue'] },
-    center: [38.612, -90.32],
-    anchor: 'maplewood',
-    neighborhoods: ['maplewood'],
-    website: 'https://www.maplewoodmo.gov/',
-  },
-  {
-    id: 'old-webster',
-    include: ['Telva at the Ridge'],
-    name: 'Old Webster',
-    road: 'Lockwood Avenue',
-    streetNames: ['West Lockwood Avenue', 'East Lockwood Avenue', 'Lockwood Avenue'],
-    from: { label: 'Jefferson', names: ['Jefferson Road'] },
-    to: { label: 'Maple', names: ['North Maple Avenue', 'South Maple Avenue'] },
-    center: [38.592, -90.357],
-    anchor: 'webster-groves',
-    neighborhoods: ['webster-groves'],
-    website: 'https://www.webstergrovesmo.gov/',
-  },
-  {
-    id: 'kirkwood',
-    name: 'Kirkwood',
-    road: 'Kirkwood Road',
-    streetNames: ['North Kirkwood Road', 'South Kirkwood Road', 'Kirkwood Road'],
-    from: { label: 'Bodley', names: ['East Bodley Avenue', 'West Bodley Avenue'] },
-    to: { label: 'Monroe', names: ['West Monroe Avenue', 'East Monroe Avenue'] },
-    center: [38.583, -90.4068],
-    anchor: 'kirkwood',
-    neighborhoods: ['kirkwood'],
-    website: 'https://www.downtownkirkwood.com/',
-  },
-  {
-    id: 'lafayette-square',
-    include: ["Clementine's Creamery"],
-    name: 'Lafayette Square',
-    road: 'Park Avenue',
-    streetNames: ['Park Avenue'],
-    from: { label: 'Mississippi', names: ['Mississippi Avenue'] },
-    to: { label: '18th', names: ['South 18th Street', '18th Street'] },
-    center: [38.6155, -90.2125],
-    anchor: 'lafayette-square',
-    neighborhoods: ['lafayette-square'],
-    website: 'https://lafayettesquare.org/',
-  },
-  {
-    id: 'gore',
-    name: 'Gore Avenue',
-    label: 'Gore',
-    road: 'North Gore Avenue',
-    streetNames: ['North Gore Avenue', 'Gore Avenue'],
-    from: {
-      label: 'Lockwood',
-      names: ['West Lockwood Avenue', 'East Lockwood Avenue', 'Lockwood Avenue'],
-    },
-    to: {
-      label: 'Kirkham',
-      names: ['West Kirkham Avenue', 'East Kirkham Avenue', 'Kirkham Avenue'],
-    },
-    center: [38.5945, -90.3596],
-    anchor: 'webster-groves',
-    neighborhoods: [],
-  },
-  {
-    id: 'soulard',
-    include: [
-      'Soulard Farmers Market',
-      "Bogart's Smokehouse",
-      "Molly's in Soulard",
-      "D's Place",
-      "Cat's Meow",
-      "Big Daddy's Soulard",
-      "Jack Nolen's",
-    ],
-    name: 'Soulard',
-    road: 'South 12th Street',
-    streetNames: ['South 12th Street'],
-    from: { label: 'Shenandoah', names: ['Shenandoah Avenue'] },
-    to: { label: 'Gravois', coord: [38.61013, -90.20861] },
-    center: [38.6075, -90.2103],
-    anchor: 'soulard',
-    neighborhoods: ['soulard'],
-    website: 'https://www.soulard.org/',
-  },
-  {
-    id: 'dogtown',
-    name: 'Dogtown',
-    road: 'Tamm Avenue',
-    streetNames: ['Tamm Avenue'],
-    from: { label: 'Oakland', names: ['Oakland Avenue'] },
-    to: { label: 'Mitchell', names: ['Mitchell Place', 'Mitchell Avenue'] },
-    center: [38.629, -90.2927],
-    anchor: 'dogtown',
-    neighborhoods: ['dogtown'],
-  },
-  {
-    id: 'dogtown-clayton',
-    name: 'Dogtown',
-    label: 'Clayton Ave',
-    road: 'Clayton Avenue',
-    streetNames: ['Clayton Avenue'],
-    from: { label: 'Childress', names: ['Childress Avenue'] },
-    to: { label: 'Graham', names: ['Graham Street', 'Graham Avenue'] },
-    center: [38.6286, -90.2922],
-    anchor: 'dogtown',
-    neighborhoods: [],
-  },
-  {
-    id: 'shaw',
-    include: ["Sasha's on Shaw", 'Fiddlehead Fern Cafe'],
-    name: 'Shaw',
-    road: 'South 39th Street',
-    streetNames: ['South 39th Street', '39th Street'],
-    from: { label: 'Shaw', names: ['Shaw Boulevard'] },
-    to: { label: 'Magnolia', names: ['Magnolia Avenue'] },
-    center: [38.61, -90.2459],
-    anchor: 'shaw',
-    neighborhoods: ['shaw'],
-  },
-  {
-    id: 'washington-avenue',
-    name: 'Washington Avenue',
-    road: 'Washington Avenue',
-    streetNames: ['Washington Avenue'],
-    from: { label: '6th', names: ['North 6th Street', '6th Street'] },
-    to: { label: '18th', names: ['North 18th Street', '18th Street'] },
-    center: [38.631, -90.197],
-    anchor: 'washington-avenue',
-    neighborhoods: ['downtown'],
-    website: 'https://www.washaveretail.com/',
-  },
-  {
-    id: 'ballpark-village',
-    name: 'Ballpark Village',
-    road: 'Clark Avenue',
-    streetNames: ['Clark Avenue', 'Clark Street'],
-    from: { label: '8th', names: ['South 8th Street', '8th Street'] },
-    to: { label: 'Broadway', names: ['South Broadway', 'Broadway'] },
-    center: [38.6237, -90.1905],
-    anchor: 'ballpark-village',
-    neighborhoods: ['downtown'],
-    website: 'https://www.stlballparkvillage.com/',
-  },
-  {
-    id: 'big-bend',
-    name: 'Old Orchard',
-    road: 'Big Bend Boulevard',
-    streetNames: ['Big Bend Boulevard', 'South Big Bend Boulevard'],
-    from: { label: 'Lockwood', names: ['East Lockwood Avenue', 'Lockwood Avenue'] },
-    to: { label: 'Oakwood', names: ['Oakwood Avenue', 'Laclede Station Road'] },
-    center: [38.603, -90.348],
-    anchor: 'webster-groves',
-    neighborhoods: ['webster-groves'],
-    website: 'https://www.oldorchardwebstergroves.com/',
-  },
-]
+const STREETS_PATH = fileURLToPath(new URL('../src/data/streets.json', import.meta.url))
+const data = JSON.parse(readFileSync(STREETS_PATH, 'utf8'))
 
 const sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds))
 
@@ -379,23 +48,23 @@ const nameRegex = (names) => `^(${names.join('|')})$`
 const bboxAround = ([lat, lng], margin) =>
   `${lat - margin},${lng - margin * 1.25},${lat + margin},${lng + margin * 1.25}`
 
-async function resolveEndpoint(street, endpoint) {
+async function resolveEndpoint(query, endpoint) {
   if (!endpoint.names && endpoint.coord) {
     const [lat, lng] = endpoint.coord
 
     return { lat, lng, nodeCount: 0 }
   }
 
-  const bbox = bboxAround(street.center, 0.04)
-  const query = `[out:json][timeout:30];
-way["highway"]["highway"!~"_link"]["name"~"${nameRegex(street.roadNames)}"](${bbox});
+  const bbox = bboxAround(query.center, 0.04)
+  const request = `[out:json][timeout:30];
+way["highway"]["highway"!~"_link"]["name"~"${nameRegex(query.roadNames)}"](${bbox});
 node(w)->.street_nodes;
 way["highway"]["highway"!~"_link"]["name"~"${nameRegex(endpoint.names)}"](${bbox});
 node(w)->.cross_nodes;
 node.street_nodes.cross_nodes;
 out;`
 
-  const result = await overpass(query)
+  const result = await overpass(request)
   const nodes = result.elements.filter((element) => element.type === 'node')
 
   if (nodes.length === 0) {
@@ -414,16 +83,16 @@ out;`
   return { lat, lng, nodeCount: nodes.length }
 }
 
-async function fetchStreetPoints(street, start, end) {
+async function fetchStreetPoints(query, start, end) {
   const south = Math.min(start.lat, end.lat) - 0.004
   const north = Math.max(start.lat, end.lat) + 0.004
   const west = Math.min(start.lng, end.lng) - 0.005
   const east = Math.max(start.lng, end.lng) + 0.005
-  const query = `[out:json][timeout:30];
-way["highway"]["highway"!~"_link"]["name"~"${nameRegex(street.roadNames)}"](${south},${west},${north},${east});
+  const request = `[out:json][timeout:30];
+way["highway"]["highway"!~"_link"]["name"~"${nameRegex(query.roadNames)}"](${south},${west},${north},${east});
 out geom;`
 
-  const result = await overpass(query)
+  const result = await overpass(request)
   const points = []
   for (const element of result.elements) {
     if (element.type === 'way' && element.geometry) {
@@ -487,30 +156,22 @@ function buildLine(points, start, end) {
 
 const onlyIds = process.argv.slice(2)
 const targets =
-  onlyIds.length > 0 ? streets.filter((street) => onlyIds.includes(street.id)) : streets
-
-const existing = new Map()
-if (onlyIds.length > 0) {
-  try {
-    for (const entry of JSON.parse(readFileSync(OUTPUT_PATH, 'utf8')).streets) {
-      existing.set(entry.id, entry)
-    }
-  } catch {}
-}
+  onlyIds.length > 0 ? data.streets.filter((street) => onlyIds.includes(street.id)) : data.streets
 
 const problems = []
+let updated = 0
 
 for (const street of targets) {
-  console.log(`\n${street.name} (${street.road}, ${street.from.label} -> ${street.to.label})`)
+  console.log(`\n${street.name} (${street.road}, ${street.from} -> ${street.to})`)
 
-  const start = await resolveEndpoint(street, street.from)
+  const start = await resolveEndpoint(street.query, street.query.from)
   await sleep(2500)
-  const end = await resolveEndpoint(street, street.to)
+  const end = await resolveEndpoint(street.query, street.query.to)
   await sleep(2500)
 
   if (!start || !end) {
     problems.push(`${street.id}: unresolved endpoint (start=${!!start}, end=${!!end})`)
-    console.log('  FAILED to resolve endpoints')
+    console.log('  FAILED to resolve endpoints, keeping the existing line')
     continue
   }
 
@@ -519,13 +180,15 @@ for (const street of targets) {
       ` | end ${end.lat.toFixed(5)},${end.lng.toFixed(5)} (${end.nodeCount} nodes)`,
   )
 
-  const points = await fetchStreetPoints(street, start, end)
+  const points = await fetchStreetPoints(street.query, start, end)
   await sleep(2500)
   const built = buildLine(points, start, end)
 
   if (!built) {
     problems.push(`${street.id}: too few points (${points.length} raw)`)
-    console.log(`  FAILED to build line from ${points.length} raw points`)
+    console.log(
+      `  FAILED to build line from ${points.length} raw points, keeping the existing line`,
+    )
     continue
   }
 
@@ -534,37 +197,17 @@ for (const street of targets) {
     `  ${points.length} raw points -> ${built.line.length} line points, ~${miles} mi end to end`,
   )
 
-  existing.set(street.id, {
-    id: street.id,
-    name: street.name,
-    label: street.label,
-    road: street.road,
-    from: street.from.label,
-    to: street.to.label,
-    anchor: street.anchor,
-    neighborhoods: street.neighborhoods,
-    website: street.website,
-    include: street.include,
-    exclude: street.exclude,
-    line: built.line,
-  })
+  street.line = built.line
+  updated += 1
 }
 
-const output = streets.map((street) => existing.get(street.id)).filter(Boolean)
-
+const prettierOptions = await resolveConfig(STREETS_PATH)
 writeFileSync(
-  OUTPUT_PATH,
-  `${JSON.stringify(
-    {
-      source: 'Street geometry extracted from OpenStreetMap via the Overpass API (ODbL)',
-      streets: output,
-    },
-    null,
-    2,
-  )}\n`,
+  STREETS_PATH,
+  await format(JSON.stringify(data), { ...prettierOptions, filepath: STREETS_PATH }),
 )
 
-console.log(`\nWrote ${output.length}/${streets.length} streets to ${OUTPUT_PATH}`)
+console.log(`\nUpdated ${updated}/${targets.length} street lines in ${STREETS_PATH}`)
 if (problems.length > 0) {
   console.log('Problems:')
   for (const problem of problems) {

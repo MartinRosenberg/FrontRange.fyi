@@ -100,11 +100,9 @@ function setupComments(root: HTMLElement): void {
     }
   }
 
-  const appendEntries = (entries: CommentEntry[]): void => {
-    for (const entry of entries) {
-      entriesList.append(buildEntry(entry))
-    }
-    shown += entries.length
+  const prependOlderEntries = (newestFirst: CommentEntry[]): void => {
+    entriesList.prepend(...[...newestFirst].reverse().map(buildEntry))
+    shown += newestFirst.length
   }
 
   const loadPage = async (): Promise<void> => {
@@ -116,7 +114,7 @@ function setupComments(root: HTMLElement): void {
       total = 0
     }
 
-    appendEntries(entries)
+    prependOlderEntries(entries)
     renderCount()
   }
 
@@ -178,7 +176,7 @@ function setupComments(root: HTMLElement): void {
     try {
       await addComment({ kind, slug, name, message })
 
-      entriesList.prepend(
+      entriesList.append(
         buildEntry({
           id: 0,
           name,
