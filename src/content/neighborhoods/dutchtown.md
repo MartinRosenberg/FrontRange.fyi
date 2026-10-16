@@ -1,7 +1,7 @@
 ---
 title: Dutchtown
 created: 10-13-2026
-description: St. Louis’s most populous and densest neighborhood
+description: Historically German neighborhood in South City
 url: https://dutchtownstl.org/
 ---
 

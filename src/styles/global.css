@@ -1186,7 +1186,7 @@ body:has(.map-split) main > .wrap,
 .map-legend {
   position: absolute;
   inset-block-start: var(--spacing-sm);
-  inset-inline-start: var(--spacing-sm);
+  inset-inline-end: var(--spacing-sm);
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -2105,16 +2105,15 @@ body:has([data-filter-root]) .masthead-nav {
   background-color: var(--color-background) !important;
 }
 
-.maplibregl-ctrl-top-right {
-  top: var(--spacing-sm) !important;
-  right: var(--spacing-sm) !important;
+.maplibregl-ctrl-bottom-left {
+  bottom: var(--spacing-sm) !important;
+  left: var(--spacing-sm) !important;
 }
 
 .maplibregl-ctrl-attrib {
   background-color: var(--color-background) !important;
   color: var(--color-muted) !important;
   border-radius: var(--radius-pill) !important;
-  padding: 2px var(--spacing-sm) !important;
   font-family: var(--font-sans-serif);
   font-size: var(--font-size-xxs);
   white-space: nowrap;
@@ -2137,7 +2136,7 @@ body:has([data-filter-root]) .masthead-nav {
 @media (min-width: 701px) {
   body:has([data-city-map], [data-map-pane])
     :is(.maplibregl-ctrl-bottom-left, .maplibregl-ctrl-bottom-right) {
-    bottom: var(--river-height);
+    bottom: calc(var(--river-height) + var(--spacing-sm)) !important;
   }
 }
 

@@ -21,7 +21,6 @@ import type { MapSpot } from '../lib/spots'
 
 const CITY_VIEW_PADDING = 40
 const CITY_VIEW_ZOOM_IN = 0.5
-const CITY_VIEW_RIVER_MARGIN = 0.15
 const FILTER_FIT_PADDING = 40
 const FILTER_FIT_MAX_ZOOM = 12
 
@@ -433,7 +432,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
   function frameSpots(animate: boolean): void {
     const shown = visibleSpots()
     if (!visibleIds || shown.length === 0) {
-      frameCityView(map, CITY_VIEW_PADDING, true, CITY_VIEW_ZOOM_IN, CITY_VIEW_RIVER_MARGIN)
+      frameCityView(map, CITY_VIEW_PADDING, CITY_VIEW_ZOOM_IN)
 
       return
     }

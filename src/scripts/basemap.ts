@@ -56,7 +56,11 @@ export function createBasemapMap(
 ): maplibregl.Map {
   registerPmtilesProtocol()
 
-  const { attributionPosition = 'top-right', attributionCollapsed = false, ...mapOptions } = options
+  const {
+    attributionPosition = 'bottom-left',
+    attributionCollapsed = false,
+    ...mapOptions
+  } = options
   const attribution = mapOptions.attributionControl ?? { compact: false }
   const map = new maplibregl.Map({
     container,

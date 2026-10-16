@@ -12,8 +12,6 @@ There are a lot of notable features in the area that distinguish it from other p
 
 [The Pageant](https://www.thepageant.com/) and Delmar Hall are two back-to-back concert halls that host many of the bands and artists that pass through St. Louis. The Loop is also a big part of the restaurant scene of St. Louis. There is a large representation of Asian cuisine in the area as well, including Corner 17 and my personal favorite, [[kishimoto-mendo|Kishimoto Mendo]].
 
-Note that this whole highlighted neighborhood is actually called Skinker DeBaliviere, but The Loop is the defining point of interest, though much of it is located outside the confines of the city in University City. Neighborhood boundaries do not always exactly reflect the actual borders of areas of interest.
-
 ### Impressions
 
 The Delmar Loop is right along the Delmar Divide, and is still recovering from store closures during the Covid era. I've seen some strange and unpleasant activity along the strip at night when the restaurants are closed but people are all indoors for the concerts, so I hope restaurants like Kishimoto Mendo keep opening up along the strip and it continues to be more lively.

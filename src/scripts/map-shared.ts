@@ -355,8 +355,6 @@ export function settlePopup(
 export const CITY_BOUNDS = CONFIGURED_CITY_BOUNDS as [[number, number], [number, number]]
 
 interface BoundsLike {
-  getWest(): number
-  getEast(): number
   getNorth(): number
   getSouth(): number
 }
@@ -374,36 +372,17 @@ interface FramableMap {
   setZoom(zoom: number): void
 }
 
-const RIVER_MARGIN = 0.06
-
-export function frameCityView(
-  map: FramableMap,
-  padding: number,
-  anchorRiver = true,
-  zoomOffset = 0,
-  riverMargin = RIVER_MARGIN,
-): void {
+export function frameCityView(map: FramableMap, padding: number, zoomOffset = 0): void {
   map.fitBounds(CITY_BOUNDS, { padding, animate: false })
   if (zoomOffset !== 0) {
     map.setZoom(map.getZoom() + zoomOffset)
   }
 
-  if (!anchorRiver) {
-    return
-  }
-
   const visibleBounds = map.getBounds()
   const visibleLatSpan = visibleBounds.getNorth() - visibleBounds.getSouth()
-  const visibleLngSpan = visibleBounds.getEast() - visibleBounds.getWest()
   const center = map.getCenter()
 
-  const biasedLat = center.lat - visibleLatSpan * 0.1
-
-  const riverEdge = CITY_BOUNDS[1][0]
-  const westBiasedLng = riverEdge + visibleLngSpan * riverMargin - visibleLngSpan / 2
-  const biasedLng = Math.min(center.lng, westBiasedLng)
-
-  map.setCenter([biasedLng, biasedLat])
+  map.setCenter([center.lng, center.lat - visibleLatSpan * 0.1])
 }
 
 export function topChromeBottom(): number {
