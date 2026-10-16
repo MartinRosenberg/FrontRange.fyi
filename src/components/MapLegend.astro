@@ -2,6 +2,7 @@
 import Icon from './Icon.astro'
 import IconCheck from '../assets/IconCheck.astro'
 import IconChevronDown from '../assets/IconChevronDown.astro'
+import IconX from '../assets/IconX.astro'
 import type { LegendItem } from '../lib/legend'
 
 interface Props {
@@ -40,6 +41,10 @@ const LEGEND_DOT_LIMIT = 4
               {shown} of {items.length} shown
             </span>
           </button>
+          <slot name="actions" />
+          <button type="button" class="close-button" data-legend-close aria-label="Close filter">
+            <IconX />
+          </button>
         </div>
         <div class="map-legend-body" id="map-legend-body" data-legend-body>
         <ul class="map-legend-list" role="list" aria-label="Map legend">
@@ -60,7 +65,7 @@ const LEGEND_DOT_LIMIT = 4
               </button>
               <button
                 type="button"
-                class="map-legend-only"
+                class="text-button map-legend-only"
                 data-legend-only={item.key}
                 aria-label={`Show only ${item.label}`}>
                 only
@@ -79,10 +84,6 @@ const LEGEND_DOT_LIMIT = 4
           scroll for more…
           <IconChevronDown />
         </p>
-        <div class="map-legend-actions action-buttons">
-          <slot name="actions" />
-          <button type="button" class="btn btn-outline" data-legend-close>Close</button>
-        </div>
         </div>
       </div>
     </div>

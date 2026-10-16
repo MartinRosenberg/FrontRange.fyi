@@ -1,15 +1,15 @@
 ---
 interface Props {
-  variant?: 'button' | 'outline'
+  variant?: 'button' | 'text'
 }
 
 const { variant = 'button' } = Astro.props
 ---
 
 {
-  variant === 'outline' ? (
-    <button type="button" class="btn btn-outline" data-filter-clear hidden>
-      Clear filters
+  variant === 'text' ? (
+    <button type="button" class="text-button" data-filter-clear hidden>
+      Clear
     </button>
   ) : (
     <button type="button" class="btn btn-dark btn-compact filter-clear" data-filter-clear hidden>
