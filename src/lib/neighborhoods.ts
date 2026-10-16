@@ -60,7 +60,7 @@ export interface NeighborhoodInfo {
   type?: string
   coords?: [number, number]
   officialName?: string
-  street?: string
+  streets?: string[]
 }
 
 const infoBySlug = new Map<string, NeighborhoodInfo>(
@@ -176,10 +176,6 @@ export function neighborhoodGeneratedSummary(slug: string): string | undefined {
   if (!info) {
     return undefined
   }
-  const street = districtStreet(slug)
-  if (street) {
-    return `${info.name}, a district along ${street.road}`
-  }
   if (info.type) {
     return `${info.name}, a ${info.type} in ${info.group}`
   }
@@ -209,15 +205,16 @@ export function neighborhoodMetaDescription(
     return undefined
   }
 
-  const street = districtStreet(slug)
+  const districtAreas = districtNeighborhoods(slug)
   const official = officialNames(slug)
   const namedAs =
     official.length > 0 ? `${info.name} (officially ${joinNames(official)})` : info.name
-  const opening = street
-    ? `${info.name} is a district along ${street.road} in ${joinNames(districtNeighborhoodNames(street))}`
-    : info.type
-      ? `${info.name} is a ${info.type} in ${info.group}`
-      : `${namedAs} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
+  const opening =
+    districtAreas.length > 0
+      ? `${info.name} is a district in ${joinNames(districtAreas.map(neighborhoodName))}`
+      : info.type
+        ? `${info.name} is a ${info.type} in ${info.group}`
+        : `${namedAs} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
   const borderNames = neighbors.slice(0, 3).map((neighbor) => neighbor.name)
   const borderClause = borderNames.length > 0 ? `, bordering ${joinNames(borderNames)}` : ''
   const foodClause =
@@ -261,18 +258,18 @@ export function streetsIn(slug: string): Street[] {
   return (streetData.streets as Street[]).filter((street) => street.neighborhoods.includes(slug))
 }
 
-export function districtStreet(slug: string): Street | undefined {
-  const streetId = infoBySlug.get(slug)?.street
+export function districtStreets(slug: string): Street[] {
+  const streetIds = infoBySlug.get(slug)?.streets ?? []
 
-  return streetId ? allStreets().find((street) => street.id === streetId) : undefined
+  return streetIds.flatMap((streetId) => allStreets().filter((street) => street.id === streetId))
+}
+
+export function districtNeighborhoods(slug: string): string[] {
+  return [...new Set(districtStreets(slug).flatMap((street) => street.neighborhoods))]
 }
 
 export function districtForStreet(streetId: string): NeighborhoodInfo | undefined {
-  return [...infoBySlug.values()].find((info) => info.street === streetId)
-}
-
-function districtNeighborhoodNames(street: Street): string[] {
-  return street.neighborhoods.map((slug) => neighborhoodName(slug))
+  return [...infoBySlug.values()].find((info) => info.streets?.includes(streetId))
 }
 
 const officialNamesOf = officialNamesBySlug(neighborhoods)

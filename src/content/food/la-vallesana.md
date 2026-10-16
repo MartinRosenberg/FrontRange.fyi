@@ -5,6 +5,7 @@ status: tried
 description: Cherokee Street Mexican restaurant
 cuisine: ['mexican']
 neighborhood: benton-park-west
+district: cherokee-street
 address:
   - 2801 Cherokee St
   - St. Louis, MO 63118

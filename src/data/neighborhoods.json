@@ -323,6 +323,14 @@
     "slug": "delmar-loop",
     "group": "Central Corridor",
     "type": "district",
-    "street": "delmar-loop"
+    "streets": ["delmar-loop"]
+  },
+  {
+    "number": 99,
+    "name": "Cherokee Street",
+    "slug": "cherokee-street",
+    "group": "South City",
+    "type": "district",
+    "streets": ["cherokee", "cherokee-antique-row"]
   }
 ]

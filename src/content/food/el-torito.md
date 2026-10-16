@@ -5,6 +5,7 @@ status: want-to-try
 description: Taqueria and supermercado on Cherokee
 cuisine: ['mexican']
 neighborhood: benton-park-west
+district: cherokee-street
 address:
   - 2753 Cherokee St
   - St. Louis, MO 63118

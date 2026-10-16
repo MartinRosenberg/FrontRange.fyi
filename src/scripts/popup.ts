@@ -23,6 +23,7 @@ export interface PopupConfig {
   excerpt?: string
   category?: string
   icon?: string
+  swatchColor?: string
   voteSlug?: string
 }
 
@@ -40,17 +41,20 @@ export function badgeIconNode(category: string, icon?: string): Node | undefined
   )
 }
 
-export function categorySwatchNode(category: string, iconName?: string): HTMLSpanElement {
+function swatchNode(color: string, icon?: Node): HTMLSpanElement {
   const swatch = document.createElement('span')
   swatch.className = 'map-legend-swatch'
-  swatch.style.setProperty('--badge-color', `var(--color-spot-${category})`)
+  swatch.style.setProperty('--badge-color', color)
   swatch.setAttribute('aria-hidden', 'true')
-  const icon = badgeIconNode(category, iconName)
   if (icon) {
     swatch.append(icon)
   }
 
   return swatch
+}
+
+export function categorySwatchNode(category: string, iconName?: string): HTMLSpanElement {
+  return swatchNode(`var(--color-spot-${category})`, badgeIconNode(category, iconName))
 }
 
 function categorySwatchHtml(category: string, iconName?: string): string {
@@ -110,6 +114,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     excerpt = '',
     category = '',
     icon,
+    swatchColor = '',
     voteSlug = '',
   } = config
 
@@ -138,7 +143,12 @@ export function buildPopupHtml(config: PopupConfig): string {
   const metaInner = chips
     .map(chipHtml)
     .join('<span class="eyebrow-divider" aria-hidden="true"></span>')
-  const swatchHtml = category ? categorySwatchHtml(category, icon) : ''
+  const swatchHtml = category
+    ? categorySwatchHtml(category, icon)
+    : swatchColor
+      ? swatchNode(swatchColor, icon ? templateIconNode(`[data-icon="${icon}"]`) : undefined)
+          .outerHTML
+      : ''
   const metaHtml =
     metaInner || swatchHtml
       ? `<div class="popup-meta list-eyebrow">${swatchHtml}${metaInner}</div>`

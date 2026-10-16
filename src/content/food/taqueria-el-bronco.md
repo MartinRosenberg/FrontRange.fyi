@@ -5,6 +5,7 @@ status: tried
 description: Cherokee Street taqueria
 cuisine: ['mexican']
 neighborhood: benton-park-west
+district: cherokee-street
 address:
   - 2817 Cherokee St
   - St. Louis, MO 63118

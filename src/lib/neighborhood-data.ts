@@ -11,7 +11,7 @@ export interface NeighborhoodRecord {
   ignored?: boolean
   mergedInto?: string
   officialName?: string
-  street?: string
+  streets?: string[]
 }
 
 export const neighborhoodRecords = optionalData<NeighborhoodRecord[]>(
@@ -20,3 +20,5 @@ export const neighborhoodRecords = optionalData<NeighborhoodRecord[]>(
 )
 
 export const NEIGHBORHOODS_ENABLED = neighborhoodRecords.length > 0
+
+export const NEIGHBORHOOD_ICON = 'building-community'

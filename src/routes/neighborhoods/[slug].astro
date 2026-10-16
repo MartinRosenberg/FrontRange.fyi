@@ -26,7 +26,8 @@ import { isoDate } from '../../lib/dates'
 import { getBacklinks } from '../../lib/backlinks'
 import {
   districtForStreet,
-  districtStreet,
+  districtNeighborhoods,
+  districtStreets,
   foodByNeighborhood,
   neighborBearing,
   neighborhoodInfo,
@@ -87,14 +88,16 @@ const sharePhoto = entry?.data.photo
 const hasWriteup = Boolean(entry?.body && entry.body.trim())
 const backlinks = entry ? await getBacklinks(entry.id) : []
 
-const district = districtStreet(slug)
-const districtMembers = district ? await districtPlaces(slug) : undefined
+const districtLines = districtStreets(slug)
+const districtAreas = districtNeighborhoods(slug)
+const isDistrict = districtLines.length > 0
+const districtMembers = isDistrict ? await districtPlaces(slug) : undefined
 const districtShape = await districtBoundary(slug)
 
 const spots = districtMembers?.spots ?? spotsIn(slug)
 
 const population = neighborhoodPopulation(slug)
-const listedNeighbors = district?.neighborhoods ?? entry?.data.neighbors ?? []
+const listedNeighbors = isDistrict ? districtAreas : (entry?.data.neighbors ?? [])
 const neighbors =
   listedNeighbors.length > 0
     ? listedNeighbors.flatMap((neighborSlug) => {
@@ -107,7 +110,7 @@ const festivals = festivalsIn(slug)
 const walkableStLouisLive = published(await getCollection('topics')).some(
   (topic) => topic.id === STREETS_TOPIC_ID,
 )
-const streets = walkableStLouisLive ? (district ? [district] : streetsIn(slug)) : []
+const streets = walkableStLouisLive ? (isDistrict ? districtLines : streetsIn(slug)) : []
 const streetHref = (street: Street) => {
   const streetDistrict = districtForStreet(street.id)
 
@@ -159,7 +162,7 @@ const isTown = info?.type === 'city' || info?.type === 'community'
 const isPark = info?.type === 'park'
 const placeName = isTown
   ? `${title}, ${REGION_CODE}`
-  : isPark || district
+  : isPark || isDistrict
     ? `${title}, ${CITY}`
     : `${title}, ${CITY} Neighborhood`
 const guideParts = [
@@ -232,7 +235,7 @@ const schema = placeSchema(
             <h1 class="detail-pane-title title-page">{title}</h1>
             {summary && <p class="description description--lg detail-pane-tagline">{summary}</p>}
             {
-              district && (
+              isDistrict && (
                 <p class="detail-pane-kicker">
                   <span class="eyebrow">District in:</span>
                   <span class="detail-pane-kicker-value">
@@ -476,7 +479,7 @@ const schema = placeSchema(
         coords={info?.coords}
         spots={mapSpots}
         boundary={districtShape}
-        partSlugs={district?.neighborhoods}
+        partSlugs={isDistrict ? districtAreas : undefined}
       />
     </div>
   </div>

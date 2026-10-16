@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content'
 import { optionalData } from './optional-data'
 import { published } from './content'
-import { districtForStreet, districtStreet, normalizeName } from './neighborhoods'
+import { districtForStreet, districtStreets, normalizeName } from './neighborhoods'
 import { href } from './url'
 import { projectOntoLine, type LngLat } from './geo'
 import { allSpots, type SpotCategoryKey } from './spots'
@@ -97,12 +97,12 @@ export async function streetSpotsByStreet(): Promise<Record<string, StreetSpot[]
 
   const derivedStreets = streets.filter((street) => !districtForStreet(street.id))
   for (const place of places) {
-    const taggedStreet = place.district ? districtStreet(place.district) : undefined
-    if (taggedStreet) {
-      push(taggedStreet.id, {
-        ...place,
-        along: projectOntoLine(place.coords, taggedStreet.line).along,
-      })
+    const taggedStreets = place.district ? districtStreets(place.district) : []
+    if (taggedStreets.length > 0) {
+      const closest = taggedStreets
+        .map((street) => ({ id: street.id, ...projectOntoLine(place.coords, street.line) }))
+        .reduce((best, projection) => (projection.distance < best.distance ? projection : best))
+      push(closest.id, { ...place, along: closest.along })
       continue
     }
     const nearest = nearestStreet(place.coords, derivedStreets)

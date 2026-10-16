@@ -5,6 +5,7 @@ status: want-to-try
 description: Wood-fired pizza and live music
 cuisine: ['pizza']
 neighborhood: gravois-park
+district: cherokee-street
 address:
   - 2728 Cherokee St
   - St. Louis, MO 63118

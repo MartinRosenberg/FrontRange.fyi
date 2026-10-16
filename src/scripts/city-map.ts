@@ -15,7 +15,7 @@ import {
 } from './map-shared'
 import { createBadge, createClusterBadge, spotPopupHtml, stackBadges } from './map-badges'
 import { activeLegendKeys, bindLegendCollapse, bindLegendToggles } from './map-legend'
-import { neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
+import { NEIGHBORHOOD_ICON, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import type { AreaPopup } from '../lib/neighborhoods'
 import type { MapSpot } from '../lib/spots'
 
@@ -75,6 +75,9 @@ function forEachPosition(geometry: Geometry, visit: (position: Position) => void
 function regionKeyForArea(area: { group?: string; type?: string } | undefined): RegionKey {
   if (area?.type === 'park') {
     return 'park'
+  }
+  if (area?.type === 'district') {
+    return 'district'
   }
   if (area?.group === 'St. Louis County') {
     return 'county'
@@ -248,6 +251,8 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
       link: `${import.meta.env.BASE_URL}neighborhoods/${slug}/`,
       photo: area?.photo ?? '',
       chips,
+      swatchColor: `var(--color-map-${regionKeyForArea(bySlug.get(slug))})`,
+      icon: NEIGHBORHOOD_ICON,
       tagline: area?.tagline ?? '',
       excerpt: area?.excerpt ?? '',
     })

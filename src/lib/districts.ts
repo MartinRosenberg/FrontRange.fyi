@@ -4,7 +4,7 @@ import type { Feature, Polygon } from 'geojson'
 import { published } from './content'
 import { hullAroundPoints, type LngLat } from './geo'
 import { neighborhoodRecords } from './neighborhood-data'
-import { districtStreet } from './neighborhoods'
+import { districtStreets } from './neighborhoods'
 import { allSpots, type Spot } from './spots'
 import { STREET_SPOT_RANGE_METERS } from './street-spots'
 
@@ -21,8 +21,8 @@ export async function districtPlaces(slug: string): Promise<DistrictPlaces> {
 }
 
 export async function districtBoundary(slug: string): Promise<Feature<Polygon> | undefined> {
-  const street = districtStreet(slug)
-  if (!street) {
+  const streets = districtStreets(slug)
+  if (streets.length === 0) {
     return undefined
   }
 
@@ -39,7 +39,12 @@ export async function districtBoundary(slug: string): Promise<Feature<Polygon> |
     properties: { slug },
     geometry: {
       type: 'Polygon',
-      coordinates: [hullAroundPoints([...street.line, ...memberCoords], STREET_SPOT_RANGE_METERS)],
+      coordinates: [
+        hullAroundPoints(
+          [...streets.flatMap((street) => street.line), ...memberCoords],
+          STREET_SPOT_RANGE_METERS,
+        ),
+      ],
     },
   }
 }

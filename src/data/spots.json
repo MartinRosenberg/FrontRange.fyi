@@ -858,6 +858,7 @@
     "name": "Hammond's Antiques & Books",
     "category": "thrift",
     "neighborhoods": ["benton-park"],
+    "district": "cherokee-street",
     "description": "Books, antiques, vintage jewelry, paper and prints on Antique Row.",
     "address": "1939 Cherokee St",
     "url": "https://www.hammondsbooks.net/",
@@ -867,6 +868,7 @@
     "name": "Riverside Antiques",
     "category": "thrift",
     "neighborhoods": ["benton-park"],
+    "district": "cherokee-street",
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "1947 Cherokee St",
     "coords": [-90.22043, 38.59281]
@@ -875,6 +877,7 @@
     "name": "Elder's Antiques",
     "category": "thrift",
     "neighborhoods": ["marine-villa"],
+    "district": "cherokee-street",
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "2124 Cherokee St",
     "coords": [-90.22308, 38.59282]
@@ -883,6 +886,7 @@
     "name": "Lady Jane's Antiques",
     "category": "thrift",
     "neighborhoods": ["marine-villa"],
+    "district": "cherokee-street",
     "description": "Antique shop on Cherokee Antique Row.",
     "address": "2110 Cherokee St",
     "coords": [-90.22252, 38.59278]
@@ -891,6 +895,7 @@
     "name": "Retro 101 / Cherry Bomb Vintage",
     "category": "thrift",
     "neighborhoods": ["marine-villa"],
+    "district": "cherokee-street",
     "description": "Retro and vintage shop on Cherokee Antique Row.",
     "address": "2214 Cherokee St",
     "coords": [-90.22384, 38.59294]
@@ -1104,6 +1109,7 @@
     "name": "Apotheosis Comics (Cherokee)",
     "category": "books",
     "neighborhoods": ["benton-park-west"],
+    "district": "cherokee-street",
     "description": "Second Apotheosis shop at Jefferson and Cherokee, with graphic novels, pop culture goods and art.",
     "address": "3359 S Jefferson Ave",
     "coords": [-90.22586, 38.59344]
@@ -1155,6 +1161,7 @@
     "name": "Nothing Impossible",
     "category": "mural",
     "neighborhoods": ["benton-park-west"],
+    "district": "cherokee-street",
     "description": "Mural by Robert, Liza and Tyler Fishbone, painted in 2018.",
     "address": "3159 Cherokee St",
     "coords": [-90.23671, 38.59483]
