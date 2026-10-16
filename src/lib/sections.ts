@@ -25,7 +25,7 @@ export const sections: Section[] = [
     group: 'explore',
     primary: true,
     icon: 'utensils',
-    description: `An interactive map of my favorite spots across the ${CITY} metro, filterable by cuisine, rating, and neighborhood`,
+    description: `Every restaurant I've tried or want to try across the ${CITY} metro, filterable by cuisine and sorted by rating`,
   },
   ...(NEIGHBORHOODS_ENABLED
     ? [
@@ -35,7 +35,7 @@ export const sections: Section[] = [
           group: 'explore' as const,
           primary: true,
           icon: 'map-pin',
-          description: `The 79 neighborhoods and 9 parks of ${CITY} city, plus a few additional points of interest in the county`,
+          description: `The neighborhoods and parks of St. Louis city, plus county towns, districts, landmarks, museums, and murals`,
         },
       ]
     : []),

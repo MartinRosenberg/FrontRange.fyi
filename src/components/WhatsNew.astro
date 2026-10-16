@@ -6,16 +6,15 @@ import { href } from '../lib/url'
 import PanelHeading from './PanelHeading.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 
-const changes = await Promise.all(
-  (await getChangelog()).map(async (entry) => {
+const LATEST_UPDATE_COUNT = 5
+
+const latestUpdates = await Promise.all(
+  (await getChangelog()).slice(0, LATEST_UPDATE_COUNT).map(async (entry) => {
     const { Content } = await render(entry)
 
     return { date: entry.data.date, Content }
   }),
 )
-const latestUpdates = changes
-  .sort((left, right) => right.date.valueOf() - left.date.valueOf())
-  .slice(0, 3)
 ---
 
 <section class="whats-new">

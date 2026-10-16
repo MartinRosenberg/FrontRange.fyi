@@ -1071,6 +1071,7 @@ body:has(.map-split) main > .wrap,
 .map-badge {
   --badge-size: 30px;
   --badge-icon-size: 16px;
+  z-index: 1;
   display: block;
   width: var(--badge-size);
   height: var(--badge-size);
@@ -1151,6 +1152,7 @@ body:has(.map-split) main > .wrap,
 
 .map-badge[data-category='food'] {
   --badge-color: var(--color-spot-food);
+  z-index: 0;
 }
 
 :is(.map-badge, .map-legend-swatch) .icon {
