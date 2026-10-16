@@ -94,14 +94,12 @@ export function bindLegendToggles(
   }
 
   for (const item of items) {
-    item.addEventListener('click', () => toggle(item))
-  }
-  for (const check of legend.querySelectorAll<HTMLButtonElement>('[data-legend-check]')) {
-    check.addEventListener('click', () => {
-      const item = itemFor(check.dataset.legendCheck ?? '')
-      if (item) {
-        toggle(item)
+    const row = item.closest<HTMLElement>('.map-legend-row') ?? item
+    row.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('[data-legend-only]')) {
+        return
       }
+      toggle(item)
     })
   }
   for (const button of legend.querySelectorAll<HTMLButtonElement>('[data-legend-only]')) {

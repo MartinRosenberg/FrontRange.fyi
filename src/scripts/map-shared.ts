@@ -74,7 +74,7 @@ function ensureSheet(): Sheet {
 
   const close = document.createElement('button')
   close.type = 'button'
-  close.className = 'map-sheet-close'
+  close.className = 'close-button map-sheet-close'
   close.setAttribute('aria-label', 'Close')
   close.append(buildCloseIcon())
   close.addEventListener('click', () => sheet?.owner?.remove())

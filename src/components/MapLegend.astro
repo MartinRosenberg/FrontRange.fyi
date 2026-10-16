@@ -70,13 +70,9 @@ const LEGEND_DOT_LIMIT = 4
                 aria-label={`Show only ${item.label}`}>
                 only
               </button>
-              <button
-                type="button"
-                class="map-legend-check"
-                data-legend-check={item.key}
-                aria-label={`Toggle ${item.label}`}>
+              <span class="map-legend-check" aria-hidden="true">
                 <IconCheck />
-              </button>
+              </span>
             </li>
           ))}
         </ul>

@@ -36,6 +36,7 @@ interface Props {
   ogImageWidth?: number
   ogImageHeight?: number
   noindex?: boolean
+  fixedPageZoom?: boolean
 }
 
 const {
@@ -52,6 +53,7 @@ const {
   ogImageWidth = 1200,
   ogImageHeight = 630,
   noindex = false,
+  fixedPageZoom = false,
 } = Astro.props
 
 const base = import.meta.env.BASE_URL
@@ -129,7 +131,10 @@ const analyticsUrl = analyticsBase
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content={`width=device-width, initial-scale=1, viewport-fit=cover${fixedPageZoom ? ', maximum-scale=1, user-scalable=no' : ''}`}
+    />
 
     {pmtilesOrigin && <link rel="preconnect" href={pmtilesOrigin} crossorigin />}
 
