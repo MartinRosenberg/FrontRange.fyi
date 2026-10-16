@@ -112,6 +112,8 @@ export function bindLegendToggles(
   }
 }
 
+const SCROLL_HINT_STEP = 0.8
+
 function bindLegendScrollHint(legend: HTMLElement): void {
   const list = legend.querySelector<HTMLElement>('.map-legend-list')
   const hint = legend.querySelector<HTMLElement>('[data-legend-more]')
@@ -126,13 +128,17 @@ function bindLegendScrollHint(legend: HTMLElement): void {
 
   list.addEventListener('scroll', update, { passive: true })
   new ResizeObserver(() => requestAnimationFrame(update)).observe(list)
+  hint.addEventListener('click', () => {
+    list.scrollBy({ top: list.clientHeight * SCROLL_HINT_STEP, behavior: 'smooth' })
+  })
 }
 
-const COLLAPSED_ON_LOAD_QUERY = '(max-width: 700px)'
+const NARROW_SCREEN_QUERY = '(max-width: 700px)'
 
 export function bindLegendCollapse(legend: HTMLElement): void {
   const collapse = legend.querySelector<HTMLButtonElement>('[data-legend-collapse]')
   const body = legend.querySelector<HTMLElement>('[data-legend-body]')
+  const narrowScreen = window.matchMedia(NARROW_SCREEN_QUERY)
   const setExpanded = (expanded: boolean) => {
     collapse?.setAttribute('aria-expanded', String(expanded))
     if (body) {
@@ -140,8 +146,17 @@ export function bindLegendCollapse(legend: HTMLElement): void {
     }
   }
 
-  setExpanded(!window.matchMedia(COLLAPSED_ON_LOAD_QUERY).matches)
+  setExpanded(!narrowScreen.matches)
   legend.dataset.legendReady = ''
+  legend.parentElement?.addEventListener(
+    'click',
+    (event) => {
+      if (narrowScreen.matches && event.target instanceof Node && !legend.contains(event.target)) {
+        setExpanded(false)
+      }
+    },
+    { capture: true },
+  )
   collapse?.addEventListener('click', () => {
     setExpanded(collapse.getAttribute('aria-expanded') !== 'true')
   })

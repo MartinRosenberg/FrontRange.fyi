@@ -7,13 +7,10 @@ import type { LegendItem } from '../lib/legend'
 
 interface Props {
   items: LegendItem[]
-  off?: string[]
   facet?: string
 }
 
-const { items, off = [], facet } = Astro.props
-const active = items.filter((item) => !off.includes(item.key))
-const shown = active.length
+const { items, facet } = Astro.props
 const LEGEND_DOT_LIMIT = 4
 ---
 
@@ -32,13 +29,13 @@ const LEGEND_DOT_LIMIT = 4
               <IconChevronDown />
               <span class="map-legend-title">Filter</span>
               <span class="map-legend-dots" data-legend-dots aria-hidden="true">
-                {active.slice(0, LEGEND_DOT_LIMIT).map((item) => (
+                {items.slice(0, LEGEND_DOT_LIMIT).map((item) => (
                   <span class="map-legend-dot" style={`--badge-color: var(${item.token})`} />
                 ))}
               </span>
             </span>
             <span class="map-legend-shown" data-legend-shown>
-              {shown} of {items.length} shown
+              {items.length} of {items.length} shown
             </span>
           </button>
           <slot name="actions" />
@@ -49,12 +46,12 @@ const LEGEND_DOT_LIMIT = 4
         <div class="map-legend-body" id="map-legend-body" data-legend-body>
         <ul class="map-legend-list" role="list" aria-label="Map legend">
           {items.map((item) => (
-            <li class="map-legend-row" data-pressed={off.includes(item.key) ? 'false' : 'true'}>
+            <li class="map-legend-row" data-pressed="true">
               <button
                 type="button"
                 class="map-legend-item"
                 data-legend-key={item.key}
-                aria-pressed={off.includes(item.key) ? 'false' : 'true'}>
+                aria-pressed="true">
                 <span
                   class="map-legend-swatch"
                   style={`--badge-color: var(${item.token})`}
@@ -76,10 +73,16 @@ const LEGEND_DOT_LIMIT = 4
             </li>
           ))}
         </ul>
-        <p class="map-legend-more" data-legend-more hidden aria-hidden="true">
+        <button
+          type="button"
+          class="map-legend-more"
+          data-legend-more
+          hidden
+          tabindex="-1"
+          aria-hidden="true">
           scroll for more…
           <IconChevronDown />
-        </p>
+        </button>
         </div>
       </div>
     </div>
