@@ -1,11 +1,13 @@
 import maplibregl from 'maplibre-gl'
 import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
+import type { Feature, Polygon } from 'geojson'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundariesFor, type BoundaryFeature } from './boundaries'
 import { optionalData } from '../lib/optional-data'
 import { projectOntoLine, type LngLat } from '../lib/geo'
 import { badgeIconNode, categorySwatchNode } from './popup'
 import { stackBadges } from './map-badges'
+import { readPayload } from './map-shared'
 
 const streetData = optionalData<{ streets: unknown[] }>(
   import.meta.glob('../data/streets.json', { eager: true, import: 'default' }),
@@ -18,6 +20,9 @@ const ENDPOINTS_SOURCE_ID = 'street-endpoints'
 const ENDPOINTS_LAYER_ID = 'street-endpoint-dots'
 const LABELS_SOURCE_ID = 'street-labels'
 const LABELS_LAYER_ID = 'street-label-text'
+const DISTRICT_SOURCE_ID = 'street-district'
+const DISTRICT_FILL_LAYER_ID = 'street-district-fill'
+const DISTRICT_OUTLINE_LAYER_ID = 'street-district-outline'
 
 interface Street {
   id: string
@@ -42,20 +47,18 @@ interface Spot {
   link?: string
 }
 
-function readSpotsByStreet(): Record<string, Spot[]> {
-  const holder = document.querySelector('script[data-street-spots]')
-  if (!holder?.textContent) {
-    return {}
-  }
+const spotsByStreet = readPayload<Record<string, Spot[]>>('script[data-street-spots]', {})
+const districtShapes = readPayload<Feature<Polygon>[]>('script[data-street-districts]', [])
 
-  try {
-    return JSON.parse(holder.textContent) as Record<string, Spot[]>
-  } catch {
-    return {}
-  }
+function districtShapesFor(group: Street[]): Feature<Polygon>[] {
+  const streetIds = new Set(group.map((street) => street.id))
+
+  return districtShapes.filter((shape) =>
+    ((shape.properties?.streets as string[] | undefined) ?? []).some((streetId) =>
+      streetIds.has(streetId),
+    ),
+  )
 }
-
-const spotsByStreet = readSpotsByStreet()
 
 const SNAP_METERS = 75
 
@@ -142,7 +145,7 @@ function boundsOf(group: Street[]): LngLatBoundsLike {
   ]
 }
 
-function readStreetColors(): { line: string; halo: string } {
+function readStreetColors(): { line: string; halo: string; label: string; district: string } {
   const styles = getComputedStyle(document.documentElement)
   const readColor = (token: string, fallback: string) =>
     styles.getPropertyValue(token).trim() || fallback
@@ -151,14 +154,23 @@ function readStreetColors(): { line: string; halo: string } {
     line: readColor('--color-map-street', '#c0392b'),
     halo: readColor('--color-background', '#f3efe7'),
     label: readColor('--color-text', '#1b1a17'),
+    district: readColor('--color-map-district', '#1b1a17'),
   }
 }
 
 function applyStreetLayers(map: MapLibreMap, group: Street[]): void {
   const colors = readStreetColors()
   const labeled = group.length > 1
+  const districts = districtShapesFor(group)
 
   if (!map.getSource(SOURCE_ID)) {
+    if (districts.length > 0) {
+      map.addSource(DISTRICT_SOURCE_ID, {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: districts },
+      })
+    }
+
     map.addSource(SOURCE_ID, {
       type: 'geojson',
       data: {
@@ -204,6 +216,10 @@ function applyStreetLayers(map: MapLibreMap, group: Street[]): void {
   }
 
   if (map.getLayer(LINE_LAYER_ID)) {
+    if (map.getLayer(DISTRICT_OUTLINE_LAYER_ID)) {
+      map.setPaintProperty(DISTRICT_FILL_LAYER_ID, 'fill-color', colors.district)
+      map.setPaintProperty(DISTRICT_OUTLINE_LAYER_ID, 'line-color', colors.district)
+    }
     map.setPaintProperty(LINE_LAYER_ID, 'line-color', colors.line)
     map.setPaintProperty(ENDPOINTS_LAYER_ID, 'circle-color', colors.line)
     map.setPaintProperty(ENDPOINTS_LAYER_ID, 'circle-stroke-color', colors.halo)
@@ -213,6 +229,21 @@ function applyStreetLayers(map: MapLibreMap, group: Street[]): void {
     }
 
     return
+  }
+
+  if (districts.length > 0) {
+    map.addLayer({
+      id: DISTRICT_FILL_LAYER_ID,
+      type: 'fill',
+      source: DISTRICT_SOURCE_ID,
+      paint: { 'fill-color': colors.district, 'fill-opacity': 0.08 },
+    })
+    map.addLayer({
+      id: DISTRICT_OUTLINE_LAYER_ID,
+      type: 'line',
+      source: DISTRICT_SOURCE_ID,
+      paint: { 'line-color': colors.district, 'line-width': 2, 'line-opacity': 0.8 },
+    })
   }
 
   map.addLayer({
@@ -302,6 +333,9 @@ function figureBounds(group: Street[]): LngLatBoundsLike {
     for (const spot of spotsByStreet[street.id] ?? []) {
       extend(spot.coords)
     }
+  }
+  for (const shape of districtShapesFor(group)) {
+    shape.geometry.coordinates[0].forEach(extend)
   }
 
   return [

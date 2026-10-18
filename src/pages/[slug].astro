@@ -6,6 +6,7 @@ import BoundaryMap from '../components/BoundaryMap.astro'
 import Comments from '../components/Comments.astro'
 import StreetMap from '../components/StreetMap.astro'
 import { streetSpotsByStreet } from '../lib/street-spots'
+import { districtBoundaries } from '../lib/districts'
 import Entry from '../components/Entry.astro'
 import EntryDates from '../components/EntryDates.astro'
 import { published } from '../lib/content'
@@ -29,6 +30,7 @@ const backlinks = await getBacklinks(entry.id)
 const hasBoundaryMap = (entry.body ?? '').includes('data-boundary-map')
 const hasStreetMap = (entry.body ?? '').includes('data-street-map')
 const streetSpots = hasStreetMap ? await streetSpotsByStreet() : {}
+const streetDistricts = hasStreetMap ? await districtBoundaries() : []
 const aboutSlugs = hasStreetMap
   ? [...new Set(allStreets().flatMap((street) => street.neighborhoods))]
   : []
@@ -66,7 +68,7 @@ const schema = articleSchema(
   modifiedTime={isoDate(data.updated)}
   jsonLd={schema}>
   {hasBoundaryMap && <BoundaryMap />}
-  {hasStreetMap && <StreetMap spots={streetSpots} />}
+  {hasStreetMap && <StreetMap spots={streetSpots} districts={streetDistricts} />}
   <Entry
     title={data.title}
     backlinks={backlinks}

@@ -856,7 +856,7 @@
   },
   {
     "name": "Hammond's Antiques & Books",
-    "category": "thrift",
+    "category": "books",
     "neighborhoods": ["benton-park"],
     "district": "cherokee-street",
     "description": "Books, antiques, vintage jewelry, paper and prints on Antique Row.",
@@ -899,6 +899,16 @@
     "description": "Retro and vintage shop on Cherokee Antique Row.",
     "address": "2214 Cherokee St",
     "coords": [-90.22384, 38.59294]
+  },
+  {
+    "name": "Infinite Spin Record Shop",
+    "category": "records",
+    "neighborhoods": ["marine-villa"],
+    "district": "cherokee-street",
+    "description": "Record store, label and distro specializing in psych and obscure vinyl.",
+    "address": "2308.5 Cherokee St",
+    "url": "https://infinitespinrecords.org/",
+    "coords": [-90.2247, 38.59306]
   },
   {
     "name": "Laclede's Landing",

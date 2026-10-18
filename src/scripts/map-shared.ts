@@ -41,6 +41,19 @@ function replaceCloseGlyph(popup: maplibregl.Popup): void {
 
 export const SHEET_QUERY = '(max-width: 700px)'
 
+export function readPayload<Payload>(selector: string, fallback: Payload): Payload {
+  const holder = document.querySelector(selector)
+  if (!holder?.textContent) {
+    return fallback
+  }
+
+  try {
+    return JSON.parse(holder.textContent) as Payload
+  } catch {
+    return fallback
+  }
+}
+
 type PopupEvent = 'open' | 'close'
 
 interface MapPopup {

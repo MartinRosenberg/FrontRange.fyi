@@ -36,7 +36,7 @@ export async function districtBoundary(slug: string): Promise<Feature<Polygon> |
 
   return {
     type: 'Feature',
-    properties: { slug },
+    properties: { slug, streets: streets.map((street) => street.id) },
     geometry: {
       type: 'Polygon',
       coordinates: [

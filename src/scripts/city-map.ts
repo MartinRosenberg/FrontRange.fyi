@@ -11,6 +11,7 @@ import {
   bindRowHover,
   createMapPopup,
   frameCityView,
+  readPayload,
   settlePopup,
 } from './map-shared'
 import { createBadge, createClusterBadge, spotPopupHtml, stackBadges } from './map-badges'
@@ -39,19 +40,6 @@ const byNumber = new Map(
     return 'ignored' in neighborhood ? [] : [[neighborhood.number, neighborhood] as const]
   }),
 )
-
-function readPayload<Payload>(selector: string, fallback: Payload): Payload {
-  const holder = document.querySelector(selector)
-  if (!holder?.textContent) {
-    return fallback
-  }
-
-  try {
-    return JSON.parse(holder.textContent) as Payload
-  } catch {
-    return fallback
-  }
-}
 
 function forEachPosition(geometry: Geometry, visit: (position: Position) => void): void {
   if (geometry.type === 'Polygon') {
