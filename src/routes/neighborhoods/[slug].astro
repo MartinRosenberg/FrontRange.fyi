@@ -9,10 +9,11 @@ import Heading from '../../components/Heading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
 import ShareCard from '../../components/ShareCard.astro'
-import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import Byline from '../../components/Byline.astro'
 import EntryDates from '../../components/EntryDates.astro'
 import MapPane from '../../components/MapPane.astro'
+import BackLink from '../../components/BackLink.astro'
+import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
 import NotExplored from '../../components/NotExplored.astro'
@@ -245,6 +246,7 @@ const schema = placeSchema(
     <div class="results">
       <article class="content-pane detail-pane">
         <div class="detail-pane-inner">
+          <BackLink to="/neighborhoods/" label="Back to St. Louis neighborhood map" />
           <Breadcrumbs trail={trail} />
 
           <header class="detail-pane-header">

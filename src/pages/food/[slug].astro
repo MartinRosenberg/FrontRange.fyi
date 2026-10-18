@@ -7,6 +7,7 @@ import AsideHeading from '../../components/AsideHeading.astro'
 import Backlinks from '../../components/Backlinks.astro'
 import Comments from '../../components/Comments.astro'
 import ShareCard from '../../components/ShareCard.astro'
+import BackLink from '../../components/BackLink.astro'
 import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import ReadersVerdict from '../../components/ReadersVerdict.astro'
 import Byline from '../../components/Byline.astro'
@@ -194,6 +195,7 @@ const seoDescription = hasBody(entry)
   noindex={isStub}
   jsonLd={schema}>
   <article class="detail-page">
+    <BackLink to="/food/" label="Back to restaurant & cafe map" />
     <Breadcrumbs trail={trail} />
 
     <header class="detail-pane-header">

@@ -134,9 +134,9 @@ I like pizza. I think (almost) all pizza is good. I love trying new things, espe
 
 <figure class="figure full">
 
-![Delivery from Cecil Whittaker's](../images/stl-pizza/cecil.png)
+![Delivery from Cecil Whittaker's](../images/food/imos2.jpg)
 
-<figcaption>Delivery from Cecil Whittaker's</figcaption>
+<figcaption>Delivery from Imo's</figcaption>
 </figure>
 
 So personally, St. Louis-style or even Chicago thin-crust are just never going to be on the top of my list, because I'm here for the dough. Nonetheless, I still like it and have acquired the taste since moving here, and I'm still excited to try all the spots and decide which one is my favorite. Sometimes I specifically crave a St. Louis-style pizza, and I'd miss it if I no longer lived here.

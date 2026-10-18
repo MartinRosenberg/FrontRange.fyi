@@ -35,6 +35,15 @@ const neighborhoods = published(await getCollection('neighborhoods'))
       <p slot="lede">That page doesn't exist (or it moved). Try these:</p>
     </PageMasthead>
 
+    <CardList title="Maps">
+      <Card href={href('/food/')} title="Food Map" meta="Map">
+        <Icon name="utensils" slot="icon" />
+      </Card>
+      <Card href={href('/neighborhoods/')} title="Neighborhood Map" meta="Map">
+        <IconMapPin slot="icon" />
+      </Card>
+    </CardList>
+
     {
       pizza && (
         <a class="feature-box" href={href(`/${pizza.id}/`)}>

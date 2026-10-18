@@ -3063,6 +3063,14 @@ label {
   margin-block-end: var(--spacing-lg);
 }
 
+.back-navigation {
+  margin-block: var(--spacing-xl) 0;
+}
+
+.back-navigation + nav.breadcrumbs {
+  margin-block-start: var(--spacing-md);
+}
+
 .pane-stats {
   display: flex;
   gap: var(--spacing-md);
