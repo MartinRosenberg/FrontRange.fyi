@@ -15,7 +15,7 @@ So here's what I've discovered so far:
 
 ### St. Louis-style pizza
 
-![Pepperoni and sausage from Imo's](../images/food/imos.jpeg)
+![Pepperoni and sausage from Imo's](../images/food/imos1.jpg)
 
 A pizza style that is the standard all across the St. Louis region, consisting of a cracker-thin crust, a sweet, thick tomato sauce, and gooey Provel cheese.
 

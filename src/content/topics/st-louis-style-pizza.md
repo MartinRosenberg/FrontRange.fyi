@@ -39,7 +39,7 @@ So I've tried a variety of fan favorites around the city, but I'm always open to
 
 <figure class="figure full">
 
-![St. Louis-style pizza from Imo's](../images/stl-pizza/imos.png)
+![St. Louis-style pizza from Imo's](../images/food/imos1.jpg)
 
 <figcaption>St. Louis-style pizza from Imo's</figcaption>
 </figure>
