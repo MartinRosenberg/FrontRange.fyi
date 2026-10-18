@@ -6,7 +6,6 @@ import { getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import FilterMapPage from '../../components/FilterMapPage.astro'
 import CityMap from '../../components/CityMap.astro'
-import ClearFilters from '../../components/ClearFilters.astro'
 import ListPaneHeader from '../../components/ListPaneHeader.astro'
 import MapRow from '../../components/MapRow.astro'
 import PaneSearch from '../../components/PaneSearch.astro'
@@ -104,7 +103,6 @@ const schema = itemListSchema(
               id={place.id}
               title={place.data.title}
               detailHref={`/food/${place.id}/`}
-              class={hasBody(place) ? undefined : 'is-unwritten'}
               readMore={false}
               websiteHref={place.data.url}
               directionsHref={googleMapsHref(place.data)}
@@ -176,9 +174,8 @@ const schema = itemListSchema(
       legend={cuisineLegendItems(cuisines)}
       legendFacet="cuisine"
       rowTarget="spot"
-      label="Map of food spots">
-      <ClearFilters slot="actions" variant="text" />
-    </CityMap>
+      label="Map of food spots"
+    />
   </FilterMapPage>
 </BaseLayout>
 

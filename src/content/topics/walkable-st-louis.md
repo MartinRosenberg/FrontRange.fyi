@@ -160,6 +160,8 @@ Right next to Busch Stadium is Ballpark Village, a string of bars and restaurant
 
 ## Cherokee Street
 
+![](../images/neighborhoods/cherokee/cherokee3.jpg)
+
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="cherokee cherokee-antique-row"></div>
 </figure>

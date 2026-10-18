@@ -1,0 +1,35 @@
+---
+import Button from './Button.astro'
+import { href } from '../lib/url'
+
+interface Props {
+  note: string
+}
+
+const { note } = Astro.props
+---
+
+<section class="not-explored">
+  {
+    Astro.slots.has('default') && (
+      <p>
+        <slot />
+      </p>
+    )
+  }
+  <p class="description">{note}</p>
+  <Button href={href('/about/#contact')} variant="dark" compact>Give suggestions</Button>
+</section>
+
+<style>
+  .not-explored {
+    display: grid;
+    justify-items: start;
+    gap: var(--spacing-md);
+    margin-block-end: var(--spacing-lg);
+  }
+
+  .not-explored p {
+    margin: 0;
+  }
+</style>

@@ -1106,15 +1106,6 @@
     "coords": [-90.24267, 38.59924]
   },
   {
-    "name": "Apotheosis Comics (Cherokee)",
-    "category": "books",
-    "neighborhoods": ["benton-park-west"],
-    "district": "cherokee-street",
-    "description": "Second Apotheosis shop at Jefferson and Cherokee, with graphic novels, pop culture goods and art.",
-    "address": "3359 S Jefferson Ave",
-    "coords": [-90.22586, 38.59344]
-  },
-  {
     "name": "Art Hill",
     "category": "landmark",
     "neighborhoods": ["forest-park"],

@@ -82,8 +82,8 @@ import IconInstagram from '../assets/IconInstagram.astro'
     padding-block-end: env(safe-area-inset-bottom, 0);
     background: linear-gradient(
       to bottom,
-      transparent var(--river-height),
-      var(--color-footer) var(--river-height)
+      transparent calc(var(--river-height) - 1px),
+      var(--color-footer) calc(var(--river-height) - 1px)
     );
   }
 

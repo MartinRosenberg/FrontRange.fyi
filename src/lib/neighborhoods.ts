@@ -194,29 +194,59 @@ function joinNames(names: string[]): string {
   return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`
 }
 
-export function neighborhoodMetaDescription(
+function neighborhoodIntroduction(
   slug: string,
   neighbors: NeighborhoodInfo[],
-  foodCount: number,
-  budget: number = Infinity,
-): string | undefined {
+): { opening: string; borderClause: string } | undefined {
   const info = infoBySlug.get(slug)
   if (!info) {
     return undefined
   }
 
   const districtAreas = districtNeighborhoods(slug)
+  if (districtAreas.length > 0) {
+    return {
+      opening: `${info.name} is a district in ${joinNames(districtAreas.map(neighborhoodName))}`,
+      borderClause: '',
+    }
+  }
+
   const official = officialNames(slug)
   const namedAs =
     official.length > 0 ? `${info.name} (officially ${joinNames(official)})` : info.name
-  const opening =
-    districtAreas.length > 0
-      ? `${info.name} is a district in ${joinNames(districtAreas.map(neighborhoodName))}`
-      : info.type
-        ? `${info.name} is a ${info.type} in ${info.group}`
-        : `${namedAs} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
+  const opening = info.type
+    ? `${info.name} is a ${info.type} in ${info.group}`
+    : `${namedAs} is neighborhood #${info.numberLabel ?? info.number} in ${CITY}'s ${info.group}`
   const borderNames = neighbors.slice(0, 3).map((neighbor) => neighbor.name)
   const borderClause = borderNames.length > 0 ? `, bordering ${joinNames(borderNames)}` : ''
+
+  return { opening, borderClause }
+}
+
+export function neighborhoodSummary(
+  slug: string,
+  neighbors: NeighborhoodInfo[],
+): string | undefined {
+  const introduction = neighborhoodIntroduction(slug, neighbors)
+  if (!introduction) {
+    return undefined
+  }
+
+  return `${introduction.opening}${introduction.borderClause}.`
+}
+
+export function neighborhoodMetaDescription(
+  slug: string,
+  neighbors: NeighborhoodInfo[],
+  foodCount: number,
+  budget: number = Infinity,
+): string | undefined {
+  const introduction = neighborhoodIntroduction(slug, neighbors)
+  if (!introduction) {
+    return undefined
+  }
+
+  const { opening, borderClause } = introduction
   const foodClause =
     foodCount > 0 ? `, with ${foodCount} reviewed food spot${foodCount === 1 ? '' : 's'}` : ''
 

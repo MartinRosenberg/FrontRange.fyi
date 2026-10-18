@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string
+}
+
+const { label } = Astro.props
+---
+
+<p class="detail-pane-kicker">
+  <span class="eyebrow">{label}</span>
+  <span class="detail-pane-kicker-value"><slot /></span>
+</p>

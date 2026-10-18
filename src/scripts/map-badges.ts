@@ -1,12 +1,14 @@
 import { badgeIconNode, buildPopupHtml, type PopupChip } from './popup'
-import { metersBetween } from '../lib/geo'
+import { metersBetween, type LngLat } from '../lib/geo'
 import type { MapSpot } from '../lib/spots'
 
 const STACKED_BADGE_RADIUS = 22
 const STACKED_BADGE_DISTANCE_METERS = 45
 
-export function stackBadges(spots: MapSpot[]): Map<MapSpot, [number, number]> {
-  const stacks: MapSpot[][] = []
+export function stackBadges<Item extends { coords: LngLat }>(
+  spots: Item[],
+): Map<Item, [number, number]> {
+  const stacks: Item[][] = []
   for (const spot of spots) {
     const stack = stacks.find(
       (candidate) =>
@@ -19,7 +21,7 @@ export function stackBadges(spots: MapSpot[]): Map<MapSpot, [number, number]> {
     }
   }
 
-  const offsets = new Map<MapSpot, [number, number]>()
+  const offsets = new Map<Item, [number, number]>()
   for (const stack of stacks) {
     stack.forEach((spot, index) => {
       if (stack.length <= 1) {

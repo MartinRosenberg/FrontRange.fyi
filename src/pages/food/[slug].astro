@@ -17,6 +17,8 @@ import MyPick from '../../components/MyPick.astro'
 import Rating from '../../components/Rating.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
+import NotExplored from '../../components/NotExplored.astro'
+import PaneKicker from '../../components/PaneKicker.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { published, excerpt, hasBody, foodStatus, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { isoDate } from '../../lib/dates'
@@ -25,7 +27,7 @@ import { neighborhoodHref, neighborhoodName, placeLocality } from '../../lib/nei
 import { resolveVerdict, resolveWriterState, verdictLabels } from '../../lib/verdict'
 import { googleMapsHref } from '../../lib/maps'
 import { restaurantSchema } from '../../lib/schema'
-import { cuisineLabel } from '../../lib/cuisine'
+import { cuisineLabel, cuisinePlacePhrase } from '../../lib/cuisine'
 import IconArrowRight from '../../assets/IconArrowRight.astro'
 import IconMapPin from '../../assets/IconMapPin.astro'
 import IconExternalLink from '../../assets/IconExternalLink.astro'
@@ -49,6 +51,7 @@ const { Content } = await render(entry)
 const isStub = !hasBody(entry)
 const backlinks = await getBacklinks(entry.id)
 const neighborhoodLink = await neighborhoodHref(data.neighborhood)
+const districtLink = await neighborhoodHref(data.district)
 
 const sharePhoto = data.photo
   ? await getImage({ src: data.photo, width: 1200, format: 'jpeg' })
@@ -149,6 +152,16 @@ const mentionedIn = backlinks.filter(
 )
 
 const locality = placeLocality(data.neighborhood, data.address)
+const districtName = data.district ? neighborhoodName(data.district) : undefined
+const streetAddress = data.address?.[0]
+const stubSummary = [
+  `${data.title} is ${cuisinePlacePhrase(primaryCuisine)} in ${locality}.`,
+  streetAddress
+    ? `It's located at ${streetAddress}${districtName ? `, in the ${districtName} district` : ''}.`
+    : '',
+]
+  .filter(Boolean)
+  .join(' ')
 const titleLead = hasBody(entry) ? `${data.title} Review` : data.title
 const seoTitle = primaryCuisine
   ? `${titleLead}: ${cuisineLabel(primaryCuisine)} in ${locality}`
@@ -186,6 +199,13 @@ const seoDescription = hasBody(entry)
     <header class="detail-pane-header">
       <h1 class="detail-pane-title title-page">{data.title}</h1>
       {data.description && <p class="description description--lg detail-pane-tagline">{data.description}</p>}
+      {
+        districtLink && districtName && (
+          <PaneKicker label="District:">
+            <a href={href(districtLink)}>{districtName}</a>
+          </PaneKicker>
+        )
+      }
       <div class="pane-stats">
         <div class="pane-stat">
           <span class="pane-stat-label eyebrow eyebrow--muted">My rating</span>
@@ -228,9 +248,18 @@ const seoDescription = hasBody(entry)
           <Content />
           {
             !hasBody(entry) && (
-              <div class="not-explored">
-                <p>{stubNote}</p>
-              </div>
+              <NotExplored note={stubNote}>
+                {stubSummary}
+                {(data.url || data.instagram) && (
+                  <Fragment>
+                    You can {data.url && (
+                      <Fragment>check out their website at <a href={data.url} target="_blank" rel="noopener">{displayUrl(data.url)}</a></Fragment>
+                    )}{data.url && data.instagram && ' or '}{data.instagram && (
+                      <a href={data.instagram} target="_blank" rel="noopener">follow them on Instagram</a>
+                    )}.
+                  </Fragment>
+                )}
+              </NotExplored>
             )
           }
 
@@ -307,7 +336,7 @@ const seoDescription = hasBody(entry)
           <footer>
             <Backlinks links={mentionedIn} />
             <p class="review-disclaimer">
-              Reviews are my opinion. Hours and details change, so check before you go.
+              Reviews are my opinion. Details change, so check before you go.
             </p>
           </footer>
         </div>
@@ -406,11 +435,13 @@ const seoDescription = hasBody(entry)
 
   .my-rating-line {
     display: flex;
-    align-items: flex-end;
-    gap: var(--spacing-sm);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
   }
 
   .my-rating-word {
+    margin-top: var(--spacing-xs);
     font-weight: 700;
     color: var(--color-accent-gold);
   }
@@ -418,11 +449,6 @@ const seoDescription = hasBody(entry)
   .my-rating-line :global(.rating .rating-fleur) {
     width: 1.25rem;
     height: 1.25rem;
-  }
-
-  .detail-photo {
-    width: 100%;
-    margin-block-end: var(--spacing-lg);
   }
 
   .address {

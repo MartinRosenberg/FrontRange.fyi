@@ -3,8 +3,9 @@ import type { LngLatBoundsLike, Map as MapLibreMap } from 'maplibre-gl'
 import { createBasemapMap, watchThemeChanges } from './basemap'
 import { boundariesFor, type BoundaryFeature } from './boundaries'
 import { optionalData } from '../lib/optional-data'
-import { projectOntoLine } from '../lib/geo'
+import { projectOntoLine, type LngLat } from '../lib/geo'
 import { badgeIconNode, categorySwatchNode } from './popup'
+import { stackBadges } from './map-badges'
 
 const streetData = optionalData<{ streets: unknown[] }>(
   import.meta.glob('../data/streets.json', { eager: true, import: 'default' }),
@@ -37,7 +38,7 @@ const streets = new Map<string, Street>(
 interface Spot {
   name: string
   category: string
-  coords: number[]
+  coords: LngLat
   link?: string
 }
 
@@ -77,37 +78,36 @@ function snapToLines(point: [number, number], group: Street[]): [number, number]
 }
 
 function addSpotMarkers(map: MapLibreMap, group: Street[]): void {
-  for (const street of group) {
-    const spots = spotsByStreet[street.id] ?? []
-    if (spots.length === 0) {
-      continue
+  const placed = group.flatMap((street) =>
+    (spotsByStreet[street.id] ?? []).map((spot) => ({ street, spot })),
+  )
+  const offsets = stackBadges(placed.map((entry) => entry.spot))
+
+  for (const { street, spot } of placed) {
+    const element = document.createElement(spot.link ? 'a' : 'span')
+    element.className = 'street-spot map-badge'
+    element.dataset.category = spot.category
+    element.setAttribute('aria-label', spot.name)
+    if (spot.link && element instanceof HTMLAnchorElement) {
+      element.href = spotHref(spot.link)
     }
-    for (const spot of spots) {
-      const element = document.createElement(spot.link ? 'a' : 'span')
-      element.className = 'street-spot map-badge'
-      element.dataset.category = spot.category
-      element.setAttribute('aria-label', spot.name)
-      if (spot.link && element instanceof HTMLAnchorElement) {
-        element.href = spotHref(spot.link)
-      }
 
-      const body = document.createElement('span')
-      body.className = 'map-badge-body'
-      const icon = badgeIconNode(spot.category)
-      if (icon) {
-        body.append(icon)
-      }
-      element.append(body)
-
-      const name = document.createElement('span')
-      name.className = 'street-spot-name'
-      name.textContent = spot.name
-      element.append(name)
-
-      new maplibregl.Marker({ element, anchor: 'center' })
-        .setLngLat(snapToLines(spot.coords as [number, number], [street]))
-        .addTo(map)
+    const body = document.createElement('span')
+    body.className = 'map-badge-body'
+    const icon = badgeIconNode(spot.category)
+    if (icon) {
+      body.append(icon)
     }
+    element.append(body)
+
+    const name = document.createElement('span')
+    name.className = 'street-spot-name'
+    name.textContent = spot.name
+    element.append(name)
+
+    new maplibregl.Marker({ element, anchor: 'center', offset: offsets.get(spot) ?? [0, 0] })
+      .setLngLat(snapToLines(spot.coords, [street]))
+      .addTo(map)
   }
 }
 

@@ -14,7 +14,7 @@ import {
   settlePopup,
 } from './map-shared'
 import { createBadge, createClusterBadge, spotPopupHtml, stackBadges } from './map-badges'
-import { activeLegendKeys, bindLegendCollapse, bindLegendToggles } from './map-legend'
+import { activeLegendKeys, bindLegendCollapse } from './map-legend'
 import { NEIGHBORHOOD_ICON, neighborhoodRecords as neighborhoods } from '../lib/neighborhood-data'
 import type { AreaPopup } from '../lib/neighborhoods'
 import type { MapSpot } from '../lib/spots'
@@ -607,16 +607,17 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
   if (legend) {
     bindLegendCollapse(legend)
   }
-  if (categoryLegend) {
-    bindLegendToggles(categoryLegend, (changes) => {
-      const hiddenSelected = changes.some(
-        (change) => !change.showing && selectedBadge?.dataset.category === change.key,
-      )
-      if (hiddenSelected) {
-        badgePopup.remove()
-      }
-      renderBadges()
-    })
+
+  function syncWithLegend(): void {
+    const selectedCategory = selectedBadge?.dataset.category
+    if (
+      categoryLegend &&
+      selectedCategory &&
+      !activeLegendKeys(categoryLegend).has(selectedCategory)
+    ) {
+      badgePopup.remove()
+    }
+    renderBadges()
   }
 
   map.on('load', () => {
@@ -629,6 +630,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
     } else {
       buildIndexes()
       renderBadges()
+      filterRoot?.addEventListener('filter:changed', syncWithLegend)
     }
     map.on('moveend', renderBadges)
     watchThemeChanges(map, () => {

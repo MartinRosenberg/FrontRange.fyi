@@ -8,6 +8,33 @@ export function cuisineLabel(cuisine: string): string {
   return LABEL_OVERRIDES[key] ?? key.replace(/\b\w/g, (char) => char.toUpperCase())
 }
 
+const PLACE_NOUN_OVERRIDES: Record<string, string> = {
+  bakery: 'bakery',
+  bar: 'bar',
+  breakfast: 'breakfast spot',
+  brewery: 'brewery',
+  burgers: 'burger joint',
+  cafe: 'cafe',
+  dessert: 'dessert shop',
+  'fried chicken': 'fried chicken spot',
+  'hot dogs': 'hot dog spot',
+  pizza: 'pizza place',
+  ramen: 'ramen shop',
+  sandwiches: 'sandwich shop',
+  sushi: 'sushi restaurant',
+}
+
+export function cuisinePlacePhrase(cuisine: string | undefined): string {
+  if (!cuisine) {
+    return 'a place to eat'
+  }
+  const key = cuisine.trim().toLowerCase()
+  const noun = PLACE_NOUN_OVERRIDES[key] ?? `${cuisineLabel(key)} restaurant`
+  const article = /^[aeiou]/i.test(noun) && !/^eu/i.test(noun) ? 'an' : 'a'
+
+  return `${article} ${noun}`
+}
+
 const CUISINE_ICONS: Record<string, string> = {
   african: 'bowl-spoon',
   american: 'utensils',

@@ -20,16 +20,17 @@ function itemValues(item: HTMLElement, key: string): string[] {
   return (item.dataset[key] ?? '').split('|')
 }
 
-function toggleFacet(legend: HTMLElement): Facet {
+function legendFacet(legend: HTMLElement): Facet {
   const key = legend.dataset.filterToggles ?? ''
   const all = allLegendKeys(legend)
   const isActive = () => activeLegendKeys(legend).size !== all.length
+  const filtersList = key !== ''
 
   return {
     key,
     isActive,
     matches: (item) => {
-      if (!isActive()) {
+      if (!filtersList || !isActive()) {
         return true
       }
       const active = activeLegendKeys(legend)
@@ -37,13 +38,16 @@ function toggleFacet(legend: HTMLElement): Facet {
       return itemValues(item, key).some((value) => active.has(value))
     },
     read: (params) => {
+      if (!filtersList) {
+        return
+      }
       const raw = params.get(key)
       const known = (raw ?? '').split(',').filter((value) => all.includes(value))
       const failOpen = raw === null || (raw !== '' && known.length === 0)
       setActiveLegendKeys(legend, new Set(failOpen ? all : known))
     },
     write: (params) => {
-      if (isActive()) {
+      if (filtersList && isActive()) {
         params.set(key, [...activeLegendKeys(legend)].join(','))
       }
     },
@@ -69,7 +73,7 @@ export function initFilter(rootSelector = '[data-filter-root]'): void {
 
   const form = root.querySelector<HTMLFormElement>('form')
   const search = root.querySelector<HTMLInputElement>('[data-filter-search]')
-  const facets = [...root.querySelectorAll<HTMLElement>('[data-filter-toggles]')].map(toggleFacet)
+  const facets = [...root.querySelectorAll<HTMLElement>('[data-map-legend]')].map(legendFacet)
   const items = [...root.querySelectorAll<HTMLElement>('[data-filter-item]')]
   const count = root.querySelector<HTMLElement>('[data-filter-count]')
   const empty = root.querySelector<HTMLElement>('[data-filter-empty]')

@@ -1,5 +1,6 @@
 ---
 import MapLegend from './MapLegend.astro'
+import ClearFilters from './ClearFilters.astro'
 import BadgeIcons from './BadgeIcons.astro'
 import ReadersVerdictTemplate from './ReadersVerdictTemplate.astro'
 import MapActions from './MapActions.astro'
@@ -30,7 +31,7 @@ const spotIcons = [...new Set(spots.flatMap((spot) => (spot.icon ? [spot.icon] :
   role="application"
   aria-label={label}>
   <MapLegend items={legend} facet={legendFacet}>
-    <slot name="actions" slot="actions" />
+    <ClearFilters slot="actions" variant="text" />
   </MapLegend>
 </div>
 <MapActions label="View list" />

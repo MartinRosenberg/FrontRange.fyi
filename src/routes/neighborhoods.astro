@@ -152,8 +152,7 @@ const restCount = listed.length - writtenCount
                       area?.tagline ?? '',
                     ]
                       .filter(Boolean)
-                      .join(' ')}
-                    class={written ? undefined : 'is-unwritten'}>
+                      .join(' ')}>
                     {neighborhood.group && (
                       <span class="eyebrow eyebrow--muted" slot="eyebrow">
                         {isPark ? 'Park' : isDistrict ? 'District' : neighborhood.group}

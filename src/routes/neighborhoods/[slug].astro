@@ -2,7 +2,7 @@
 import { CITY, STREETS_TOPIC_ID, REGION_CODE, SUPABASE_ENABLED } from '../../lib/site'
 import { placeSchema } from '../../lib/schema'
 import { getCollection, render } from 'astro:content'
-import { getImage } from 'astro:assets'
+import { Image, getImage } from 'astro:assets'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import AsideHeading from '../../components/AsideHeading.astro'
 import Heading from '../../components/Heading.astro'
@@ -15,6 +15,8 @@ import EntryDates from '../../components/EntryDates.astro'
 import MapPane from '../../components/MapPane.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
+import NotExplored from '../../components/NotExplored.astro'
+import PaneKicker from '../../components/PaneKicker.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { resolveVerdict } from '../../lib/verdict'
 import { cuisineLabel } from '../../lib/cuisine'
@@ -34,6 +36,7 @@ import {
   neighborhoodPopulation,
   neighborhoodGeneratedSummary,
   neighborhoodMetaDescription,
+  neighborhoodSummary,
   neighborsOf,
   festivalsIn,
   streetsIn,
@@ -147,7 +150,20 @@ const listSeparator = (index: number, count: number) => {
 }
 
 const tagline = entry?.data.description
-const summary = tagline ?? generated
+const summary = tagline ?? (hasWriteup ? generated : undefined)
+const spotNoun = places.length > 0 ? 'other spot' : 'spot'
+const mappedParts = [
+  places.length > 0
+    ? `${places.length} ${places.length === 1 ? 'place' : 'places'} to eat and drink`
+    : '',
+  spots.length > 0 ? `${spots.length} ${spotNoun}${spots.length === 1 ? '' : 's'}` : '',
+].filter(Boolean)
+const stubSummary = [
+  neighborhoodSummary(slug, neighbors),
+  mappedParts.length > 0 ? `So far I've mapped ${mappedParts.join(' and ')} here.` : '',
+]
+  .filter(Boolean)
+  .join(' ')
 
 const lastUpdated = entry ? (entry.data.updated ?? entry.data.created) : undefined
 
@@ -236,22 +252,16 @@ const schema = placeSchema(
             {summary && <p class="description description--lg detail-pane-tagline">{summary}</p>}
             {
               isDistrict && (
-                <p class="detail-pane-kicker">
-                  <span class="eyebrow">District in:</span>
-                  <span class="detail-pane-kicker-value">
-                    {neighbors.map((neighbor, index) => (
-                      <Fragment>{listSeparator(index, neighbors.length)}<a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a></Fragment>
-                    ))}
-                  </span>
-                </p>
+                <PaneKicker label="District in:">
+                  {neighbors.map((neighbor, index) => (
+                    <Fragment>{listSeparator(index, neighbors.length)}<a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a></Fragment>
+                  ))}
+                </PaneKicker>
               )
             }
             {
               officialLine && (
-                <p class="detail-pane-kicker">
-                  <span class="eyebrow">{officialLine.label}</span>
-                  <span class="detail-pane-kicker-value">{officialLine.names}</span>
-                </p>
+                <PaneKicker label={officialLine.label}>{officialLine.names}</PaneKicker>
               )
             }
             {
@@ -292,16 +302,21 @@ const schema = placeSchema(
 
           <div class="body">
             {
+              entry?.data.photo && (
+                <Image
+                  class="detail-photo photo-frame"
+                  src={entry.data.photo}
+                  alt={`Photo of ${title}`}
+                  widths={[400, 800]}
+                  sizes="(min-width: 900px) 600px, 100vw"
+                />
+              )
+            }
+            {
               hasWriteup && Content ? (
                 <Content />
               ) : (
-                <div class="not-explored">
-                  <p>I haven't written about {title} yet.</p>
-                  <p>
-                    Is there something you want to suggest here?
-                    <a href={href('/about/#contact')}>Let me know</a>!
-                  </p>
-                </div>
+                <NotExplored note={`I haven't filled out the ${title} page yet.`}>{stubSummary}</NotExplored>
               )
             }
           </div>
@@ -486,32 +501,6 @@ const schema = placeSchema(
 </BaseLayout>
 
 <style>
-  .detail-pane-tagline:has(+ .detail-pane-kicker) {
-    margin-block-end: var(--spacing-sm);
-  }
-
-  .detail-pane-kicker {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    column-gap: var(--spacing-md);
-    row-gap: var(--spacing-xxs);
-    margin-block: 0 var(--spacing-lg);
-  }
-
-  .detail-pane-kicker-value {
-    font-family: var(--font-sans-serif);
-    font-size: var(--font-size-md);
-    color: var(--color-text-heading);
-  }
-
-  .detail-pane-kicker-value a {
-    color: inherit;
-    text-decoration-line: underline;
-    text-decoration-thickness: 1px;
-    text-decoration-color: currentColor;
-  }
-
   .detail-pane-inner {
     max-width: calc(var(--measure-reading) + 2 * var(--spacing-lg));
     margin-inline: auto;

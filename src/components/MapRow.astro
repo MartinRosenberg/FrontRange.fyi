@@ -43,7 +43,7 @@ const showActions = Boolean(websiteHref || directionsHref)
 const showPanel = slotHtml.length > 0 || showReadMore || showActions
 ---
 
-<li id={id} class:list={[className, { 'is-unwritten': !detailHref }]} {...filterAttrs} {...attrs}>
+<li id={id} class={className} {...filterAttrs} {...attrs}>
   {
     Astro.slots.has('eyebrow') && (
       <div class="list-eyebrow">

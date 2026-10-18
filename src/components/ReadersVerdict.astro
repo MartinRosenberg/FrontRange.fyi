@@ -46,6 +46,9 @@ const readersEnabled = SUPABASE_ENABLED
           <span class="rv-count" data-count-dislike />
         </button>
       </div>
+      <p class="rv-vote-prompt description">
+        Voice your opinion! No account needed.
+      </p>
       <p class="rv-vote-status form-status" data-vote-status role="status" aria-live="polite" />
     </section>
   )
@@ -59,7 +62,6 @@ const readersEnabled = SUPABASE_ENABLED
   .rv-pill {
     display: inline-flex;
     gap: var(--spacing-sm);
-    margin-block-start: auto;
   }
 
   .rv-choice {
@@ -94,8 +96,8 @@ const readersEnabled = SUPABASE_ENABLED
     color: inherit;
   }
 
-  .rv-vote-status {
-    margin-block-start: var(--spacing-xs);
+  :is(.rv-vote-prompt, .rv-vote-status) {
+    margin: var(--spacing-xs) 0 0;
   }
 
   .verdict-row {
@@ -107,13 +109,13 @@ const readersEnabled = SUPABASE_ENABLED
     padding-block-start: var(--spacing-md);
     border-block-start: 1px dotted var(--color-line-input);
 
-    .rv-vote-status {
+    :is(.rv-vote-prompt, .rv-vote-status) {
       flex-basis: 100%;
       margin: 0;
+    }
 
-      &:empty {
-        display: none;
-      }
+    .rv-vote-status:empty {
+      display: none;
     }
   }
 

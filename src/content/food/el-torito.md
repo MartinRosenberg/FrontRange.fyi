@@ -1,7 +1,9 @@
 ---
-title: El Torito
+title: Taqueria Hectorito
+rating: 5
+photo: ../images/food/tacos-el-hectorito.jpg
 created: 2026-07-16
-status: want-to-try
+status: tried
 description: Taqueria and supermercado on Cherokee
 cuisine: ['mexican']
 neighborhood: benton-park-west
@@ -11,3 +13,9 @@ address:
   - St. Louis, MO 63118
 coords: [38.5940547, -90.2296292]
 ---
+
+Taqueria Hectorito, which is connected to the El Torito grocery store, is an outdoor Mexican grill and patio on Cherokee St.
+
+Of all the taco spots I've eaten at so far, this one most closely resembles some of the restaurants I've been to in central Mexico.
+
+When I visited, I tried steak, al pastor, and carnitas tacos. The salsas were spicy and flavorful, and I was definitely impressed by the quality and freshness of the onion, cilantro, and radish toppings, and the tortillas were cooked really well. I just wasn't a big fan of the meat in the tacos, so overall it isn't one of my favorite spots, but it was cool to hang out at an outdoor patio along the street in the main Mexican district of the city.

@@ -1,7 +1,8 @@
 ---
 title: Tower Grove South
+photo: ../images/food/grandpied/grandpied4.jpg
 created: 2026-07-05
-updated: 2026-07-06
+updated: 2026-10-17
 url: https://www.tgsna.org
 description: International dining alongside parks and walkable streets
 featured: 1
