@@ -3581,11 +3581,9 @@ button.title-link:hover {
   border-inline-start: 2px solid var(--color-accent);
 }
 
-.feed-fleur {
-  width: 0.9rem;
-  height: 1rem;
-  max-width: none;
-  color: var(--color-accent);
+.feed-reply .avatar {
+  --avatar-size: 1.75rem;
+  align-self: center;
 }
 
 .feed-empty {

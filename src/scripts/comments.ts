@@ -20,9 +20,6 @@ type CommentEntry = {
   total: number
 }
 
-const AUTHOR_FLEUR =
-  '<svg class="feed-fleur" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 176 192" fill="currentColor" aria-hidden="true"><use href="#fleur-glyph"/></svg>'
-
 type CommentsStore = { name?: string }
 
 export function initComments(): void {
@@ -251,7 +248,14 @@ function buildReply(replyMessage: string, replyDate: string | null): HTMLDivElem
 
   const author = document.createElement('p')
   author.className = 'feed-byline'
-  author.innerHTML = AUTHOR_FLEUR
+
+  const avatar = document.createElement('img')
+  avatar.className = 'avatar'
+  avatar.src = `${import.meta.env.BASE_URL}avatar.svg`
+  avatar.alt = ''
+  avatar.width = 28
+  avatar.height = 28
+  author.append(avatar)
 
   const authorName = document.createElement('span')
   authorName.className = 'feed-name title-serif'
