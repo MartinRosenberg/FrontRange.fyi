@@ -1,6 +1,7 @@
 ---
 title: Delmar Loop
 created: 2026-06-28
+photo: ../images/neighborhoods/delmar-loop/delmar10.jpg
 url: https://visittheloop.com/
 wikipedia: https://en.wikipedia.org/wiki/Delmar_Loop
 description: A walkable strip of music venues and restaurants
@@ -15,3 +16,29 @@ There are a lot of notable features in the area that distinguish it from other p
 ### Impressions
 
 The Delmar Loop is right along the Delmar Divide, and is still recovering from store closures during the Covid era. I've seen some strange and unpleasant activity along the strip at night when the restaurants are closed but people are all indoors for the concerts, so I hope restaurants like Kishimoto Mendo keep opening up along the strip and it continues to be more lively.
+
+![](../images/neighborhoods/delmar-loop/delmar1.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar2.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar3.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar4.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar5.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar6.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar13.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar7.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar8.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar9.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar11.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar12.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar14.jpg)
