@@ -101,6 +101,7 @@
   --river-height: 32px;
   --pane-header-height: 45px;
   --aside-width: 290px;
+  --list-pane-width: 480px;
   --detail-gap: 2.5rem;
   --measure-article: calc(var(--measure-reading) + var(--detail-gap) + var(--aside-width));
   --measure-prose: 70ch;
@@ -944,11 +945,18 @@ body:has(.map-split) main > .wrap,
 
 @media screen and (min-width: 1000px) {
   .map-split .results {
-    grid-template-columns: 480px 1fr;
+    grid-template-columns: var(--list-pane-width) 1fr;
   }
 
   .map-split.detail-split .results {
     grid-template-columns: 50% 1fr;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .map-split .results {
+    --list-pane-width: 530px;
+    --list-photo-width: 153px;
   }
 }
 

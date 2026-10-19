@@ -5,6 +5,7 @@ photo: ../images/neighborhoods/delmar-loop/delmar10.jpg
 url: https://visittheloop.com/
 wikipedia: https://en.wikipedia.org/wiki/Delmar_Loop
 description: A walkable strip of music venues and restaurants
+featured: 4
 ---
 
 The Delmar Loop, often referred to as just The Loop, is a commercial strip that straddles the western edge of St. Louis city and the east end of University City. It was named "One of the 10 Great Streets in America" by [The American Planning Association](https://www.planning.org/greatplaces/streets/2007/delmarloop.htm) in 2007 due the "sustained efforts of local business, government, and the community to achieve successful physical and economic revitalization."
@@ -19,6 +20,8 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 
 ![](../images/neighborhoods/delmar-loop/delmar1.jpg)
 
+![](../images/neighborhoods/delmar-loop/delmar13.jpg)
+
 ![](../images/neighborhoods/delmar-loop/delmar2.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar3.jpg)
@@ -29,7 +32,7 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 
 ![](../images/neighborhoods/delmar-loop/delmar6.jpg)
 
-![](../images/neighborhoods/delmar-loop/delmar13.jpg)
+![](../images/neighborhoods/delmar-loop/delmar11.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar7.jpg)
 
@@ -37,7 +40,7 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 
 ![](../images/neighborhoods/delmar-loop/delmar9.jpg)
 
-![](../images/neighborhoods/delmar-loop/delmar11.jpg)
+![](../images/neighborhoods/delmar-loop/delmar15.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar12.jpg)
 

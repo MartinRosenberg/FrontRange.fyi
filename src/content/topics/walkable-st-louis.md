@@ -128,6 +128,8 @@ The Grove is most famous for being the city's LGBTQ+ nightlife district. On one 
 
 ## The Delmar Loop
 
+![](../images/neighborhoods/delmar-loop/delmar10.jpg)
+
 <figure class="street-map-figure">
   <div class="street-map" data-street-map="delmar-loop"></div>
 </figure>
