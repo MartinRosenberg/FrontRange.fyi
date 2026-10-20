@@ -106,6 +106,7 @@
   --measure-article: calc(var(--measure-reading) + var(--detail-gap) + var(--aside-width));
   --measure-prose: 70ch;
   --measure-tagline: 40ch;
+  --scroll-target-offset: calc(var(--header-height, 4rem) + var(--spacing-sm));
   --radius-pill: 999px;
   --duration-fast: 0.12s;
   --duration-slow: 0.3s;
@@ -610,7 +611,7 @@ tbody tr:last-child td {
 }
 
 :target {
-  scroll-margin-top: calc(var(--header-height, 4rem) + var(--spacing-sm));
+  scroll-margin-top: var(--scroll-target-offset);
 }
 
 a {
@@ -966,7 +967,14 @@ body:has(.map-split) main > .wrap,
   padding-block-end: calc(var(--spacing-xl) + var(--spacing-md));
   min-height: 0;
   overflow-y: auto;
+}
+
+.map-split .content-pane.map-list {
   scroll-padding-block-start: 85px;
+}
+
+.map-split .content-pane.detail-pane {
+  scroll-padding-block-start: var(--spacing-md);
 }
 
 .map-split .content-pane :target {
@@ -2028,6 +2036,10 @@ a.category-chip:hover {
   .map-split.detail-split .map-pane {
     grid-row: 1;
     height: var(--detail-map-height);
+  }
+
+  .map-split.detail-split .detail-pane :target {
+    scroll-margin-top: var(--scroll-target-offset);
   }
 
   .map-split.detail-split .detail-pane {

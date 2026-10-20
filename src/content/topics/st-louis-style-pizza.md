@@ -50,7 +50,7 @@ You can't talk about St. Louis-style pizza without talking about Provel - it's t
 
 Pizza generally consists of three ingredients (crust, sauce, and cheese) and most styles of pizza default to mozzarella. Provel being so different in both flavor and consistency from what anyone outside of the region expects is, in my opinion, what throws people off so much when they try it for the first time.
 
-I've had dozens of STL-style pizzas at this point (see [my ratings](#my-ratings) below) so I know what to expect, but I will admit the first time I was genuinely confused about what I was experiencing and it has been an acquired taste. If you grew up with Provel, however, that would be a different story, and you'd already be used to the taste and have years of fond memories associated with it.
+I've had dozens of STL-style pizzas at this point (see [my ratings](#my-rankings) below) so I know what to expect, but I will admit the first time I was genuinely confused about what I was experiencing and it has been an acquired taste. If you grew up with Provel, however, that would be a different story, and you'd already be used to the taste and have years of fond memories associated with it.
 
 > But the truth is that my love for Provel is intense, almost mystical, and I’ve finally started taking it seriously.
 
