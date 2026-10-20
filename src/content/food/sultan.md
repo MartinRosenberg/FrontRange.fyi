@@ -6,7 +6,8 @@ created: 2026-06-27
 updated: 2026-07-22
 rating: 9.5
 cuisine: ['middle eastern']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4200 Manchester Ave
   - St. Louis, MO 63110

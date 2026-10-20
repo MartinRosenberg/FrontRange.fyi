@@ -8,7 +8,7 @@
       "from": "the west arch",
       "to": "the east arch",
       "anchor": "the-grove",
-      "neighborhoods": ["the-grove"],
+      "neighborhoods": ["forest-park-southeast"],
       "websites": ["https://www.thegrovestl.com/"],
       "query": {
         "roadNames": ["Manchester Avenue"],

@@ -81,10 +81,9 @@
   },
   {
     "number": 39,
-    "name": "The Grove",
-    "slug": "the-grove",
-    "group": "Central Corridor",
-    "officialName": "Forest Park Southeast"
+    "name": "Forest Park Southeast",
+    "slug": "forest-park-southeast",
+    "group": "Central Corridor"
   },
   { "number": 40, "name": "Kings Oak", "slug": "kings-oak", "group": "Central Corridor" },
   {
@@ -332,5 +331,13 @@
     "group": "South City",
     "type": "district",
     "streets": ["cherokee", "cherokee-antique-row"]
+  },
+  {
+    "number": 100,
+    "name": "The Grove",
+    "slug": "the-grove",
+    "group": "Central Corridor",
+    "type": "district",
+    "streets": ["the-grove"]
   }
 ]

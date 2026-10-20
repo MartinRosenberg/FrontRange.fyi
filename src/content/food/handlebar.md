@@ -4,7 +4,8 @@ created: 2026-10-13
 status: want-to-try
 description: Bike-themed pub with a two-story patio
 cuisine: ['bar']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4127 Manchester Ave
   - St. Louis, MO 63110

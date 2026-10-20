@@ -59,7 +59,6 @@ export interface NeighborhoodInfo {
   group: string
   type?: string
   coords?: [number, number]
-  officialName?: string
   streets?: string[]
 }
 
@@ -363,14 +362,13 @@ export interface ResourceLink {
 }
 
 const cityNeighborhoodSlug: Record<string, string> = {
-  'the-grove': 'forest-park-southeast',
   'greater-ville': 'the-greater-ville',
   'jeff-vanderlou': 'jeffvanderlou',
   'fairground-neighborhood': 'fairground',
   ofallon: 'o-fallon',
 }
 
-const mytownviewSlug: Record<string, string> = { 'the-grove': 'forest-park-south-east' }
+const mytownviewSlug: Record<string, string> = { 'forest-park-southeast': 'forest-park-south-east' }
 
 export function neighborhoodResources(info: NeighborhoodInfo): ResourceLink[] {
   if (info.number > LAST_CITY_NEIGHBORHOOD_NUMBER) {

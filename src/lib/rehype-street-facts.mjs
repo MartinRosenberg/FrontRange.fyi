@@ -103,7 +103,7 @@ export function rehypeStreetFacts(options = {}) {
             slugs.map((slug) => {
               const row = rowBySlug.get(slug)
 
-              return placeLink(slug, row?.officialName ?? row?.name ?? slug)
+              return placeLink(slug, row?.name ?? slug)
             }),
           ),
         ),

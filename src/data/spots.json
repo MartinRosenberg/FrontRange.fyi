@@ -610,7 +610,8 @@
   {
     "name": "The Grove sign (east)",
     "category": "landmark",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "description": "Neon entry sign arching over the east end of Manchester Avenue.",
     "address": "Manchester Ave east arch",
     "coords": [-90.24989, 38.62794]
@@ -618,7 +619,8 @@
   {
     "name": "The Grove sign (west)",
     "category": "landmark",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "description": "Neon entry sign arching over the west end of Manchester Avenue.",
     "address": "Manchester Ave west arch",
     "coords": [-90.2621, 38.62625]
@@ -832,7 +834,8 @@
   {
     "name": "LOVE",
     "category": "mural",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "description": "Mural by Lisa Marie Thalhammer on Platypus.",
     "address": "4501 Manchester Ave",
     "coords": [-90.26179, 38.62637]
@@ -840,7 +843,8 @@
   {
     "name": "Atomic Flower of Light",
     "category": "mural",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "description": "Mural by Killer Napkins on Atomic by Jamo.",
     "address": "4140 Manchester Ave",
     "coords": [-90.2518, 38.62748]
@@ -1170,7 +1174,8 @@
   {
     "name": "Evolution of the Bike",
     "category": "mural",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "url": "https://racstl.org/public-art/evolution-of-the-bike/",
     "description": "Mural by Grace McCammond, unveiled in 2012 for the Tour de Grove bike race.",
     "address": "4301 Manchester Ave",
@@ -1187,7 +1192,8 @@
   {
     "name": "The Grove Postcard",
     "category": "mural",
-    "neighborhoods": ["the-grove"],
+    "neighborhoods": ["forest-park-southeast"],
+    "district": "the-grove",
     "description": "Paint-by-numbers community mural by Grace McCammond from Grove Fest 2010.",
     "address": "4116 Manchester Ave",
     "coords": [-90.25083, 38.62771]

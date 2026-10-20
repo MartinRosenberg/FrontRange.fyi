@@ -4,7 +4,8 @@ created: 2026-07-16
 rating: 9
 description: Late-night sandwiches
 cuisine: ['sandwiches']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4243 Manchester Ave
   - St. Louis, MO 63110

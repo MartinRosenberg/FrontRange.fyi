@@ -10,7 +10,6 @@ export interface NeighborhoodRecord {
   coords?: [number, number]
   ignored?: boolean
   mergedInto?: string
-  officialName?: string
   streets?: string[]
 }
 

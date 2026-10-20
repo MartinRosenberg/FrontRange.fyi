@@ -4,7 +4,8 @@ created: 2026-10-13
 status: want-to-try
 description: Bar in the Grove with drag shows and events
 cuisine: ['bar']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4054 Chouteau Ave
   - St. Louis, MO 63110

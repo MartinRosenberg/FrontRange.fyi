@@ -4,7 +4,8 @@ created: 2026-07-16
 status: want-to-try
 description: Afghan kabobs
 cuisine: ['middle eastern']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4341 Manchester Ave
   - St. Louis, MO 63110

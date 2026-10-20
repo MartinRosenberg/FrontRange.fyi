@@ -8,7 +8,7 @@ export function officialNamesBySlug(rows) {
   const nameByNumber = new Map()
   for (const row of rows) {
     if (isCityNeighborhood(row)) {
-      nameByNumber.set(row.number, row.officialName ?? row.name)
+      nameByNumber.set(row.number, row.name)
     }
   }
   for (const row of rows) {

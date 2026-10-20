@@ -4,7 +4,8 @@ created: 2026-08-30
 status: tried
 description: German-style brewery and bierhall
 cuisine: ['brewery']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4465 Manchester Ave
   - St. Louis, MO 63110

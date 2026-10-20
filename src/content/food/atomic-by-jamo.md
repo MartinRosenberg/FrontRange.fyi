@@ -4,7 +4,8 @@ created: 2026-10-13
 status: want-to-try
 description: Live-music venue complex with a bar and fast-casual restaurant
 cuisine: ['bar']
-neighborhood: the-grove
+neighborhood: forest-park-southeast
+district: the-grove
 address:
   - 4140 Manchester Ave
   - St. Louis, MO 63110
