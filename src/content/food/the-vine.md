@@ -5,6 +5,7 @@ status: want-to-try
 description: Lebanese café and market
 cuisine: ['middle eastern']
 neighborhood: tower-grove-south
+district: south-grand
 address:
   - 3171 S Grand Blvd
   - St. Louis, MO 63118

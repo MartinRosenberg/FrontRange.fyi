@@ -6,8 +6,8 @@ description: Breakfast sandwiches and brunch
 cuisine: ['breakfast']
 neighborhood: tower-grove-south
 address:
-  - 4476 Chouteau Ave
-  - St. Louis, MO 63110
+  - 3153 Morganford Rd
+  - St. Louis, MO 63116
 coords: [38.602647, -90.261605]
 url: https://songbirdstl.com
 instagram: https://www.instagram.com/songbird.stl

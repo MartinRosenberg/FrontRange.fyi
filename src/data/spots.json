@@ -714,7 +714,8 @@
   {
     "name": "Jay International Foods",
     "category": "market",
-    "neighborhoods": ["tower-grove-south"],
+    "neighborhoods": ["tower-grove-east"],
+    "district": "south-grand",
     "url": "https://www.jayfoodsmarket.com/",
     "description": "International grocery stocking Asian, Latin American, African and European staples under one roof.",
     "address": "3172 S Grand Blvd",
@@ -723,7 +724,8 @@
   {
     "name": "Circa: Now! Records",
     "category": "records",
-    "neighborhoods": ["tower-grove-south"],
+    "neighborhoods": ["tower-grove-east"],
+    "district": "south-grand",
     "description": "Used and new vinyl shop.",
     "address": "3238 S Grand Blvd",
     "coords": [-90.24281, 38.59834]
@@ -732,6 +734,7 @@
     "name": "Dunaway Books",
     "category": "books",
     "neighborhoods": ["tower-grove-south"],
+    "district": "south-grand",
     "url": "https://www.dunawaybooks.com/",
     "description": "Two-floor used bookstore.",
     "address": "3111 S Grand Blvd",
@@ -1114,7 +1117,8 @@
   {
     "name": "Apotheosis Comics & Lounge",
     "category": "books",
-    "neighborhoods": ["tower-grove-south"],
+    "neighborhoods": ["tower-grove-east"],
+    "district": "south-grand",
     "description": "Comic book shop with a bar lounge",
     "address": "3206 S Grand Blvd",
     "coords": [-90.24267, 38.59924]

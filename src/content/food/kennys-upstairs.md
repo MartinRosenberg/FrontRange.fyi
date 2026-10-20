@@ -5,6 +5,7 @@ status: want-to-try
 description: Second-floor bar at Hartford and South Grand
 cuisine: ['bar']
 neighborhood: tower-grove-south
+district: south-grand
 address:
   - 3131 S Grand Blvd
   - St. Louis, MO 63118

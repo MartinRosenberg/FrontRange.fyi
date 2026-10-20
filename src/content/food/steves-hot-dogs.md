@@ -5,6 +5,7 @@ status: want-to-try
 description: Smoked hot dogs on South Grand
 cuisine: ['hot dogs']
 neighborhood: tower-grove-south
+district: south-grand
 address:
   - 3145 S Grand Blvd
   - St. Louis, MO 63118

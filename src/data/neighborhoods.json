@@ -339,5 +339,13 @@
     "group": "Central Corridor",
     "type": "district",
     "streets": ["the-grove"]
+  },
+  {
+    "number": 101,
+    "name": "South Grand",
+    "slug": "south-grand",
+    "group": "South City",
+    "type": "district",
+    "streets": ["south-grand"]
   }
 ]

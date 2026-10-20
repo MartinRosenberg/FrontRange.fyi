@@ -17,7 +17,7 @@ export const spotCategories = {
   park: { label: 'Parks & Green Space', meta: 'Park', icon: 'tree', token: '--color-spot-park' },
   market: {
     label: 'Specialty Markets',
-    meta: 'Market',
+    meta: 'Specialty Market',
     icon: 'shopping-bag',
     token: '--color-spot-market',
   },
@@ -109,6 +109,24 @@ export function groupSpots(spots: Spot[]): { category: SpotSectionKey; spots: Sp
     category,
     spots: spots.filter((spot) => spot.category === category),
   })).filter((group) => group.spots.length > 0)
+}
+
+export interface CategoryCount {
+  key: SpotCategoryKey
+  count: number
+}
+
+export function categoryCountLabel({ key, count }: CategoryCount): string {
+  return count === 1 ? spotCategories[key].meta : spotCategories[key].label
+}
+
+export function categoryCounts(spots: Spot[], foodCount: number): CategoryCount[] {
+  return (Object.keys(spotCategories) as SpotCategoryKey[])
+    .map((key) => ({
+      key,
+      count: key === 'food' ? foodCount : spots.filter((spot) => spot.category === key).length,
+    }))
+    .filter((category) => category.count > 0)
 }
 
 export function categoryLegendItems(keys: SpotCategoryKey[]): LegendItem[] {

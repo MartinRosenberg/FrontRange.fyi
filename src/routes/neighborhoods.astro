@@ -18,6 +18,8 @@ import {
 import { districtPlaces, type DistrictPlaces } from '../lib/districts'
 import {
   allSpots,
+  categoryCountLabel,
+  categoryCounts,
   categoryLegendItems,
   spotsIn,
   spotCategories,
@@ -46,20 +48,11 @@ const foodCount = (slug: string) =>
 const categoryKeys = Object.keys(spotCategories) as SpotCategoryKey[]
 const legendKeys = categoryKeys.filter((key) => mapSpots.some((spot) => spot.category === key))
 
-function countPills(slug: string, name: string): { key: SpotCategoryKey; count: number }[] {
-  const spots = districtMembers.get(slug)?.spots ?? spotsIn(slug)
-  const food = foodCount(slug)
+const countPills = (slug: string) =>
+  categoryCounts(districtMembers.get(slug)?.spots ?? spotsIn(slug), foodCount(slug))
 
-  return categoryKeys
-    .map((key) => ({
-      key,
-      count: key === 'food' ? food : spots.filter((spot) => spot.category === key).length,
-    }))
-    .filter((pill) => pill.count > 0)
-}
-
-const placeTotal = (neighborhood: { slug: string; name: string }) =>
-  countPills(neighborhood.slug, neighborhood.name).reduce((sum, pill) => sum + pill.count, 0)
+const placeTotal = (neighborhood: { slug: string }) =>
+  countPills(neighborhood.slug).reduce((sum, pill) => sum + pill.count, 0)
 
 const featuredRank = (slug: string) => entryBySlug.get(slug)?.data.featured ?? Infinity
 
@@ -125,7 +118,7 @@ const restCount = listed.length - writtenCount
               const isPark = area?.park ?? false
               const isDistrict = neighborhood.type === 'district'
               const entry = entryBySlug.get(neighborhood.slug)
-              const pills = countPills(neighborhood.slug, neighborhood.name)
+              const pills = countPills(neighborhood.slug)
 
               const previous = listed[index - 1]
               const showHeader = index === 0 || written !== isWritten(previous.slug)
@@ -182,7 +175,7 @@ const restCount = listed.length - writtenCount
                           <CategoryChip
                             as="li"
                             category={pill.key}
-                            label={spotCategories[pill.key].label}
+                            label={categoryCountLabel(pill)}
                             labelHidden
                             count={pill.count}
                           />

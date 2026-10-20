@@ -5,6 +5,7 @@ status: want-to-try
 description: Coffeehouse across from Tower Grove Park
 cuisine: ['cafe']
 neighborhood: tower-grove-south
+district: south-grand
 address:
   - 3606 Arsenal St
   - St. Louis, MO 63116

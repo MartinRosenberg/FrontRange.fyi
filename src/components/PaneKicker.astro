@@ -1,12 +1,13 @@
 ---
 interface Props {
   label: string
+  muted?: boolean
 }
 
-const { label } = Astro.props
+const { label, muted = false } = Astro.props
 ---
 
 <p class="detail-pane-kicker">
-  <span class="eyebrow">{label}</span>
+  <span class:list={['eyebrow', { 'eyebrow--muted': muted }]}>{label}</span>
   <span class="detail-pane-kicker-value"><slot /></span>
 </p>

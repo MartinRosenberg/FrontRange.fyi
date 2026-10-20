@@ -3,15 +3,16 @@ import SectionHeading from './SectionHeading.astro'
 
 interface Props {
   title: string
+  id?: string
   class?: string
   moreHref?: string
   moreLabel?: string
 }
 
-const { title, class: className, moreHref, moreLabel } = Astro.props
+const { title, id, class: className, moreHref, moreLabel } = Astro.props
 ---
 
-<section class:list={['card-list', className]}>
+<section id={id} class:list={['card-list', className]}>
   <SectionHeading title={title} moreHref={moreHref} moreLabel={moreLabel} />
   <div class="card-rows">
     <slot />

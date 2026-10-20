@@ -13,16 +13,23 @@ import Byline from '../../components/Byline.astro'
 import EntryDates from '../../components/EntryDates.astro'
 import MapPane from '../../components/MapPane.astro'
 import BackLink from '../../components/BackLink.astro'
-import Breadcrumbs from '../../components/Breadcrumbs.astro'
 import CardList from '../../components/CardList.astro'
 import Card from '../../components/Card.astro'
 import NotExplored from '../../components/NotExplored.astro'
 import PaneKicker from '../../components/PaneKicker.astro'
+import CategoryChip from '../../components/CategoryChip.astro'
 import { href, displayUrl, rootRelative } from '../../lib/url'
 import { resolveVerdict } from '../../lib/verdict'
 import { cuisineLabel } from '../../lib/cuisine'
 import { googleMapsHref } from '../../lib/maps'
-import { spotsIn, spotCategories, groupSpots } from '../../lib/spots'
+import {
+  spotsIn,
+  spotCategories,
+  groupSpots,
+  categoryCountLabel,
+  categoryCounts,
+  type SpotCategoryKey,
+} from '../../lib/spots'
 import { toMapSpots, spotPageHref, spotWebsiteHref, spotDirectionsHref } from '../../lib/map-spots'
 import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { isoDate } from '../../lib/dates'
@@ -30,11 +37,11 @@ import { getBacklinks } from '../../lib/backlinks'
 import {
   districtForStreet,
   districtNeighborhoods,
+  districtsWithin,
   districtStreets,
   foodByNeighborhood,
   neighborBearing,
   neighborhoodInfo,
-  neighborhoodPopulation,
   neighborhoodGeneratedSummary,
   neighborhoodMetaDescription,
   neighborhoodSummary,
@@ -52,19 +59,8 @@ import {
 import { districtBoundary, districtPlaces } from '../../lib/districts'
 import neighborhoods from '../../data/neighborhoods.json'
 import Button from '../../components/Button.astro'
-import SourceLink from '../../components/SourceLink.astro'
 import IconArrowRight from '../../assets/IconArrowRight.astro'
 import IconExternalLink from '../../assets/IconExternalLink.astro'
-import IconChart from '../../assets/IconChart.astro'
-import IconBook from '../../assets/IconBook.astro'
-import IconLandmark from '../../assets/IconLandmark.astro'
-
-const resourceIcons: Record<string, typeof IconExternalLink> = {
-  Wikipedia: IconBook,
-  MyTownView: IconChart,
-  Website: IconExternalLink,
-  'St. Louis City': IconLandmark,
-}
 
 export async function getStaticPaths() {
   const entries = published(await getCollection('neighborhoods'))
@@ -95,12 +91,12 @@ const backlinks = entry ? await getBacklinks(entry.id) : []
 const districtLines = districtStreets(slug)
 const districtAreas = districtNeighborhoods(slug)
 const isDistrict = districtLines.length > 0
+const innerDistricts = isDistrict ? [] : districtsWithin(slug)
 const districtMembers = isDistrict ? await districtPlaces(slug) : undefined
 const districtShape = await districtBoundary(slug)
 
 const spots = districtMembers?.spots ?? spotsIn(slug)
 
-const population = neighborhoodPopulation(slug)
 const listedNeighbors = isDistrict ? districtAreas : (entry?.data.neighbors ?? [])
 const neighbors =
   listedNeighbors.length > 0
@@ -125,6 +121,7 @@ const streetHref = (street: Street) => {
 
 const placesByNeighborhood = await foodByNeighborhood()
 const places = districtMembers?.places ?? placesByNeighborhood.get(slug) ?? []
+const categories = categoryCounts(spots, places.length)
 const hasContent = neighborhoodHasContent(slug, hasWriteup, places.length)
 
 const writtenBySlug = new Map(
@@ -142,13 +139,6 @@ const resourceLinks = neighborhoodResourceLinks(slug, title, entry?.data.url, en
 
 const generated = neighborhoodGeneratedSummary(slug)
 const officialLine = officialNamesLine(slug)
-const listSeparator = (index: number, count: number) => {
-  if (index === 0) {
-    return ''
-  }
-
-  return index < count - 1 ? ', ' : count > 2 ? ', and ' : ' and '
-}
 
 const tagline = entry?.data.description
 const summary = tagline ?? (hasWriteup ? generated : undefined)
@@ -191,12 +181,18 @@ const guideLabel =
 const seoTitle = info ? `${placeName}: ${guideLabel}` : undefined
 
 const region = info ? regionOf(info) : undefined
-const trail = [{ label: 'Neighborhoods', href: '/neighborhoods/' }]
 
 const isCafe = (place: (typeof places)[number]) => place.data.cuisine.includes('cafe')
 const cafes = places.filter(isCafe)
 const eateries = places.filter((place) => !isCafe(place))
 const spotGroups = groupSpots(spots)
+const sectionId = (key: SpotCategoryKey) => {
+  if (key !== 'food') {
+    return key
+  }
+
+  return eateries.length > 0 ? 'food' : 'coffee'
+}
 
 const mapSpots = await toMapSpots(spots, places)
 
@@ -246,57 +242,72 @@ const schema = placeSchema(
     <div class="results">
       <article class="content-pane detail-pane">
         <div class="detail-pane-inner">
-          <BackLink to="/neighborhoods/" label="Back to St. Louis neighborhood map" />
-          <Breadcrumbs trail={trail} />
+          <BackLink to="/neighborhoods/" label="St. Louis neighborhood map" />
 
           <header class="detail-pane-header">
             <h1 class="detail-pane-title title-page">{title}</h1>
             {summary && <p class="description description--lg detail-pane-tagline">{summary}</p>}
-            {
-              isDistrict && (
-                <PaneKicker label="District in:">
-                  {neighbors.map((neighbor, index) => (
-                    <Fragment>{listSeparator(index, neighbors.length)}<a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a></Fragment>
-                  ))}
-                </PaneKicker>
-              )
-            }
             {
               officialLine && (
                 <PaneKicker label={officialLine.label}>{officialLine.names}</PaneKicker>
               )
             }
             {
-              (population != null || places.length > 0 || spots.length > 0) && (
-                <div class="pane-stats">
-                  {population != null && (
-                    <div class="pane-stat">
-                      <span class="pane-stat-label eyebrow eyebrow--muted">Population</span>
-                      <span class="pane-stat-value">{population.toLocaleString('en-US')}</span>
-                    </div>
+              (isDistrict || innerDistricts.length > 0 || resourceLinks.length > 0) && (
+                <div class="detail-pane-facts">
+                  {isDistrict && (
+                    <PaneKicker label={neighbors.length === 1 ? 'Neighborhood' : 'Neighborhoods'} muted>
+                      {neighbors.map((neighbor) => (
+                        <a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a>
+                      ))}
+                    </PaneKicker>
                   )}
-                  {places.length > 0 && (
-                    <div class="pane-stat">
-                      <span class="pane-stat-label eyebrow eyebrow--muted">Food & Drink Discovered</span>
-                      <span class="pane-stat-value">{places.length}</span>
-                    </div>
+                  {innerDistricts.length > 0 && (
+                    <PaneKicker label={innerDistricts.length === 1 ? 'Business district' : 'Business districts'} muted>
+                      {innerDistricts.map((district) => (
+                        <a href={href(`/neighborhoods/${district.slug}/`)}>{district.name}</a>
+                      ))}
+                    </PaneKicker>
                   )}
-                  {spots.length > 0 && (
-                    <div class="pane-stat">
-                      <span class="pane-stat-label eyebrow eyebrow--muted">Points of interest</span>
-                      <span class="pane-stat-value">{spots.length + places.length}</span>
-                    </div>
+                  {resourceLinks.length > 0 && (
+                    <PaneKicker label="Links" muted>
+                      {resourceLinks.map((link) => (
+                        <a href={link.href} target="_blank" rel="noopener">
+                          {link.label === 'Website' ? displayUrl(link.href) : link.label}
+                          <IconExternalLink />
+                        </a>
+                      ))}
+                    </PaneKicker>
                   )}
-                  {
-                    SUPABASE_ENABLED && (
-                      <a class="pane-stat pane-stat-link" href="#comments" data-comments-link hidden>
-                        <span class="pane-stat-label eyebrow eyebrow--muted">Comments</span>
-                        <span class="pane-stat-value continue-link">
-                          <span data-comments-cell-value>Leave a comment</span>
-                        </span>
-                      </a>
-                    )
-                  }
+                </div>
+              )
+            }
+            {
+              categories.length > 0 && (
+                <div class="pane-tally">
+                  <span class="eyebrow eyebrow--muted">Points of interest</span>
+                  <ul class="category-chips" aria-label="Points of interest">
+                    {categories.map((category) => (
+                      <li>
+                        <CategoryChip
+                          size="lg"
+                          href={`#${sectionId(category.key)}`}
+                          category={category.key}
+                          label={categoryCountLabel(category)}
+                          count={category.count}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            }
+            {
+              SUPABASE_ENABLED && (
+                <div class="action-buttons pane-actions">
+                  <Button href="#comments" variant="dark" data-comments-link hidden>
+                    <span data-comments-cell-value>Leave a comment</span>
+                  </Button>
                 </div>
               )
             }
@@ -337,7 +348,7 @@ const schema = placeSchema(
 
           {
             eateries.length > 0 && (
-              <CardList title="Food & Drink">
+              <CardList title="Food & Drink" id="food">
                 {eateries.map((place) => (
                   <Card
                     href={href(`/food/${place.id}/`)}
@@ -356,7 +367,7 @@ const schema = placeSchema(
 
           {
             cafes.length > 0 && (
-              <CardList title="Coffee">
+              <CardList title="Coffee" id="coffee">
                 {cafes.map((place) => (
                   <Card
                     href={href(`/food/${place.id}/`)}
@@ -375,7 +386,7 @@ const schema = placeSchema(
 
           {
             spotGroups.map((group) => (
-              <CardList title={spotCategories[group.category].label}>
+              <CardList title={spotCategories[group.category].label} id={group.category}>
                 {group.spots.map((spot) => (
                   <Card
                     href={spotPageHref(spot)}
@@ -420,12 +431,11 @@ const schema = placeSchema(
             )
           }
 
-          <section class="pane-more">
-            <Heading>More</Heading>
-            <div class="pane-aside">
-            {
-              nearbyNeighbors.length > 0 && (
-                <nav aria-label="Nearby neighborhoods">
+          {
+            nearbyNeighbors.length > 0 && (
+              <section class="pane-more">
+                <Heading>More</Heading>
+                <nav class="pane-aside" aria-label="Nearby neighborhoods">
                   <AsideHeading title="Nearby Neighborhoods" />
                   <div class="detail-links">
                     {nearbyNeighbors.map((neighbor) => {
@@ -452,34 +462,9 @@ const schema = placeSchema(
                     })}
                   </div>
                 </nav>
-              )
-            }
-            {
-              resourceLinks.length > 0 && (
-                <div>
-                  <AsideHeading title="Links" />
-                  <div class="detail-links">
-                    {resourceLinks.map((link) => {
-                      const Icon = resourceIcons[link.label]
-                      const label = link.label === 'Website' ? displayUrl(link.href) : link.label
-
-                      return (
-                        <SourceLink
-                          href={link.href}
-                          label={label}
-                          variant="quiet"
-                          compact={false}
-                          class="btn-inline">
-                          {Icon && <Icon slot="icon" />}
-                        </SourceLink>
-                      )
-                    })}
-                  </div>
-                </div>
-              )
-            }
-            </div>
-          </section>
+              </section>
+            )
+          }
 
           <ShareCard shareTitle={title} />
 
@@ -509,24 +494,89 @@ const schema = placeSchema(
     padding-inline: var(--spacing-lg);
   }
 
+  .detail-pane-facts {
+    display: grid;
+    gap: var(--spacing-md);
+    padding-block-start: var(--spacing-md);
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .detail-pane-facts :global(.detail-pane-kicker) {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: var(--spacing-xs);
+    margin: 0;
+  }
+
+  .detail-pane-facts :global(.detail-pane-kicker-value) {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--spacing-md);
+    row-gap: var(--spacing-xs);
+  }
+
+  .detail-pane-facts a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xxs);
+  }
+
+  .detail-pane-facts :global(.icon) {
+    width: 0.85em;
+    height: 0.85em;
+    color: inherit;
+  }
+
+  .pane-tally {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-block-start: var(--spacing-md);
+    padding-block-start: var(--spacing-md);
+    border-block-start: 1px solid var(--color-line);
+  }
+
+  .pane-tally :global(.category-chips) {
+    gap: var(--spacing-sm);
+    margin: 0;
+  }
+
+  .pane-actions {
+    margin-block-start: var(--spacing-md);
+  }
+
+  .pane-actions:has(> [hidden]) {
+    display: none;
+  }
+
+  .pane-actions :global(.btn) {
+    flex-grow: 1;
+  }
+
+  @container (min-width: 641px) {
+    .detail-pane-facts {
+      grid-template-columns: max-content minmax(0, 1fr);
+      row-gap: var(--spacing-sm);
+    }
+
+    .detail-pane-facts :global(.detail-pane-kicker) {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: subgrid;
+      align-items: baseline;
+      column-gap: var(--spacing-lg);
+    }
+
+    .pane-actions :global(.btn) {
+      flex-grow: 0;
+    }
+  }
+
   .pane-more :global(.heading) {
     margin-block: var(--spacing-xxl) var(--spacing-xl);
   }
 
   .pane-aside {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xl);
     margin-block: 0 var(--spacing-xl);
-  }
-
-  @media (min-width: 701px) {
-    .pane-aside {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--spacing-xl) var(--spacing-lg);
-      align-items: start;
-    }
   }
 
   .bearing-arrow {

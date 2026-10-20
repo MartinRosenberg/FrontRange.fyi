@@ -7,18 +7,32 @@ interface Props {
   label?: string
   labelHidden?: boolean
   count?: number
+  size?: 'sm' | 'lg'
+  href?: string
   as?: 'span' | 'label' | 'li'
 }
 
-const { category, label, labelHidden = false, count, as: Tag = 'span' } = Astro.props
+const {
+  category,
+  label,
+  labelHidden = false,
+  count,
+  size = 'sm',
+  href: linkHref,
+  as: element = 'span',
+} = Astro.props
 const meta = spotCategories[category]
+const Tag = linkHref ? 'a' : element
 ---
 
-<Tag class="chip category-chip" style={`--badge-color: var(${meta.token})`}>
+<Tag
+  class:list={['chip', 'category-chip', { 'category-chip--lg': size === 'lg' }]}
+  href={linkHref}
+  style={`--badge-color: var(${meta.token})`}>
   <slot />
   <span class="map-legend-swatch" aria-hidden="true">
     <Icon name={meta.icon} />
   </span>
-  {label && <span class:list={{ 'visually-hidden': labelHidden }}>{label}</span>}
   {count !== undefined && <span class="count">{count}</span>}
+  {label && <span class:list={{ 'visually-hidden': labelHidden }}>{label}</span>}
 </Tag>

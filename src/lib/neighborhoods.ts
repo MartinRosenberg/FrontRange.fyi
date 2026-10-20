@@ -1,4 +1,4 @@
-import { CITY } from './site'
+import { CITY, REGION } from './site'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { getImage } from 'astro:assets'
@@ -39,8 +39,8 @@ export function normalizeName(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]/g, '')
 }
 
-export function wikipediaHref(name: string): string {
-  return `https://en.wikipedia.org/wiki/${`${name}, ${CITY}`.replace(/ /g, '_')}`
+export function wikipediaHref(title: string): string {
+  return `https://en.wikipedia.org/wiki/${encodeURI(title.replace(/ /g, '_'))}`
 }
 
 export async function neighborhoodHref(slug: string | undefined): Promise<string | null> {
@@ -301,6 +301,12 @@ export function districtForStreet(streetId: string): NeighborhoodInfo | undefine
   return [...infoBySlug.values()].find((info) => info.streets?.includes(streetId))
 }
 
+export function districtsWithin(slug: string): NeighborhoodInfo[] {
+  return [...infoBySlug.values()].filter(
+    (info) => info.type === 'district' && districtNeighborhoods(info.slug).includes(slug),
+  )
+}
+
 const officialNamesOf = officialNamesBySlug(neighborhoods)
 
 export function officialNames(slug: string): string[] {
@@ -370,6 +376,40 @@ const cityNeighborhoodSlug: Record<string, string> = {
 
 const mytownviewSlug: Record<string, string> = { 'forest-park-southeast': 'forest-park-south-east' }
 
+const wikipediaTitleBySlug: Record<string, string | null> = {
+  'bellefontainecalvary-cemetery': null,
+  'carondelet-park': 'Carondelet Park',
+  'fairground-park': 'Fairground Park (St. Louis)',
+  'jeff-vanderlou': 'JeffVanderLou, St. Louis',
+  'mark-twain-i-70-industrial': 'Mark Twain/I-70 Industrial, St. Louis',
+  'missouri-botanical-garden': 'Missouri Botanical Garden',
+  'north-pointe': 'North Point, St. Louis',
+  'ofallon-park': "O'Fallon Park",
+  'old-north-st-louis': 'Old North St. Louis',
+  'peabody-darst-webbe': 'Peabody–Darst–Webbe, St. Louis',
+  'penrose-park': null,
+  'st-louis-place': 'St. Louis Place',
+  'the-gate-district': 'Gate District, St. Louis',
+  'tower-grove-park': 'Tower Grove Park',
+  'wells-goodfellow': 'Wells/Goodfellow, St. Louis',
+  'willmore-park': null,
+  'wydown-skinker': 'Wydown/Skinker, St. Louis',
+}
+
+function wikipediaTitle(slug: string, name: string, info?: NeighborhoodInfo): string | null {
+  if (Object.hasOwn(wikipediaTitleBySlug, slug)) {
+    return wikipediaTitleBySlug[slug]
+  }
+  if (info?.type === 'district') {
+    return null
+  }
+  if (info?.type === 'city' || info?.type === 'community') {
+    return `${name}, ${REGION}`
+  }
+
+  return `${name}, ${CITY}`
+}
+
 export function neighborhoodResources(info: NeighborhoodInfo): ResourceLink[] {
   if (info.number > LAST_CITY_NEIGHBORHOOD_NUMBER) {
     return []
@@ -400,7 +440,8 @@ export function neighborhoodResourceLinks(
   const resources = info ? neighborhoodResources(info) : []
 
   const official = officialUrl
-  const wikipedia = wikipediaOverride ?? wikipediaHref(name)
+  const title = wikipediaTitle(slug, name, info)
+  const wikipedia = wikipediaOverride ?? (title ? wikipediaHref(title) : undefined)
 
   const trimSlash = (url: string) => url.replace(/\/+$/, '')
   const officialIsDuplicate = Boolean(
@@ -412,9 +453,9 @@ export function neighborhoodResourceLinks(
   const website = official && !officialIsDuplicate ? { label: 'Website', href: official } : null
 
   return [
-    { label: 'Wikipedia', href: wikipedia },
-    ...(mytownview ? [mytownview] : []),
     ...(website ? [website] : []),
+    ...(wikipedia ? [{ label: 'Wikipedia', href: wikipedia }] : []),
+    ...(mytownview ? [mytownview] : []),
     ...(city ? [city] : []),
   ]
 }
