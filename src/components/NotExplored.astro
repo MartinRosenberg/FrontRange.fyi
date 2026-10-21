@@ -18,7 +18,10 @@ const { note } = Astro.props
     )
   }
   <p class="description">{note}</p>
-  <Button href={href('/about/#contact')} variant="dark" compact>Give suggestions</Button>
+  <slot name="links" />
+  <div class="action-buttons">
+    <Button href={href('/about/#contact')} variant="dark">Give suggestions</Button>
+  </div>
 </section>
 
 <style>
@@ -29,7 +32,7 @@ const { note } = Astro.props
     margin-block-end: var(--spacing-lg);
   }
 
-  .not-explored p {
+  .not-explored > :global(*) {
     margin: 0;
   }
 </style>

@@ -94,6 +94,7 @@ export interface MapSpot {
   excludeFit?: boolean
   filters?: SpotFilter[]
   icon?: string
+  written?: boolean
 }
 
 export function allSpots(): Spot[] {

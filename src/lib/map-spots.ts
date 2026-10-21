@@ -1,5 +1,6 @@
 import type { CollectionEntry } from 'astro:content'
 import { getImage } from 'astro:assets'
+import { hasBody } from './content'
 import { cuisineIcon, cuisineLabel } from './cuisine'
 import { googleMapsHref, googleSearchHref } from './maps'
 import { spotCategories, type MapSpot, type Spot, type SpotFilter } from './spots'
@@ -102,6 +103,7 @@ export async function foodToMapSpot(
     excludeFit: place.data.excludeFromMapFit || undefined,
     filters: options.filterChips ? foodFilters(place) : undefined,
     icon: options.cuisineIcons ? cuisineIcon(place.data.cuisine[0]) : undefined,
+    written: hasBody(place),
   }
 }
 

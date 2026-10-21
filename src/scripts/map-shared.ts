@@ -370,7 +370,12 @@ export const CITY_BOUNDS = CONFIGURED_CITY_BOUNDS as [[number, number], [number,
 interface BoundsLike {
   getNorth(): number
   getSouth(): number
+  getEast(): number
+  getWest(): number
 }
+
+const CITY_VIEW_SOUTH_SHIFT = 0.15
+const CITY_VIEW_WEST_SHIFT = 0.08
 
 interface FramableMap {
   getContainer(): HTMLElement
@@ -393,9 +398,13 @@ export function frameCityView(map: FramableMap, padding: number, zoomOffset = 0)
 
   const visibleBounds = map.getBounds()
   const visibleLatSpan = visibleBounds.getNorth() - visibleBounds.getSouth()
+  const visibleLngSpan = visibleBounds.getEast() - visibleBounds.getWest()
   const center = map.getCenter()
 
-  map.setCenter([center.lng, center.lat - visibleLatSpan * 0.1])
+  map.setCenter([
+    center.lng - visibleLngSpan * CITY_VIEW_WEST_SHIFT,
+    center.lat - visibleLatSpan * CITY_VIEW_SOUTH_SHIFT,
+  ])
 }
 
 export function topChromeBottom(): number {

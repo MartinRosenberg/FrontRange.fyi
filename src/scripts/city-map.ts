@@ -238,6 +238,7 @@ export async function initCityMap(selector = '[data-city-map]'): Promise<void> {
       icon: NEIGHBORHOOD_ICON,
       tagline: area?.tagline ?? '',
       excerpt: area?.excerpt ?? '',
+      viewMore: area?.written ?? false,
     })
   }
 

@@ -25,6 +25,7 @@ export interface PopupConfig {
   icon?: string
   swatchColor?: string
   voteSlug?: string
+  viewMore?: boolean
 }
 
 function templateIconNode(selector: string): Node | undefined {
@@ -116,6 +117,7 @@ export function buildPopupHtml(config: PopupConfig): string {
     icon,
     swatchColor = '',
     voteSlug = '',
+    viewMore = true,
   } = config
 
   const photoHtml = photo
@@ -166,7 +168,8 @@ export function buildPopupHtml(config: PopupConfig): string {
 
   const votesHtml = voteSlug ? readersVerdictHtml(voteSlug, title) : ''
 
-  const moreHtml = link ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>` : ''
+  const moreHtml =
+    link && viewMore ? `<a class="btn btn-dark" href="${link}"${targetAttrs}>View more</a>` : ''
 
   const websiteHtml = websiteHref
     ? `<a class="btn btn-outline" href="${escapeHtml(websiteHref)}" target="_blank" rel="noopener">Website${EXTERNAL_ICON}</a>`

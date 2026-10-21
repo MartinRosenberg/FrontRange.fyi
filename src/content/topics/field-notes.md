@@ -5,17 +5,18 @@ category: Culture
 description: Miscellaneous notes on St. Louis slang and customs, from pronouncing Carondelet to defining a hoosier.
 seoDescription: 'My field notes on St. Louis culture: regional foods, street name pronunciations, local slang, brick architecture, local customs, and the city-county split.'
 created: 2026-05-28
-updated: 2026-06-29
+updated: 2026-10-20
+photo: ../images/neighborhoods/delmar-loop/delmar12.jpg
+photoCaption: Found in the Delmar Loop
 ---
 
 St. Louis is a little city with a lot of regional culture. This page is an index for me to document what I've discovered after living here for a while.
 
 ## Food
 
-All my food opinions are located on these pages:
+I have made the [St. Louis Food Map](/food/) to keep track of all the notable restaurants, bars, and cafes in the region. The map is sortable by cuisine type (pizza, BBQ, Thai, coffee, etc.) and I've added rankings to every place I've been.
 
-- [The St. Louis Food Map](/food/) is my number one way of exploring the city.
-- [The Best Food in St. Louis](/best/) is my subjective list of favorite restaurants and dishes.
+[The Best Food in St. Louis](/best/) is my subjective list of favorite restaurants and dishes, and reader voted favorites.
 
 ### Regional food
 
@@ -31,6 +32,16 @@ As a further note, people will also refer to "West County", "South County", and 
 
 There is no "East County", as that would be St. Louis City. However, the area east of the Mississippi River is also part of the Greater St. Louis region, and commonly referred to as ["Metro East"](https://en.wikipedia.org/wiki/Metro_East). This includes East St. Louis, Belleville, O'Fallon, and a few others.
 
+### STL
+
+"STL" is a common abbreviation used all over the area to represent "St. Louis".
+
+## The Delmar Divide
+
+City-county isn't the only division in St. Louis. Delmar Boulevard is an East-West street that cuts through the middle of St. Louis city, and it represents a dividing line known as The [Delmar Divide](https://en.wikipedia.org/wiki/Delmar_Divide). Everything north of Delmar is known as "North City".
+
+The [Interactive St. Louis Vacancy Map](https://www.stlvacancytools.com/) demonstrates one of the stark divides that happens right along the line.
+
 ## Brick and Architecture
 
 One thing to get used to in St. Louis is how red everything is. St. Louis was once the [largest brick producer in the world](https://blog.stlouisbank.com/the-bricks-that-built-st-louis/), due to innovations in brickmaking combined with the abundance of clay in the region, and that legacy really shows all throughout the city. The site [Built St. Louis](https://www.builtstlouis.net/) is an incredible resource for everything architecture and history related.
@@ -39,23 +50,21 @@ Many homes throughout the city are early 20th century brick-built homes, and ent
 
 ## Walkable
 
-St. Louis is not the most walkable city, but all the areas I've discovered that have walkable points of interest have been documented in [[walkable-st-louis|St. Louis's Most Walkable Streets]].
+St. Louis is not the most walkable city, but all the areas I've discovered that have walkable points of interest have been documented in [[walkable-st-louis|St. Louis's Most Walkable Neighborhoods]].
+
+### Business Districts
+
+I've carved out a spot in the map for major business districts of the area such as [[the-grove|The Grove]], [[cherokee-street|Cherokee Street]], and [[south-grand|South Grand]].
 
 ## Free Attractions
 
 St. Louis actually has an impressive amount of free amenities, especially relative to other mid-sized cities.
 
-The St. Louis Zoo is the most apparent example of this: a world-class zoo that holds its own against any other free or paid zoo. The Art Museum, Missouri History Museum, and Science Center are all free _any_ day of the week, not just once a month on a Tuesday. It's cool that there are so many things to do and they're not price prohibitive.
+The St. Louis Zoo is the most apparent example of this: a world-class zoo that holds its own against any other free or paid zoo. The Art Museum, Missouri History Museum, and Science Center are all free any day of the week, not just once a month on a Tuesday. It's cool that there are so many things to do and they're not price prohibitive.
 
 ### Parks
 
 One of the biggest draws of St. Louis is all the green space. [[forest-park|Forest Park]] is one of the largest city parks in America, and contains everything from the zoo and museums to outdoor amphitheaters and golf courses. [[tower-grove-park|Tower Grove Park]] is more of a local neighborhood park that hosts a farmer's market and community events.
-
-## The Delmar Divide
-
-Delmar Boulevard is an East-West street that cuts through the middle of St. Louis city. It represents a dividing line known as The [Delmar Divide](https://en.wikipedia.org/wiki/Delmar_Divide). Everything north of Delmar is known as "North City".
-
-The [Interactive St. Louis Vacancy Map](https://www.stlvacancytools.com/) demonstrates one of the stark divides that happens right along the line.
 
 ## Language
 
@@ -120,6 +129,6 @@ Sledding on Art Hill in Forest Park is a common wintertime activity in St. Louis
 
 ## Brands
 
-There are a lot of regional products you'll see around in St. Louis. Fitz's is a popular root beer, Vess is a popular soda, and Red Hot Riplets are a popular potato chip brand.
+There are a lot of regional products you'll see around in St. Louis. Imo's is the biggest local pizza chain, with Cecil Whittaker's being the smaller pizza chain. Fitz's is a local craft root beer, Vess is a popular cheap soda option, and Red Hot Riplets are the local potato chip brand.
 
 St. Louis Bread Co. is widely known as Panera outside of the region, though most of the locals have eschewed it since it was acquired by private equity.

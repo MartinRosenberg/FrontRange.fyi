@@ -515,6 +515,7 @@ export interface AreaPopup {
   tagline: string
   excerpt: string
   photo: string
+  written: boolean
 }
 
 export async function neighborhoodPopups(): Promise<Record<string, AreaPopup>> {
@@ -535,6 +536,7 @@ export async function neighborhoodPopups(): Promise<Record<string, AreaPopup>> {
       excerpt:
         entry && hasBody(entry) ? excerpt(entry.body, PREVIEW_EXCERPT_CHARS) : NOT_EXPLORED_EXCERPT,
       photo: thumb?.src ?? '',
+      written: Boolean(entry && hasBody(entry)),
     }
   }
 

@@ -128,5 +128,6 @@ export function spotPopupHtml(spot: MapSpot): string {
     category: spot.category,
     icon: spot.icon,
     voteSlug: spot.voteSlug,
+    viewMore: spot.written ?? true,
   })
 }

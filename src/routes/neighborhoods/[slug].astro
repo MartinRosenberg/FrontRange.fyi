@@ -31,7 +31,7 @@ import {
   type SpotCategoryKey,
 } from '../../lib/spots'
 import { toMapSpots, spotPageHref, spotWebsiteHref, spotDirectionsHref } from '../../lib/map-spots'
-import { published, excerpt, META_DESCRIPTION_CHARS } from '../../lib/content'
+import { published, excerpt, hasBody, META_DESCRIPTION_CHARS } from '../../lib/content'
 import { isoDate } from '../../lib/dates'
 import { getBacklinks } from '../../lib/backlinks'
 import {
@@ -134,6 +134,7 @@ const writtenBySlug = new Map(
 const exploredNeighbors = neighbors.filter((neighbor) => writtenBySlug.get(neighbor.slug))
 const notYetVisitedNeighbors = neighbors.filter((neighbor) => !writtenBySlug.get(neighbor.slug))
 const nearbyNeighbors = [...exploredNeighbors, ...notYetVisitedNeighbors].slice(0, 5)
+const writtenNearby = exploredNeighbors.slice(0, 3)
 
 const resourceLinks = neighborhoodResourceLinks(slug, title, entry?.data.url, entry?.data.wikipedia)
 
@@ -176,8 +177,7 @@ const guideParts = [
   ...(places.length > 0 ? ['Restaurants'] : []),
   ...(spots.length > 0 || streets.length > 0 || festivals.length > 0 ? ['Things to Do'] : []),
 ]
-const guideLabel =
-  guideParts.length > 0 ? `${guideParts.join(', ')} and Map` : 'Guide and Map'
+const guideLabel = guideParts.length > 0 ? `${guideParts.join(', ')} and Map` : 'Guide and Map'
 const seoTitle = info ? `${placeName}: ${guideLabel}` : undefined
 
 const region = info ? regionOf(info) : undefined
@@ -185,6 +185,8 @@ const region = info ? regionOf(info) : undefined
 const isCafe = (place: (typeof places)[number]) => place.data.cuisine.includes('cafe')
 const cafes = places.filter(isCafe)
 const eateries = places.filter((place) => !isCafe(place))
+const placeHref = (place: (typeof places)[number]) =>
+  hasBody(place) ? href(`/food/${place.id}/`) : undefined
 const spotGroups = groupSpots(spots)
 const sectionId = (key: SpotCategoryKey) => {
   if (key !== 'food') {
@@ -256,14 +258,20 @@ const schema = placeSchema(
               (isDistrict || innerDistricts.length > 0 || resourceLinks.length > 0) && (
                 <div class="detail-pane-facts">
                   {isDistrict && (
-                    <PaneKicker label={neighbors.length === 1 ? 'Neighborhood' : 'Neighborhoods'} muted>
+                    <PaneKicker
+                      label={neighbors.length === 1 ? 'Neighborhood' : 'Neighborhoods'}
+                      muted>
                       {neighbors.map((neighbor) => (
                         <a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a>
                       ))}
                     </PaneKicker>
                   )}
                   {innerDistricts.length > 0 && (
-                    <PaneKicker label={innerDistricts.length === 1 ? 'Business district' : 'Business districts'} muted>
+                    <PaneKicker
+                      label={
+                        innerDistricts.length === 1 ? 'Business district' : 'Business districts'
+                      }
+                      muted>
                       {innerDistricts.map((district) => (
                         <a href={href(`/neighborhoods/${district.slug}/`)}>{district.name}</a>
                       ))}
@@ -329,7 +337,22 @@ const schema = placeSchema(
               hasWriteup && Content ? (
                 <Content />
               ) : (
-                <NotExplored note={`I haven't filled out the ${title} page yet.`}>{stubSummary}</NotExplored>
+                <NotExplored note={`I haven't filled out the ${title} page yet.`}>
+                  {stubSummary}
+                  <Fragment slot="links">
+                    {writtenNearby.length > 0 && (
+                      <p>
+                        Nearby, I've written about:{' '}
+                        {writtenNearby.map((neighbor, index) => (
+                          <Fragment>
+                            {index > 0 && ', '}
+                            <a href={href(`/neighborhoods/${neighbor.slug}/`)}>{neighbor.name}</a>
+                          </Fragment>
+                        ))}
+                      </p>
+                    )}
+                  </Fragment>
+                </NotExplored>
               )
             }
           </div>
@@ -351,7 +374,7 @@ const schema = placeSchema(
               <CardList title="Food & Drink" id="food">
                 {eateries.map((place) => (
                   <Card
-                    href={href(`/food/${place.id}/`)}
+                    href={placeHref(place)}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}
@@ -370,7 +393,7 @@ const schema = placeSchema(
               <CardList title="Coffee" id="coffee">
                 {cafes.map((place) => (
                   <Card
-                    href={href(`/food/${place.id}/`)}
+                    href={placeHref(place)}
                     title={place.data.title}
                     meta={cuisineLabel(place.data.cuisine[0])}
                     description={place.data.description}
@@ -421,11 +444,7 @@ const schema = placeSchema(
             festivals.length > 0 && (
               <CardList title="Annual events">
                 {festivals.map((festival) => (
-                  <Card
-                    title={festival.name}
-                    meta={festival.when}
-                    description={festival.blurb}
-                  />
+                  <Card title={festival.name} meta={festival.when} description={festival.blurb} />
                 ))}
               </CardList>
             )

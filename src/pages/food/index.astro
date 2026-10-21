@@ -104,6 +104,7 @@ const schema = itemListSchema(
               title={place.data.title}
               detailHref={`/food/${place.id}/`}
               readMore={false}
+              viewMore={hasBody(place)}
               websiteHref={place.data.url}
               directionsHref={googleMapsHref(place.data)}
               search={[
