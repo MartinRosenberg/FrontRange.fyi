@@ -42,6 +42,8 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 
 ![](../images/neighborhoods/delmar-loop/delmar9.jpg)
 
+![](../images/neighborhoods/delmar-loop/delmar15.jpg)
+
 ![](../images/neighborhoods/delmar-loop/delmar16.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar12.jpg)
@@ -55,3 +57,5 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 ![](../images/neighborhoods/delmar-loop/delmar21.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar22.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar23.jpg)
