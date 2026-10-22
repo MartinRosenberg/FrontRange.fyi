@@ -78,22 +78,27 @@ const neighborhoods = defineCollection({
 const topics = defineCollection({
   loader: md('topics'),
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      seoTitle: z.string().optional(),
-      seoDescription: z.string().optional(),
-      category: z.string().optional(),
-      description: z.string().optional(),
-      icon: z.string().optional(),
-      ogImage: z.string().optional(),
-      photo: image().optional(),
-      photoCaption: z.string().optional(),
-      photoInArticle: z.boolean().default(true),
-      updated: z.coerce.date(),
-      created: z.coerce.date().optional(),
-      display: z.enum(['article', 'list']).default('article'),
-      ...draftable,
-    }),
+    z
+      .object({
+        title: z.string(),
+        seoTitle: z.string().optional(),
+        seoDescription: z.string().optional(),
+        category: z.string().optional(),
+        description: z.string().optional(),
+        icon: z.string().optional(),
+        ogImage: z.string().optional(),
+        photo: image().optional(),
+        photoCaption: z.string().optional(),
+        photoInArticle: z.boolean().default(true),
+        updated: z.coerce.date().optional(),
+        created: z.coerce.date().optional(),
+        pinned: z.boolean().default(false),
+        display: z.enum(['article', 'list']).default('article'),
+        ...draftable,
+      })
+      .refine((data) => Boolean(data.updated ?? data.created), {
+        message: 'A topic needs an updated or created date',
+      }),
 })
 
 const changelog = defineCollection({

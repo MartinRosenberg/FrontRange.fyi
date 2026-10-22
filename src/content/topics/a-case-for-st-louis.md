@@ -4,6 +4,7 @@ description: The good, bad, etc.
 created: 2026-07-05
 icon: landmark
 category: Culture
+pinned: true
 updated: 2026-06-24
 draft: true
 ---

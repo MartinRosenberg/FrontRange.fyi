@@ -2,7 +2,7 @@ import rss from '@astrojs/rss'
 import type { APIContext } from 'astro'
 import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 import { getCollection, render } from 'astro:content'
-import { published, excerpt, hasBody } from '../lib/content'
+import { published, excerpt, hasBody, topicDate } from '../lib/content'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '../lib/site'
 import { NEIGHBORHOODS_ENABLED } from '../lib/neighborhood-data'
 
@@ -25,7 +25,7 @@ export async function GET(context: APIContext) {
 
       return {
         title: topic.data.title,
-        pubDate: topic.data.updated,
+        pubDate: topicDate(topic),
         description: topic.data.description ?? excerpt(topic.body),
         content: absolutize(await container.renderToString(Content), link),
         link,

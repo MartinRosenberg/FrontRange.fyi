@@ -7,11 +7,19 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import Card from '../components/Card.astro'
 import IconArrowRight from '../assets/IconArrowRight.astro'
 import { href } from '../lib/url'
-import { published, excerpt, sortTopics, PINNED_TOPIC_ID } from '../lib/content'
+import { published, excerpt, sortTopics, topicDate, PINNED_TOPIC_ID } from '../lib/content'
+import { formatDay, formatMonthShort, groupByYear, isoDate } from '../lib/dates'
+import SectionHeading from '../components/SectionHeading.astro'
 
 const TOPIC_EXCERPT_CHARS = 250
 
-const topics = sortTopics(published(await getCollection('topics')))
+const allTopics = published(await getCollection('topics'))
+const topics = sortTopics(allTopics.filter((topic) => topic.data.pinned))
+const postDate = (post: (typeof allTopics)[number]) => post.data.created ?? topicDate(post)
+const posts = allTopics
+  .filter((topic) => !topic.data.pinned)
+  .sort((left, right) => postDate(right).valueOf() - postDate(left).valueOf())
+const postYears = groupByYear(posts, postDate)
 const bestSection = sections.find((section) => section.path === '/best/')
 const bestPhotoPlace = published(await getCollection('food')).find(
   (place) => place.id === BEST_PROMO_PHOTO_ID,
@@ -79,10 +87,52 @@ const cards = [
         }
       </div>
     </div>
+    {
+      posts.length > 0 && (
+        <section class="topic-posts">
+          <SectionHeading title="Posts" />
+          {postYears.map((group) => (
+            <Fragment>
+              <p class="dated-year eyebrow">{group.year}</p>
+              <ol class="divided-list dated-rows">
+                {group.items.map((post) => (
+                  <li>
+                    <time class="date-stamp" datetime={isoDate(postDate(post))}>
+                      <span class="eyebrow eyebrow--muted">{formatMonthShort(postDate(post))}</span>
+                      <span class="date-stamp-day">{formatDay(postDate(post))}</span>
+                    </time>
+                    <div class="topic-post">
+                      <a class="title-serif title-link" href={href(`/${post.id}/`)}>
+                        {post.data.title}
+                      </a>
+                      {post.data.description && <p class="description">{post.data.description}</p>}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </Fragment>
+          ))}
+        </section>
+      )
+    }
   </article>
 </BaseLayout>
 
 <style>
+  .topic-posts {
+    margin-block-start: var(--spacing-xxl);
+  }
+
+  .topic-post {
+    display: grid;
+    gap: var(--spacing-xs);
+    min-width: 0;
+  }
+
+  .topic-post > * {
+    margin: 0;
+  }
+
   .card-grid {
     --card-photo-height: 220px;
   }

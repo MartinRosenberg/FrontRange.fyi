@@ -1,7 +1,7 @@
 ---
 title: Delmar Loop
 created: 2026-06-28
-photo: ../images/neighborhoods/delmar-loop/delmar10.jpg
+photo: ../images/neighborhoods/delmar-loop/delmar19.jpg
 url: https://visittheloop.com/
 wikipedia: https://en.wikipedia.org/wiki/Delmar_Loop
 description: A walkable strip of music venues, shops, and restaurants
@@ -20,11 +20,13 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 
 ![](../images/neighborhoods/delmar-loop/delmar1.jpg)
 
-![](../images/neighborhoods/delmar-loop/delmar13.jpg)
+![](../images/neighborhoods/delmar-loop/delmar18.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar2.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar3.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar17.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar4.jpg)
 
@@ -45,3 +47,11 @@ The Delmar Loop is right along the Delmar Divide, and is still recovering from s
 ![](../images/neighborhoods/delmar-loop/delmar12.jpg)
 
 ![](../images/neighborhoods/delmar-loop/delmar14.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar10.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar20.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar21.jpg)
+
+![](../images/neighborhoods/delmar-loop/delmar22.jpg)

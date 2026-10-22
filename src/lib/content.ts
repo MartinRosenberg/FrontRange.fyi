@@ -11,7 +11,16 @@ export function published<
 
 export { PINNED_TOPIC_ID }
 
-export function sortTopics<Entry extends { id: string; data: { updated: Date } }>(
+export function topicDate(topic: { id: string; data: { updated?: Date; created?: Date } }): Date {
+  const date = topic.data.updated ?? topic.data.created
+  if (!date) {
+    throw new Error(`Topic "${topic.id}" needs an updated or created date`)
+  }
+
+  return date
+}
+
+export function sortTopics<Entry extends { id: string; data: { updated?: Date; created?: Date } }>(
   entries: Entry[],
 ): Entry[] {
   return [...entries].sort((left, right) => {
@@ -22,7 +31,7 @@ export function sortTopics<Entry extends { id: string; data: { updated: Date } }
       return 1
     }
 
-    return right.data.updated.valueOf() - left.data.updated.valueOf()
+    return topicDate(right).valueOf() - topicDate(left).valueOf()
   })
 }
 

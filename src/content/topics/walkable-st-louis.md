@@ -5,6 +5,7 @@ seoDescription: "How walkable is St. Louis? I'm mapping the most walkable neighb
 seoTitle: Most Walkable Neighborhoods in St. Louis
 icon: map
 category: Neighborhoods
+pinned: true
 ogImage: /og/walkable-st-louis.png
 photo: ../images/topics/shaw.jpg
 photoCaption: Tee Rak Thai in the Shaw neighborhood

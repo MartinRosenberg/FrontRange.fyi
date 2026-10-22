@@ -2,6 +2,7 @@
 title: St. Louis-style Pizza
 icon: pizza
 category: Food
+pinned: true
 photo: ../images/food/faraci/faraci1.jpg
 photoCaption: Pepperoni and sausage from Faraci Pizza
 description: Discovering, explaining, and ranking St. Louis's unique regional pizza style

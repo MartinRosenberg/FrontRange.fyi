@@ -9,7 +9,7 @@ import { streetSpotsByStreet } from '../lib/street-spots'
 import { districtBoundaries } from '../lib/districts'
 import Entry from '../components/Entry.astro'
 import EntryDates from '../components/EntryDates.astro'
-import { published } from '../lib/content'
+import { published, topicDate } from '../lib/content'
 import { getBacklinks } from '../lib/backlinks'
 import { articleSchema } from '../lib/schema'
 import { href } from '../lib/url'
@@ -37,14 +37,16 @@ const aboutSlugs = hasStreetMap
 
 const siteOrigin = Astro.site ?? new URL(Astro.url.origin)
 const permalink = new URL(`/${entry.id}/`, siteOrigin).href
+const publishedDate = isoDate(data.created ?? topicDate(entry))
+const modifiedDate = isoDate(topicDate(entry))
 const schema = articleSchema(
   {
     title: data.title,
     url: permalink,
     description: data.seoDescription ?? data.description,
     image: new URL(href(data.ogImage ?? '/og.png'), siteOrigin).href,
-    published: isoDate(data.created ?? data.updated),
-    updated: isoDate(data.updated),
+    published: publishedDate,
+    updated: modifiedDate,
     about: aboutSlugs.flatMap((slug) => {
       const info = neighborhoodInfo(slug)
 
@@ -64,8 +66,8 @@ const schema = articleSchema(
   description={data.seoDescription ?? data.description}
   ogImage={data.ogImage}
   ogType="article"
-  publishedTime={isoDate(data.created ?? data.updated)}
-  modifiedTime={isoDate(data.updated)}
+  publishedTime={publishedDate}
+  modifiedTime={modifiedDate}
   jsonLd={schema}>
   {hasBoundaryMap && <BoundaryMap />}
   {hasStreetMap && <StreetMap spots={streetSpots} districts={streetDistricts} />}

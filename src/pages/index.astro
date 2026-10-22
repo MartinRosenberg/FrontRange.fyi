@@ -9,6 +9,7 @@ import { href } from '../lib/url'
 import {
   published,
   sortTopics,
+  topicDate,
   excerpt,
   PINNED_TOPIC_ID,
   PREVIEW_EXCERPT_CHARS,
@@ -39,7 +40,9 @@ import IconArrowRight from '../assets/IconArrowRight.astro'
 import KeepInTouch from '../components/KeepInTouch.astro'
 import Subheading from '../components/Subheading.astro'
 
-const allTopics = sortTopics(published(await getCollection('topics')))
+const allTopics = sortTopics(
+  published(await getCollection('topics')).filter((topic) => topic.data.pinned),
+)
 
 const leadTopic = allTopics.find((topic) => topic.id !== PINNED_TOPIC_ID)
 const leadTeaser = leadTopic ? excerpt(leadTopic.body, 420) : ''
@@ -169,7 +172,7 @@ const website = websiteSchema(Astro.site ?? new URL(Astro.url.origin))
               </a>
             )}
             <p class="lead-kicker eyebrow">Featured</p>
-            <p class="lead-dateline eyebrow">{formatDate(leadTopic.data.updated)}</p>
+            <p class="lead-dateline eyebrow">{formatDate(topicDate(leadTopic))}</p>
             <h2 class="lead-headline">
               <a class="title-display title-link" href={href(`/${leadTopic.id}/`)}>
                 {leadTopic.data.title}
