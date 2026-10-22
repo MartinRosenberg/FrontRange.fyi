@@ -16,7 +16,7 @@ There are a lot of notable features in the area that distinguish it from other p
 
 ### Impressions
 
-The Delmar Loop is right along the Delmar Divide, and is still recovering from store closures during the Covid era. I've seen some strange and unpleasant activity along the strip at night when the restaurants are closed but people are all indoors for the concerts, so I hope restaurants like Kishimoto Mendo keep opening up along the strip and it continues to be more lively.
+The Delmar Loop is right along the Delmar Divide, and is still recovering from store closures during the Covid era. I hope restaurants like Kishimoto Mendo keep opening up along the strip and it continues to be more lively. Nonetheless, it's one of the most energetic areas of the city where you can see a lot of people walking around and eating at ourdoor patios, or students working in cafes. The trolley is iconic and it's really awesome to see that people put in the work to revive it. St. Louis has no shortage of people who believe in the city, and who put in the work to improve it for everyone.
 
 ![](../images/neighborhoods/delmar-loop/delmar1.jpg)
 
