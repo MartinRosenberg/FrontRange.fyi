@@ -13,8 +13,9 @@
     "clean": "rm -f .astro/data-store.json node_modules/.astro/data-store.json",
     "dev": "astro dev",
     "dev:fresh": "pnpm clean && pnpm dev",
+    "format": "vp fmt .",
     "geocode:spots": "node scripts/geocode-spots.mjs",
-    "prettier": "prettier . --write",
+    "prepare": "vp config",
     "preview": "astro preview",
     "setup": "node scripts/setup-city.mjs"
   },
@@ -35,10 +36,17 @@
   "devDependencies": {
     "@types/node": "^26.6.5",
     "@types/supercluster": "^7.1.3",
-    "prettier": "^3.9.10",
-    "unist-util-visit": "^5.1.0"
+    "unist-util-visit": "^5.1.0",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^12.15.0",
+      "onFail": "download"
+    }
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": "^22.18.0 || ^24.11.0 || >=26.0.0"
   }
 }

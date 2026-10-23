@@ -24,10 +24,10 @@ pnpm install
 pnpm dev      # local dev server
 pnpm build    # production build
 pnpm preview  # serve the build locally
-pnpm prettier # format
+pnpm format   # format
 ```
 
-Requires Node `>=22.12.0`.
+Requires Node `^22.18.0 || ^24.11.0 || >=26.0.0`.
 
 ## Start your own city
 
