@@ -11,7 +11,7 @@ A personal website documenting the food, neighborhoods, and culture of St. Louis
 ## Stack
 
 - **[Astro](https://astro.build)**
-- **[MapeLibre GL](https://maplibre.org/)** + **[Protomaps](https://protomaps.com)** (`.pmtiles`) over **[OpenStreetMap](https://www.openstreetmap.org/)**
+- **[MapLibre GL](https://maplibre.org/)** + **[Protomaps](https://protomaps.com)** (`.pmtiles`) over **[OpenStreetMap](https://www.openstreetmap.org/)**
 - **[GitHub Pages](https://docs.github.com/en/pages)**
 - **[GoatCounter](https://www.goatcounter.com)**
 - **[Formspree](https://formspree.io)**
@@ -27,7 +27,7 @@ pnpm preview  # serve the build locally
 pnpm prettier # format
 ```
 
-Requires Node `>=22.12`.
+Requires Node `>=22.12.0`.
 
 ## Start your own city
 
