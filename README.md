@@ -20,11 +20,11 @@ A personal website documenting the food, neighborhoods, and culture of St. Louis
 ## Develop
 
 ```sh
-npm install
-npm run dev      # local dev server
-npm run build    # production build
-npm run preview  # serve the build locally
-npm run prettier # format
+pnpm install
+pnpm dev      # local dev server
+pnpm build    # production build
+pnpm preview  # serve the build locally
+pnpm prettier # format
 ```
 
 Requires Node `>=22.12`.

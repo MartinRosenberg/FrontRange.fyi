@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "dev:fresh": "npm run clean && astro dev",
+    "dev:fresh": "pnpm clean && pnpm dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
