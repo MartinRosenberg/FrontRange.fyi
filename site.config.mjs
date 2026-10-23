@@ -1,5 +1,5 @@
 export const SITE_NAME = 'St. Louing'
-export const SITE_DOMAIN = 'stlouing.com'
+export const SITE_DOMAIN = 'martinrosenberg.github.io/FrontRange.fyi/'
 export const SITE_URL = `https://${SITE_DOMAIN}`
 export const REPO = 'stlouing/stlouing.com'
 export const DEFAULT_BRANCH = 'main'
