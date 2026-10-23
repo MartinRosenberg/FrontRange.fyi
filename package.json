@@ -1,26 +1,22 @@
 {
   "name": "stlouing.com",
+  "version": "0.0.1",
+  "private": true,
   "description": "A personal website documenting the food, neighborhoods, and culture of St. Louis.",
   "license": "MIT",
-  "private": true,
   "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
   "scripts": {
-    "dev": "astro dev",
-    "dev:fresh": "pnpm clean && pnpm dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "clean": "rm -f .astro/data-store.json node_modules/.astro/data-store.json",
-    "setup": "node scripts/setup-city.mjs",
     "build:basemap": "scripts/build-basemap.sh",
     "build:geo": "node scripts/build-neighborhood-geo.mjs",
     "build:population": "node scripts/build-neighborhood-population.mjs",
+    "clean": "rm -f .astro/data-store.json node_modules/.astro/data-store.json",
+    "dev": "astro dev",
+    "dev:fresh": "pnpm clean && pnpm dev",
     "geocode:spots": "node scripts/geocode-spots.mjs",
-    "prettier": "prettier . --write"
+    "prettier": "prettier . --write",
+    "preview": "astro preview",
+    "setup": "node scripts/setup-city.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
@@ -41,5 +37,8 @@
     "@types/supercluster": "^7.1.3",
     "prettier": "^3.8.3",
     "unist-util-visit": "^5.1.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
